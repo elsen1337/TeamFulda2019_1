@@ -38,8 +38,9 @@ User: hsftp; PW: ? / Mail / Messaging
 
 <h3>GIT/SSH</h3>
 <ul>
-<li>Login über eure Key-Pairs - Push geht teilweise sehr langsam; nochmal auf Fehlerursache gehen. (Gab da einen Hinweis im Wiki https://wiki.uberspace.de/development:git...)</li>
-<li>Spätestens im Projekt-Branch wird mit </li>
+<li>Login über eure Key-Pairs - Push geht teilweise sehr langsam; nochmal auf Fehlerursache gehen. (Gab da einen Hinweis im Wiki https://wiki.uberspace.de/development:git...) bzw. ElGamal - EllepticCurve sind sehr rechenintensiv; vllt. wenn es stört auf RSA zurückgehen, was die Erstellung eines neuen Schlüsselpaars zur Folge hätte.</li>
+<li>Spätestens im Projekt-Branch wird mit mindestens einer Nutzerbranche gearbeitet. Somit kann zwischen Team (master - Branch) und Mitglieder Anteil unterschieden werden. Anmerkung: Dies könnte man auch alleine schon über den Nutzer; aus organiatorischer Sicht ist es naiv alles sofort in die master - Branch zu pushen. Standard - Branch für jeder sei <pre>vorname</pre>; ob weitere Branches (Namensschema: <pre>vorname_feature</pre>) erstellt werden ist jedem selbst überlassen.</li>
+<li>Weil ein Ausprobieren und flüssiges Entwickeln sinnvoll ist, sollte jeder eine eine eigene Webserver-PHP-MySQL Umgebung aufsetzen. Von der eigenen Branch kann lokal auf die master - Branch gemert werden. Ein Tutorial findet sich u.a. hier: <a href="https://git-scm.com/book/de/v1/Git-Branching-Einfaches-Branching-und-Merging">Branching/Merging</a> oder hier <a href="https://de.atlassian.com/git/tutorials/merging-vs-rebasing">Rebase VS Merge</a></li>
 </ul>
 
 
