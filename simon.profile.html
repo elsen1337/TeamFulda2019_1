@@ -5,7 +5,11 @@
 -->
 <title>ProfileTest</title></head><body>
 
-<h1>Simon</h1>
+
+<h1>ProfileTest &amp; Plattform-Spezifikationen und Arbeits-Prozesse/Konventionen</h1>
+
+
+<h2>Simon</h2>
 
 
 <ul>
@@ -15,8 +19,12 @@
 <li>Supports linux and all that open free stuff.
 </ul>
 
+<hr>
+
 
 <h2>Infrastruktur-Gedöhns</h2>
+
+Anmerkung: hsftp etwas kürzer als das hsfss19tp1; weniger Tipparbeit ;-)
 
 <ul>
 <li>Generischer Server: pizarro.uberspace.de; Web-Alias: hsftp.uber.space</li>
@@ -31,6 +39,8 @@ User: hsftp; PW: ? / Mail / Messaging
 	<li><a target="_blank" href="https://mysql.uberspace.de/adminer/">Adminer</a>
 </ul>
 
+Jeder der mit dem Datenbankdesign loslegen will, soll und darf das gerne tun. Einzige Voraussetzung: Entwurfstabellen bitte mit Namespräfix versehen; also z. B. für eine Zimmertabelle name_rooms; die Produktionstabellen haben dann kein Namens-Präfix mehr. Bei n SQL Entitäten existieren dann also max. (5+1)n = 6n Tabellen, sofern jeder einen Vorschlagsentwurf macht. Idealerweise haben die Tabellen auch ein Projektpräfix also msctpbook (für MasterTeamProjekt-Booking), sodass <em>msctpbook_rooms</em> die Produktionstabelle und <em>name_msctpbook_rooms</em> die Entwurfstabelle ist.
+
 
 <h3>GIT-Viewer</h3>
 <a target="_blank" href="/gitlist/">GitList (v. a. für Herrn Todtenhöfer, mit Passwortschutz ?!)</a>
@@ -39,8 +49,16 @@ User: hsftp; PW: ? / Mail / Messaging
 <h3>GIT/SSH</h3>
 <ul>
 <li>Login über eure Key-Pairs - Push geht teilweise sehr langsam; nochmal auf Fehlerursache gehen. (Gab da einen Hinweis im Wiki https://wiki.uberspace.de/development:git...) bzw. ElGamal - EllepticCurve sind sehr rechenintensiv; vllt. wenn es stört auf RSA zurückgehen, was die Erstellung (ssh-keygen -t [...]) eines neuen Schlüsselpaars zur Folge hätte.</li>
-<li>Spätestens im Projekt-Branch wird mit mindestens einer Nutzerbranche gearbeitet. Somit kann zwischen Team (master - Branch) und Mitglieder Anteil unterschieden werden. Anmerkung: Dies könnte man auch alleine schon über den Nutzer; aus organiatorischer Sicht ist es naiv alles sofort in die master - Branch zu pushen. Standard - Branch für jeder sei <em>vorname</em>; ob weitere Branches (Namensschema: <em>vorname_feature</em>) erstellt werden ist jedem selbst überlassen.</li>
+<li>Spätestens im Projekt-Branch wird mit mindestens einer Nutzerbranche gearbeitet. Somit kann zwischen Team (master - Branch) und Mitglieder Anteil unterschieden werden. Anmerkung: Dies könnte man auch alleine schon über den Nutzer; aus organiatorischer Sicht ist es naiv alles sofort in die master - Branch zu pushen. Standard - Branch für jeden sei <em>vorname</em>; ob weitere Branches (Namensschema: <em>vorname_feature</em>) erstellt werden ist jedem selbst überlassen.</li>
+
+</ul>
+
+
+<h3>Lokale umgebung</h3>
+
+<ul>
 <li>Weil ein Ausprobieren und flüssiges Entwickeln sinnvoll ist, sollte jeder eine eine eigene Webserver-PHP-MySQL Umgebung aufsetzen. Von der eigenen Branch kann lokal auf die master - Branch gemert werden. Ein Tutorial findet sich u.a. hier: <a target="_blank" href="https://git-scm.com/book/de/v1/Git-Branching-Einfaches-Branching-und-Merging">Branching/Merging</a> oder hier <a target="_blank"  href="https://de.atlassian.com/git/tutorials/merging-vs-rebasing">Rebase VS Merge</a></li>
+
 <li>Für Windows kann ich die Umgebung <a target="_blank" href="https://www.uwamp.com/en/">uwAMPP</a> empfehlen; auf Linux empfieht sich ein Apache - <a href="https://httpd.apache.org/docs/2.4/mod/mod_proxy_fcgi.html">mod_proxy_fcgi (mit Sockets)</a> - PHP-FPM mit MySQL/MariaDB Setup. <a target="_blank" href="https://xdeb.org/post/2017/11/09/running-drupal-on-debian-9-with-apache-2-4-http2-event-mpm-and-php-fpm-via-socks-and-proxy/">Tutorial für Debian 9 (Ignoriere den Drupal-Krempel)</a></li>
 </ul>
 
