@@ -42,7 +42,7 @@ User: hsftp; PW: ? / Mail / Messaging
 	<li><a target="_blank" href="https://mysql.uberspace.de/adminer/">Adminer</a>
 </ul>
 
-Jeder der mit dem Datenbankdesign loslegen will, soll und darf das gerne tun. Einzige Voraussetzung: Entwurfstabellen bitte mit Namespräfix versehen; also z. B. für eine Zimmertabelle name_rooms; die Produktionstabellen haben dann kein Namens-Präfix mehr. Bei n SQL Entitäten existieren dann also max. (5+1)n = 6n Tabellen, sofern jeder einen Vorschlagsentwurf macht. Idealerweise haben die Tabellen auch ein Projektpräfix also msctpbook (für MasterTeamProjekt-Booking), sodass <em>msctpbook_rooms</em> die Produktionstabelle und <em>name_msctpbook_rooms</em> die Entwurfstabelle ist.
+Jeder der mit dem Datenbankdesign loslegen will, soll und darf das gerne tun. Einzige Voraussetzung: Entwurfstabellen bitte mit Namespräfix versehen; also z. B. für eine Zimmertabelle <em>name_rooms</em>; die Produktionstabellen haben dann kein Namens-Präfix mehr. Bei n SQL Entitäten existieren dann also max. (5+1)n = 6n Tabellen, sofern jeder einen Vorschlagsentwurf macht. Idealerweise haben die Tabellen auch ein Projektpräfix also <em>msctprb</em> (für Master-TeamProjekt-Room-Booking), sodass <em>msctprb_rooms</em> die Produktionstabelle und <em>name_rooms</em> die Entwurfstabelle ist.
 
 
 
@@ -56,11 +56,11 @@ Jeder der mit dem Datenbankdesign loslegen will, soll und darf das gerne tun. Ei
 </ul>
 
 
-Für das eigentliche Projekt habe ich noch kein Repository angelegt; erstmal auf Testing herumspielen. Wie ihr an der URL seht wird das GIT-Bare-Repository automatisch (!) in ein Arbeitsvereichnis geschrieben, das unter <em>https://hsftp.uber.space/reponame</em> erreichbar ist. Dateien erhalten chmod 0604, Verzeichnisse 0705. 
+Für das eigentliche Projekt habe ich noch kein Repository angelegt; erstmal auf Testing herumspielen. Wie ihr an der URL seht wird das GIT-Bare-Repository automatisch (!) in ein Arbeitsvereichnis geschrieben, das unter <em>https://hsftp.uber.space/reponame</em> erreichbar ist. <em>Dateien erhalten chmod 0604, Verzeichnisse 0705.</em>
 
 
 <h3>GIT-Viewer</h3>
-<a target="_blank" href="/gitlist/">GitList (v. a. für Herrn Todtenhöfer, noch mit Passwortschutz zu versehen)</a> als Unterschied zum Arbeitsverzeichnis ist es hier möglich über eine Web-GUI die Änderungen einzusehen. Das betrifft Pushes, Merges und die Diffs in den Dateien selbst, u. a. auch Dateien mit mysql-Passwort; daher Passwortschutz zwingend erforderlich.
+<a target="_blank" href="/gitlist/">GitList (v. a. für Herrn Todtenhöfer)</a> als Unterschied zum Arbeitsverzeichnis ist es hier möglich über eine Web-GUI die Änderungen einzusehen. Das betrifft Pushes, Merges und die Diffs in den Dateien selbst, u. a. auch Dateien mit mysql-Passwort; daher Passwortschutz zwingend erforderlich.
 
 
 
