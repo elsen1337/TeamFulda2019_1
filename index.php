@@ -6,13 +6,14 @@
 <body>
 <?php 
 
-$directory = "C:/Users/fdai3744/Desktop/testing/";
+//$directory = "C:/Users/fdai3744/Desktop/testing/";
+$directory = "./";
 $phpfiles = glob($directory . "*.html");
 
 foreach ($phpfiles as $phpfile)
 {
 	//echo file_get_contents($phpfile);
-	echo '<p><a href="'.$phpfile.'" target="_blank">'.$phpfile.'</a></p>';
+	echo '<p><a href="'.basename($phpfile).'" target="_blank">'.$phpfile.'Blubb</a></p>';
 	
 }
 
