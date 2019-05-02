@@ -13,7 +13,7 @@ $phpfiles = glob($directory . "*.html");
 foreach ($phpfiles as $phpfile)
 {
 	//echo file_get_contents($phpfile);
-	echo '<p><a href="'.basename($phpfile).'" target="_blank">'.$phpfile.'Blubb</a></p>';
+	echo '<p><a href="'.basename($phpfile).'">'.$phpfile.'Blubb</a></p>';
 	
 }
 
