@@ -14,13 +14,8 @@
 //$directory = "C:/Users/fdai3744/Desktop/testing/";
 $directory = "./";
 $phpfiles = glob($directory . "*.html");
-$names = [
-	0 => "Manuel",
-	1 => "Michael",
-	2 => "Moritz",
-	3 => "Ramon",
-	4 => "Simon"
-];
+$names = [ "Manuel", "Michael", "Moritz", "Ramon", "Simon"];
+//$arrayLength = count($names);
 $i = 0;
 
 foreach ($phpfiles as $phpfile)
