@@ -22,7 +22,7 @@ foreach ($phpfiles as $phpfile)
 {
 	//echo file_get_contents($phpfile);
 	echo '<p class="nameButton"><a href="' . basename($phpfile) . '">' . $names[i] . '</a></p>';
-	echo '<p>' . $names . '</p>';
+	echo '<p>' . $names[i] . '</p>';
 	$i++;
 }
 
