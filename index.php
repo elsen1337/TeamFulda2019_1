@@ -14,14 +14,15 @@
 //$directory = "C:/Users/fdai3744/Desktop/testing/";
 $directory = "./";
 $phpfiles = glob($directory . "*.html");
-$names = [ "Manuel", "Michael", "Moritz", "Ramon", "Simon"];
+$names = ["Manuel", "Michael", "Moritz", "Ramon", "Simon"];
 //$arrayLength = count($names);
 $i = 0;
 
 foreach ($phpfiles as $phpfile)
 {
 	//echo file_get_contents($phpfile);
-	echo '<p><a href="'.basename($phpfile).'">'.$names[i].'</a></p>';
+	echo '<p class="nameButton"><a href="' . basename($phpfile) . '">' . $names[i] . '</a></p>';
+	echo '<p>' . $names . '</p>';
 	$i++;
 }
 
