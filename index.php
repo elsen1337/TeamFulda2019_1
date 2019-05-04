@@ -14,7 +14,7 @@
 //$directory = "C:/Users/fdai3744/Desktop/testing/";
 $directory = "./";
 $phpfiles = glob($directory . "*.html");
-$names = ["Manuel", "Michael", "Moritz", "Ramon", "Simon"];
+$names = ["Manuel Schmitt", "Michael Iglhaut", "Moritz Mrosek", "Ramon Wilhelm", "Simon Leister"];
 //$arrayLength = count($names);
 $i = 0;
 
