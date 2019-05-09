@@ -1,0 +1,99 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 3.2 Final//EN"><html><head>
+<!--
+<link rel="icon" href="/favicon.ico" type="image/x-icon">
+<style type="text/css">@import url('/design.css');</style>
+-->
+<title>Simon's Profile - About Me</title></head><body>
+
+
+<h1>Plattform-Spezifikationen &amp; Arbeits-Konventionen</h1>
+
+Letzte Aktualisierung: 28.04 / 11:20
+
+<h2>Infrastruktur-Gedöhns</h2>
+
+Anmerkung: hsftp etwas kürzer als das hsfss19tp1; weniger Tipparbeit ;-)
+
+<ul>
+<li>Generischer Server: pizarro.uberspace.de; Web-Alias: hsftp.uber.space</li>
+<li>CentOS7 (RHEL Fork), Apache 2.4 Webserver mit nGinx HTTPS Frontent mit HTTP/2 und Let's Encrypt</li>
+<li>10GB Storage; bis zu 1.5 GB RAM</li>
+</ul>
+
+
+<h3>MySQL bzw. Maria DB 10.3 (MySQL - Fork)</h3>
+User: hsftp; PW: per Mail
+<ul>
+	<li><a target="_blank" href="https://mysql.uberspace.de/phpmyadmin/">phpMyAdmin</a>
+	<li><a target="_blank" href="https://mysql.uberspace.de/adminer/">Adminer</a>
+</ul>
+
+Jeder der mit dem Datenbankdesign loslegen will, soll und darf das gerne tun. Einzige Voraussetzung: Entwurfstabellen bitte mit Namespräfix versehen; also z. B. für eine Zimmertabelle <em>name_rooms</em>; die Produktionstabellen haben dann kein Namens-Präfix mehr. Bei n SQL Entitäten existieren dann also max. (5+1)n = 6n Tabellen, sofern jeder einen Vorschlagsentwurf macht. Idealerweise haben die Tabellen auch ein Projektpräfix also <em>msctprb</em> (für Master-TeamProjekt-Room-Booking), sodass <em>msctprb_rooms</em> die Produktionstabelle und <em>name_rooms</em> die Entwurfstabelle ist.
+
+
+
+<h3>GIT/SSH</h3>
+
+
+<ul>
+<li>Login über eure Key-Pairs - Push geht teilweise sehr langsam; nochmal auf Fehlerursache gehen. (Gab da einen Hinweis im Wiki https://wiki.uberspace.de/development:git...) bzw. ElGamal - EllepticCurve sind sehr rechenintensiv; vllt. wenn es stört auf RSA zurückgehen, was die Erstellung (ssh-keygen -t [...]) eines neuen Schlüsselpaars zur Folge hätte.</li>
+<li>Spätestens im Projekt-Branch wird mit mindestens einer Nutzerbranche gearbeitet. Somit kann zwischen Team (master - Branch) und Mitglieder Anteil unterschieden werden. Anmerkung: Dies könnte man auch alleine schon über den Nutzer; aus organiatorischer Sicht ist es naiv alles sofort in die master - Branch zu pushen. Standard - Branch für jeden sei <em>vorname</em>; ob weitere Branches (Namensschema: <em>vorname_feature</em>) erstellt werden ist jedem selbst überlassen.</li>
+
+</ul>
+
+
+Für das eigentliche Projekt habe ich noch kein Repository angelegt; erstmal auf Testing herumspielen. Wie ihr an der URL seht wird das GIT-Bare-Repository automatisch (!) in ein Arbeitsvereichnis geschrieben, das unter <em>https://hsftp.uber.space/reponame</em> erreichbar ist. <em>Dateien erhalten chmod 0604, Verzeichnisse 0705.</em>
+
+<!--
+<h3>GIT-Viewer</h3>
+<a target="_blank" href="/gitlist/">GitList (v. a. für Herrn Todtenhöfer)</a> als Unterschied zum Arbeitsverzeichnis ist es hier möglich über eine Web-GUI die Änderungen einzusehen. Das betrifft Pushes, Merges und die Diffs in den Dateien selbst, u. a. auch Dateien mit mysql-Passwort; daher Passwortschutz zwingend erforderlich.
+-->
+
+
+<h3>Lokale Umgebung</h3>
+
+<ul>
+<li>Weil ein Ausprobieren und flüssiges Entwickeln sinnvoll ist, sollte jeder eine eine eigene Webserver-PHP-MySQL Umgebung aufsetzen. Von der eigenen Branch kann lokal auf die master - Branch gemert werden. Ein Tutorial findet sich u.a. hier: <a target="_blank" href="https://git-scm.com/book/de/v1/Git-Branching-Einfaches-Branching-und-Merging">Branching/Merging</a> oder hier <a target="_blank"  href="https://de.atlassian.com/git/tutorials/merging-vs-rebasing">Rebase VS Merge</a></li>
+
+<li>Für Windows kann ich die Umgebung <a target="_blank" href="https://www.uwamp.com/en/">uwAMPP</a> empfehlen; auf Linux empfieht sich ein Apache - <a href="https://httpd.apache.org/docs/2.4/mod/mod_proxy_fcgi.html">mod_proxy_fcgi (mit Sockets)</a> - PHP-FPM mit MySQL/MariaDB Setup. <a target="_blank" href="https://xdeb.org/post/2017/11/09/running-drupal-on-debian-9-with-apache-2-4-http2-event-mpm-and-php-fpm-via-socks-and-proxy/">Tutorial für Debian 9 (Ignoriere den Drupal-Krempel)</a></li>
+</ul>
+
+
+<h3>Hilfe/Wiki/UberLab</h3>
+
+<ul>
+<li><a href="https://wiki.uberspace.de">UberWiki (UberSpace 5,6 meistens auch noch gültig für US7)</a></li>
+<li><a href="https://manual.uberspace.de">Manual eingeführt für US7</a></li>
+<li><a href="https://lab.uberspace.de">UberLab auch für US7</a></li>
+</ul>
+
+
+<h2>Errschtte Schritte...</h2>
+
+<p>Und jetzt ballert jeder mal seine name.profile.html in den Master Branch von testing bzw. macht erstmal eine Clone (<em>git clone hsftp@pizarro.uberspace.de:testing</em>). Alle die sich ein wenig in PHP Programmierung üben wollen schreiben eine eine Index-Seite, die die *.profile.html erfasst und dann eine Linkliste in HTML generiert. Die Unterseiten können dann z.B. in einem IFrame angesehen werden. Alle die schonmal die Datenbank designen wollen, können (lokal) schon loslegen.
+
+
+
+<h2>Linksammlung (bzgl. Einrichtung UberSpace)</h2>
+
+<ul>
+<li><a href="https://wiki.uberspace.de/cool:gitolite">UberspaceWiki GITOLITE</a>
+<li><a href="https://wb7.eu/2013/02/05/gitolite-repos-auf-dem-uberspace-per-http-veroeffentlichen/">Hooks für chmod 604 bzw. 705 für Plain/Raw Webserver File -Deployment </a>
+<li><a href="https://www.unixmen.com/install-gitolite-centos-7/">CentOS7 (Uberspace 7 basiert auf CentOS7)</a>
+
+
+<li><a href="https://stackoverflow.com/questions/12450245/getting-a-working-copy-of-a-bare-repository">Bare2Working / Exprting in WebDocumentRoot</a>
+<li><a href="https://superuser.com/questions/430903/cannot-login-to-ssh-after-installing-gitolite-pty-allocation-request-failed-on">GIT SSH ist kein normaler SSH System-User</a>
+
+<li><a href="https://stackoverflow.com/questions/3583061/automatically-mirror-a-git-repository">GIT Mirroring</a></li>
+
+<!--
+<li><a href="https://stackoverflow.com/questions/21033437/git-deploy-only-a-directory-from-post-receive-hook">ShellCode</a>
+-->
+
+</ul>
+
+
+<p class="footer">&copy; 2019 &middot; SL</p>
+
+</body></html>
