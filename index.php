@@ -6,7 +6,7 @@
 <body>
 
 	<h2>Team Project</h2>
-	<h2>Summer 2019</h2>
+	<h2>Summer 2019 in Fulda</h2>
 	<h2>TeamFulda2019_1</h2>
 
 <?php 
