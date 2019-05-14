@@ -13,16 +13,18 @@
 
 //$directory = "C:/Users/fdai3744/Desktop/testing/";
 $directory = "./";
-$phpfiles = glob($directory . "*.html");
+$phpfiles = glob($directory . "*.profile.html");
 $names = ["Manuel Schmitt", "Michael Iglhaut", "Moritz Mrosek", "Ramon Wilhelm", "Simon Leister"];
-//$arrayLength = count($names);
+$arrayLength = count($names);
 $i = 0;
 
 foreach ($phpfiles as $phpfile)
 {
 	//echo file_get_contents($phpfile);
+	if($i < $arrayLength){
 	echo '<p class="nameButton"><a href="' . basename($phpfile) . '">' . $names[$i] . '</a></p>';
 	$i++;
+	}
 }
 
  //echo file_get_contents("C:/Users/fdai3744/Desktop/testing/ramon.profile.html");
