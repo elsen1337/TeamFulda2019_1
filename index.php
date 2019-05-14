@@ -2,12 +2,16 @@
 <head>
 	<title>Home</title>
 	<meta charset="8-utf"/>
+	<link rel="stylesheet" href="style.css">
 </head>
 <body>
-
-	<h2>Team Project</h2>
-	<h2>Summer 2019 in Fulda</h2>
-	<h2>TeamFulda2019_1</h2>
+	<div id="siteHead">
+		<img id="logo" src="Study-Home.png">
+		<h2>Team Project</h2>
+		<h2>Summer 2019 in Fulda</h2>
+		<h2>TeamFulda2019_1</h2>
+	</div>
+	<h3>Team Members:</h3>
 
 <?php 
 

@@ -1,0 +1,36 @@
+#logo
+{
+    width: 200px;
+    float: left;
+    margin-left: 2%;
+}
+
+h2
+{
+    text-align: center;
+    font-family:arial, "lucida console", sans-serif;
+}
+
+h3
+{
+    margin-left: 3%;
+    font-family:arial, "lucida console", sans-serif;
+}
+
+a
+{
+    color: black;
+}
+
+.nameButton
+{
+    margin-left: 3%;
+    width: 120px;
+    padding: 6px;
+    border-radius: 10px;
+    border-style: solid;
+    border-color: black;
+    border-width: 1px;
+    background-color: BBBBBB;
+    font-family:arial, "lucida console", sans-serif;
+}
