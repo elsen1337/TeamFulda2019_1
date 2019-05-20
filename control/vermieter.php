@@ -47,7 +47,7 @@ echo '</table><p><input type="submit" value="Erstellen &middot; Aktualisieren"><
 
 echo '<table cellpadding="2" style="empty-cells:show"><tr><th class="trash">&#x232B;</th><th>Bezeichnung</th><th>#Wohnungen</th><th>Optionen</th></tr>';
 
-$sql='SELECT v.vm_id, anrede, nname, vname, COUNT(w.wohn_id) AS cnt FROM vermieter AS v LEFT JOIN wohnung AS w ON v.vm_id = w.vm_id';
+$sql='SELECT v.vm_id, anrede, nname, vname, COUNT(w.wohn_id) AS cnt FROM vermieter AS v LEFT JOIN wohnung AS w ON v.vm_id = w.vm_id GROUP BY v.vm_id';
 $msr=$msdb->query($sql); echo $msdb->error;
 
 while ($row=$msr->fetch_assoc()) {
@@ -58,7 +58,7 @@ while ($row=$msr->fetch_assoc()) {
 
 echo '</table>';
 
-GUI::printInsert('<a href="?edit=new">Erstelle neue Vermieter</a>');
+GUI::printInsert('<a href="?edit=new">Erstelle neuen Vermieter</a>');
 
 }
 

@@ -139,7 +139,6 @@ $GLOBALS[self::$baselink]->query($sql);
 } // END-F
 
 
-
 foreach ($k as $n=>$t) {
 
 	if (is_array($a[$n])==false) {continue;}
@@ -155,7 +154,6 @@ foreach ($k as $n=>$t) {
 	}
 
 }
-
 
 if (is_array($u)==false) {return null;}
 
