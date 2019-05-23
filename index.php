@@ -99,16 +99,47 @@ $curPage=1;
 $sqlWhere=[];
 $sqlOrder=[];
 
+
+function addSQLWhereOrder(&$sqlWhere, &$sqlOrder, &$rangeOperatorMapping, $sqlField, &$inputArr) {
+	
+	foreach ($rangeOperatorMapping as $field => $operator) {
+		if (array_key_exists($field,$inputArr) && strlen($inputArr[$field]) > 0) {
+			//$sqlWhere[]=$inputArr[$field].' '.$operator.' '.$sqlField;
+			$sqlWhere[]=$sqlField.' '.$operator.' '.$inputArr[$field];
+			$sqlOrder[]=$sqlField.' ASC'; // Doppelt
+		}
+	}
+	
+}
+
+
 if (array_key_exists($searchKeyGlobal,$_REQUEST)) {
 
 	$searchRef=&$_REQUEST[$searchKeyGlobal];
+	$rangeOperatorMapping=array('Min'=>'<=','Max'=>'>=' );
+	
+	// array('entf_meter'=>$searchKeyDistMtr,'entf_min'=>$searchKeyDistLPT,'preis'=>$searchKeyPrice);
 	
 	if (array_key_exists($searchKeyDistMtr,$searchRef)) {
 		$distRef=&$searchRef[$searchKeyDistMtr];
+		
+		addSQLWhereOrder($sqlWhere, $sqlOrder, $rangeOperatorMapping, 'entf_meter', $searchRef[$searchKeyDistMtr]);
+		
+		/*
+		foreach ($rangeOperatorMapping as $field => $operator) {
+			if (array_key_exists($field,$distRef) && strlen($distRef[$field]) > 0) {
+				$sqlWhere[]=$distRef[$field].' '.$operator.' entf_meter';
+				$sqlOrder[]='entf_meter ASC';
+			}
+		}
+		*/
+		
+		/*
 		if (count(array_filter($distRef)) > 1) {
 			$sqlWhere[]='entf_meter BETWEEN '.$distRef['Min'].' AND '.$distRef['Max'];
 			$sqlOrder[]='entf_meter ASC';
 		}
+		*/
 	}
 	
 	if (array_key_exists($searchKeyDistLPT,$searchRef)) {
@@ -133,8 +164,8 @@ if (array_key_exists($searchKeyGlobal,$_REQUEST)) {
 
 #print_r($sqlWhere);
 
-$sql='SELECT w.*, v.anrede, v.nname, COUNT(f.m_id) AS cnt FROM wohnung AS w JOIN vermieter AS v ON v.vm_id=w.vm_id LEFT JOIN favorit AS f ON f.wohn_id=w.wohn_id WHERE w.visible > 0 '.(count($sqlWhere) > 0 ? 'AND '.implode('AND',$sqlWhere) : '').' GROUP BY w.wohn_id ORDER BY '.(count($sqlOrder) > 0 ? implode(',',$sqlOrder) : 'cnt DESC').' LIMIT '.(($curPage-1)*$maxEntriesPage).','.$maxEntriesPage;
-$mrs=$msdb->query($sql); echo $msdb->error; // echo $sql;
+$sql='SELECT w.*, v.anrede, v.nname, COUNT(f.m_id) AS cnt FROM wohnung AS w JOIN vermieter AS v ON v.vm_id=w.vm_id LEFT JOIN favorit AS f ON f.wohn_id=w.wohn_id WHERE w.visible > 0 '.(count($sqlWhere) > 0 ? 'AND '.implode(' AND ',$sqlWhere) : '').' GROUP BY w.wohn_id ORDER BY '.(count($sqlOrder) > 0 ? implode(',',$sqlOrder) : 'cnt DESC').' LIMIT '.(($curPage-1)*$maxEntriesPage).','.$maxEntriesPage;
+$mrs=$msdb->query($sql); echo $msdb->error; echo $sql;
 
 if ($mrs->num_rows > 0) {
 
