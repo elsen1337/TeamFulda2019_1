@@ -21,13 +21,13 @@ header('Content-Type: text/html; charset=UTF-8');
 
 <body class="appmeta"><h1>Wohnungseigenschaften (Controlpanel)</h1><form action="<?=$_SERVER['SCRIPT_NAME']?>" method='post'><?php
 
-GUI::printNotice('Dynmaische Eigenschaften der Wonhungen');
+GUI::printNotice('Dynmaische Eigenschaften der Wohungen');
 
 $type=array('vsb'=>'checkbox','rdr'=>'number','name'=>'text');
 $ptbl='w_attrmeta';
 $pkey='aid';
 
-FormFV::updateDB($_POST,$type,'new',$ptbl,$pkey);
+FormFV::updateDB($_POST,$type,'new',$ptbl,$pkey,'a_del');
 
 #var_dump($msdb);
 
@@ -35,11 +35,11 @@ FormFV::updateDB($_POST,$type,'new',$ptbl,$pkey);
 if (strlen($_GET['edit']) > 0) {
 
 
-	$sql='SELECT * FROM '.$ptbl.' AS v WHERE vm_id="'.$_GET['edit'].'"';
+	$sql='SELECT * FROM '.$ptbl.' WHERE '.$pkey.'="'.$_GET['edit'].'"';
 	$mrs=$msdb->query($sql); if ($mrs->num_rows > 0) {$row=$mrs->fetch_assoc();} else {$row[$pkey]='new';}
 
 	echo '<table>';
-	echo FormFV::printVertical(FormFV::makeHTML($row,$type,$row[$pkey],array('anrede'=>$tselect),true,false),array('Anrede','Vorname','Nachname','eMail','Phone','Mobile','Passwort'));
+	echo FormFV::printVertical(FormFV::makeHTML($row,$type,$row[$pkey],array('vsb'=>'1'),true,false),array('Aktiv','Reihenfolge','Name'));
 	echo '</table><p><input type="submit" value="Erstellen &middot; Aktualisieren"></p>';
 
 
@@ -53,14 +53,14 @@ if (strlen($_GET['edit']) > 0) {
 
 	while ($row=$msr->fetch_assoc()) {
 		
-		echo '<tr><td>'.FormFV::makeHTML($row,$type,$row[$pkey],array('act'=>'1'),false,false).'<td>'.($row['cnt'] > 0 ? '<a href="adel[]='.$row[$pkey].'">Löschen</a>' : $row['cnt']).'</td></tr>'."\n";
+		echo '<tr><td>'.FormFV::makeHTML($row,$type,$row[$pkey],array('vsb'=>'1'),false,false).'<td><a href="?edit='.$row[$pkey].'">Bearbeiten</a> &middot; '.($row['cnt'] > 0 ? 'Keine Löschung ('.$row['cnt'].' Verwendungen)' : '<a href="?a_del[]='.$row[$pkey].'">Löschen</a>').'</td></tr>'."\n";
 		
 	}
 
 	echo '<tr><td>'.FormFV::makeHTML(array(),$type,'new',array('vsb'=>'1'),false,false)."</tr>\n";
 	echo '</table><p><input type="submit" value="Erstellen &middot; Aktualisieren"></p>';
 
-#GUI::printInsert('<a href="?edit=new">Erstelle neuen Vermieter</a>');
+	GUI::printInsert('<a href="?edit=new">Erstelle neues Attribut</a>');
 
 }
 
