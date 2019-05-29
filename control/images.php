@@ -67,8 +67,9 @@ if (array_key_exists($uKey,$_FILES)) {
 	// In PHP 7.3 BuiltIn
 	#require('../kernel/image-support-bmp.php');
 
-	
+	if (file_exists($uploadBaseDir)==false) {mkdir($uploadBaseDir);}
 	chdir($uploadBaseDir);
+	
 	if (file_exists($dirThumb)==false) {mkdir($dirThumb);}
 	if (file_exists($dirOrg)==false) {mkdir($dirOrg);}
 	

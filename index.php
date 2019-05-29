@@ -21,6 +21,8 @@ $searchKeyGlobal='appsearch';
 $searchKeyDistMtr='distmeter';
 $searchKeyDistLPT='distopnv';
 $searchKeyPrice='price';
+$searchKeyText='fulltext';
+
 
 
 ?><!DOCTYPE HTML><html><head>
@@ -61,6 +63,8 @@ div#footer {border-top: 6px double silver; margin-top:25px;padding-top:10px}
 
 <form action="<?=$_SERVER['SCRIPT_NAME']?>" method='post'>
 
+
+<input type="search" name="<?=$searchKeyGlobal.'['.$searchKeyText.']'?>" placeholder="Type any search value... We're hoping to match your request...">
 
 <fieldset><legend>Distance to Campus (Meter)</legend>
 <input type="number" name="<?=$searchKeyGlobal.'['.$searchKeyDistMtr.'][Min]'?>" value="<?=$_REQUEST[$searchKeyGlobal][$searchKeyDistMtr]['Min']?>" placeholder="Min">
@@ -112,62 +116,87 @@ function addSQLWhereOrder(&$sqlWhere, &$sqlOrder, &$rangeOperatorMapping, $sqlFi
 }
 
 
-if (array_key_exists($searchKeyGlobal,$_REQUEST)) {
+$isSessionSearch=array_key_exists($searchKeyGlobal,$_SESSION);
+$isRequestSearch=array_key_exists($searchKeyGlobal,$_REQUEST);
+
+
+$searchParameters=array('val'=>$searchKeyText,'entf_meter'=>$searchKeyDistMtr,'entf_min'=>$searchKeyDistLPT,'preis'=>$searchKeyPrice);
+
+#session_destroy();
+#var_dump($_SESSION);
+
+
+
+if ($isRequestSearch || $isSessionSearch) {
 
 	$searchRef=&$_REQUEST[$searchKeyGlobal];
+	$sessionRef=&$_SESSION[$searchKeyGlobal];
 	$rangeOperatorMapping=array('Min'=>'>=','Max'=>'<=' );
 	
-	// array('entf_meter'=>$searchKeyDistMtr,'entf_min'=>$searchKeyDistLPT,'preis'=>$searchKeyPrice);
-	
-	if (array_key_exists($searchKeyDistMtr,$searchRef)) {
-		#$distRef=&$searchRef[$searchKeyDistMtr];	
-		addSQLWhereOrder($sqlWhere, $sqlOrder, $rangeOperatorMapping, 'entf_meter', $searchRef[$searchKeyDistMtr]);
-
-	}
-	
-	if (array_key_exists($searchKeyDistLPT,$searchRef)) {
-		#$distRef=&$searchRef[$searchKeyDistLPT];
-		addSQLWhereOrder($sqlWhere, $sqlOrder, $rangeOperatorMapping, 'entf_min', $searchRef[$searchKeyDistLPT]);
-
-	}
-	
-	if (array_key_exists($searchKeyPrice,$searchRef)) {
-		#$distRef=&$searchRef[$searchKeyPrice];
-		addSQLWhereOrder($sqlWhere, $sqlOrder, $rangeOperatorMapping, 'preis', $searchRef[$searchKeyPrice]);
-
-	}
+	if ($isSessionSearch===false) {$_SESSION[$searchKeyGlobal]=array();}
 
 	
-}
-
-
-#print_r($sqlWhere);
-
-$sql='SELECT w.*, v.anrede, v.nname, COUNT(f.m_id) AS cnt FROM wohnung AS w JOIN vermieter AS v ON v.vm_id=w.vm_id LEFT JOIN favorit AS f ON f.wohn_id=w.wohn_id WHERE w.visible > 0 '.(count($sqlWhere) > 0 ? 'AND '.implode(' AND ',$sqlWhere) : '').' GROUP BY w.wohn_id ORDER BY '.(count($sqlOrder) > 0 ? implode(',',$sqlOrder) : 'cnt DESC').' LIMIT '.(($curPage-1)*$maxEntriesPage).','.$maxEntriesPage;
-$mrs=$msdb->query($sql); echo $msdb->error; # echo $sql;
-
-if ($mrs->num_rows > 0) {
-
-	echo '<table class="resultset" cellpadding="5">';
-	echo '<tr><th colspan="3"></th><th colspan="2">Distance 2 Campus</th></tr>';
-	echo '<tr><th>Image</th><th>Appartment</th><th>Price</th><td>Meters</td><td>Minutes</td><th>Options</th></tr>';
-
-	while ($row=$mrs->fetch_assoc()) {
-		
-		echo '<tr><td>First Image</td><td><a href="?show='.$row['wohn_id'].'">'.$row['name'].'</a><br>'.$row['plz'].' '.$row['ort'].', '.$row['str'].'';
-		echo '<td>'.$row['preis'].'</td><td>'.$row['entf_meter'].'</td><td>'.$row['entf_min'].'</td><td>Bookmark, Chat [...]</td>'."</td></tr>\n";
+	
+	foreach ($searchParameters as $sqlKey => $formKey) {
+		if ($isRequestSearch && array_key_exists($formKey,$searchRef)) {
+			$sessionRef[$formKey]=$searchRef[$formKey];
+		}
+		if (array_key_exists($formKey,$sessionRef)) {
+			
+			if ($sqlKey != 'val') {
+				addSQLWhereOrder($sqlWhere, $sqlOrder, $rangeOperatorMapping, $sqlKey, $sessionRef[$formKey]);
+			} else {
+				// sqlOrder Unset on Fulltext...
+				$sqlWhere[]='( m.name LIKE "%'.$sessionRef[$formKey].'%" OR MATCH(a.val) AGAINST("'.$sessionRef[$formKey].'") )';
+			}
+		}
 		
 	}
+	
 
-	echo '</table>';
+
+	#print_r($sqlWhere);
 
 
+	// Formular Filter
+	
+	$fullTextSearch='garten';
+
+	echo $sql='SELECT w.*, v.anrede, v.nname, COUNT(f.m_id) AS cnt FROM wohnung AS w JOIN vermieter AS v ON v.vm_id=w.vm_id LEFT JOIN w_image AS i ON w.wohn_id=i.wohn_id LEFT JOIN m_favorit AS f ON f.wohn_id=w.wohn_id LEFT JOIN w_attrvals AS a ON a.wohn_id=w.wohn_id LEFT JOIN w_attrmeta AS m ON m.aid=a.aid WHERE w.visible > 0 '.(count($sqlWhere) > 0 ? 'AND '.implode(' AND ',$sqlWhere) : '').' GROUP BY w.wohn_id ORDER BY '.(count($sqlOrder) > 0 ? implode(',',$sqlOrder) : 'cnt DESC').' LIMIT '.(($curPage-1)*$maxEntriesPage).','.$maxEntriesPage;
+	$mrs=$msdb->query($sql); echo $msdb->error; # echo $sql;
+
+	if ($mrs->num_rows > 0) {
+
+		echo '<table class="resultset" cellpadding="5">';
+		echo '<tr><th colspan="3"></th><th colspan="2">Distance 2 Campus</th></tr>';
+		echo '<tr><th>Image</th><th>Appartment</th><th>Price</th><td>Meters</td><td>Minutes</td><th>Options</th></tr>';
+
+		while ($row=$mrs->fetch_assoc()) {
+			
+			echo '<tr><td>First Image</td><td><a href="?show='.$row['wohn_id'].'">'.$row['name'].'</a><br>'.$row['plz'].' '.$row['ort'].', '.$row['str'].'';
+			echo '<td>'.$row['preis'].'</td><td>'.$row['entf_meter'].'</td><td>'.$row['entf_min'].'</td><td>Bookmark, Chat [...]</td>'."</td></tr>\n";
+			
+		}
+
+		echo '</table>';
+
+
+	} else {
+
+
+		GUI::printWarn('Keine Ergebnisse');
+
+	}
+
+	
 } else {
-
-
-GUI::printWarn('Keine Ergebnisse');
-
+	
+	echo '<input type="search" name="'.$searchKeyGlobal.'['.$searchKeyText.']" placeholder="Type any search value... We\'re hoping to match your request...">';
+	
+	
 }
+
+
 
 echo '<div id="footer"><a href="about">Profiles (Index)</a> ';
 
