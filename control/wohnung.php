@@ -49,12 +49,12 @@ if (strlen($_GET['attr']) > 0) {
 
 
 	$sql='SELECT m.aid, m.name, m.vsb, v.val, ISNULL(v.val) AS notused  FROM w_attrmeta AS m LEFT JOIN w_attrvals AS v ON m.aid=v.aid ORDER BY notused ASC, m.vsb DESC, m.rdr ASC';
-	echo '<form action="'.$_SERVER['SCRIPT_NAME'].'?attr='.$_GET['attr'].'" method="post"><table><tr><th>Eigenschaftname</th><th>Eigenschaftswert</th></tr>';
+	echo '<form action="'.$_SERVER['SCRIPT_NAME'].'?attr='.$_GET['attr'].'" method="post"><table><tr><th>Status</th><th>Eigenschaftname</th><th>Eigenschaftswert</th></tr>';
 	
 	$msr=$msdb->query($sql); echo $msdb->error;
 	while ($row=$msr->fetch_assoc()) {
 		
-		echo '<tr><td class="'.($row['vsb'] > 0 && $row['notused'] == 0 ? '' : 'hidden').'">'.$row['name'].'</td><td><input name="val['.$row['aid'].']" value="'.$row['val'].'" type="text"></td></tr>'."\n";
+		echo '<tr><td>'.$row['notused'].$row['vsb'].'</td><td class="'.($row['vsb'] > 0 && $row['notused'] == 0 ? '' : 'hidden').'">'.$row['name'].'</td><td><input name="val['.$row['aid'].']" value="'.$row['val'].'" type="text"></td></tr>'."\n";
 		
 	}	
 	
@@ -79,14 +79,14 @@ if (strlen($_GET['attr']) > 0) {
 } else {
 
 
-	echo '<table cellpadding="2" style="empty-cells:show"><tr><th>Bezeichnung</th><th>Vermieter</th><th>Bearbeitung / Optionen</th></tr>';
+	echo '<table cellpadding="2" style="empty-cells:show"><tr><th>Bezeichnung</th><th>Vermieter</th><th>#Favorit</th><th>Bearbeitung / Optionen</th></tr>';
 
-	$sql='SELECT w.wohn_id, w.visible, w.name, v.nname, v.vname, COUNT(i.bild_id) AS imgcnt FROM wohnung AS w JOIN vermieter AS v ON w.vm_id=v.vm_id LEFT JOIN w_image AS i ON i.wohn_id=w.wohn_id GROUP BY w.wohn_id'; $msr=$msdb->query($sql);
+	$sql='SELECT w.wohn_id, w.visible, w.name, v.nname, v.vname, COUNT(i.bild_id) AS imgcnt, COUNT(DISTINCT m_id) AS fcnt FROM wohnung AS w JOIN vermieter AS v ON w.vm_id=v.vm_id LEFT JOIN w_image AS i ON i.wohn_id=w.wohn_id LEFT JOIN m_favorit AS f ON f.wohn_id=w.wohn_id GROUP BY w.wohn_id'; $msr=$msdb->query($sql);
 	$msr=$msdb->query($sql); echo $msdb->error;
 
 	while ($row=$msr->fetch_assoc()) {
 		
-		echo '<tr><td class="'.($row['visible'] > 0 ? '' : 'hidden').'">'.$row['name'].'</td><td>'.$row['nname'].', '.$row['vname'].'</td><td><a href="?edit='.$row[$pkey].'">Stammdaten</a> &middot; <a href="?attr='.$row[$pkey].'">Attribute</a> &middot; <a href="images.php?wid='.$row[$pkey].'">Bilder ('.(string)$row['imgcnt'].')</a> &middot; <a href="?wdel[]='.$row[$pkey].'">Löschen</a>'."</td></tr>\n";
+		echo '<tr><td class="'.($row['visible'] > 0 ? '' : 'hidden').'">'.$row['name'].'</td><td>'.$row['nname'].', '.$row['vname'].'</td><td>'.$row['fcnt'].'</td><td><a href="?edit='.$row[$pkey].'">Stammdaten</a> &middot; <a href="?attr='.$row[$pkey].'">Attribute</a> &middot; <a href="images.php?wid='.$row[$pkey].'">Bilder ('.(string)$row['imgcnt'].')</a> &middot; <a href="?wdel[]='.$row[$pkey].'">Löschen</a>'."</td></tr>\n";
 		
 	}
 

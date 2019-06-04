@@ -20,7 +20,7 @@ header('Content-Type: text/html; charset=UTF-8');
 <body class="wimg"><h1>Wohnungsbilder (Controlpanel)</h1><?php
 
 
-$type=array('alt'=>'text','wohn_id'=>'selection');
+$type=array('wohn_id'=>'selection','rdr'=>'number','alt'=>'text');
 $ptbl='w_image';
 $pkey='bild_id';
 
@@ -120,7 +120,7 @@ if (strlen($_GET['edit']) > 0) {
 	$mrs=$msdb->query($sql); if ($mrs->num_rows > 0) {$row=$mrs->fetch_assoc();} else {$row[$pkey]='new';$row['wohn_id']=$_GET['wid'];}
 
 	echo '<form action="'.$_SERVER['SCRIPT_NAME'].'?wid='.$_GET['wid'].'" method="post" enctype="multipart/form-data"><table>';
-	echo FormFV::printVertical(FormFV::makeHTML($row,$type+array(),$row[$pkey],array('wohn_id'=>$whlist),true,false),array('Untertitel','Wohnungname'));
+	echo FormFV::printVertical(FormFV::makeHTML($row,$type+array(),$row[$pkey],array('wohn_id'=>$whlist),true,false),array('Wohnungname','Reihenfolge','Untertitel'));
 	echo '</table><p><input type="file" name="bild['.$row[$pkey].']" style="font-variant:small-caps"></p><p><input type="submit" value="Erstellen &middot; Aktualisieren"></p>';
 
 
