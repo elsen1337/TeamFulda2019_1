@@ -5,6 +5,7 @@ class stringNormalize {
 
 public static function normalizeURL ($str) {
 
+
 setlocale(LC_COLLATE, array('de_DE.utf8','deu.utf8'));
 $a=preg_split('#[^\\pL\d]+#u',$str,null,PREG_SPLIT_NO_EMPTY);
 

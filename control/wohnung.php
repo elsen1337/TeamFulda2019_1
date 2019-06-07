@@ -86,7 +86,7 @@ if (strlen($_GET['attr']) > 0) {
 
 	while ($row=$msr->fetch_assoc()) {
 		
-		echo '<tr><td class="'.($row['visible'] > 0 ? '' : 'hidden').'">'.$row['name'].'</td><td>'.$row['nname'].', '.$row['vname'].'</td><td>'.$row['fcnt'].'</td><td><a href="?edit='.$row[$pkey].'">Stammdaten</a> &middot; <a href="?attr='.$row[$pkey].'">Attribute</a> &middot; <a href="images.php?wid='.$row[$pkey].'">Bilder ('.(string)$row['imgcnt'].')</a> &middot; <a href="?wdel[]='.$row[$pkey].'">Löschen</a>'."</td></tr>\n";
+		echo '<tr><td class="'.($row['visible'] > 0 ? '' : 'hidden').'">'.$row['name'].'</td><td>'.$row['nname'].', '.$row['vname'].'</td><td><a href="favorit.php?wohn_id='.$row[$pkey].'">'.$row['fcnt'].'</a></td><td><a href="?edit='.$row[$pkey].'">Stammdaten</a> &middot; <a href="?attr='.$row[$pkey].'">Attribute</a> &middot; <a href="images.php?wid='.$row[$pkey].'">Bilder ('.(string)$row['imgcnt'].')</a> &middot; <a href="?wdel[]='.$row[$pkey].'">Löschen</a>'."</td></tr>\n";
 		
 	}
 

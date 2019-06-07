@@ -27,16 +27,13 @@ $pkey='bild_id';
 
 FormFV::updateDB($_POST,$type,'new',$ptbl,$pkey);
 
+require('../kernel/class-appartimg.php');
 
 $uploadBaseDir='../images';
 $dirThumb='thumb';
 $dirOrg='normal';
 
 
-function formThumbFileName($img) {
-	$pathInfo=pathinfo($img);
-	return $pathInfo['filename'].'.jpg';
-}
 
 
 $iDelKey='imgDel';
@@ -47,7 +44,7 @@ if (array_key_exists($iDelKey,$_GET)) {
 		
 		chdir($uploadBaseDir); $accRes=0;
 
-		$accRes+=(int)@unlink($dirThumb.'/'.formThumbFileName($row['bild']));
+		$accRes+=(int)@unlink($dirThumb.'/'.AppartImage::formThumbFileName($row['bild']));
 		$accRes+=(int)@unlink($dirOrg.'/'.$row['bild']);
 		
 		$msdb->query('DELETE FROM '.$ptbl.' WHERE '.$pkey.'='.$bid);
@@ -129,15 +126,16 @@ if (strlen($_GET['edit']) > 0) {
 
 	GUI::printNotice('Filterung nach Wohnung über Link aus Wohnungsübersicht.');
 
-	echo '<table cellpadding="2" style="empty-cells:show"><tr><th>Beschreibung</th><th>Name</th><th>Optionen</th></tr>';
+	echo '<table cellpadding="2"><tr><th>#</th><th>Beschreibung</th><th>Name</th><th>Optionen</th></tr>';
 
 	$wohnView=strlen($_GET['wid']) > 0;
-	$sql='SELECT i.alt, i.bild_id, i.bild, i.wohn_id, w.name FROM '.$ptbl.' AS i JOIN wohnung AS w ON w.wohn_id=i.wohn_id'.($wohnView ? ' WHERE i.wohn_id='.$_GET['wid'] : '');
+	$sql='SELECT i.bild_id, i.rdr, i.alt, i.bild, i.wohn_id, w.name FROM '.$ptbl.' AS i JOIN wohnung AS w ON w.wohn_id=i.wohn_id'.($wohnView ? ' WHERE i.wohn_id='.$_GET['wid'] : '').' ORDER BY i.rdr';
 	$msr=$msdb->query($sql); echo $msdb->error;
 
 	while ($row=$msr->fetch_assoc()) {
 		
-		echo '<tr><td>'.$row['alt'].'<td>'.($row['bild'] ? '<img title="'.$row['bild'].'" src="'.implode('/', array($uploadBaseDir,$dirThumb,formThumbFileName($row['bild']) ) ).'">' : $row['bild']).'<td><a href="?edit='.$row[$pkey].'&wid='.$row['wohn_id'].'">Bearbeiten</a> &middot; <a href="?'.$iDelKey.'[]='.$row[$pkey].'">Löschen</a>'.'</td></tr>'."\n";
+		echo '<tr><td>#'.$row['rdr'].'<td>'.$row['alt'].'<td>'.($row['bild'] ? '<img title="'.$row['bild'].'" src="'.implode('/', array($uploadBaseDir,$dirThumb,AppartImage::formThumbFileName($row['bild']) ) ).'">' : $row['bild']);
+		echo '<td><a href="?edit='.$row[$pkey].'&wid='.$row['wohn_id'].'">Bearbeiten</a> &middot; <a href="?'.$iDelKey.'[]='.$row[$pkey].'">Löschen</a>'.'</td></tr>'."\n";
 		
 	}
 
