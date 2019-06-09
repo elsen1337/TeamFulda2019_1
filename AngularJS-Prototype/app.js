@@ -1,5 +1,6 @@
 // for help visit:
 // https://material.angularjs.org/latest/
+// https://www.w3schools.com/angular/
 
 "use strict";
 
