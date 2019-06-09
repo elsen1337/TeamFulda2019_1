@@ -80,7 +80,7 @@ studyHomeApp.config(['$routeProvider', '$mdThemingProvider', function($routeProv
             controller: 'AdvertiseCtrl'
         })
         .otherwise({
-            redirectTo: '/home'
+            redirectTo: '/' + ROUTES.page0
         });
 }]);
 
