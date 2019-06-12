@@ -27,17 +27,6 @@ main{
     padding-bottom: 10px;
 }
 
-.login{
-    border-color: #7f7e7e;
-    border-bottom-style: solid;
-    padding-bottom: 10px;
-    padding-top: 10px;
-}
-
-.registrieren{
-    padding-top: 10px;
-}
-
 .button{
     background-color: #67c6e4;
     border: none;
@@ -47,7 +36,20 @@ main{
     display: inline-block;
     font-size: 16px;
     font-family: arial;
-    margin: 8px 2px;
     cursor: pointer;
     border-radius: 10px;
+}
+
+.zeile{
+    display: flex;
+    align-items: center;
+    padding: 20px;
+}
+
+.linkesElement{
+    margin-right: 30px;
+}
+
+.buttonPosition{
+    text-align: center;
 }
