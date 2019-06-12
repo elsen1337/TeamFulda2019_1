@@ -8,7 +8,6 @@
     </head>
     <body>
         <header>
-
             <div class="top-nav">
                 <div class="logo">
                     <a href="#">
@@ -24,15 +23,15 @@
                 </div>
             </div>
         </header>
-        <main>
-            <border class="border">
-                <form>
+        <main class="login-main">
+            <border class="login-border">
+                <form class="login-form">
                     <div class="title">
                         <h1>Login</h1>
                     </div>
                     <div class="login">
                         <div class="text">E-Mail</div>
-                        <input size="24" maxtype="text" name="email" placeholder="M.M@informatik.hs-fulda.de"><br><br>
+                        <input size="25" maxtype="text" name="email" placeholder="M.M@informatik.hs-fulda.de"><br><br>
                         <div class="text">Passwort</div>
                         <input size="25" type="password" name="passwort"><br><br>
                         <input class="button" type="submit" name="login" value="Login"><br>

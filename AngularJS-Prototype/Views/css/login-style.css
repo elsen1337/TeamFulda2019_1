@@ -1,4 +1,4 @@
-border{
+.login-border{
     padding: 35px;
 }
 
@@ -7,7 +7,7 @@ border{
     font-size: 16px;
 }
 
-form{
+.login-form{
     background-color: #ffffff;
     border-color: #7f7e7e;
     border-style: solid;
@@ -15,7 +15,7 @@ form{
     padding: 20px 20px;
 }
 
-main{
+.login-main{
     display: flex;
     align-items: center;
     justify-content: center;
