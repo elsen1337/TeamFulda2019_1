@@ -23,9 +23,9 @@
                 </div>
             </div>
         </header>
-        <main>
-            <border class="border">
-                <form>
+        <main class="registrieren-main">
+            <border class="registrieren-border">
+                <form class="registrieren-form">
                     <div class="title">
                         <h1>Registrieren</h1>
                     </div>
@@ -37,7 +37,7 @@
                             </div>
                             <div>
                                 <div class="text">Nachname</div>
-                                <input size="24" maxtype="text" name="nachname" placeholder="Mustermann">
+                                <input size="25" maxtype="text" name="nachname" placeholder="Mustermann">
                             </div>
                         </div>
                         <div class="zeile">
@@ -57,7 +57,7 @@
                             </div>
                             <div>
                                 <div class="text">Geburtsdatum</div>
-                                <input size="24" maxtype="text" name="geburtsdatum" placeholder="09.09.1999">
+                                <input size="25" maxtype="text" name="geburtsdatum" placeholder="09.09.1999">
                             </div>
                         </div>
                     </div>
