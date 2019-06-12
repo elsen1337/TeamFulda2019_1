@@ -51,14 +51,24 @@ header{
     z-index: 1;
 }
 
-footer{
-    position: fixed;
-    left: 0;
-    bottom: 0;
-    width: 100%;
-    background-color: aqua;
-    color: white;
+.bottom-nav {
+    background-color: #dbf1f8;
+    overflow: hidden;
+    display: flex;
+    height: 100px;
+    align-items: center;
+    justify-content: center;
+}
+
+.menu-bottom a {
+    color: #006799;
     text-align: center;
-    font-size: 10px;
-    z-index: 1;
+    text-decoration: none;
+    font-family: arial;
+    font-size: 1.5em;
+    padding: 40px 60px;
+}
+
+.menu-bottom a:hover {
+    background-color: #b5e6f5;	
 }
