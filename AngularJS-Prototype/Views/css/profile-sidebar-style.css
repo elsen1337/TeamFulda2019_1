@@ -1,0 +1,15 @@
+#sidebar{
+    background-color: lightskyblue;
+    position: relative;
+    float: left;
+    width: 200px;
+    height: 40em;
+    border-style: solid;
+    border-width: 2px;
+    border-radius: 8px;
+}
+
+#sidebar > p{
+    margin: 50px 0;
+    padding-left: 10px;
+}
