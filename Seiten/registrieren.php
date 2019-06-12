@@ -33,7 +33,7 @@
                         <div class="zeile">
                             <div>
                                 <div class="text">Vorname</div>
-                                <input class="linkesElement" size="24" maxtype="text" name="vorname" placeholder="Max">
+                                <input class="linkesElement" size="25" maxtype="text" name="vorname" placeholder="Max">
                             </div>
                             <div>
                                 <div class="text">Nachname</div>
@@ -53,7 +53,7 @@
                         <div class="zeile">
                             <div>
                                 <div class="text">E-Mail</div>
-                                <input class="linkesElement" size="24" maxtype="text" name="email" placeholder="M.M@informatik.hs-fulda.de">
+                                <input class="linkesElement" size="25" maxtype="text" name="email" placeholder="M.M@informatik.hs-fulda.de">
                             </div>
                             <div>
                                 <div class="text">Geburtsdatum</div>
