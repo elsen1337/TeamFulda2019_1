@@ -1,0 +1,53 @@
+border{
+    padding: 35px;
+}
+
+.text{
+    font-family: arial;
+    font-size: 16px;
+}
+
+form{
+    background-color: #ffffff;
+    border-color: #7f7e7e;
+    border-style: solid;
+    margin: auto;
+    padding: 20px 20px;
+}
+
+main{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.title{
+    border-color: #7f7e7e;
+    border-bottom-style: solid;
+    padding-bottom: 10px;
+}
+
+.login{
+    border-color: #7f7e7e;
+    border-bottom-style: solid;
+    padding-bottom: 10px;
+    padding-top: 10px;
+}
+
+.registrieren{
+    padding-top: 10px;
+}
+
+.button{
+    background-color: #67c6e4;
+    border: none;
+    padding: 10px 32px;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    font-size: 16px;
+    font-family: arial;
+    margin: 8px 2px;
+    cursor: pointer;
+    border-radius: 10px;
+}
