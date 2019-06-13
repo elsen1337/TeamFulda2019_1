@@ -1,7 +1,11 @@
 h1{
 }
 
-md-content .ext-content {
+* {
+    margin: 0;
+}
+
+/*md-content .ext-content {
     padding: 50px;
     margin: 20px;
     background-color: #FFF2E0;
@@ -10,7 +14,7 @@ md-content .ext-content {
 
 md-content .ext-content#disable-ext-cnt {
     display: none;
-}
+}*/
 
 md-nav-bar .md-nav-bar {
     background-color: #dbf1f8;
@@ -37,7 +41,8 @@ span._md-nav-button-text.ng-scope {
 
 main#main-ext-nav-cnt-show{
     position: relative;
-    top: 300px;
+    top: 100px;
+    z-index: 0;
 }
 
 main#main-ext-nav-cnt-hidden {
@@ -53,19 +58,18 @@ header{
 }
 
 footer{
-    position: fixed;
     left: 0;
     bottom: 0;
     width: 100%;
     background-color: #dbf1f8;
     text-align: center;
     font-size: 10px;
-    z-index: 1;
     overflow: hidden;
     display: flex;
-    height: 100px;
+    height: 50px;
     align-items: center;
     justify-content: center;
+    z-index: 1;
 }
 
 .menu-bottom a {
@@ -86,4 +90,14 @@ footer{
     left: 300px;
     bottom: 15px;
     margin: auto;
+}
+
+#md-content-ins-b4 {
+    padding: 0px!important;
+    display: normal!important;
+    overflow: hidden!important;
+}
+
+md-content {
+    display: initial!important;
 }
