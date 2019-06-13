@@ -5,8 +5,8 @@
 
 
 #chat{
-    height: 40em;
-    width: 80%;
+    height: 20em;
+    width: 50%;
     min-width: 60em;
     margin-left: 10px;
     border-style: solid;
@@ -22,7 +22,7 @@
     border-style: solid;
     border-width: 2px;
     border-radius: 6px;
-    height: 40em;
+    height: 20em;
 }
 
 #contacts > p{
@@ -36,7 +36,7 @@
     float: left;
 }
 #textBox{
-    height: 35em;
+    height: 20em;
 }
 
 .contactButton{
