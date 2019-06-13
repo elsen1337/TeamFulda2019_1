@@ -80,3 +80,10 @@ footer{
 .menu-bottom a:hover {
     background-color: #b5e6f5;	
 }
+
+#arrow{
+    position: absolute;
+    left: 300px;
+    bottom: 15px;
+    margin: auto;
+}

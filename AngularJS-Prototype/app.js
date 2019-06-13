@@ -17,19 +17,19 @@ var ROUTES = {
 
 function getCurrentNavItem(path) {
     switch(path) {
-        case '/home':
+        case '/' + ROUTES.page0:
             return ROUTES.page0;
-        case '/login':
+        case '/' + ROUTES.page1:
             return ROUTES.page1;
-        case '/register':
+        case '/' + ROUTES.page2:
             return ROUTES.page2;
-        case '/estates':
+        case '/' + ROUTES.page3:
             return ROUTES.page3;
-        case '/profile':
+        case '/' + ROUTES.page4:
             return ROUTES.page4;
-        case '/messages':
+        case '/' + ROUTES.page5:
             return ROUTES.page5;
-        case '/advertise':
+        case '/' + ROUTES.page6:
             return ROUTES.page6;
     }
 }
@@ -102,6 +102,8 @@ studyHomeApp.controller('NavCtrl', ['$scope', '$location', function($scope, $loc
         $scope.currentNavItem = getCurrentNavItem($location.$$path);
         updateNavBar($scope.currentNavItem);
     });
+
+    //addArrow();
 }]);
 
 function updateNavBar(currentNavItem) {
@@ -155,4 +157,20 @@ function spaceMainContentUpwards() {
     if(document.getElementById("main-ext-nav-cnt-show")) {
         document.getElementById("main-ext-nav-cnt-show").setAttribute("id", "main-ext-nav-cnt-hidden");
     }
+}
+
+//arrow soll ein pfeil sein um den external content zu togglen, kann danna für das ein und ausblenden der suchkriterien
+//genutzt werden
+//arrow image werde ich noch adden! die function kann ich ja schon mal lassen, mein image ist einfach noch zu schlecht
+//helper function for arrow
+function addArrow(){
+    let node = document.createElement("img");
+    node.setAttribute("src", "arrow.png");
+    node.setAttribute("alt", "arrow");
+    node.setAttribute("id", "arrow");
+    node.addEventListener("click", function(){
+        toggleExternalNavContent();
+    });
+    let container = document.getElementById("md-content-ins-b4");
+    container.insertBefore(node, container.childNodes[6]);
 }
