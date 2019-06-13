@@ -1,7 +1,7 @@
 h1{
 }
 
-md-content .ext-content {
+/*md-content .ext-content {
     padding: 50px;
     margin: 20px;
     background-color: #FFF2E0;
@@ -10,7 +10,7 @@ md-content .ext-content {
 
 md-content .ext-content#disable-ext-cnt {
     display: none;
-}
+}*/
 
 md-nav-bar .md-nav-bar {
     background-color: #dbf1f8;
