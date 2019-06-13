@@ -265,6 +265,8 @@ foreach (glob($aboutDir . '*.profile.html') as $phpfile)
 
 }
 
+echo ' &middot; <a href="AngularJS-Prototype/index.html">AngularJS-Prototype</a>';
+
 
 ?></div>
 

@@ -1,0 +1,89 @@
+h1{
+}
+
+md-content .ext-content {
+    padding: 50px;
+    margin: 20px;
+    background-color: #FFF2E0;
+    display: block;
+}
+
+md-content .ext-content#disable-ext-cnt {
+    display: none;
+}
+
+md-nav-bar .md-nav-bar {
+    background-color: #dbf1f8;
+}
+
+span._md-nav-button-text.ng-scope {
+}
+
+#navbar {
+
+}
+
+#gitLink {
+}
+
+#logo{
+    position: relative;
+    width: 92px;
+    bottom: 3px;
+}
+
+#hide{
+}
+
+main#main-ext-nav-cnt-show{
+    position: relative;
+    top: 300px;
+}
+
+main#main-ext-nav-cnt-hidden {
+    position: relative;
+    top: 100px;
+}
+
+header{
+    position: fixed;
+    top: 0px;
+    width: 100%;
+    z-index: 1;
+}
+
+footer{
+    position: fixed;
+    left: 0;
+    bottom: 0;
+    width: 100%;
+    background-color: #dbf1f8;
+    text-align: center;
+    font-size: 10px;
+    z-index: 1;
+    overflow: hidden;
+    display: flex;
+    height: 100px;
+    align-items: center;
+    justify-content: center;
+}
+
+.menu-bottom a {
+    color: #006799;
+    text-align: center;
+    text-decoration: none;
+    font-family: arial;
+    font-size: 1.5em;
+    padding: 40px 60px;
+}
+
+.menu-bottom a:hover {
+    background-color: #b5e6f5;	
+}
+
+#arrow{
+    position: absolute;
+    left: 300px;
+    bottom: 15px;
+    margin: auto;
+}

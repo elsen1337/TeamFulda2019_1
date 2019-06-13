@@ -1,0 +1,19 @@
+#dataTable > table{
+	border-style: solid;
+	border-color: black;
+	margin-top: 20px;
+	margin-bottom: 20px;
+}
+
+td{
+	border-style: solid;
+	border-color: darkgrey;
+	border-width: 2px;
+	padding: 5px;
+}
+
+.btns{
+    background-color: lightblue;
+    color: #444444;
+    border-radius: 8px;
+}
