@@ -41,7 +41,7 @@ span._md-nav-button-text.ng-scope {
 
 main#main-ext-nav-cnt-show{
     position: relative;
-    top: 300px;
+    top: 100px;
 }
 
 main#main-ext-nav-cnt-hidden {
@@ -88,4 +88,9 @@ footer{
     left: 300px;
     bottom: 15px;
     margin: auto;
+}
+
+.md-padding_md {
+    padding: 0!important;
+    display: none!important;
 }
