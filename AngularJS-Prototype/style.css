@@ -70,6 +70,7 @@ footer{
     align-items: center;
     justify-content: center;
     z-index: 1;
+    position: fixed;
 }
 
 .menu-bottom a {
