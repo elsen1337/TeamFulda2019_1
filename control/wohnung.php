@@ -48,7 +48,7 @@ if (strlen($_GET['attr']) > 0) {
 	}
 
 
-	$sql='SELECT m.aid, m.name, m.vsb, v.val, ISNULL(v.val) AS notused  FROM w_attrmeta AS m LEFT JOIN w_attrvals AS v ON m.aid=v.aid ORDER BY notused ASC, m.vsb DESC, m.rdr ASC';
+	$sql='SELECT m.aid, m.name, m.vsb, v.val, ISNULL(v.val) AS notused  FROM w_attrmeta AS m LEFT JOIN w_attrvals AS v ON m.aid=v.aid WHERE v.wohn_id='.$_GET['attr'].' ORDER BY notused ASC, m.vsb DESC, m.rdr ASC';
 	echo '<form action="'.$_SERVER['SCRIPT_NAME'].'?attr='.$_GET['attr'].'" method="post"><table><tr><th>Status</th><th>Eigenschaftname</th><th>Eigenschaftswert</th></tr>';
 	
 	$msr=$msdb->query($sql); echo $msdb->error;

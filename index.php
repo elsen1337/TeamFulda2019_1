@@ -118,7 +118,7 @@ if (array_key_exists($appartDetailKey,$_GET)) {
 		echo '<h2>Properties</h2><table>';
 		while (list($key,$val)=$mrs->fetch_array()) {
 			
-			echo '<th>'.$key.'</th><td>'.$val.'</td>'."\n";
+			echo '<tr><th>'.$key.'</th><td>'.$val.'</td></tr>'."\n";
 			
 		}
 		echo '</table>';
@@ -196,15 +196,15 @@ if (array_key_exists($appartDetailKey,$_GET)) {
 	$sql='SELECT w.*, v.anrede, v.nname, GROUP_CONCAT(i.alt ORDER BY i.rdr SEPARATOR " // ") AS imgalt, SUBSTRING_INDEX(GROUP_CONCAT(i.bild ORDER BY i.rdr), ",", 1) AS imgpath, AVG(f.score) AS score, COUNT(DISTINCT f.m_id) AS cnt FROM wohnung AS w JOIN vermieter AS v ON v.vm_id=w.vm_id LEFT JOIN w_image AS i ON w.wohn_id=i.wohn_id LEFT JOIN m_favorit AS f ON f.wohn_id=w.wohn_id LEFT JOIN w_attrvals AS a ON a.wohn_id=w.wohn_id LEFT JOIN w_attrmeta AS m ON m.aid=a.aid WHERE w.visible > 0 '.(count($sqlWhere) > 0 ? 'AND '.implode(' AND ',$sqlWhere) : '').' GROUP BY w.wohn_id ORDER BY '.(count($sqlOrder) > 0 ? implode(',',$sqlOrder) : 'cnt DESC').' LIMIT '.(($curPage-1)*$maxEntriesPage).','.$maxEntriesPage;
 	$mrs=$msdb->query($sql); echo $msdb->error;
 
-	echo '<div id="search">';
 
 	if ($mrs->num_rows > 0) {
 		
+		echo '<div id="search">';
 		echo '<div id="filtermenu"><form action="'.$_SERVER['SCRIPT_NAME'].'" method="post">';
 		
 		foreach ($searchParameters as $sqlKey => $formKey) {
 			
-			echo '<fieldset><legend>'.$searchLabels[$sqlKey].'</legend>';
+			echo '<fieldset><legend>'.$searchLabels[$sqlKey].'</legend>'."\n";
 			
 			
 			if ($sqlKey != 'val') {
