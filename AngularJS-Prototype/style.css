@@ -68,6 +68,7 @@ footer{
     height: 50px;
     align-items: center;
     justify-content: center;
+    z-index: 1;
 }
 
 .menu-bottom a {
