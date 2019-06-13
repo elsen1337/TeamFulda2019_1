@@ -29,9 +29,9 @@ FormFV::updateDB($_POST,$type,'new',$ptbl,$pkey);
 
 require('../kernel/class-appartimg.php');
 
-$uploadBaseDir='../images';
-$dirThumb='thumb';
-$dirOrg='normal';
+$uploadBaseDir='../'.AppartImage::$uploadBaseDir;
+$dirThumb=AppartImage::$dirThumb;
+$dirOrg=AppartImage::$dirOrg;
 
 
 
@@ -76,7 +76,7 @@ if (array_key_exists($uKey,$_FILES)) {
 	foreach ($bildUpload['error'] as $bid => $val) {
 		
 		if ($val > 0) {continue;}
-		if ($bildUpload['size'][$bid] > 4 * 1024 * 1024 || $bildUpload['size'][$bid] == 0) {continue;}
+		if ($bildUpload['size'][$bid] > AppartImage::MAX_IMAGE_SIZE_KB * 1024 || $bildUpload['size'][$bid] == 0) {continue;}
 		if (strpos($bildUpload['type'][$bid],'image') === false) {continue;}
 		
 		# stringNormalize::normalizeURL File

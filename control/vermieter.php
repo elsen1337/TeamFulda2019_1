@@ -64,7 +64,7 @@ if (strlen($_GET['edit']) > 0) {
 
 	while ($row=$msr->fetch_assoc()) {
 		
-		echo '<tr><td>'.$row['nname'].', '.$row['vname'].'</td><td>'.$row['cnt'].'</td><td><a href="chat.php?vm_id='.$row[$pkey].'">'.$row['cdcnt'].' /- '.$row['mcnt'].'</a></td><td><a href="?edit='.$row['vm_id'].'">Bearbeiten</a>'.($row['cnt'] > 0 ? '' : ' &middot; <a href="?vdel[]='.$row[$pkey].'">Löschen</a>')."</td></tr>\n";
+		echo '<tr><td>'.$row['nname'].', '.$row['vname'].'</td><td>'.$row['cnt'].'</td><td><a href="chat.php?vm_id='.$row[$pkey].'">'.$row['cdcnt'].' / '.$row['mcnt'].'</a></td><td><a href="?edit='.$row['vm_id'].'">Bearbeiten</a>'.($row['cnt'] > 0 ? '' : ' &middot; <a href="?vdel[]='.$row[$pkey].'">Löschen</a>')."</td></tr>\n";
 		
 	}
 
