@@ -58,7 +58,7 @@ header{
 
 footer{
     z-index: 1;
-    margin: 300px;
+    margin-top: 300px;
     left: 0;
     bottom: 0;
     width: 100%;
