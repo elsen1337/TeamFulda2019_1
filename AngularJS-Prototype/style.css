@@ -42,7 +42,7 @@ span._md-nav-button-text.ng-scope {
 main#main-ext-nav-cnt-show{
     position: relative;
     top: 100px;
-    z-index: 1;
+    z-index: 0;
 }
 
 main#main-ext-nav-cnt-hidden {
