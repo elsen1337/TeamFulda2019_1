@@ -1,6 +1,10 @@
 h1{
 }
 
+* {
+    margin: 0;
+}
+
 /*md-content .ext-content {
     padding: 50px;
     margin: 20px;
@@ -54,7 +58,7 @@ header{
 
 footer{
     z-index: 1;
-    padding: 300px;
+    margin: 300px;
     left: 0;
     bottom: 0;
     width: 100%;
@@ -63,7 +67,7 @@ footer{
     font-size: 10px;
     overflow: hidden;
     display: flex;
-    height: 100px;
+    height: 50px;
     align-items: center;
     justify-content: center;
 }
