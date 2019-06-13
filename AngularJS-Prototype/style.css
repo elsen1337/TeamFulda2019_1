@@ -93,4 +93,5 @@ footer{
 #md-content-ins-b4 {
     padding: 0px!important;
     display: normal!important;
+    overflow: hidden!important;
 }
