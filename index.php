@@ -29,15 +29,19 @@ $searchKeyText='fulltext';
 <title>HSF-MScAI-TP - StudyHome</title>
 <link rel="stylesheet" href="../client/layout/base-messages.css">
 <style type="text/css">
-fieldset {display:inline-block; width:230px}
-fieldset input[type='number'] {width:80px !important}
-table.resultset a {font-size: 1.35em}
 div#header {height:175px;margin-bottom:25px; border-bottom: 6px double silver; padding-bottom:25px} 
 div#header img {display:block; margin-right:25px; float: left; height: inherit; margin-bottom: -85px;}
 div#footer {border-top: 6px double silver; margin-top:25px;padding-top:10px}
 
 form#startform {width:475px; margin: 0 auto}
 form#startform input[type='search'] {width:415px}
+
+div#search {width:960px; margin: 0 auto}
+div#search table {width:100%}
+div#search table a {font-size: 1.35em}
+
+fieldset {display:inline-block; width:230px}
+fieldset input[type='number'] {width:80px !important}
 </style>
 </head>
 
@@ -50,8 +54,8 @@ form#startform input[type='search'] {width:415px}
 <img src="client/image/logo-studyhome.png">
 
 <div style="clear: both; margin-left:300px">
-<h1>Fulda Software Engineering Project, Spring 2019. For Demonstration Only</h1>
-<h2>StudyHome - Find your Appartment for a Semester abroad in Fulda</h2>
+<h1>StudyHome - Find your Appartment for a Semester abroad in Fulda</h1>
+<h3>Fulda Software Engineering Project, Spring 2019. For Demonstration Only</h3>
 </div>
 
 </div><?php
@@ -72,6 +76,12 @@ function addSQLWhereOrder(&$sqlWhere, &$sqlOrder, &$rangeOperatorMapping, $sqlFi
 			$sqlOrder[$sqlField]=$sqlField.' ASC';
 		}
 	}
+	
+}
+
+function printInitialSearchForm($searchKeyGlobal,$searchKeyText) {
+
+	echo '<form method="post" id="startform"><input type="search" value="'.$_SESSION[$searchKeyGlobal][$searchKeyText].'" name="'.$searchKeyGlobal.'['.$searchKeyText.']" placeholder="Type any search value... We\'re hoping to match your request..."><input type="submit" value="Go..."></form>';
 	
 }
 
@@ -186,6 +196,8 @@ if (array_key_exists($appartDetailKey,$_GET)) {
 	$sql='SELECT w.*, v.anrede, v.nname, GROUP_CONCAT(i.alt ORDER BY i.rdr SEPARATOR " // ") AS imgalt, SUBSTRING_INDEX(GROUP_CONCAT(i.bild ORDER BY i.rdr), ",", 1) AS imgpath, AVG(f.score) AS score, COUNT(DISTINCT f.m_id) AS cnt FROM wohnung AS w JOIN vermieter AS v ON v.vm_id=w.vm_id LEFT JOIN w_image AS i ON w.wohn_id=i.wohn_id LEFT JOIN m_favorit AS f ON f.wohn_id=w.wohn_id LEFT JOIN w_attrvals AS a ON a.wohn_id=w.wohn_id LEFT JOIN w_attrmeta AS m ON m.aid=a.aid WHERE w.visible > 0 '.(count($sqlWhere) > 0 ? 'AND '.implode(' AND ',$sqlWhere) : '').' GROUP BY w.wohn_id ORDER BY '.(count($sqlOrder) > 0 ? implode(',',$sqlOrder) : 'cnt DESC').' LIMIT '.(($curPage-1)*$maxEntriesPage).','.$maxEntriesPage;
 	$mrs=$msdb->query($sql); echo $msdb->error;
 
+	echo '<div id="search">';
+
 	if ($mrs->num_rows > 0) {
 		
 		echo '<div id="filtermenu"><form action="'.$_SERVER['SCRIPT_NAME'].'" method="post">';
@@ -215,38 +227,40 @@ if (array_key_exists($appartDetailKey,$_GET)) {
 		}
 		
 		echo '<fieldset><legend>Filter...</legend>
-<input type="submit" value="Show Me the ResultSet">
+<input type="submit" value="Show Me ResultSet">
 </fieldset></form></div>';
-		
-
-		echo '<table class="resultset" cellpadding="5">';
-		echo '<tr><th colspan="3"></th><th colspan="2">Distance 2 Campus</th></tr>';
-		echo '<tr><th>Image</th><th>Appartment</th><th>Price</th><td>Meters</td><td>Minutes</td><th>Options</th></tr>';
 		
 		require('kernel/class-appartimg.php');
 
+		echo '<table class="resultset" cellpadding="5">';
+		echo '<tr><th colspan="3"></th><th colspan="2">Distance 2 Campus</th></tr>';
+		echo '<tr><th width="'.AppartImage::MAX_IMAGE_WIDTH.'"></th><th>Appartment</th><th>Price</th><td>Meters</td><td>Minutes</td><th>Ratings</th></tr>';
+		
+
 		while ($row=$mrs->fetch_object()) {
 			
-			echo '<tr><td title="'.$row->imgalt.'">'. (strlen($row->imgpath) > 0 ? '<img src="images/thumb/'.AppartImage::formThumbFileName($row->imgpath).'" alt="">' : 'First Image').'</td>';
+			echo '<tr><td title="'.$row->imgalt.'">'. (strlen($row->imgpath) > 0 ? '<img src="images/thumb/'.AppartImage::formThumbFileName($row->imgpath).'" alt="'.$row->imgalt.'">' : 'First Image').'</td>';
 			echo '<td><a href="?'.$appartDetailKey.'='.$row->wohn_id.'">'.$row->name.'</a><br>'.$row->plz.' '.$row->ort.', '.$row->str.'';
 			echo '<td>'.$row->preis.'</td><td>'.$row->entf_meter.'</td><td>'.$row->entf_min.'</td><td>&#9733;'.$row->score.' ('.$row->cnt.')</td>'."</td></tr>\n";
 			
 		}
 
 		echo '</table>';
+		echo '</div>';
 
 
 	} else {
 
 
 		GUI::printWarn('Keine Ergebnisse');
+		printInitialSearchForm($searchKeyGlobal,$searchKeyText);
 
 	}
 
 	
 } else {
 	
-	echo '<form method="post" id="startform"><input type="search" name="'.$searchKeyGlobal.'['.$searchKeyText.']" placeholder="Type any search value... We\'re hoping to match your request..."><input type="submit" value="Go..."></form>';
+	printInitialSearchForm($searchKeyGlobal,$searchKeyText);
 	
 	
 }
