@@ -95,3 +95,7 @@ footer{
     display: normal!important;
     overflow: hidden!important;
 }
+
+md-content {
+    display: initial!important;
+}
