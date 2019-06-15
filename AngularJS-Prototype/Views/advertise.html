@@ -1,25 +1,25 @@
 <h1>Advertise Test</h1>
-<form name="wohnungsform">
+<form name="wohnungsform" ng-app="studyHomeApp" ng-controller="AdvertiseCtrl">
 
     <md-input-container>
     <div class="col-sm-12">
-        <input type="file"  id="fileinput" name="logos" file-model="w.bilder" multiple="multiple" class="form-control" required=""/>
+        <input type="file"  id="fileinput" name="bilder" aria-label="bilderInput" file-model="bilder" multiple="multiple" class="form-control" required=""/>
     </div>
-        <div ng-messages="wohnungsform.favoriteColor.$error">
+        <div ng-messages="wohnungsform.pictures.$error">
         <div ng-message="required">This is required!</div>
         </div>
     </md-input-container>
 
     <md-input-container>
         <div class="col-sm-12">
-            <md-button type="submit" ng-click="w.create()" class="btn btn-default">Submit</md-button>
+            <md-button type="submit" ng-click="submit()" class="btn btn-default">Submit</md-button>
         </div>
     </md-input-container>
 
     <md-input-container>
         <label>Name</label>
-        <input type="text" ng-model="wohn.preis" required="">
-        <div ng-messages="wohnungsform.favoriteColor.$error">
+        <input type="text" ng-model="preis" required="">
+        <div ng-messages="wohnungsform.name.$error">
             <div ng-message="required">This is required!</div>
         </div>
 
@@ -27,65 +27,56 @@
 
     <md-input-container>
         <label>Rental Fee</label>
-        <input type="text" ng-model="wohn.name" required="">
-        <div ng-messages="wohnungsform.favoriteColor.$error">
+        <input type="text" ng-model="name" required="">
+        <div ng-messages="wohnungsform.preis.$error">
             <div ng-message="required">This is required!</div>
         </div>
     </md-input-container>
 
     <md-input-container>
         <label>Postcode</label>
-        <input type="text" ng-model="wohn.plz" required="">
-        <div ng-messages="wohnungsform.favoriteColor.$error">
+        <input type="text" ng-model="plz" required="">
+        <div ng-messages="wohnungsform.plz.$error">
             <div ng-message="required">This is required!</div>
         </div>
     </md-input-container>
 
     <md-input-container>
         <label>City</label>
-        <input type="text" ng-model="wohn.ort" required="">
-        <div ng-messages="wohnungsform.favoriteColor.$error">
+        <input type="text" ng-model="ort" required="">
+        <div ng-messages="wohnungsform.ort.$error">
             <div ng-message="required">This is required!</div>
         </div>
     </md-input-container>
 
     <md-input-container>
         <label>Street a. No.</label>
-        <input type="text" ng-model="wohn.ort" required="">
-        <div ng-messages="wohnungsform.favoriteColor.$error">
+        <input type="text" ng-model="str" required="">
+        <div ng-messages="wohnungsform.str.$error">
             <div ng-message="required">This is required!</div>
         </div>
     </md-input-container>
 
     <md-input-container>
         <label>Distance Meter</label>
-        <input type="text" ng-model="wohn.entf_meter" required="">
-        <div ng-messages="wohnungsform.favoriteColor.$error">
+        <input type="text" ng-model="entf_meter" required="">
+        <div ng-messages="wohnungsform.entf_meter.$error">
         <div ng-message="required">This is required!</div>
         </div>
     </md-input-container>
 
     <md-input-container>
         <label>Distance Minutes</label>
-        <input type="text" ng-model="wohn.entf_min" required="">
-        <div ng-messages="wohnungsform.favoriteColor.$error">
+        <input type="text" ng-model="entf_min" required="">
+        <div ng-messages="wohnungsform.entf_min.$error">
         <div ng-message="required">This is required!</div>
         </div>
     </md-input-container>
 
     <md-input-container>
         <label>Description</label>
-        <textarea ng-model="wohn.beschr"></textarea>
+        <textarea ng-model="beschr"></textarea>
         </div>
     </md-input-container>
-
-    <md-input-container>
-      <label>Favorite Color</label>
-      <input name="favoriteColor" ng-model="favoriteColor" required="">
-      <div ng-messages="wohnungsform.favoriteColor.$error">
-        <div ng-message="required">This is required!</div>
-      </div>
-    </md-input-container>
-
 
   </form>
