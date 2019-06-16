@@ -30,7 +30,7 @@ studyHomeApp.controller('RentingCtrl', ['$scope', '$http', function($scope, $htt
                 transformRequest: angular.identity,
                 headers:
                     {
-                        'Content-Type': undefined
+                        'Content-Type': 'application/json'
                     }
             })
             .then((serviceResponse) =>
