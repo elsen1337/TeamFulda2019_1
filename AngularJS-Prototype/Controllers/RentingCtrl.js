@@ -17,8 +17,14 @@ studyHomeApp.controller('RentingCtrl', ['$scope', '$http', function($scope, $htt
 
         angular.forEach($scope.bilder, (val, key) =>
         {
-            console.log($scope.bilder);
-           fd.append('bild'+key, val, 'file'+key);
+        var reader = new FileReader();
+        reader.onloadend = function() {
+            fd.append('bild'+key, reader.result);
+          console.log('RESULT', reader.result);
+          
+        }
+        reader.readAsDataURL(val);
+           
         });
 
 
