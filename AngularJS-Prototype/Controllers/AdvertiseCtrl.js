@@ -14,25 +14,16 @@ studyHomeApp.controller('AdvertiseCtrl', ['$scope', '$http', function($scope, $h
         fd.append('str', $scope.str);
 
 
+
         angular.forEach($scope.bilder, (val, key) =>
         {
-           fd.append('file'+key, val);
+            console.log($scope.bilder);
+           fd.append('bild'+key, val, 'file'+key);
         });
+
 
         // Convert formdata object to JSON
         let data = JSON.stringify(Object.fromEntries(fd));
-
-        console.log(data);
-        console.log(data.file0);
-
-        /*
-        let object = {};
-        fd.forEach((value, key) => {
-            object[key] = value;
-        });
-        let data = JSON.stringify(object);
-        */
-
 
         $http.post('https://hsftp.uber.space/sfsuroombook/wohnung', data,
             {
@@ -52,6 +43,8 @@ studyHomeApp.controller('AdvertiseCtrl', ['$scope', '$http', function($scope, $h
     };
     }])
     // Adds the selected files to the files array
+
+
     .directive('fileModel', ['$parse', function ($parse) {
         return {
             restrict: 'A'
