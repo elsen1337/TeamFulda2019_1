@@ -2,55 +2,58 @@ studyHomeApp.controller('RentingCtrl', ['$scope', '$http', function($scope, $htt
 
     $scope.submit = () =>
     {
-        let fd = new FormData();
-
-        fd.append('beschr', $scope.beschr);
-        fd.append('entf_meter', $scope.entf_meter);
-        fd.append('entf_min', $scope.entf_min);
-        fd.append('name', $scope.name);
-        fd.append('ort', $scope.ort);
-        fd.append('plz', $scope.plz);
-        fd.append('preis', $scope.preis);
-        fd.append('str', $scope.str);
-
-
-
-        angular.forEach($scope.bilder, (val, key) =>
+        if($scope.entf_meter !== undefined
+        && $scope.entf_min !== undefined
+            && $scope.name !== undefined
+            && $scope.ort !== undefined
+            && $scope.plz !== undefined
+            && $scope.preis !== undefined
+            && $scope.str !== undefined)
         {
-        var reader = new FileReader();
-        reader.onloadend = function() {
-            fd.append('bild'+key, reader.result);
-          console.log('RESULT', reader.result);
-          
-        }
-        reader.readAsDataURL(val);
-           
-        });
+            let fd = new FormData();
+
+            fd.append('beschr', $scope.beschr);
+            fd.append('entf_meter', $scope.entf_meter);
+            fd.append('entf_min', $scope.entf_min);
+            fd.append('name', $scope.name);
+            fd.append('ort', $scope.ort);
+            fd.append('plz', $scope.plz);
+            fd.append('preis', $scope.preis);
+            fd.append('str', $scope.str);
 
 
-        // Convert formdata object to JSON
-        let data = JSON.stringify(Object.fromEntries(fd));
 
-        $http.post('https://hsftp.uber.space/sfsuroombook/wohnung', data,
+            angular.forEach($scope.bilder, (val, key) =>
             {
-                transformRequest: angular.identity,
-                headers:
-                    {
-                        'Content-Type': 'application/json'
-                    }
-            })
-            .then((serviceResponse) =>
+                fd.append('bild'+key, key);
+            });
+
+            console.log(fd);
+
+            // Convert formdata object to JSON
+            //let data = JSON.stringify(Object.fromEntries(fd));
+
+            $http.post('https://hsftp.uber.space/sfsuroombook/wohnung', fd,
                 {
-                    console.log(serviceResponse);
-                },
-                (err) => {
-                    console.log(err);
-                });
-    };
+                    transformRequest: angular.identity,
+                    headers:
+                        {
+                            'Content-Type': 'undefined'
+                        }
+                })
+                .then((serviceResponse) =>
+                    {
+                        console.log(serviceResponse);
+                    },
+                    (err) => {
+                        console.log(err);
+                    });
+        };
+        }
+
     }])
+
     // Adds the selected files to the files array
-
-
     .directive('fileModel', ['$parse', function ($parse) {
         return {
             restrict: 'A'
