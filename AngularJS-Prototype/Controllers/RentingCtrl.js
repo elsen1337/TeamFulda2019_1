@@ -1,4 +1,4 @@
-studyHomeApp.controller('AdvertiseCtrl', ['$scope', '$http', function($scope, $http){
+studyHomeApp.controller('RentingCtrl', ['$scope', '$http', function($scope, $http){
 
     $scope.submit = () =>
     {

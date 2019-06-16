@@ -1,4 +1,54 @@
-<div id="register">
+<div id="register" data-ng-controller="RegisterCtrl">
+    <border class="registrieren-border">
+        <form class="registrieren-form">
+            <div>
+                <md-input-container class="registrieren-title">
+                    <h1>Register</h1>
+                </md-input-container>
+            </div>
+            <div class="registrieren">
+                <md-content layout-padding="">
+                    <div layout-gt-xs="row">
+                        <md-input-container name="registrieren-block" class="md-block" flex-gt-sm="">
+                            <label>Prename</label>
+                            <input id="prename" required="" type="text" name="prename" placeholder="Max">
+                        </md-input-container>
+                        <md-input-container class="md-block" flex-gt-sm="">
+                            <label>Lastname</label>
+                            <input id="lastname" required="" type="text" name="lastname" placeholder="Mustermann">
+                        </md-input-container>
+                    </div>
+                    <div layout-gt-xs="row">
+                        <md-input-container class="md-block" flex-gt-sm="">
+                            <label>Password</label>
+                            <input id="password" required="" type="password" name="passwort" placeholder="••••••••">
+                        </md-input-container>
+                        <md-input-container class="md-block" flex-gt-sm="">
+                            <label>Repeat Password</label>
+                            <input id="repeatPassword" required="" type="password" name="repeatPasswort" placeholder="••••••••">
+                        </md-input-container>
+                    </div>
+                    <div layout-gt-xs="row">
+                        <md-input-container class="md-block" flex-gt-sm="">
+                            <label>E-Mail</label>
+                            <input id="email" required="" type="email" name="email"
+                                   placeholder="Max.Mustermann@informatik.hs-fulda.de">
+                        </md-input-container>
+                        <md-input-container class="md-block" flex-gt-sm="">
+                            <label>Birth Date</label>
+                            <input id="birthDate" required="" type="date" name="birthDate" placeholder="09.09.1999">
+                        </md-input-container>
+                    </div>
+                </md-content>
+                <md-button type="submit" class="registrieren-btn" ng-click="register()">
+                    Submit
+                </md-button>
+            </div>
+        </form>
+    </border>
+</div>
+
+<!--<div id="register">
     <main class="registrieren-main">
             <border class="registrieren-border">
                 <form class="registrieren-form">
@@ -43,4 +93,5 @@
                 </form>
             </border>
         </main>
-</div>
+</div>-->
+

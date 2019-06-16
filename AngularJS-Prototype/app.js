@@ -6,13 +6,18 @@
 
 // Routes
 var ROUTES = {
-    page0: "home",
+    /*page0: "home",
     page1: "login",
     page2: "register",
     page3: "estates",
     page4: "profile",
     page5: "messages",
-    page6: "advertise"
+    page6: "advertise"*/
+    page0: "home",
+    page1: "renting",
+    page2: "messages",
+    page3: "login",
+    page4: "register"
 };
 
 function getCurrentNavItem(path) {
@@ -27,10 +32,10 @@ function getCurrentNavItem(path) {
             return ROUTES.page3;
         case '/' + ROUTES.page4:
             return ROUTES.page4;
-        case '/' + ROUTES.page5:
+        /*case '/' + ROUTES.page5:
             return ROUTES.page5;
         case '/' + ROUTES.page6:
-            return ROUTES.page6;
+            return ROUTES.page6;*/
     }
 }
 
@@ -52,7 +57,7 @@ studyHomeApp.config(['$routeProvider', '$mdThemingProvider', function($routeProv
     //    .dark();
 
     $routeProvider
-        .when('/' + ROUTES.page0 , {
+        /*.when('/' + ROUTES.page0 , {
             templateUrl: 'Views/' + ROUTES.page0 + '.html',
             controller: 'StudyHomeCtrl'
         })
@@ -79,6 +84,26 @@ studyHomeApp.config(['$routeProvider', '$mdThemingProvider', function($routeProv
         .when('/' + ROUTES.page6, {
             templateUrl: 'Views/' + ROUTES.page6 + '.html',
             controller: 'AdvertiseCtrl'
+        })*/
+        .when('/' + ROUTES.page0 , {
+            templateUrl: 'Views/' + ROUTES.page0 + '.html',
+            controller: 'StudyHomeCtrl'
+        })
+        .when('/' + ROUTES.page1, {
+            templateUrl: 'Views/' + ROUTES.page1 + '.html',
+            controller: 'LoginCtrl'
+        })
+        .when('/' + ROUTES.page2, {
+            templateUrl: 'Views/' + ROUTES.page2 + '.html',
+            controller: 'RentingCtrl'
+        })
+        .when('/' + ROUTES.page3, {
+            templateUrl: 'Views/' + ROUTES.page3 + '.html',
+            controller: 'LoginCtrl'
+        })
+        .when('/' + ROUTES.page4, {
+            templateUrl: 'Views/' + ROUTES.page4 + '.html',
+            controller: 'RegisterCtrl'
         })
         .otherwise({
             redirectTo: '/' + ROUTES.page0

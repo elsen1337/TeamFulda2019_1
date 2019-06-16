@@ -24,7 +24,8 @@ span._md-nav-button-text.ng-scope {
 }
 
 #navbar {
-
+    width: 100%;
+    z-index: 1;
 }
 
 #gitLink {
@@ -32,7 +33,7 @@ span._md-nav-button-text.ng-scope {
 
 #logo{
     position: relative;
-    width: 92px;
+    width: 150px;
     bottom: 3px;
 }
 
@@ -101,4 +102,8 @@ footer{
 
 md-content {
     display: initial!important;
+}
+
+.nav-item{
+    padding-left: 10%;
 }

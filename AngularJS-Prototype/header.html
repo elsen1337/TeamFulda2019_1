@@ -1,62 +1,59 @@
 <!--<div id="navbar" data-ng-controller="NavCtrl" ng-cloak layout="column">-->
 <div id="navbar" data-ng-controller="NavCtrl" ng-cloak>
     <md-content class="md-padding" id="md-content-ins-b4">
-            <md-nav-bar id="nav-refresh"
-                md-no-ink-bar="disableInkBar"
-                md-selected-nav-item="currentNavItem"
-                nav-bar-aria-label="navigation links">
-<!--                <div flex="">-->
-                    <a id="gitLink" href="https://github.com/sl05/TeamFulda2019_1" target="_blank">
-                        <img id="logo" src="logo-studyhome.png" alt="logo"/>
-                    </a>
-<!--                </div>-->
-<!--                <div flex="">-->
-                    <md-nav-item md-nav-click="goto('/home')" name="{{routes.page0}}">
+        <md-nav-bar id="nav-refresh"
+                    md-no-ink-bar="disableInkBar"
+                    md-selected-nav-item="currentNavItem"
+                    nav-bar-aria-label="navigation links">
+            <a id="gitLink" href="https://github.com/sl05/TeamFulda2019_1" target="_blank">
+                <img id="logo" src="logo-studyhome.png" alt="logo"/>
+            </a>
+            <!--<md-nav-item md-nav-click="goto('/home')" name="{{routes.page0}}">
                         {{routes.page0}}
                     </md-nav-item>
-<!--                </div>-->
-<!--                <div flex="">-->
                     <md-nav-item md-nav-click="goto('/login')" name="{{routes.page1}}" ng-disabled="secondTabDisabled">
                         {{routes.page1}}
                     </md-nav-item>
-<!--                </div>-->
-<!--                <div flex="">-->
                     <md-nav-item md-nav-click="goto('/register')" name="{{routes.page2}}">
                         {{routes.page2}}
                     </md-nav-item>
-<!--                </div>-->
-<!--                <div flex="">-->
                     <md-nav-item md-nav-click="goto('/estates')" name="{{routes.page3}}">
                         {{routes.page3}}
                     </md-nav-item>
-<!--                </div>-->
-<!--                <div flex="">-->
                     <md-nav-item md-nav-click="goto('/profile')" name="{{routes.page4}}">
                         {{routes.page4}}
                     </md-nav-item>
-<!--                </div>-->
-<!--                <div flex="">-->
                     <md-nav-item md-nav-click="goto('/messages')" name="{{routes.page5}}">
                         {{routes.page5}}
                     </md-nav-item>
-<!--                </div>-->
-<!--                <div flex="">-->
                     <md-nav-item md-nav-click="goto('/advertise')" name="{{routes.page6}}">
                         {{routes.page6}}
-                    </md-nav-item>
-<!--                </div>-->
-            </md-nav-bar>
+                    </md-nav-item>-->
+            <md-nav-item class ="nav-item" md-nav-click="goto('/home')" name="{{routes.page0}}">
+                {{routes.page0}}
+            </md-nav-item>
+            <md-nav-item class ="nav-item" md-nav-click="goto('/renting')" name="{{routes.page1}}">
+                {{routes.page1}}
+            </md-nav-item>
+            <md-nav-item class ="nav-item" md-nav-click="goto('/messages')" name="{{routes.page2}}">
+                {{routes.page2}}
+            </md-nav-item>
+            <md-nav-item class ="nav-item" md-nav-click="goto('/login')" name="{{routes.page3}}">
+                {{routes.page3}}
+            </md-nav-item>
+        </md-nav-bar>
 
-<!--        <span>{{status}}</span>-->
+        <!--        <span>{{status}}</span>-->
         <!--<div class="ext-content" id="show-ext-cnt">
             External content for `<span>{{currentNavItem}}</span>`.
             <md-button id="hide" onclick="hideExternalNavContent();">Hide</md-button>
         </div>-->
 
-<!--        <md-checkbox ng-model="disableInkBar">Disable Ink Bar</md-checkbox>-->
+        <!--        <md-checkbox ng-model="disableInkBar">Disable Ink Bar</md-checkbox>-->
 
-<!--        <md-checkbox ng-model="secondTabDisabled" aria-label="Disable Second Tab" style="margin: 5px;">-->
-<!--            Disable Second Tab-->
-<!--        </md-checkbox>-->
+        <!--        <md-checkbox ng-model="secondTabDisabled" aria-label="Disable Second Tab" style="margin: 5px;">-->
+        <!--            Disable Second Tab-->
+        <!--        </md-checkbox>-->
     </md-content>
 </div>
+
