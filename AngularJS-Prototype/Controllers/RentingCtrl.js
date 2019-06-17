@@ -35,11 +35,7 @@ studyHomeApp.controller('RentingCtrl', ['$scope', '$http', function($scope, $htt
 
             $http.post('https://hsftp.uber.space/sfsuroombook/wohnung', fd,
                 {
-                    transformRequest: angular.identity,
-                    headers:
-                        {
-                            'Content-Type': 'undefined'
-                        }
+                    transformRequest: angular.identity
                 })
                 .then((serviceResponse) =>
                     {
