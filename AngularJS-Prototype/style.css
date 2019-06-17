@@ -44,6 +44,7 @@ main#main-ext-nav-cnt-show{
     position: relative;
     top: 60px;
     z-index: 0;
+    height:100%;
 }
 
 main#main-ext-nav-cnt-hidden {
