@@ -1,4 +1,16 @@
-studyHomeApp.controller('DetailsCtrl', ['$scope', function($scope){
+studyHomeApp.controller('DetailsCtrl', ['$scope', '$http', function($scope, $http){
+
+    $http({
+        method : "GET",
+        url : "https://hsftp.uber.space/sfsuroombook/restapi/handler.php?objAction=estatedefault&objKey=1"
+    }).then(function mySuccess(response) {
+        $scope.test = response.data;
+        alert("success" + response.statusText);
+    }, function myError(response) {
+        $scope.testErr = response.statusText;
+        alert("error" + response.statusText);
+    });
+
     $scope.rightContent = [{
             title: "Rent",
             description: "300€"
