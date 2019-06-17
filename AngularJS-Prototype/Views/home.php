@@ -267,7 +267,7 @@
             while ($row=$mrs->fetch_object()) {
 
                 echo '<tr><td title="'.$row->imgalt.'">'. (strlen($row->imgpath) > 0 ? '<img src="images/thumb/'.AppartImage::formThumbFileName($row->imgpath).'" alt="'.$row->imgalt.'">' : 'First Image').'</td>';
-                echo '<td><a href="?'.$appartDetailKey.'='.$row->wohn_id.'">'.$row->name.'</a><br>'.$row->plz.' '.$row->ort.', '.$row->str.'';
+                echo '<td><a href="#!/details?'.$appartDetailKey.'='.$row->wohn_id.'">'.$row->name.'</a><br>'.$row->plz.' '.$row->ort.', '.$row->str.'';
                 echo '<td>'.$row->preis.'</td><td>'.$row->entf_meter.'</td><td>'.$row->entf_min.'</td><td>&#9733;'.$row->score.' ('.$row->cnt.')</td>'."</td></tr>\n";
 
             }
