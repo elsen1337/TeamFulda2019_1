@@ -252,7 +252,12 @@
                 echo '</fieldset>'."\n";
 
             }
-            echo'<iframe name="hiddenFrame" class="hide"></iframe>';
+            echo '<script>    function getID(id)
+                    {
+                        WOHNID = id;
+                    }
+                  </script>';
+            echo '<iframe name="hiddenFrame" class="hide"></iframe>';
             echo '<fieldset><legend>Filter...</legend>
 <input type="submit" value="Show Me ResultSet" target="hiddenFrame">
 </fieldset></form></div>';
