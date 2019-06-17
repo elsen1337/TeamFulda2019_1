@@ -63,6 +63,8 @@
             form#startform {width:475px; margin: 0 auto}
             form#startform input[type='search'] {width:415px}
 
+            .hide { position:absolute; top: -1px; left: -1px; width: 1px; height: 1px; }
+
             div#search {width:960px; margin: 0 auto}
             div#search table {width:100%}
             div#search table a {font-size: 1.35em}
@@ -77,8 +79,6 @@
 
 
     <div id="header">
-
-        <img src="client/image/logo-studyhome.png">
 
         <div style="clear: both; margin-left:300px">
             <h1>StudyHome - Find your Appartment for a Semester abroad in Fulda</h1>
@@ -252,9 +252,9 @@
                 echo '</fieldset>'."\n";
 
             }
-
+            echo'<iframe name="hiddenFrame" class="hide"></iframe>';
             echo '<fieldset><legend>Filter...</legend>
-<input type="submit" value="Show Me ResultSet">
+<input type="submit" value="Show Me ResultSet" target="hiddenFrame">
 </fieldset></form></div>';
 
             require('../../kernel/class-appartimg.php');
@@ -267,7 +267,7 @@
             while ($row=$mrs->fetch_object()) {
 
                 echo '<tr><td title="'.$row->imgalt.'">'. (strlen($row->imgpath) > 0 ? '<img src="images/thumb/'.AppartImage::formThumbFileName($row->imgpath).'" alt="'.$row->imgalt.'">' : 'First Image').'</td>';
-                echo '<td><a href="#!/details?'.$appartDetailKey.'='.$row->wohn_id.'">'.$row->name.'</a><br>'.$row->plz.' '.$row->ort.', '.$row->str.'';
+                echo '<td><a onclick="getID('.$row->wohn_id.')" href="#!/details?'.$appartDetailKey.'='.$row->wohn_id.'">'.$row->name.'</a><br>'.$row->plz.' '.$row->ort.', '.$row->str.'';
                 echo '<td>'.$row->preis.'</td><td>'.$row->entf_meter.'</td><td>'.$row->entf_min.'</td><td>&#9733;'.$row->score.' ('.$row->cnt.')</td>'."</td></tr>\n";
 
             }
