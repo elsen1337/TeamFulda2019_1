@@ -1,0 +1,41 @@
+<div id="details" data-ng-controller="DetailsCtrl">
+    <div layout="row" layout-sm="column">
+        <div flex="" data-ng-controller="SliderCtrl" class="details-divs details-top details-top-left">
+            <h1 id="slide-show-title">Slider Using AngularJS</h1>
+            <slider images="images"/>
+        </div>
+        <div flex="" class="details-divs details-top details-top-right">
+            <md-button class="sh-btn">Contact Lessor</md-button>
+            <md-list>
+                <md-list-item class="md-2-line" ng-repeat="item in rightContent">
+<!--                    <md-checkbox ng-model="item.done"></md-checkbox>-->
+                    <div class="md-list-item-text">
+                        <h3>{{item.title}}</h3>
+                        <p>{{item.description}}</p>
+                    </div>
+                </md-list-item>
+            </md-list>
+            <md-button class="sh-btn">Add To Favourites</md-button>
+        </div>
+    </div>
+    <div layout="row" layout-sm="column">
+        <div flex="" class="details-divs details-bottom">
+            I'm above on mobile, and to the left on larger devices.
+        </div>
+        <div flex="" class="details-divs details-bottom">
+            I'm below on mobile, and to the right on larger devices.
+        </div>
+        <div flex="" class="details-divs details-bottom">
+            I'm below on mobile, and to the right on larger devices.
+        </div>
+        <div flex="" class="details-divs details-bottom">
+            I'm below on mobile, and to the right on larger devices.
+        </div>
+    </div>
+    <div id="bottom-text">
+        <p id="estate-text">
+            {{bottomText}}
+        </p>
+    </div>
+</div>
+

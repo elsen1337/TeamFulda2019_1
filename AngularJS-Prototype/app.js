@@ -17,30 +17,13 @@ var ROUTES = {
     page1: "renting",
     page2: "messages",
     page3: "login",
-    page4: "register"
+    page4: "register",
+    // none nav item routes
+    page5: "details"
 };
 
-function getCurrentNavItem(path) {
-    switch(path) {
-        case '/' + ROUTES.page0:
-            return ROUTES.page0;
-        case '/' + ROUTES.page1:
-            return ROUTES.page1;
-        case '/' + ROUTES.page2:
-            return ROUTES.page2;
-        case '/' + ROUTES.page3:
-            return ROUTES.page3;
-        case '/' + ROUTES.page4:
-            return ROUTES.page4;
-        /*case '/' + ROUTES.page5:
-            return ROUTES.page5;
-        case '/' + ROUTES.page6:
-            return ROUTES.page6;*/
-    }
-}
-
 // App Module
-var studyHomeApp = angular.module('studyHomeApp', ['ngRoute', 'ngMaterial'])
+var studyHomeApp = angular.module('studyHomeApp', ['ngRoute', 'ngMaterial', 'ngAnimate'])
     .run(function(){
         console.log('Study Home is ready!');
     });
@@ -105,6 +88,10 @@ studyHomeApp.config(['$routeProvider', '$mdThemingProvider', function($routeProv
             templateUrl: 'Views/' + ROUTES.page4 + '.html',
             controller: 'RegisterCtrl'
         })
+        .when('/' + ROUTES.page5, {
+            templateUrl: 'Views/' + ROUTES.page5 + '.html',
+            controller: 'DetailsCtrl'
+        })
         .otherwise({
             redirectTo: '/' + ROUTES.page0
         });
@@ -113,7 +100,30 @@ studyHomeApp.config(['$routeProvider', '$mdThemingProvider', function($routeProv
 // Navigation Controller
 studyHomeApp.controller('NavCtrl', ['$scope', '$location', function($scope, $location){
     $scope.routes = ROUTES;
-    $scope.currentNavItem = getCurrentNavItem($location.$$path);
+    $scope.lastNavItem = ROUTES.page0;
+
+    $scope.getCurrentNavItem = function(path) {
+        switch(path) {
+            case '/' + ROUTES.page0:
+                return ROUTES.page0;
+            case '/' + ROUTES.page1:
+                return ROUTES.page1;
+            case '/' + ROUTES.page2:
+                return ROUTES.page2;
+            case '/' + ROUTES.page3:
+                return ROUTES.page3;
+            case '/' + ROUTES.page4:
+                return ROUTES.page4;
+            /*case '/' + ROUTES.page5:
+                return ROUTES.page5;
+            /*case '/' + ROUTES.page6:
+                return ROUTES.page6;*/
+            default:
+                return $scope.lastNavItem;
+        }
+    }
+
+    $scope.currentNavItem = $scope.getCurrentNavItem($location.$$path);
 
     //console.log($location.$$path);
     $scope.printStatus = function(page) {
@@ -124,7 +134,8 @@ studyHomeApp.controller('NavCtrl', ['$scope', '$location', function($scope, $loc
         showExternalNavContent();
     };
     $scope.$on('$routeChangeSuccess', function(){
-        $scope.currentNavItem = getCurrentNavItem($location.$$path);
+        $scope.currentNavItem = $scope.getCurrentNavItem($location.$$path);
+        $scope.lastNavItem = $scope.currentNavItem;
         updateNavBar($scope.currentNavItem);
     });
 
