@@ -6,6 +6,9 @@ class Estate {
 
     private static $dbvar='msdb';
     
+    
+    public static $formFields=array('wohn_id'=>'selection','rdr'=>'number','alt'=>'text');
+
 
     public static function getDefaultProperties ($wid) {
     

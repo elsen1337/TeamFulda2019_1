@@ -23,9 +23,10 @@ header('Content-Type: text/html; charset=UTF-8');
 $type=array('wohn_id'=>'selection','rdr'=>'number','alt'=>'text');
 $ptbl='w_image';
 $pkey='bild_id';
+$nkey='new';
 
 
-FormFV::updateDB($_POST,$type,'new',$ptbl,$pkey);
+//FormFV::updateDB($_POST,$type,'new',$ptbl,$pkey);
 
 require('../kernel/class-appartimg.php');
 
@@ -34,6 +35,35 @@ $dirThumb=AppartImage::$dirThumb;
 $dirOrg=AppartImage::$dirOrg;
 
 
+
+function reduceIndexedFields2Array(&$src,$fields,$keys,$reqkeys=array()) {
+
+	$retarr=array();
+	foreach ($fields as $field) {
+		
+		if (array_key_exists($field,$src) && is_array($src[$field])) {
+			
+			$ref=&$src[$field];
+			$sng=is_array($keys)===false;
+			if ($sng) {$keys=array($keys);}
+			foreach ($keys as $key) {
+				if (array_key_exists($key,$ref)) {
+					$retarr[$key][$field]=$ref[$key];
+				}
+			}
+			
+		}
+		
+		
+	}
+	
+	foreach ($retarr as &$obj) {
+		
+	}
+	
+	return $retarr;
+	
+}
 
 
 $iDelKey='imgDel';
@@ -72,7 +102,13 @@ if (array_key_exists($uKey,$_FILES)) {
 	
 	#print_r($_FILES);
 	
+	$redArr=reduceIndexedFields2Array($_POST,array_keys($type),$nkey);
+	#print_r($redArr);
+	
 	$bildUpload=&$_FILES[$uKey];
+	AppartImage::uploadImage($bildUpload,$redArr[$nkey]);
+	
+	/*
 	foreach ($bildUpload['error'] as $bid => $val) {
 		
 		if ($val > 0) {continue;}
@@ -99,6 +135,8 @@ if (array_key_exists($uKey,$_FILES)) {
 		$msdb->query('UPDATE w_image SET bild = "'.$newFileName.'" WHERE bild_id='.$bsqlid);
 		
 	}
+	 
+	*/
 	
 }
 
