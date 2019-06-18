@@ -65,12 +65,29 @@ require('../core-mysqla.php');
 if (parseCommand($action,'estate')) {
 
 
-    require('../kernel/class-estate.php');
+    require('../kernel/class-search.php');
     
 
     if (parseCommand($action,'search')) {
     
-    
+        if ($_SERVER['REQUEST_METHOD']=='GET') {
+        
+            SearchForm::generateForm();
+        
+        } elseif ($_SERVER['REQUEST_METHOD']=='PUT') {
+ 
+            // Create
+      
+        } elseif ($_SERVER['REQUEST_METHOD']=='POST') {
+        
+            SearchForm::updateSeachSession();
+
+
+        } elseif ($_SERVER['REQUEST_METHOD']=='DELETE') {
+        
+            // Delete
+
+        }  
         
     
     } elseif (parseCommand($action,'default')) {
@@ -187,6 +204,33 @@ if (parseCommand($action,'estate')) {
 
 
     } elseif (parseCommand($action,'account')) {
+    
+        if ($_SERVER['REQUEST_METHOD']=='GET') {
+        
+            // 2Do
+        
+            
+        
+        } elseif ($_SERVER['REQUEST_METHOD']=='PUT') {
+        
+            $postParam=getPostParameter();
+            $newObjID=Lessor::register($postParam);
+            echo '{"newLessorID":'.$newObjID.'}';
+
+ 
+      
+        } elseif ($_SERVER['REQUEST_METHOD']=='POST') {
+        
+            $postParam=getPostParameter();
+            // 2Do
+        
+
+
+        } elseif ($_SERVER['REQUEST_METHOD']=='DELETE') {
+             $_SESSION['LAUTH']=array();
+             // 2Do
+
+        }
 
     }
     
