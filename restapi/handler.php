@@ -37,6 +37,8 @@ function getPostParameter() {
         return getJSONFromRequestBody();
     } elseif (stripos($_SERVER["CONTENT_TYPE"],'multipart/form-data')!==false) {
         return $_POST;
+    
+    // application/x-www-form-urlencoded
     } else {
         return $_POST;
     }
@@ -97,6 +99,14 @@ if (parseCommand($action,'estate')) {
             echo json_encode(Estate::getDefaultProperties($objkey));
         
         } elseif ($_SERVER['REQUEST_METHOD']=='PUT') {
+        
+        
+            $postParam=getPostParameter();
+            $newObjID=Estate::createEstate($postParam);
+            
+            header('Content-type: application/json');
+            echo '{"newEstateID":'.$newObjID.'}';
+
  
             // Create
       
@@ -141,6 +151,8 @@ if (parseCommand($action,'estate')) {
             // Create
             $postParam=getPostParameter();
             $newImgID=AppartImage::addImage( array_intersect_key($postParam,AppartImage::$formFields) );
+
+            header('Content-type: application/json');
             echo '{"newImgID":'.$newImgID.'}';
       
         } elseif ($_SERVER['REQUEST_METHOD']=='POST') {
@@ -182,6 +194,8 @@ if (parseCommand($action,'estate')) {
         
             $aKey='LAUTH';
             if (array_key_exists($aKey,$_SESSION)) {$_SESSION[$aKey]=array();}
+
+            header('Content-type: application/json');
             echo json_encode($_SESSION[$aKey]);
         
         
@@ -194,6 +208,8 @@ if (parseCommand($action,'estate')) {
         
             $usr=Lessor::login($postParam['user'],$postParam['auth']);
             $_SESSION['LAUTH']['id']=$usr->vm_id; // Wahlweise auch mehrer Daten in Session kopieren; z.B Nutzernamenanzeige: Hallo <Name>....
+
+            header('Content-type: application/json');
             echo json_encode($usr);
             
 
@@ -215,6 +231,8 @@ if (parseCommand($action,'estate')) {
         
             $postParam=getPostParameter();
             $newObjID=Lessor::register($postParam);
+
+            header('Content-type: application/json');
             echo '{"newLessorID":'.$newObjID.'}';
 
  

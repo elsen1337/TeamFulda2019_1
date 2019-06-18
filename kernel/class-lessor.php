@@ -32,7 +32,7 @@ class Lessor {
     
     public static function register($prp) {
     
-        $prp=array_intersect_key($prp,self::$formFields+array(self::$formFieldPasswort)); // Escape
+        $prp=array_intersect_key($prp,self::$formFields+array(self::$formFieldPasswort=>'password')); // Escape
         if (array_key_exists(self::$formFieldPasswort,$prp)) {$prp[self::$formFieldPasswort]=self::cryptPasswort($prp[self::$formFieldPasswort]);}
         $sql='INSERT INTO vermieter ('.implode(',',array_keys($prp)).') VALUES ("'.implode('","',($prp)).'")';
         $mrs=$GLOBALS[self::$dbvar]->query($sql);

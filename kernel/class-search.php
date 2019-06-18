@@ -27,7 +27,7 @@ class SearchForm {
 		
 		foreach (self::$searchParameters as $sqlKey => $formKey) {
 			
-			echo '<fieldset><legend>'.$searchLabels[$sqlKey].'</legend>'."\n";
+			echo '<fieldset><legend>'.self::$searchLabels[$sqlKey].'</legend>'."\n";
 			
 			
 			if ($sqlKey != 'val') {

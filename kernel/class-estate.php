@@ -8,6 +8,8 @@ class Estate {
     
     
     public static $formFields=array('wohn_id'=>'selection','rdr'=>'number','alt'=>'text');
+    public static $formFieldsDefault=array('visible'=>'selection','name'=>'text','beschr'=>'area','vm_id'=>'selection','str'=>'text','plz'=>'number','ort'=>'text','preis'=>'number=step>0.01','entf_meter'=>'number','entf_min'=>'number');
+
 
 
     public static function getDefaultProperties ($wid) {
@@ -56,6 +58,20 @@ class Estate {
 
     }
 
+    
+        
+    public static function createEstate ($prp) {
+    
+        $prp=array_intersect_key($prp,self::$formFieldsDefault); // Escape
+        $prp['visible']='1'; // Debug
+        
+        $sql='INSERT INTO wohnung ('.implode(',',array_keys($prp)).') VALUES ("'.implode('","',($prp)).'")';
+        $mrs=$GLOBALS[self::$dbvar]->query($sql);
+        
+        return $GLOBALS[self::$dbvar]->insert_id;
+
+    }
+    
 }
 
 ?>
