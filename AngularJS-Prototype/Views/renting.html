@@ -1,4 +1,26 @@
-<h1>Advertise Test</h1>
+<style>
+    #renting-title {
+        text-align: center;
+    }
+
+    #md-text-area {
+        display: block;
+    }
+
+    @media only screen and (max-width: 600px) {
+        #first_line md-input-container
+        {
+            display: block;
+        }
+
+        #first_line md-input-container
+        {
+            display: block;
+        }
+    }
+</style>
+
+<h1 id="renting-title">Renting</h1>
 <form name="wohnungsform" ng-app="studyHomeApp" ng-controller="RentingCtrl">
 
     <md-input-container>
@@ -16,63 +38,65 @@
         </div>
     </md-input-container>
 
-    <md-input-container>
-        <label>Name</label>
-        <input type="text" ng-model="preis" required="">
-        <div ng-messages="wohnungsform.name.$error">
+    <div id="first_line">
+        <md-input-container>
+            <label>Name</label>
+            <input type="text" ng-model="preis" required="">
+            <div ng-messages="wohnungsform.name.$error">
+                <div ng-message="required">This is required!</div>
+            </div>
+        </md-input-container>
+
+        <md-input-container>
+            <label>Rental Fee</label>
+            <input type="text" ng-model="name" required="">
+            <div ng-messages="wohnungsform.preis.$error">
+                <div ng-message="required">This is required!</div>
+            </div>
+        </md-input-container>
+
+        <md-input-container>
+            <label>Postcode</label>
+            <input type="text" ng-model="plz" required="">
+            <div ng-messages="wohnungsform.plz.$error">
+                <div ng-message="required">This is required!</div>
+            </div>
+        </md-input-container>
+
+        <md-input-container>
+            <label>City</label>
+            <input type="text" ng-model="ort" required="">
+            <div ng-messages="wohnungsform.ort.$error">
+                <div ng-message="required">This is required!</div>
+            </div>
+        </md-input-container>
+
+        <md-input-container>
+            <label>Street a. No.</label>
+            <input type="text" ng-model="str" required="">
+            <div ng-messages="wohnungsform.str.$error">
+                <div ng-message="required">This is required!</div>
+            </div>
+        </md-input-container>
+
+        <md-input-container>
+            <label>Distance Meter</label>
+            <input type="text" ng-model="entf_meter" required="">
+            <div ng-messages="wohnungsform.entf_meter.$error">
             <div ng-message="required">This is required!</div>
-        </div>
-    </md-input-container>
+            </div>
+        </md-input-container>
 
-    <md-input-container>
-        <label>Rental Fee</label>
-        <input type="text" ng-model="name" required="">
-        <div ng-messages="wohnungsform.preis.$error">
+        <md-input-container>
+            <label>Distance Minutes</label>
+            <input type="text" ng-model="entf_min" required="">
+            <div ng-messages="wohnungsform.entf_min.$error">
             <div ng-message="required">This is required!</div>
-        </div>
-    </md-input-container>
+            </div>
+        </md-input-container>
+    </div>
 
-    <md-input-container>
-        <label>Postcode</label>
-        <input type="text" ng-model="plz" required="">
-        <div ng-messages="wohnungsform.plz.$error">
-            <div ng-message="required">This is required!</div>
-        </div>
-    </md-input-container>
-
-    <md-input-container>
-        <label>City</label>
-        <input type="text" ng-model="ort" required="">
-        <div ng-messages="wohnungsform.ort.$error">
-            <div ng-message="required">This is required!</div>
-        </div>
-    </md-input-container>
-
-    <md-input-container>
-        <label>Street a. No.</label>
-        <input type="text" ng-model="str" required="">
-        <div ng-messages="wohnungsform.str.$error">
-            <div ng-message="required">This is required!</div>
-        </div>
-    </md-input-container>
-
-    <md-input-container>
-        <label>Distance Meter</label>
-        <input type="text" ng-model="entf_meter" required="">
-        <div ng-messages="wohnungsform.entf_meter.$error">
-        <div ng-message="required">This is required!</div>
-        </div>
-    </md-input-container>
-
-    <md-input-container>
-        <label>Distance Minutes</label>
-        <input type="text" ng-model="entf_min" required="">
-        <div ng-messages="wohnungsform.entf_min.$error">
-        <div ng-message="required">This is required!</div>
-        </div>
-    </md-input-container>
-
-    <md-input-container>
+    <md-input-container id="md-text-area">
         <label>Description</label>
         <textarea ng-model="beschr"></textarea>
         </div>

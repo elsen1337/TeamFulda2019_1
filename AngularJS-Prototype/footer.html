@@ -1,3 +1,39 @@
+<style>
+
+    .bottom-nav
+    {
+        position: absolute;
+        width: 100%;
+        left: 0;
+        bottom: 0;
+        overflow: hidden;
+        background-color: #dbf1f8;
+        text-align: center;
+
+    }
+
+    .bottom-nav a
+    {
+        display: block;
+        color: #43717f;
+        text-decoration: none;
+    }
+
+
+    #footer
+    {
+        background-color:#b6dbe6;
+    }
+
+    @media only screen and (max-width: 660px) {
+        .bottom-nav a {
+            display: block;
+            padding-left: 20px;
+            width: 100%;
+        }
+    }
+</style>
+
 <footer>
     <div class="bottom-nav" data-ng-controller="NavCtrl">
         <div class="menu-bottom">		
