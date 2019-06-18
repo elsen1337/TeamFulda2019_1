@@ -1,4 +1,10 @@
 <!--<div id="navbar" data-ng-controller="NavCtrl" ng-cloak layout="column">-->
+<style>
+    @media only screen and (max-width: 660px) {
+        .nav-item-hd {
+        }
+    }
+</style>
 <div id="navbar" data-ng-controller="NavCtrl" ng-cloak>
     <md-content class="md-padding" id="md-content-ins-b4">
         <md-nav-bar id="nav-refresh"
@@ -29,18 +35,26 @@
                     <md-nav-item md-nav-click="goto('/advertise')" name="{{routes.page6}}">
                         {{routes.page6}}
                     </md-nav-item>-->
-            <md-nav-item class ="nav-item" md-nav-click="goto('/home')" name="{{routes.page0}}">
+            <div>
+            <md-nav-item class ="nav-item-hd" md-nav-click="goto('/home')" name="{{routes.page0}}">
                 {{routes.page0}}
             </md-nav-item>
-            <md-nav-item class ="nav-item" md-nav-click="goto('/renting')" name="{{routes.page1}}">
+            </div>
+<div>
+            <md-nav-item class ="nav-item-hd" md-nav-click="goto('/renting')" name="{{routes.page1}}">
                 {{routes.page1}}
             </md-nav-item>
-            <md-nav-item class ="nav-item" md-nav-click="goto('/messages')" name="{{routes.page2}}">
+</div>
+<div>
+            <md-nav-item class ="nav-item-hd" md-nav-click="goto('/messages')" name="{{routes.page2}}">
                 {{routes.page2}}
             </md-nav-item>
-            <md-nav-item class ="nav-item" md-nav-click="goto('/login')" name="{{routes.page3}}">
+</div>
+<div>
+            <md-nav-item class ="nav-item-hd" md-nav-click="goto('/login')" name="{{routes.page3}}">
                 {{routes.page3}}
             </md-nav-item>
+</div>
         </md-nav-bar>
 
         <!--        <span>{{status}}</span>-->

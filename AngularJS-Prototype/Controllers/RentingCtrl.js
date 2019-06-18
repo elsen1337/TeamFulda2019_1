@@ -1,5 +1,14 @@
 studyHomeApp.controller('RentingCtrl', ['$scope', '$http', function($scope, $http){
-
+    $scope.beschr = 'Schöne kleine 2-Zimmer-Wohnung. Ca. 30 Quadratmeter mit Badezimmer. ' +
+        '            Kaltmiete 200 € + Nebenkosten = 360 € Warmmiete.' +
+        '            Zur Besichtigung kontaktieren Sie mich bitte über Study Home.';
+    $scope.entf_meter = 1000;
+    $scope.entf_min = 25;
+    $scope.name = 'Horst Schlämmer';
+    $scope.ort = 'Fulda';
+    $scope.plz = 36039;
+    $scope.preis = 360;
+    $scope.str = 'Gerloserweg 5';
     $scope.submit = () =>
     {
         if($scope.entf_meter !== undefined

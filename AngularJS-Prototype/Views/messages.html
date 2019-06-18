@@ -1,5 +1,33 @@
+<style>
+
+
+    @media only screen and (max-width: 660px) {
+        .message-form {
+            display: block;
+        }
+
+        h1 {
+            margin-top: 50px;
+        }
+
+        .contacts {
+            display: block;
+            border-right-style: none;
+            width: 100%;
+        }
+    }
+
+    h1
+    {
+        text-align: center;
+        padding-bottom: 30px;
+    }
+</style>
+
 <div id="messages" data-ng-controller="MessagesCtrl">
-    <border class="message-border">
+ <!--   <border class="message-border"> -->
+    <h1>Messages</h1>
+    <div></div>
         <form class="message-form">
             <div class="contacts">
                 <p>
@@ -20,5 +48,5 @@
                 </md-button>
             </div>
         </form>
-    </border>
+<!--    </border> -->
 </div>
