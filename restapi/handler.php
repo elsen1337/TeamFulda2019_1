@@ -67,10 +67,13 @@ require('../core-mysqla.php');
 if (parseCommand($action,'estate')) {
 
 
-    require('../kernel/class-search.php');
+    require('../kernel/class-estate.php');
     
 
     if (parseCommand($action,'search')) {
+    
+        require('../kernel/class-search.php');
+
     
         if ($_SERVER['REQUEST_METHOD']=='GET') {
         
