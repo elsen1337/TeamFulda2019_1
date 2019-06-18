@@ -72,6 +72,7 @@
             fieldset {display:inline-block; width:230px}
             fieldset input[type='number'] {width:80px !important}
         </style>
+
     </head>
 
     <body class="">
@@ -79,7 +80,12 @@
 
 
     <div id="header">
-
+        <script>
+            function getID(id)
+            {
+                WOHNID = id;
+            }
+        </script>
         <div style="clear: both; margin-left:300px">
             <h1>StudyHome - Find your Appartment for a Semester abroad in Fulda</h1>
             <h3>Fulda Software Engineering Project, Spring 2019. For Demonstration Only</h3>
@@ -252,11 +258,7 @@
                 echo '</fieldset>'."\n";
 
             }
-            echo '<script>    function getID(id)
-                    {
-                        WOHNID = id;
-                    }
-                  </script>';
+
             echo '<iframe name="hiddenFrame" class="hide"></iframe>';
             echo '<fieldset><legend>Filter...</legend>
 <input type="submit" value="Show Me ResultSet" target="hiddenFrame">
