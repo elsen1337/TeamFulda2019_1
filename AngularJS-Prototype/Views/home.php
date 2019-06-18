@@ -298,24 +298,6 @@
 
 
     }
-
-
-
-    echo '<div id="footer"><a href="about">Profiles (Index)</a> ';
-
-    $ourNames = ['manuel'=>"Manuel Schmitt", 'michael'=>"Michael Iglhaut", 'moritz'=>"Moritz Mrosek", 'ramon'=>"Ramon Wilhelm", 'simon'=>"Simon Leister"];
-
-    $aboutDir='about/';
-    foreach (glob($aboutDir . '*.profile.html') as $phpfile)
-    {
-        $fileParts=explode('.',basename($phpfile));
-        echo ' &middot; <a href="' . ($phpfile) . '">' . $ourNames[$fileParts[0]] . '</a>';
-
-    }
-
-    echo ' &middot; <a href="AngularJS-Prototype/index.html">AngularJS-Prototype</a>';
-
-
     ?>
 
 
