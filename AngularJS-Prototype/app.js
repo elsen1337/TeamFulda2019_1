@@ -69,7 +69,7 @@ studyHomeApp.config(['$routeProvider', '$mdThemingProvider', function($routeProv
             controller: 'AdvertiseCtrl'
         })*/
         .when('/' + ROUTES.page0 , {
-            templateUrl: 'Views/' + ROUTES.page0 + '.php',
+            templateUrl: 'Views/' + ROUTES.page0 + '.html',
             controller: 'StudyHomeCtrl'
         })
         .when('/' + ROUTES.page1, {

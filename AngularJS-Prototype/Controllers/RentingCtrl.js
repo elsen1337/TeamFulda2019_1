@@ -31,18 +31,18 @@ studyHomeApp.controller('RentingCtrl', ['$scope', '$http', function($scope, $htt
             fd.append('str', $scope.str);
 
 
-
+/*
             angular.forEach($scope.bilder, (val, key) =>
             {
                 fd.append('bild'+key, key);
             });
-
+*/
             console.log(fd);
 
             // Convert formdata object to JSON
             //let data = JSON.stringify(Object.fromEntries(fd));
 
-            $http.post('https://hsftp.uber.space/sfsuroombook/wohnung', fd,
+            $http.put('https://hsftp.uber.space/sfsuroombook/restapi/handler.php?objAction=estatedefault', fd,
                 {
                     transformRequest: angular.identity
                 })
