@@ -62,11 +62,15 @@ class Estate {
         
     public static function createEstate ($prp) {
     
+
         $prp=array_intersect_key($prp,self::$formFieldsDefault); // Escape
         $prp['visible']='1'; // Debug
         
+        #print_r($prp);
+        
         $sql='INSERT INTO wohnung ('.implode(',',array_keys($prp)).') VALUES ("'.implode('","',($prp)).'")';
         $mrs=$GLOBALS[self::$dbvar]->query($sql);
+        echo $GLOBALS[self::$dbvar]->error;
         
         return $GLOBALS[self::$dbvar]->insert_id;
 

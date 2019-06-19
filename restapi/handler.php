@@ -25,7 +25,7 @@ return file_get_contents('php://input');
 
 function getJSONFromRequestBody($str=null,$ascarr=true) {
 
-if (str === null) {$str=getRequestBody();} 
+if ($str === null) {$str=getRequestBody();} 
 return json_decode($str,$ascarr);
 
 }
@@ -106,6 +106,8 @@ if (parseCommand($action,'estate')) {
         
             $postParam=getPostParameter();
             $newObjID=Estate::createEstate($postParam);
+            
+            #print_r($postParam);
             
             header('Content-type: application/json');
             echo '{"newEstateID":'.$newObjID.'}';
