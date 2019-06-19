@@ -45,7 +45,7 @@
     <div id="first_line">
         <md-input-container>
             <label>Name</label>
-            <input type="text" ng-model="preis" required="">
+            <input type="number" ng-model="preis" required="">
             <div ng-messages="wohnungsform.name.$error">
                 <div ng-message="required">This is required!</div>
             </div>
@@ -53,7 +53,7 @@
 
         <md-input-container>
             <label>Rental Fee</label>
-            <input type="text" ng-model="name" required="">
+            <input type="number" ng-model="name" required="">
             <div ng-messages="wohnungsform.preis.$error">
                 <div ng-message="required">This is required!</div>
             </div>
@@ -61,7 +61,7 @@
 
         <md-input-container>
             <label>Postcode</label>
-            <input type="text" ng-model="plz" required="">
+            <input type="number" ng-model="plz" required="">
             <div ng-messages="wohnungsform.plz.$error">
                 <div ng-message="required">This is required!</div>
             </div>
@@ -85,7 +85,7 @@
 
         <md-input-container>
             <label>Distance Meter</label>
-            <input type="text" ng-model="entf_meter" required="">
+            <input type="number" ng-model="entf_meter" required="">
             <div ng-messages="wohnungsform.entf_meter.$error">
             <div ng-message="required">This is required!</div>
             </div>
