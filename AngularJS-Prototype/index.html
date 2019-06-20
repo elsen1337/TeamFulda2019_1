@@ -8,7 +8,6 @@
     <meta charset="UTF-8">
     <title>Study Home</title>
     <link href="angular-material.min.css" rel="stylesheet">
-    <link href="ownstyle-17.06.2019.css" rel="stylesheet">
     <link href="style.css" rel="stylesheet">
     <link rel="stylesheet" href="./Views/css/messages-style.css"/>
     <link rel="stylesheet" href="./Views/css/profile-style.css"/>
@@ -16,19 +15,19 @@
     <link rel="stylesheet" href="./Views/css/registrieren-style.css"/>
     <link rel="stylesheet" href="./Views/css/sidebar-style.css"/>
 
+    <style>
+        #main-ext-nav-cnt-show {
+            margin-top: 60px;
+        }
+    </style>
+
 </head>
 <body>
-    <div>
-        <div>
             <header id="header" data-ng-include="'header.html'"></header>
-        </div>
-        <div>
+
             <main id="main-ext-nav-cnt-show" data-ng-view></main>
-        </div>
-        <div>
+
             <footer id="footer" data-ng-include="'footer.html'"></footer>
-        </div>    
-    </div>
 
     <!-- Script Dependencies -->
     <script src="angular.min.js"></script>
@@ -46,5 +45,27 @@
     <script src="Controllers/RentingCtrl.js"></script>
     <script src="Controllers/DetailsCtrl.js"></script>
     <script src="Templates/SliderCtrl.js"></script>
+
+    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.6.9/angular.min.js">
+        angular
+            .module('customSidenavDemo', ['ngMaterial'])
+            .controller('AppCtrl', function ($scope, $mdSidenav) {
+                $scope.toggleLeft = buildToggler('left');
+
+                function buildToggler(componentId) {
+                    return function() {
+                        $mdSidenav(componentId).toggle();
+                    };
+                }
+            });
+
+        function updateHTML(elmId, value) {
+            var elem = document.getElementById(elmId);
+            if(typeof elem !== 'undefined' && elem !== null) {
+                elem.innerHTML = value;
+            }
+        }
+
+    </script>
 </body>
 </html>

@@ -1,14 +1,15 @@
 studyHomeApp.controller('RentingCtrl', ['$scope', '$http', function($scope, $http){
     $scope.beschr = 'Schöne kleine 2-Zimmer-Wohnung. Ca. 30 Quadratmeter mit Badezimmer. ' +
-        '            Kaltmiete 200 € + Nebenkosten = 360 € Warmmiete.' +
-        '            Zur Besichtigung kontaktieren Sie mich bitte über Study Home.';
+        'Kaltmiete 200 € + Nebenkosten = 360 € Warmmiete. ' +
+        'Zur Besichtigung kontaktieren Sie mich bitte über Study Home.';
     $scope.entf_meter = 1000;
     $scope.entf_min = 25;
-    $scope.name = 'Horst Schlämmer';
+    $scope.name = 'Wohnung in Fulda';
     $scope.ort = 'Fulda';
     $scope.plz = 36039;
     $scope.preis = 360;
     $scope.str = 'Gerloserweg 5';
+
     $scope.submit = () =>
     {
         if($scope.entf_meter !== undefined
@@ -21,39 +22,121 @@ studyHomeApp.controller('RentingCtrl', ['$scope', '$http', function($scope, $htt
         {
             let fd = new FormData();
 
-            fd.append('beschr', $scope.beschr);
-            fd.append('entf_meter', $scope.entf_meter);
-            fd.append('entf_min', $scope.entf_min);
-            fd.append('name', $scope.name);
-            fd.append('ort', $scope.ort);
-            fd.append('plz', $scope.plz);
-            fd.append('preis', $scope.preis);
-            fd.append('str', $scope.str);
-
+            fd.append("beschr", $scope.beschr);
+            fd.append("entf_meter", $scope.entf_meter);
+            fd.append("entf_min", $scope.entf_min);
+            fd.append("name", $scope.name);
+            fd.append("ort", $scope.ort);
+            fd.append("plz", $scope.plz);
+            fd.append("preis", $scope.preis);
+            fd.append("str", $scope.str);
+            fd.append("vm_id", 1);
+/*
+            var jsonData = `{ "beschr": ${$scope.beschr},' +
+            '"entf_meter": ${$scope.entf_meter},' +
+            '"entf_min": ${$scope.entf},' +
+            '"name": ${$scope.entf},' +
+            '"ort": ${$scope.name},' +
+            '"plz": ${$scope.ort},' +
+            '"preis": ${$scope.plz},' +
+            '"str": ${$scope.preis},' +
+            '"vm_id": ${$scope.str}}`
+*/
 
 /*
             angular.forEach($scope.bilder, (val, key) =>
             {
-                fd.append('bild'+key, key);
+                fd.append('bild' + '[' + key + ']', val);
             });
 */
-            console.log(fd);
+            console.log(fd.get('preis'));
 
             // Convert formdata object to JSON
-            //let data = JSON.stringify(Object.fromEntries(fd));
+            let fdjson = JSON.stringify(Object.fromEntries(fd));
 
-            $http.put('https://hsftp.uber.space/sfsuroombook/restapi/handler.php?objAction=estatedefault', fd,
+            $http.put('../restapi/handler.php?objAction=estatedefault', fdjson,
                 {
-                    transformRequest: angular.identity
+                    transformRequest: angular.identity,
+                    headers: {
+                        'Content-Type': 'application/json',
+                        'charset': 'utf-8'
+                    }
                 })
                 .then((serviceResponse) =>
                     {
-                        console.log(serviceResponse);
+
+                        angular.forEach($scope.bilder, (val, key) =>
+                        {
+
+
+                            let fdi = new FormData();
+                            fdi.append("wohn_id", serviceResponse.data.newEstateID);
+                            fdi.append("alt", "Bild von der Wohnung");
+                            fdi.append("rdr", 1);
+
+                            let fdijson = JSON.stringify(Object.fromEntries(fdi));
+
+
+
+                            $http.put('../restapi/handler.php?objAction=estateimages', fdijson,
+                                {
+                                    transformRequest: angular.identity,
+                                    headers: {
+                                        'Content-Type': 'application/json',
+                                        'charset': 'utf-8'
+                                    }
+                                })
+                                .then((serviceResponse) =>
+                                    {
+                                        let image = new FormData();
+                                        image.append('bild' + '[' + serviceResponse.data.newImgID + ']', val);
+
+
+
+                                        $http.post('../restapi/handler.php?objAction=estateimages', image,
+                                            {
+                                                transformRequest: angular.identity,
+                                                headers: {
+                                                    'Content-Type': undefined
+                                                }
+                                            })
+                                            .then((serviceResponse) =>
+                                                {
+                                                    console.log(serviceResponse);
+                                                },
+                                                (err) => {
+                                                    console.log(err);
+                                                });
+
+                                        console.log(serviceResponse);
+                                    },
+                                    (err) => {
+                                        console.log(err);
+                                    });
+
+
+                        });
+
+                        console.log(serviceResponse.data.newEstateID);
                     },
                     (err) => {
                         console.log(err);
+                        document.getElementById('renting_output').textContent = `There seems to have been an error. We'll try to fix that soon.`;
                     });
         };
+
+        let tempName = $scope.name;
+        document.getElementById('renting_output').textContent = `Your ad '${tempName}' has been succesfully added.`;
+
+        $scope.beschr = '';
+        $scope.entf_meter = '';
+        $scope.entf_min = '';
+        $scope.name = '';
+        $scope.ort = '';
+        $scope.plz = '';
+        $scope.preis = '';
+        $scope.str = '';
+        document.getElementById('fileinput').value = '';
         }
 
     }])

@@ -1,11 +1,11 @@
 #messages{
     width: 100%;
     height: 100%;
+    display: flex;
+    text-align: center;
 }
 
 .message-border{
-    display: flex;
-    align-items: center;
     width: 70%;
     height: 70%;
     margin-left : 15%;
@@ -18,6 +18,7 @@
     border-color: #b5b4b4;
     display: flex;
     align-items: end;
+    margin-top: 2%;
 }
 
 .contacts{

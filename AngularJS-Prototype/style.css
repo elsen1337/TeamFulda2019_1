@@ -31,12 +31,6 @@ span._md-nav-button-text.ng-scope {
 #gitLink {
 }
 
-#logo{
-    position: relative;
-    width: 150px;
-    bottom: 3px;
-}
-
 #hide{
 }
 
@@ -52,13 +46,22 @@ main#main-ext-nav-cnt-hidden {
     top: 100px;
 }
 
+/*
 header{
-    position: fixed;
-    top: 0px;
+    left: 0;
+    top: 0;
     width: 100%;
+    background-color: #dbf1f8;
+    text-align: center;
+    font-size: 10px;
+    overflow: hidden;
+    display: flex;
+    height: 50px;
+    align-items: center;
+    justify-content: center;
     z-index: 1;
-    padding-bottom: 100px;
-}
+    position: fixed;
+}*/
 
 footer{
     left: 0;
@@ -73,7 +76,7 @@ footer{
     align-items: center;
     justify-content: center;
     z-index: 1;
-    position: fixed;
+    position: absolute;
 }
 
 .menu-bottom a {
@@ -130,6 +133,7 @@ md-content {
 .slide img{
     width: 100%;
     height: auto;
+    box-shadow: 0px 0px 15px #999;
 }
 .arrows a img{
 }
@@ -148,7 +152,6 @@ md-content {
     position: absolute;
     top: 0;
     left: 0;
-    box-shadow: 0px 0px 15px #999;
 }
 .arrows {
     position: absolute;
@@ -161,7 +164,7 @@ md-content {
 #slide-show-title {
     /*text-align: center;*/
     padding: 10px;
-    font-size: 40px;
+    font-size: 16px;
     color: #222;
 }
 
@@ -182,17 +185,7 @@ md-content {
     margin-left: 3.2%;
 }
 
-@media(max-width: 959px){
-    .details-top-right{
-        margin-bottom: 7.5%;
-    }
-    .details-top-left{
-        margin-bottom: 65%;
-    }
-    .details-bottom{
-        margin-bottom: 10%;
-    }
-}
+
 
 .sh-btn{
     background-color: #67c6e4;
@@ -212,5 +205,52 @@ md-content {
     font-size:2vw;
 }
 #bottom-text{
+    margin-top: 2%;
     margin-bottom: 25%;
+    margin-left: 10%;
+    margin-right: 6%;
+}
+
+#bottom-attrs{
+    margin-left: 6%;
+    margin-right: 6%;
+}
+
+@media(max-width: 959px){
+    .details-top-right{
+        margin-bottom: 7.5%;
+        margin-left: 10%;
+    }
+    .details-top-left{
+        margin-bottom: 65%;
+        margin-right: 8%;
+    }
+    .details-bottom{
+        margin-bottom: 2%;
+        margin-left: 5%;
+    }
+    #bottom-text {
+        margin-left: 12%;
+        margin-bottom: 32%;
+    }
+}
+@media(max-width: 599px){
+    .details-top-right{
+        /*margin-right: 2%;*/
+        position: absolute;
+        margin-top: 70%;
+        margin-left:12%;
+    }
+    .details-top-left {
+        margin-right: 8%;
+        margin-bottom: 65%;
+    }
+    .details-bottom{
+        margin-left: 6%;
+        margin-top: 350px;
+    }
+    #bottom-text{
+        margin-left: 16%;
+        margin-bottom: 60%;
+    }
 }
