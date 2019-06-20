@@ -22,7 +22,7 @@
         color: #69b1c7!important;
     }
 
-    #nav-item-logo
+    .nav-item-logo
     {
         position: absolute;
         top: 3px;
@@ -45,6 +45,12 @@
         #hd-mobile
         {
             display: none;
+        }
+
+        .logo
+        {
+            left: 0;
+            right: 0;
         }
     }
 </style>
@@ -154,16 +160,16 @@
 
 <header class="hd-main">
     <div class="first-hd-div" ng-controller="NavCtrl" ng-cloak>
-        <div id="nav-item-logo">
+        <div class="nav-item-logo">
             <!--    <md-nav-item id="nav-item-logo" class ="nav-item-hd" md-nav-click="goto('/home')" >-->
             <a href="index.html" >
-                <img id="logo" src="logo-studyhome.png" alt="logo"/>
+                <img class="logo" src="logo-studyhome.png" alt="logo"/>
             </a>
             <!--</md-nav-item>-->
         </div>
         <md-content>
             <md-nav-bar class="bottom-nav-hd">
-                <div id="wrap" layout="row">
+                <div class="wrap" layout="row">
                     <div flex>
                         <md-nav-item class ="nav-item-hd" md-nav-click="goto('/renting')" name="{{routes.page1}}">
                             {{routes.page1}}
@@ -185,14 +191,46 @@
     </div>
 </header>
 
+<!--
 <header id="hd-mobile">
     <div layout="column" layout-align="top center">
         <md-button ng-click="toggleLeft()" id="md-resp-button" class="md-raised" hide-gt-md>
             &#9776;
         </md-button>
     </div>
+</header>-->
+
+
+<header id="hd-mobile">
+    <div class="first-hd-div" ng-controller="NavCtrl" ng-cloak>
+        <div class="nav-item-logo">
+            <!--    <md-nav-item id="nav-item-logo" class ="nav-item-hd" md-nav-click="goto('/home')" >-->
+            <a href="./index.html#!/renting" >
+                <img class="logo" src="logo-studyhome.png" alt="logo"/>
+            </a>
+            <!--</md-nav-item>-->
+        </div>
+        <md-content>
+            <md-nav-bar class="bottom-nav-hd">
+                <div class="wrap" layout="column">
+                    <div flex>
+                        <md-nav-item class ="nav-item-hd" md-nav-click="goto('/renting')" name="{{routes.page1}}">
+                            {{routes.page1}}
+                        </md-nav-item>
+                    </div>
+                    <div flex>
+                        <md-nav-item class ="nav-item-hd" md-nav-click="goto('/messages')" name="{{routes.page2}}">
+                            {{routes.page2}}
+                        </md-nav-item>
+                    </div>
+                    <div flex>
+                        <md-nav-item class ="nav-item-hd" md-nav-click="goto('/login')" name="{{routes.page3}}">
+                            {{routes.page3}}
+                        </md-nav-item>
+                    </div>
+                </div>
+            </md-nav-bar>
+        </md-content>
+    </div>
 </header>
-
-
-
 
