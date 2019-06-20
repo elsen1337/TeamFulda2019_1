@@ -66,7 +66,7 @@ class SearchForm {
         $fullTextSearch=null;
         
         $isSessionSearch=array_key_exists(self::$searchKeyGlobal,$_SESSION);
-        if ($isSessionSearch===false) {$_SESSION[self::$searchKeyGlobal]=array();echo HIAM;}        
+        if ($isSessionSearch===false) {$_SESSION[self::$searchKeyGlobal]=array();}        
 
         $sessionRef=&$_SESSION[self::$searchKeyGlobal];
 
