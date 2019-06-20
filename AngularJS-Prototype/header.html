@@ -24,23 +24,24 @@
 
     #nav-item-logo
     {
-        position: relative;
-        padding-right: 10px;
-        bottom: 35px;
-        right: 30px;
+        position: absolute;
+        top: 3px;
+        right: 90%;
+        left: 30px;
+        z-index: 1;
     }
     .nav-item-hd
     {
         padding: 10px;
     }
-    @media only screen and (max-width: 500px) {
+    @media only screen and (max-width: 700px) {
         .hd-main
         {
             display: none;
         }
     }
 
-    @media only screen and (min-width: 500px) {
+    @media only screen and (min-width: 700px) {
         #hd-mobile
         {
             display: none;
@@ -152,15 +153,17 @@
 
 
 <header class="hd-main">
-    <div ng-controller="NavCtrl" ng-cloak>
+    <div class="first-hd-div" ng-controller="NavCtrl" ng-cloak>
+        <div id="nav-item-logo">
+            <!--    <md-nav-item id="nav-item-logo" class ="nav-item-hd" md-nav-click="goto('/home')" >-->
+            <a href="index.html" >
+                <img id="logo" src="logo-studyhome.png" alt="logo"/>
+            </a>
+            <!--</md-nav-item>-->
+        </div>
         <md-content>
             <md-nav-bar class="bottom-nav-hd">
                 <div id="wrap" layout="row">
-                    <div flex>
-                        <md-nav-item id="nav-item-logo" class ="nav-item-hd" md-nav-click="goto('/home')" >
-                            <img id="logo" src="logo-studyhome.png" alt="logo"/>
-                        </md-nav-item>
-                    </div>
                     <div flex>
                         <md-nav-item class ="nav-item-hd" md-nav-click="goto('/renting')" name="{{routes.page1}}">
                             {{routes.page1}}
