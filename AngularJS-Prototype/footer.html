@@ -1,15 +1,13 @@
 <!--<style>
 
-    .bottom-nav
+    footer
     {
-        position: absolute;
+        position: fixed;
         width: 100%;
         left: 0;
         bottom: 0;
         overflow: hidden;
         background-color: #dbf1f8;
-        text-align: center;
-
     }
 
     .bottom-nav a
@@ -17,30 +15,45 @@
         display: block;
         color: #43717f;
         text-decoration: none;
+        z-index: 1;
     }
 
+    @media only screen and (max-width: 600px) {
+        footer
+        {
+            position: relative;
+            top: 150px;
+            padding-bottom: 225px;
 
-    #footer
-    {
-        background-color:#b6dbe6;
-    }
+        }
 
-    @media only screen and (max-width: 660px) {
-        .bottom-nav a {
-            display: block;
-            padding-left: 20px;
-            width: 100%;
+
+        .bottom-nav
+        {
+
         }
     }
 </style>-->
 
 <footer>
-    <div class="bottom-nav" data-ng-controller="NavCtrl">
-        <div class="menu-bottom">		
-            <a href="#">About Us</a>
-            <a href="#">Impressum</a>
-            <a href="#">AGB</a>
-            <a href="#">Contact and Help</a>
-        </div>
+    <div ng-controller="NavCtrl" ng-cloak>
+        <md-content>
+            <md-nav-bar class="bottom-nav">
+                <div id="wrap" layout-gt-xs="row" with="600">
+                    <div flex-gt-xs>
+                        <md-nav-item class ="nav-item-hd" md-nav-click="goto('/home')" >About us</md-nav-item>
+                    </div>
+                    <div flex-gt-xs>
+                        <md-nav-item class ="nav-item-hd" md-nav-click="goto('/login')" >Impressum</md-nav-item>
+                    </div>
+                    <div flex-gt-xs>
+                        <md-nav-item class ="nav-item-hd" md-nav-click="goto('/messages')" >AGB</md-nav-item>
+                    </div>
+                    <div flex-gt-xs>
+                        <md-nav-item class ="nav-item-hd" md-nav-click="goto('/profile')" >Contact and Help</md-nav-item>
+                    </div>
+                </div>
+            </md-nav-bar>
+        </md-content>
     </div>
 </footer>
