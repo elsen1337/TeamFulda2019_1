@@ -25,16 +25,26 @@
 
     }
 
-    #renting-frame{
+    #renting-frame
+    {
         margin-bottom: 10px;
+    }
+
+    #wohnungsform
+    {
+        box-shadow: 0 0 15px #999999;
+        border-radius: 10px;
+        padding: 10px;
+        margin-top: 10px;
     }
 
 </style>
 
 <h1 id="renting-title">Renting</h1>
-<div id="renting-frame" layout="row" layout-align="center">
-<form name="wohnungsform"  ng-app="studyHomeApp" ng-controller="RentingCtrl">
 
+<div id="renting-frame" layout="row" layout-align="center">
+<form id="wohnungsform" name="wohnungsform"  ng-app="studyHomeApp" ng-controller="RentingCtrl">
+    <h2>Fill out this Form to insert an ad for your estate.</h2>
     <md-input-container>
     <div class="col-sm-12">
         <p>Here you can upload pictures for your estate.</p>
