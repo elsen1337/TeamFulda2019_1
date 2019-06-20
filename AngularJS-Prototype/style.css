@@ -161,7 +161,7 @@ md-content {
 #slide-show-title {
     /*text-align: center;*/
     padding: 10px;
-    font-size: 40px;
+    font-size: 16px;
     color: #222;
 }
 
@@ -182,17 +182,7 @@ md-content {
     margin-left: 3.2%;
 }
 
-@media(max-width: 959px){
-    .details-top-right{
-        margin-bottom: 7.5%;
-    }
-    .details-top-left{
-        margin-bottom: 65%;
-    }
-    .details-bottom{
-        margin-bottom: 10%;
-    }
-}
+
 
 .sh-btn{
     background-color: #67c6e4;
@@ -212,5 +202,52 @@ md-content {
     font-size:2vw;
 }
 #bottom-text{
+    margin-top: 2%;
     margin-bottom: 25%;
+    margin-left: 10%;
+    margin-right: 6%;
+}
+
+#bottom-attrs{
+    margin-left: 6%;
+    margin-right: 6%;
+}
+
+@media(max-width: 959px){
+    .details-top-right{
+        margin-bottom: 7.5%;
+        margin-left: 10%;
+    }
+    .details-top-left{
+        margin-bottom: 65%;
+        margin-right: 8%;
+    }
+    .details-bottom{
+        margin-bottom: 2%;
+        margin-left: 5%;
+    }
+    #bottom-text {
+        margin-left: 12%;
+        margin-bottom: 32%;
+    }
+}
+@media(max-width: 599px){
+    .details-top-right{
+        /*margin-right: 2%;*/
+        position: absolute;
+        margin-top: 70%;
+        margin-left:12%;
+    }
+    .details-top-left {
+        margin-right: 8%;
+        margin-bottom: 65%;
+    }
+    .details-bottom{
+        margin-left: 6%;
+        margin-top: 350px;
+    }
+    #bottom-text{
+        margin-left: 16%;
+        margin-bottom: 60%;
+    }
 }

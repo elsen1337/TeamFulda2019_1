@@ -1,30 +1,150 @@
 studyHomeApp.controller('DetailsCtrl', ['$scope', '$http', function($scope, $http){
 
+    //set scope.id in search controller after clicking an item
+    $scope.detailsID = 1;
+
     $http({
         method : "GET",
-        url : "https://hsftp.uber.space/sfsuroombook/restapi/handler.php?objAction=estatedefault&objKey=1"
+        url : "../restapi/handler.php" + getDetailsQueryString("default", $scope.detailsID)
     }).then(function mySuccess(response) {
-        $scope.test = response.data;
-        alert("success" + response.statusText);
+        $scope.default = response.data;
+        console.log(response.data);
+        console.log("status: " + response.status);
+        console.log("statusText: " + response.statusText);
+
+        $scope.name = $scope.default.name;
+        $scope.desc = $scope.default.beschr;
+
+        $scope.rent = $scope.default.preis;
+        $scope.rooms = "5";
+        $scope.surface = "27m²"
+
+        $scope.location = $scope.default.ort;
+        $scope.street = $scope.default.str;
+        $scope.number = "123";
+
+        $scope.ZIP = $scope.default.plz;
+        $scope.distance = $scope.default.entf_meter;
+        $scope.time = $scope.default.entf_min;
+
+        $scope.rightContent = [
+            {
+                title: "Rent",
+                description: $scope.rent
+            },
+            {
+                title: "Rooms",
+                description: $scope.rooms
+            },
+            {
+                title: "Surface",
+                description: $scope.surface
+            }
+        ];
+        $scope.bottomContent1 = [
+            {
+                title: "Location",
+                description: $scope.location
+            },
+            {
+                title: "Street",
+                description: $scope.street
+            },
+            {
+                title: "Number",
+                description: $scope.number
+            }
+        ];
+        $scope.bottomContent2 = [
+            {
+                title: "ZIP",
+                description: $scope.ZIP
+            },
+            {
+                title: "Distance",
+                description: $scope.distance + " m"
+            },
+            {
+                title: "Time",
+                description: $scope.time + " min"
+            }
+        ];
     }, function myError(response) {
-        $scope.testErr = response.statusText;
-        alert("error" + response.statusText);
+        $scope.error = response.statusText;
+        console.error($scope.error);
     });
 
-    $scope.rightContent = [{
-            title: "Rent",
-            description: "300€"
-        },
-        {
-            title: "Rooms",
-            description: "3"
-        },
-        {
-            title: "Surface",
-            description: "27m²"
-        }];
-    $scope.bottomContent = [{
+    $http({
+        method : "GET",
+        url : "../restapi/handler.php" + getDetailsQueryString("attribute", $scope.detailsID)
+    }).then(function mySuccess(response) {
+        $scope.attributes = response.data;
+        console.log(response.data);
+        console.log("status: " + response.status);
+        console.log("statusText: " + response.statusText);
 
-    }];
-    $scope.bottomText = "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut aliquam purus sit amet luctus venenatis lectus magna. Amet luctus venenatis lectus magna fringilla urna porttitor rhoncus dolor. Ut tristique et egestas quis ipsum suspendisse ultrices. Dignissim convallis aenean et tortor at risus viverra. Id neque aliquam vestibulum morbi blandit. Lectus proin nibh nisl condimentum id."
+        $scope.type = $scope.attributes.Wohnungstyp;
+        $scope.deposit = "300";
+        $scope.garage = "Yes";
+        $scope.pets = "Katze";
+        $scope.free = "20.10.19";
+
+        $scope.bottomContent3 = [
+            {
+                title: "Type",
+                description: $scope.type
+            },
+            {
+                title: "Deposit",
+                description: $scope.deposit + " €"
+            },
+            {
+                title: "Garage",
+                description: $scope.garage
+            }
+        ];
+        $scope.bottomContent4 = [
+            {
+                title: "Pets",
+                description: $scope.pets
+            },
+            {
+                title: "Free On",
+                description: $scope.free
+            }
+        ];
+    }, function myError(response) {
+        $scope.error = response.statusText;
+        console.error($scope.error);
+    });
+
+    // $http.get("../restapi/handler.php?objAction=estatedefault&objKey=2")
+    //     .then(function(response){
+    //         console.log(response.data);
+    //     });
+
+    // $scope.bottomContent = [{
+    //
+    // }];
 }]);
+
+function getDetailsQueryString(objAction, objKey) {
+    return "?objAction=estate" + objAction + "&objKey=" + objKey;
+}
+
+// this doesn't really work
+// function insertRightContent() {
+//     document.getElementById("right-content");
+//     let li = document.createElement("md-list-item");
+//     li.setAttribute("class", "md-2-line");
+//     li.setAttribute("ng-repeat", "item in rightContent");
+//     let div = document.createElement("div");
+//     div.setAttribute("class", "md-list-item-text");
+//     li.append(div);
+//     let h1 = document.createElement("h1");
+//     h1.innerHTML = "{{item.title}}";
+//     div.append(h1);
+//     let p = document.createElement("p");
+//     p.innerHTML = "{{item.description}}";
+//     div.append(p);
+// }
