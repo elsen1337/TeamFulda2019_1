@@ -167,7 +167,10 @@ studyHomeApp.controller('NavCtrl', ['$scope', '$location', function($scope, $loc
 }]);
 
 function updateNavBar(currentNavItem) {
-    document.getElementById("nav-refresh").setAttribute("md-selected-nav-item", currentNavItem);
+    if(document.getElementById("nav-refresh")) {
+        document.getElementById("nav-refresh").setAttribute("md-selected-nav-item", currentNavItem);
+    }
+
 }
 
 // some helper functions for hiding/showing external nav content
