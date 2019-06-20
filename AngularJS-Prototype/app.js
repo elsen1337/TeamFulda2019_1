@@ -22,7 +22,8 @@ var ROUTES = {
     page5: "details",
     page6: "agb",
     page7: "contactAndHelp",
-    page8: "aboutUs"
+    page8: "aboutUs",
+    page9: "impressum"
 };
 
 // App Module
@@ -106,6 +107,10 @@ studyHomeApp.config(['$routeProvider', '$mdThemingProvider', function($routeProv
         .when('/' + ROUTES.page8, {
             templateUrl: 'Views/' + ROUTES.page8 + '.html',
             controller: 'AboutUsCtrl'
+        })
+        .when('/' + ROUTES.page9, {
+            templateUrl: 'Views/' + ROUTES.page9 + '.html',
+            controller: 'ImpressumCtrl'
         })
         .otherwise({
             redirectTo: '/' + ROUTES.page0
