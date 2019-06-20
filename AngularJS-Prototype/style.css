@@ -137,6 +137,7 @@ md-content {
 .slide img{
     width: 100%;
     height: auto;
+    box-shadow: 0px 0px 15px #999;
 }
 .arrows a img{
 }
@@ -155,7 +156,6 @@ md-content {
     position: absolute;
     top: 0;
     left: 0;
-    box-shadow: 0px 0px 15px #999;
 }
 .arrows {
     position: absolute;
