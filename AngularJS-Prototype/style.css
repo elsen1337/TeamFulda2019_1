@@ -25,7 +25,6 @@ span._md-nav-button-text.ng-scope {
 
 #navbar {
     width: 100%;
-    height: 100%;
     z-index: 1;
 }
 
@@ -33,7 +32,6 @@ span._md-nav-button-text.ng-scope {
 }
 
 #logo{
-    position: relative;
     width: 150px;
     bottom: 3px;
 }
@@ -46,7 +44,6 @@ main#main-ext-nav-cnt-show{
     top: 60px;
     z-index: 0;
     height:100%;
-    margin-top: 2%;
 }
 
 main#main-ext-nav-cnt-hidden {
@@ -55,11 +52,19 @@ main#main-ext-nav-cnt-hidden {
 }
 
 header{
-    position: fixed;
-    top: 0px;
+    left: 0;
+    top: 0;
     width: 100%;
+    background-color: #dbf1f8;
+    text-align: center;
+    font-size: 10px;
+    overflow: hidden;
+    display: flex;
+    height: 50px;
+    align-items: center;
+    justify-content: center;
     z-index: 1;
-    padding-bottom: 100px;
+    position: fixed;
 }
 
 footer{
@@ -150,7 +155,7 @@ md-content {
     position: absolute;
     top: 0;
     left: 0;
-    box-shadow: 0px 0px 0px #999;
+    box-shadow: 0px 0px 15px #999;
 }
 .arrows {
     position: absolute;

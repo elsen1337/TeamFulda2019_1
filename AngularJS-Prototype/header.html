@@ -1,10 +1,54 @@
-<div id="navbar" data-ng-controller="NavCtrl" ng-cloak layout="column">
-<!--<style>
-    @media only screen and (max-width: 660px) {
-        .nav-item-hd {
+<!--<div id="navbar" data-ng-controller="NavCtrl" ng-cloak layout="column">-->
+<style>
+
+    header{
+        padding-bottom: 60px;
+    }
+
+    .bottom-nav-hd{
+        position: relative;
+        top: 15px;
+    }
+
+    #hd-mobile
+    {
+        position: relative;
+        top: 50px;
+    }
+
+    #md-resp-button
+    {
+        font-size: 3em;
+        color: #69b1c7!important;
+    }
+
+    #nav-item-logo
+    {
+        position: relative;
+        padding-right: 10px;
+        bottom: 35px;
+        right: 10px;
+    }
+    .nav-item-hd
+    {
+        padding: 10px;
+    }
+    @media only screen and (max-width: 600px) {
+        .hd-main
+        {
+            display: none;
         }
     }
-</style>-->
+
+    @media only screen and (min-width: 600px) {
+        #hd-mobile
+        {
+            display: none;
+        }
+    }
+</style>
+<!--
+<div id="navbar" data-ng-controller="NavCtrl" ng-cloak>
     <md-content class="md-padding" id="md-content-ins-b4">
         <md-nav-bar id="nav-refresh"
                     md-no-ink-bar="disableInkBar"
@@ -12,7 +56,7 @@
                     nav-bar-aria-label="navigation links">
             <a id="gitLink" href="https://github.com/sl05/TeamFulda2019_1" target="_blank">
                 <img id="logo" src="logo-studyhome.png" alt="logo"/>
-            </a>
+            </a>-->
             <!--<md-nav-item md-nav-click="goto('/home')" name="{{routes.page0}}">
                         {{routes.page0}}
                     </md-nav-item>
@@ -34,19 +78,28 @@
                     <md-nav-item md-nav-click="goto('/advertise')" name="{{routes.page6}}">
                         {{routes.page6}}
                     </md-nav-item>-->
+<!--
+            <div>
             <md-nav-item class ="nav-item-hd" md-nav-click="goto('/home')" name="{{routes.page0}}">
                 {{routes.page0}}
             </md-nav-item>
+            </div>
+<div>
             <md-nav-item class ="nav-item-hd" md-nav-click="goto('/renting')" name="{{routes.page1}}">
                 {{routes.page1}}
             </md-nav-item>
+</div>
+<div>
             <md-nav-item class ="nav-item-hd" md-nav-click="goto('/messages')" name="{{routes.page2}}">
                 {{routes.page2}}
             </md-nav-item>
-              <md-nav-item class ="nav-item-hd" md-nav-click="goto('/login')" name="{{routes.page3}}">
+</div>
+<div>
+            <md-nav-item class ="nav-item-hd" md-nav-click="goto('/login')" name="{{routes.page3}}">
                 {{routes.page3}}
             </md-nav-item>
-        </md-nav-bar>
+</div>
+        </md-nav-bar> -->
 
         <!--        <span>{{status}}</span>-->
         <!--<div class="ext-content" id="show-ext-cnt">
@@ -59,6 +112,83 @@
         <!--        <md-checkbox ng-model="secondTabDisabled" aria-label="Disable Second Tab" style="margin: 5px;">-->
         <!--            Disable Second Tab-->
         <!--        </md-checkbox>-->
-    </md-content>
-</div>
+<!--    </md-content>
+</div> -->
+
+<!--
+<header>
+    <div id="navbar" ng-controller="NavCtrl" ng-cloak>
+        <md-content>
+            <md-nav-bar id="nav-refresh"
+                        md-no-ink-bar="disableInkBar"
+                        md-selected-nav-item="currentNavItem"
+                        nav-bar-aria-label="navigation links">
+                <div id="wrap" layout="row">
+                    <div flex>
+                        <md-nav-item class ="nav-item-hd" md-nav-click="goto('/home')" >
+                            <img id="logo" src="logo-studyhome.png" alt="logo"/>
+                        </md-nav-item>
+                    </div>
+                    <div flex>
+                        <md-nav-item class ="nav-item-hd" md-nav-click="goto('/renting')" name="{{routes.page1}}">
+                            {{routes.page1}}
+                        </md-nav-item>
+                    </div>
+                    <div flex>
+                        <md-nav-item class ="nav-item-hd" md-nav-click="goto('/messages')" name="{{routes.page2}}">
+                            {{routes.page2}}
+                        </md-nav-item>
+                    </div>
+                    <div flex>
+                        <md-nav-item class ="nav-item-hd" md-nav-click="goto('/login')" name="{{routes.page3}}">
+                            {{routes.page3}}
+                        </md-nav-item>
+                    </div>
+                </div>
+            </md-nav-bar>
+        </md-content>
+    </div>
+</header>-->
+
+
+<header class="hd-main">
+    <div ng-controller="NavCtrl" ng-cloak>
+        <md-content>
+            <md-nav-bar class="bottom-nav-hd">
+                <div id="wrap" layout="row">
+                    <div flex>
+                        <md-nav-item  id="nav-item-logo" class ="nav-item-hd" md-nav-click="goto('/home')" >
+                            <img id="logo" src="logo-studyhome.png" alt="logo"/>
+                        </md-nav-item>
+                    </div>
+                    <div flex>
+                        <md-nav-item class ="nav-item-hd" md-nav-click="goto('/renting')" name="{{routes.page1}}">
+                            {{routes.page1}}
+                        </md-nav-item>
+                    </div>
+                    <div flex>
+                        <md-nav-item class ="nav-item-hd" md-nav-click="goto('/messages')" name="{{routes.page2}}">
+                            {{routes.page2}}
+                        </md-nav-item>
+                    </div>
+                    <div flex>
+                        <md-nav-item class ="nav-item-hd" md-nav-click="goto('/login')" name="{{routes.page3}}">
+                            {{routes.page3}}
+                        </md-nav-item>
+                    </div>
+                </div>
+            </md-nav-bar>
+        </md-content>
+    </div>
+</header>
+
+<header id="hd-mobile">
+    <div layout="column" layout-align="top center">
+        <md-button ng-click="toggleLeft()" id="md-resp-button" class="md-primary" hide-gt-md>
+            &#9776;
+        </md-button>
+    </div>
+</header>
+
+
 
