@@ -1,13 +1,76 @@
 <!--<div id="navbar" data-ng-controller="NavCtrl" ng-cloak layout="column">-->
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+
+
 <style>
 
-    header{
-        padding-bottom: 60px;
+    #hd-btn-search
+    {
+        color: #ffffff;
+        background-color: #689dad;
+    }
+
+    #logo-a{
+        position: relative;
+        padding-right: 12%;
+        left: 35px;
     }
 
     .bottom-nav-hd{
         position: relative;
         top: 15px;
+    }
+
+    #search-button-hd
+    {
+        position: relative;
+        margin-left: 10px;
+        top: 22px;
+    }
+
+    #search-button-hd input
+    {
+        border: none;
+    }
+
+    #search-button-hd button
+    {
+        border: none;
+        position: relative;
+        right: 7px;
+        padding-top: 1px;
+        padding-bottom: 1px;
+    }
+
+    .topnav {
+        position: fixed;
+        top: 0;
+        right: 0;
+        width: 100%;
+        overflow: hidden;
+        background-color: #dbf1f8;
+        display: block;
+    }
+
+    .topnav a {
+        float: left;
+        display: block;
+        color: #689dad;
+        text-align: center;
+        text-decoration: none;
+        font-size: 1.2em;
+    }
+
+    .nav-item-hd
+    {
+        position: relative;
+        top: 1px;
+        padding: 20px;
+    }
+
+    .nav-item-hd:hover {
+        background-color: #b5e6f5;
+        color: #2d5f6e;
     }
 
     #hd-mobile
@@ -22,6 +85,15 @@
         color: #69b1c7!important;
     }
 
+    .logo
+    {
+        position: relative;
+        top: 1px;
+        width: 95px;
+        height: 60px;
+    }
+
+    /*
     .nav-item-logo
     {
         position: absolute;
@@ -30,27 +102,32 @@
         left: 30px;
         z-index: 1;
     }
+
+     */
+    /*
     .nav-item-hd
     {
         padding: 10px;
     }
-    @media only screen and (max-width: 700px) {
-        .hd-main
+
+     */
+    @media only screen and (max-width: 800px) {
+        #search-button-hd, .nav-item-menu
         {
-            display: none;
+            display: none!important;
+        }
+
+        .icon
+        {
+            float: right !important;
         }
     }
 
-    @media only screen and (min-width: 700px) {
-        #hd-mobile
+    @media only screen and (min-width: 800px) {
+        .icon
         {
-            display: none;
-        }
-
-        .logo
-        {
-            left: 0;
-            right: 0;
+            display: none!important;
+            float: right !important;
         }
     }
 </style>
@@ -157,15 +234,13 @@
     </div>
 </header>-->
 
-
+<!--
 <header class="hd-main">
     <div class="first-hd-div" ng-controller="NavCtrl" ng-cloak>
         <div class="nav-item-logo">
-            <!--    <md-nav-item id="nav-item-logo" class ="nav-item-hd" md-nav-click="goto('/home')" >-->
             <a href="index.html" >
                 <img class="logo" src="logo-studyhome.png" alt="logo"/>
             </a>
-            <!--</md-nav-item>-->
         </div>
         <md-content>
             <md-nav-bar class="bottom-nav-hd">
@@ -189,7 +264,7 @@
             </md-nav-bar>
         </md-content>
     </div>
-</header>
+</header>-->
 
 <!--
 <header id="hd-mobile">
@@ -200,37 +275,18 @@
     </div>
 </header>-->
 
-
-<header id="hd-mobile">
-    <div class="first-hd-div" ng-controller="NavCtrl" ng-cloak>
-        <div class="nav-item-logo">
-            <!--    <md-nav-item id="nav-item-logo" class ="nav-item-hd" md-nav-click="goto('/home')" >-->
-            <a href="./index.html#!/renting" >
-                <img class="logo" src="logo-studyhome.png" alt="logo"/>
-            </a>
-            <!--</md-nav-item>-->
-        </div>
-        <md-content>
-            <md-nav-bar class="bottom-nav-hd">
-                <div class="wrap" layout="column">
-                    <div flex>
-                        <md-nav-item class ="nav-item-hd" md-nav-click="goto('/renting')" name="{{routes.page1}}">
-                            {{routes.page1}}
-                        </md-nav-item>
-                    </div>
-                    <div flex>
-                        <md-nav-item class ="nav-item-hd" md-nav-click="goto('/messages')" name="{{routes.page2}}">
-                            {{routes.page2}}
-                        </md-nav-item>
-                    </div>
-                    <div flex>
-                        <md-nav-item class ="nav-item-hd" md-nav-click="goto('/login')" name="{{routes.page3}}">
-                            {{routes.page3}}
-                        </md-nav-item>
-                    </div>
-                </div>
-            </md-nav-bar>
-        </md-content>
-    </div>
+<header class="topnav" id="myTopnav">
+    <a id="logo-a" href="./index.html#!/home">
+        <img class="logo" src="logo-studyhome.png" alt="logo"/>
+    </a>
+    <a href="./index.html#!/renting" class="nav-item-hd nav-item-menu">Renting</a>
+    <a href="./index.html#!/messages" class="nav-item-hd nav-item-menu">Messages</a>
+    <a href="./index.html#!/login" class="nav-item-hd nav-item-menu">Login</a>
+    <a id="search-button-hd">
+        <input id="hd-input-search" type="text" placeholder="Search.." name="search">
+        <button id="hd-btn-search"type="submit"><i class="fa fa-search"></i></button>
+    </a>
+    <a href="javascript:void(0);" class="nav-item-hd icon" onclick="myFunction()">
+        &#9776;
+    </a>
 </header>
-

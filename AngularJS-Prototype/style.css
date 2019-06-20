@@ -31,11 +31,6 @@ span._md-nav-button-text.ng-scope {
 #gitLink {
 }
 
-.logo{
-    width: 150px;
-    bottom: 3px;
-}
-
 #hide{
 }
 
@@ -51,6 +46,7 @@ main#main-ext-nav-cnt-hidden {
     top: 100px;
 }
 
+/*
 header{
     left: 0;
     top: 0;
@@ -65,7 +61,7 @@ header{
     justify-content: center;
     z-index: 1;
     position: fixed;
-}
+}*/
 
 footer{
     left: 0;
