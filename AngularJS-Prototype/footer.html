@@ -1,34 +1,47 @@
 <style>
 
-    footer
+    .navbar
     {
-        position: fixed;
+        position: relative;
         width: 100%;
-        left: 0;
         bottom: 0;
+        left: 0;
         overflow: hidden;
         background-color: #dbf1f8;
+        text-align: center;
+        padding-top: 10px;
+        padding-down: 10px;
+        margin-top: 50px;
+
     }
 
-    .bottom-nav a
+    .navbar a
     {
-        display: block;
         color: #43717f;
         text-decoration: none;
+        font-size: 1.2em;
+        font-family: "Lato", sans-serif;
         z-index: 1;
+        padding: 10px;
+
     }
 
-    @media only screen and (max-width: 600px) {
-        footer
+    @media only screen and (max-width: 900px) {
+        .navbar a
         {
-            position: relative;
-            top: 150px;
-            padding-bottom: 225px;
-
+            display: block;
+            padding: 10px;
         }
+    }
+
+    .navbar a:hover {
+        background-color: #b5e6f5;
+        color: #2d5f6e;
+        transition: 0.5s;
     }
 </style>
 
+<!--
 <footer>
     <div ng-controller="NavCtrl" ng-cloak>
         <md-content>
@@ -51,4 +64,11 @@
             </md-nav-bar>
         </md-content>
     </div>
+</footer>-->
+
+<footer class="navbar">
+    <a href="./index.html#!/aboutUs">About us</a>
+    <a href="./index.html#!/impressum">Impressum</a>
+    <a href="./index.html#!/agb">AGB</a>
+    <a href="./index.html#!/contactAndHelp">Contact and Help</a>
 </footer>

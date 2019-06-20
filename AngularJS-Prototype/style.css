@@ -5,6 +5,11 @@ h1{
     margin: 0;
 }
 
+body
+{
+    height: 100%;
+}
+
 /*md-content .ext-content {
     padding: 50px;
     margin: 20px;
@@ -63,6 +68,7 @@ header{
     position: fixed;
 }*/
 
+/*
 footer{
     left: 0;
     bottom: 0;
@@ -78,7 +84,7 @@ footer{
     z-index: 1;
     position: absolute;
 }
-
+*/
 .menu-bottom a {
     color: #006799;
     text-align: center;
