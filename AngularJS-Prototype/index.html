@@ -16,11 +16,18 @@
     <link rel="stylesheet" href="./Views/css/registrieren-style.css"/>
     <link rel="stylesheet" href="./Views/css/sidebar-style.css"/>
 
+    <style>
+        #main-ext-nav-cnt-show, #footer{
+            margin-top: 60px;
+        }
+    </style>
+
 </head>
 <body>
-    <header id="header" data-ng-include="'header.html'"></header>
-    <main id="main-ext-nav-cnt-show" data-ng-view></main>
-    <footer id="footer" data-ng-include="'footer.html'"></footer>
+            <header id="header" data-ng-include="'header.html'"></header>
+            <main id="main-ext-nav-cnt-show" data-ng-view></main>
+
+            <footer id="footer" data-ng-include="'footer.html'"></footer>
 
     <!-- Script Dependencies -->
     <script src="angular.min.js"></script>
