@@ -17,7 +17,7 @@
     <link rel="stylesheet" href="./Views/css/sidebar-style.css"/>
 
     <style>
-        #main-ext-nav-cnt-show, #footer{
+        #main-ext-nav-cnt-show {
             margin-top: 60px;
         }
     </style>
@@ -25,6 +25,7 @@
 </head>
 <body>
             <header id="header" data-ng-include="'header.html'"></header>
+
             <main id="main-ext-nav-cnt-show" data-ng-view></main>
 
             <footer id="footer" data-ng-include="'footer.html'"></footer>
@@ -45,5 +46,27 @@
     <script src="Controllers/RentingCtrl.js"></script>
     <script src="Controllers/DetailsCtrl.js"></script>
     <script src="Templates/SliderCtrl.js"></script>
+
+    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.6.9/angular.min.js">
+        angular
+            .module('customSidenavDemo', ['ngMaterial'])
+            .controller('AppCtrl', function ($scope, $mdSidenav) {
+                $scope.toggleLeft = buildToggler('left');
+
+                function buildToggler(componentId) {
+                    return function() {
+                        $mdSidenav(componentId).toggle();
+                    };
+                }
+            });
+
+        function updateHTML(elmId, value) {
+            var elem = document.getElementById(elmId);
+            if(typeof elem !== 'undefined' && elem !== null) {
+                elem.innerHTML = value;
+            }
+        }
+
+    </script>
 </body>
 </html>

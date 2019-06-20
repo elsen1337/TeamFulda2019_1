@@ -27,20 +27,20 @@
         position: relative;
         padding-right: 10px;
         bottom: 35px;
-        right: 10px;
+        right: 30px;
     }
     .nav-item-hd
     {
         padding: 10px;
     }
-    @media only screen and (max-width: 600px) {
+    @media only screen and (max-width: 500px) {
         .hd-main
         {
             display: none;
         }
     }
 
-    @media only screen and (min-width: 600px) {
+    @media only screen and (min-width: 500px) {
         #hd-mobile
         {
             display: none;
@@ -157,7 +157,7 @@
             <md-nav-bar class="bottom-nav-hd">
                 <div id="wrap" layout="row">
                     <div flex>
-                        <md-nav-item  id="nav-item-logo" class ="nav-item-hd" md-nav-click="goto('/home')" >
+                        <md-nav-item id="nav-item-logo" class ="nav-item-hd" md-nav-click="goto('/home')" >
                             <img id="logo" src="logo-studyhome.png" alt="logo"/>
                         </md-nav-item>
                     </div>
@@ -184,11 +184,12 @@
 
 <header id="hd-mobile">
     <div layout="column" layout-align="top center">
-        <md-button ng-click="toggleLeft()" id="md-resp-button" class="md-primary" hide-gt-md>
+        <md-button ng-click="toggleLeft()" id="md-resp-button" class="md-raised" hide-gt-md>
             &#9776;
         </md-button>
     </div>
 </header>
+
 
 
 
