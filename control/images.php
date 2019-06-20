@@ -20,6 +20,8 @@ header('Content-Type: text/html; charset=UTF-8');
 <body class="wimg"><h1>Wohnungsbilder (Controlpanel)</h1><?php
 
 
+require('../kernel/class-appartimg.php');
+
 $type=array('wohn_id'=>'selection','rdr'=>'number','alt'=>'text');
 $ptbl='w_image';
 $pkey='bild_id';
@@ -28,11 +30,16 @@ $nkey='new';
 
 //FormFV::updateDB($_POST,$type,'new',$ptbl,$pkey);
 
-require('../kernel/class-appartimg.php');
 
 $uploadBaseDir='../'.AppartImage::$uploadBaseDir;
 $dirThumb=AppartImage::$dirThumb;
 $dirOrg=AppartImage::$dirOrg;
+
+if (file_exists($uploadBaseDir)==false) {mkdir($uploadBaseDir);}
+chdir($uploadBaseDir);
+
+if (file_exists($dirThumb)==false) {mkdir($dirThumb);}
+if (file_exists($dirOrg)==false) {mkdir($dirOrg);}
 
 
 
@@ -68,8 +75,11 @@ function reduceIndexedFields2Array(&$src,$fields,$keys,$reqkeys=array()) {
 
 $iDelKey='imgDel';
 if (array_key_exists($iDelKey,$_GET)) {
+	
 	foreach ($_GET[$iDelKey] as $bid) {
 		
+		AppartImage::removeImage($bid);
+		/*
 		$row=$msdb->query('SELECT * FROM '.$ptbl.' WHERE '.$pkey.'='.$bid)->fetch_assoc();
 		
 		chdir($uploadBaseDir); $accRes=0;
@@ -78,6 +88,7 @@ if (array_key_exists($iDelKey,$_GET)) {
 		$accRes+=(int)@unlink($dirOrg.'/'.$row['bild']);
 		
 		$msdb->query('DELETE FROM '.$ptbl.' WHERE '.$pkey.'='.$bid);
+		*/
 	
 	}
 
@@ -94,12 +105,7 @@ if (array_key_exists($uKey,$_FILES)) {
 	// In PHP 7.3 BuiltIn
 	#require('../kernel/image-support-bmp.php');
 
-	if (file_exists($uploadBaseDir)==false) {mkdir($uploadBaseDir);}
-	chdir($uploadBaseDir);
-	
-	if (file_exists($dirThumb)==false) {mkdir($dirThumb);}
-	if (file_exists($dirOrg)==false) {mkdir($dirOrg);}
-	
+
 	#print_r($_FILES);
 	
 	$redArr=reduceIndexedFields2Array($_POST,array_keys($type),$nkey);

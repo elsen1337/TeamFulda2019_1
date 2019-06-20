@@ -16,6 +16,21 @@ function parseCommand(&$cmd,$route) {
 }
 
 
+// 202 Accepted, 201 Created, 204 'No Content', 400 BadRequest, 401 'Unauthorized' VS 403 'Forbidden', 404, 410
+function notAllowed() {sentHeader(405,'NotAllowed');}
+function objUpdated() {sentHeader(204,'No Content');}
+function objRemoved() {sentHeader(204,'No Content');}
+function objCreated() {sentHeader(201,'Created');}
+function objProcessing() {sentHeader(202,'Accepted');}
+
+
+function sentHeader($code, $msg) {
+    header( implode("\x20", array($_SERVER['SERVER_PROTOCOL'], $code, $msg) ) );
+}
+
+
+
+
 function getRequestBody() {
 
 return file_get_contents('php://input');
@@ -35,11 +50,12 @@ function getPostParameter() {
 
     if (stripos($_SERVER["CONTENT_TYPE"],'application/json')!==false) {
         return getJSONFromRequestBody();
+        
     } elseif (stripos($_SERVER["CONTENT_TYPE"],'multipart/form-data')!==false) {
-        return $_POST;
+        return $_POST + $_FILES; # ?
     
-    // application/x-www-form-urlencoded
     } else {
+        // Default: application/x-www-form-urlencoded
         return $_POST;
     }
 
@@ -52,11 +68,8 @@ $action=$_GET['objAction'];
 $objkey=$_GET['objKey'];
 
 
-/*
-Manu: Bilder Eigenschaften Attribute
-Bilder: Insert
-Vermieter: Login
-*/
+$postParam=getPostParameter();
+
 
 
 
@@ -72,7 +85,11 @@ if (parseCommand($action,'estate')) {
 
     if (parseCommand($action,'search')) {
     
+    
+        session_start();
         require('../kernel/class-search.php');
+        
+        #print_r($_SESSION);
 
     
         if ($_SERVER['REQUEST_METHOD']=='GET') {
@@ -81,18 +98,20 @@ if (parseCommand($action,'estate')) {
         
         } elseif ($_SERVER['REQUEST_METHOD']=='PUT') {
  
-            // Create
+            SearchForm::updateSearchSession();
       
         } elseif ($_SERVER['REQUEST_METHOD']=='POST') {
         
-            SearchForm::updateSeachSession();
-
+            SearchForm::performSearch();
 
         } elseif ($_SERVER['REQUEST_METHOD']=='DELETE') {
         
-            // Delete
 
-        }  
+        } else {
+        
+            notAllowed();
+
+        }
         
     
     } elseif (parseCommand($action,'default')) {
@@ -104,24 +123,27 @@ if (parseCommand($action,'estate')) {
         } elseif ($_SERVER['REQUEST_METHOD']=='PUT') {
         
         
-            $postParam=getPostParameter();
             $newObjID=Estate::createEstate($postParam);
-            
-            #print_r($postParam);
-            
+                        
             header('Content-type: application/json');
             echo '{"newEstateID":'.$newObjID.'}';
 
- 
-            // Create
-      
+       
         } elseif ($_SERVER['REQUEST_METHOD']=='POST') {
         
-            // Update
+            $newObjID=Estate::createEstate($postParam);
+                        
+            header('Content-type: application/json');
+            echo '{"newEstateID":'.$newObjID.'}';
+
 
         } elseif ($_SERVER['REQUEST_METHOD']=='DELETE') {
         
-            // Delete
+            
+        
+        } else {
+        
+            notAllowed();
 
         }
 
@@ -137,10 +159,15 @@ if (parseCommand($action,'estate')) {
  
       
         } elseif ($_SERVER['REQUEST_METHOD']=='POST') {
+        
 
         } elseif ($_SERVER['REQUEST_METHOD']=='DELETE') {
 
-        }  
+        } else {
+        
+            notAllowed();
+
+        } 
     
     } elseif (parseCommand($action,'images')) {
     
@@ -150,15 +177,15 @@ if (parseCommand($action,'estate')) {
         if ($_SERVER['REQUEST_METHOD']=='GET') {
         
             echo json_encode(Estate::getImagesMetaData($objkey));
-        
+
+            
         } elseif ($_SERVER['REQUEST_METHOD']=='PUT') {
  
-            // Create
-            $postParam=getPostParameter();
-            $newImgID=AppartImage::addImage( array_intersect_key($postParam,AppartImage::$formFields) );
+            $newImgID=AppartImage::addImage($postParam);
 
             header('Content-type: application/json');
             echo '{"newImgID":'.$newImgID.'}';
+      
       
         } elseif ($_SERVER['REQUEST_METHOD']=='POST') {
         
@@ -176,9 +203,16 @@ if (parseCommand($action,'estate')) {
 
 
         } elseif ($_SERVER['REQUEST_METHOD']=='DELETE') {
-        
-            // Delete
+            
+            chdir('../'.AppartImage::$uploadBaseDir);
+            
+            AppartImage::removeImage($objkey);
 
+
+        } else {
+        
+            notAllowed();
+        
         }   
 
 
@@ -197,33 +231,87 @@ if (parseCommand($action,'estate')) {
          
         if ($_SERVER['REQUEST_METHOD']=='GET') {
         
-            $aKey='LAUTH';
-            if (array_key_exists($aKey,$_SESSION)) {$_SESSION[$aKey]=array();}
+            $aKey=Lessor::$sKey;
+            if (array_key_exists($aKey,$_SESSION)===false) {$_SESSION[$aKey]=array();}
 
             header('Content-type: application/json');
             echo json_encode($_SESSION[$aKey]);
         
         
         } elseif ($_SERVER['REQUEST_METHOD']=='PUT') {
+        
+            // NotImplemented
  
       
         } elseif ($_SERVER['REQUEST_METHOD']=='POST') {
         
-            $postParam=getPostParameter();
         
             $usr=Lessor::login($postParam['user'],$postParam['auth']);
-            $_SESSION['LAUTH']['id']=$usr->vm_id; // Wahlweise auch mehrer Daten in Session kopieren; z.B Nutzernamenanzeige: Hallo <Name>....
+            $_SESSION['LAUTH']['id']=$usr->{Lessor::$entPrimKey}; // Wahlweise auch mehrer Daten in Session kopieren; z.B Nutzernamenanzeige: Hallo <Name>....
 
             header('Content-type: application/json');
             echo json_encode($usr);
             
 
         } elseif ($_SERVER['REQUEST_METHOD']=='DELETE') {
-             $_SESSION['LAUTH']=array();
+             $_SESSION[Lessor::$sKey]=array();
 
-        }   
+        } else {
+            notAllowed();
+        }  
 
 
+    } elseif (parseCommand($action,'account')) {
+    
+        if ($_SERVER['REQUEST_METHOD']=='GET') {
+        
+            // 2Do
+            
+            
+        
+        } elseif ($_SERVER['REQUEST_METHOD']=='PUT') {
+        
+            $newObjID=Lessor::update($postParam);
+
+            header('Content-type: application/json');
+            echo '{"newLessorID":'.$newObjID.'}';
+
+      
+        } elseif ($_SERVER['REQUEST_METHOD']=='POST') {
+        
+            $newObjID=Lessor::register($postParam);
+
+            header('Content-type: application/json');
+            echo '{"newLessorID":'.$newObjID.'}';
+
+
+        } elseif ($_SERVER['REQUEST_METHOD']=='DELETE') {
+
+
+
+            $newObjID=Lessor::delete($objkey);
+
+            header('Content-type: application/json');
+            echo '{"newLessorID":'.$newObjID.'}';
+
+        } else {
+            notAllowed();
+        }
+
+    }
+    
+
+} elseif (parseCommand($action,'tenant')) {
+
+
+
+
+    if (parseCommand($action,'login')) {
+    
+    
+        
+    
+    } elseif (parseCommand($action,'account')) {
     } elseif (parseCommand($action,'account')) {
     
         if ($_SERVER['REQUEST_METHOD']=='GET') {
@@ -234,17 +322,15 @@ if (parseCommand($action,'estate')) {
         
         } elseif ($_SERVER['REQUEST_METHOD']=='PUT') {
         
-            $postParam=getPostParameter();
-            $newObjID=Lessor::register($postParam);
+            $newObjID=Tenant::update($postParam);
 
             header('Content-type: application/json');
-            echo '{"newLessorID":'.$newObjID.'}';
+            echo '{"state":'.$newObjID.'}';
 
  
       
         } elseif ($_SERVER['REQUEST_METHOD']=='POST') {
         
-            $postParam=getPostParameter();
             // 2Do
         
 
@@ -256,9 +342,7 @@ if (parseCommand($action,'estate')) {
         }
 
     }
-    
 
-} elseif (parseCommand($action,'tenant')) {
 
 
 }

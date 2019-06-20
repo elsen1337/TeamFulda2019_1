@@ -4,6 +4,8 @@
 class SearchForm {
 
 
+    private static $dbvar='msdb';
+
 
     public static $searchKeyGlobal='appsearch';
     public static $searchKeyDistMtr='distmeter';
@@ -59,10 +61,44 @@ class SearchForm {
     
     
     private static function formQuery ($sqlWhere=array(),$sqlOrder=array(),$sqlLimit=array()) {
+    
+    
+        $fullTextSearch=null;
+        
+        $isSessionSearch=array_key_exists(self::$searchKeyGlobal,$_SESSION);
+        if ($isSessionSearch===false) {$_SESSION[self::$searchKeyGlobal]=array();echo HIAM;}        
+
+        $sessionRef=&$_SESSION[self::$searchKeyGlobal];
+
+        
+        foreach (self::$searchParameters as $sqlKey => $formKey) {
+
+            if (array_key_exists($formKey,$sessionRef)) {
+                
+                if ($sqlKey != 'val') {
+                    self::addSQLWhereOrder($sqlWhere, $sqlOrder, self::$rangeOperatorMapping, $sqlKey, $sessionRef[$formKey]);
+                } else {
+                
+                    $fullTextSearch=&$sessionRef[$formKey];
+                    $sqlWhere[]='( m.name LIKE "%'.$fullTextSearch.'%" OR MATCH(a.val) AGAINST("'.$fullTextSearch.'") OR w.name LIKE "%'.$fullTextSearch.'%" OR MATCH(w.beschr) AGAINST ("'.$fullTextSearch.'") )';
+                }
+            }
+
+            
+        }
+        
+        
+        if ($fullTextSearch != null) {
+            // sqlOrder Unset on Fulltext... Order By Match Score AUTOMATICALLY from MATCH AGAINST Clause / FullTextSearch 
+            $sqlOrder=[];		
+        }
+    
         // SUBSTRING_INDEX(GROUP_CONCAT(ColName ORDER BY ColName DESC), ',', 5)
         $sql='SELECT w.*, v.anrede, v.nname, GROUP_CONCAT(i.alt ORDER BY i.rdr SEPARATOR " // ") AS imgalt, SUBSTRING_INDEX(GROUP_CONCAT(i.bild ORDER BY i.rdr), ",", 1) AS imgpath, AVG(f.score) AS score, COUNT(DISTINCT f.m_id) AS cnt FROM wohnung AS w JOIN vermieter AS v ON v.vm_id=w.vm_id LEFT JOIN w_image AS i ON w.wohn_id=i.wohn_id LEFT JOIN m_favorit AS f ON f.wohn_id=w.wohn_id LEFT JOIN w_attrvals AS a ON a.wohn_id=w.wohn_id LEFT JOIN w_attrmeta AS m ON m.aid=a.aid WHERE w.visible > 0 '.(count($sqlWhere) > 0 ? 'AND '.implode(' AND ',$sqlWhere) : '').' GROUP BY w.wohn_id ORDER BY '.(count($sqlOrder) > 0 ? implode(',',$sqlOrder) : 'cnt DESC').(count($sqlLimit)==2 ? ' LIMIT '.$sqlLimit[0].','.$sqlLimit[1] : '');
-        $mrs=$msdb->query($sql); echo $msdb->error;
+        
+        $mrs=$GLOBALS[self::$dbvar]->query($sql); echo $msdb->error;
         return $mrs;
+        
     }
 
     
@@ -83,7 +119,7 @@ class SearchForm {
     }
     
     
-    public static function updateSeachSession () {
+    public static function updateSearchSession () {
     
     
         $isSessionSearch=array_key_exists(self::$searchKeyGlobal,$_SESSION);
@@ -131,7 +167,7 @@ class SearchForm {
         }
 
         
-        self::performSearch($sqlWhere,$sqlOrder);
+        // self::performSearch($sqlWhere,$sqlOrder);
     
     
     
