@@ -121,9 +121,22 @@ studyHomeApp.controller('RentingCtrl', ['$scope', '$http', function($scope, $htt
                     },
                     (err) => {
                         console.log(err);
+                        document.getElementById('renting_output').textContent = `There seems to have been an error. We'll try to fix that soon.`;
                     });
         };
 
+        let tempName = $scope.name;
+        document.getElementById('renting_output').textContent = `Your ad '${tempName}' has been succesfully added.`;
+
+        $scope.beschr = '';
+        $scope.entf_meter = '';
+        $scope.entf_min = '';
+        $scope.name = '';
+        $scope.ort = '';
+        $scope.plz = '';
+        $scope.preis = '';
+        $scope.str = '';
+        document.getElementById('fileinput').value = '';
         }
 
     }])
