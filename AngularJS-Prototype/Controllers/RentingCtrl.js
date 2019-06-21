@@ -22,6 +22,8 @@ studyHomeApp.controller('RentingCtrl', ['$scope', '$http', function($scope, $htt
         {
             let fd = new FormData();
 
+
+            // Assign values of the input fields to a formdata Object to send them to the server.
             fd.append("beschr", $scope.beschr);
             fd.append("entf_meter", $scope.entf_meter);
             fd.append("entf_min", $scope.entf_min);
@@ -54,7 +56,8 @@ studyHomeApp.controller('RentingCtrl', ['$scope', '$http', function($scope, $htt
             // Convert formdata object to JSON
             let fdjson = JSON.stringify(Object.fromEntries(fd));
 
-            $http.put('../restapi/handler.php?objAction=estatedefault', fdjson,
+            // Send a put request with the inputs from the text and number fields to create a new appartment object.
+            $http.post('../restapi/handler.php?objAction=estatedefault', fdjson,
                 {
                     transformRequest: angular.identity,
                     headers: {
@@ -65,9 +68,12 @@ studyHomeApp.controller('RentingCtrl', ['$scope', '$http', function($scope, $htt
                 .then((serviceResponse) =>
                     {
 
+                        /* For every picture attached to the file input send a put request
+                        with the newly created appartment's id an alternate text and the order they should be safed in.
+                        After that attach the current picture to a formdata object and send it to the server with it's newly assigned id.
+                         */
                         angular.forEach($scope.bilder, (val, key) =>
                         {
-
 
                             let fdi = new FormData();
                             fdi.append("wohn_id", serviceResponse.data.newEstateID);
@@ -88,7 +94,9 @@ studyHomeApp.controller('RentingCtrl', ['$scope', '$http', function($scope, $htt
                                 })
                                 .then((serviceResponse) =>
                                     {
+
                                         let image = new FormData();
+                                        console.log(serviceResponse.data.newImgID);
                                         image.append('bild' + '[' + serviceResponse.data.newImgID + ']', val);
 
 
@@ -121,12 +129,12 @@ studyHomeApp.controller('RentingCtrl', ['$scope', '$http', function($scope, $htt
                     },
                     (err) => {
                         console.log(err);
-                        document.getElementById('renting_output').textContent = `There seems to have been an error. We'll try to fix that soon.`;
+                        document.getElementById('renting_output').innerText = `There seems to have been an error. We'll try to fix that soon.`;
                     });
         };
 
         let tempName = $scope.name;
-        document.getElementById('renting_output').textContent = `Your ad '${tempName}' has been succesfully added.`;
+        document.getElementById('renting_output').innerText = `Your ad '${tempName}' has been succesfully added.`;
 
         $scope.beschr = '';
         $scope.entf_meter = '';

@@ -19,7 +19,11 @@ var ROUTES = {
     page3: "login",
     page4: "register",
     // none nav item routes
-    page5: "details"
+    page5: "details",
+    page6: "agb",
+    page7: "contactAndHelp",
+    page8: "aboutUs",
+    page9: "impressum"
 };
 
 // App Module
@@ -92,6 +96,22 @@ studyHomeApp.config(['$routeProvider', '$mdThemingProvider', function($routeProv
             templateUrl: 'Views/' + ROUTES.page5 + '.html',
             controller: 'DetailsCtrl'
         })
+        .when('/' + ROUTES.page6, {
+            templateUrl: 'Views/' + ROUTES.page6 + '.html',
+            controller: 'AGBCtrl'
+        })
+        .when('/' + ROUTES.page7, {
+            templateUrl: 'Views/' + ROUTES.page7 + '.html',
+            controller: 'ContactAndHelpCtrl'
+        })
+        .when('/' + ROUTES.page8, {
+            templateUrl: 'Views/' + ROUTES.page8 + '.html',
+            controller: 'AboutUsCtrl'
+        })
+        .when('/' + ROUTES.page9, {
+            templateUrl: 'Views/' + ROUTES.page9 + '.html',
+            controller: 'ImpressumCtrl'
+        })
         .otherwise({
             redirectTo: '/' + ROUTES.page0
         });
@@ -115,9 +135,13 @@ studyHomeApp.controller('NavCtrl', ['$scope', '$location', function($scope, $loc
             case '/' + ROUTES.page4:
                 return ROUTES.page4;
             /*case '/' + ROUTES.page5:
-                return ROUTES.page5;
-            /*case '/' + ROUTES.page6:
-                return ROUTES.page6;*/
+                return ROUTES.page5;*/
+            case '/' + ROUTES.page6:
+                return ROUTES.page6;
+            case '/' + ROUTES.page7:
+                return ROUTES.page7;
+            case '/' + ROUTES.page8:
+                return ROUTES.page8;
             default:
                 return $scope.lastNavItem;
         }
@@ -143,7 +167,10 @@ studyHomeApp.controller('NavCtrl', ['$scope', '$location', function($scope, $loc
 }]);
 
 function updateNavBar(currentNavItem) {
-    document.getElementById("nav-refresh").setAttribute("md-selected-nav-item", currentNavItem);
+    if(document.getElementById("nav-refresh")) {
+        document.getElementById("nav-refresh").setAttribute("md-selected-nav-item", currentNavItem);
+    }
+
 }
 
 // some helper functions for hiding/showing external nav content

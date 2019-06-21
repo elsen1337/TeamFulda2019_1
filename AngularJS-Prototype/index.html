@@ -6,6 +6,7 @@
         <meta http-equiv="refresh" content="2; url=https://hsftp.uber.space/sfsuroombook/">
     </noscript>
     <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=0.5">
     <title>Study Home</title>
     <link href="angular-material.min.css" rel="stylesheet">
     <link href="style.css" rel="stylesheet">
@@ -17,55 +18,57 @@
 
     <style>
         #main-ext-nav-cnt-show {
-            margin-top: 60px;
+            margin-top: 20px;
         }
     </style>
 
 </head>
 <body>
+<script>
+    function myFunction() {
+        var x = document.getElementById("myTopnav");
+        console.log(x.className);
+        if (x.className === "topnav") {
+            console.log(x.className);
+            x.className += " responsive";
+        } else if (x.className == "topnav ng-scope") {
+            x.className = "topnav";
+            console.log(x.className);
+            x.className += " responsive";
+        } else if (x.className == null) {
+            console.log(x.className);
+            x.className = "topnav";
+        } else {
+            console.log(x.className);
+            x.className = "topnav";
+        }
+    }
+</script>
             <header id="header" data-ng-include="'header.html'"></header>
 
             <main id="main-ext-nav-cnt-show" data-ng-view></main>
 
             <footer id="footer" data-ng-include="'footer.html'"></footer>
 
-    <!-- Script Dependencies -->
-    <script src="angular.min.js"></script>
-    <script src="angular-animate.min.js"></script>
-    <script src="angular-aria.min.js"></script>
-    <script src="angular-material.min.js"></script>
-    <script src="angular-route.js"></script>
-    <script src="app.js"></script>
-    <script src="Controllers/StudyHomeCtrl.js"></script>
-    <script src="Controllers/LoginCtrl.js"></script>
-    <script src="Controllers/RegisterCtrl.js"></script>
-    <script src="Controllers/EstatesCtrl.js"></script>
-    <script src="Controllers/ProfileCtrl.js"></script>
-    <script src="Controllers/MessagesCtrl.js"></script>
-    <script src="Controllers/RentingCtrl.js"></script>
-    <script src="Controllers/DetailsCtrl.js"></script>
-    <script src="Templates/SliderCtrl.js"></script>
-
-    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.6.9/angular.min.js">
-        angular
-            .module('customSidenavDemo', ['ngMaterial'])
-            .controller('AppCtrl', function ($scope, $mdSidenav) {
-                $scope.toggleLeft = buildToggler('left');
-
-                function buildToggler(componentId) {
-                    return function() {
-                        $mdSidenav(componentId).toggle();
-                    };
-                }
-            });
-
-        function updateHTML(elmId, value) {
-            var elem = document.getElementById(elmId);
-            if(typeof elem !== 'undefined' && elem !== null) {
-                elem.innerHTML = value;
-            }
-        }
-
-    </script>
+            <!-- Script Dependencies -->
+            <script src="angular.min.js"></script>
+            <script src="angular-animate.min.js"></script>
+            <script src="angular-aria.min.js"></script>
+            <script src="angular-material.min.js"></script>
+            <script src="angular-route.js"></script>
+            <script src="app.js"></script>
+            <script src="Controllers/StudyHomeCtrl.js"></script>
+            <script src="Controllers/LoginCtrl.js"></script>
+            <script src="Controllers/RegisterCtrl.js"></script>
+            <script src="Controllers/EstatesCtrl.js"></script>
+            <script src="Controllers/ProfileCtrl.js"></script>
+            <script src="Controllers/MessagesCtrl.js"></script>
+            <script src="Controllers/RentingCtrl.js"></script>
+            <script src="Controllers/DetailsCtrl.js"></script>
+            <script src="Templates/SliderCtrl.js"></script>
+            <script src="Controllers/AGBCtrl.js"></script>
+            <script src="Controllers/ContactAndHelpCtrl.js"></script>
+            <script src="Controllers/AboutUs.js"></script>
+            <script src="Controllers/Impressum.js"></script>
 </body>
 </html>

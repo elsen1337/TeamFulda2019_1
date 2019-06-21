@@ -5,6 +5,18 @@ h1{
     margin: 0;
 }
 
+body
+{
+    min-height: 100%;
+    height: auto;
+}
+
+html
+{
+    min-height: 100%;
+    height: 100%;
+}
+
 /*md-content .ext-content {
     padding: 50px;
     margin: 20px;
@@ -63,6 +75,7 @@ header{
     position: fixed;
 }*/
 
+/*
 footer{
     left: 0;
     bottom: 0;
@@ -78,7 +91,7 @@ footer{
     z-index: 1;
     position: absolute;
 }
-
+*/
 .menu-bottom a {
     color: #006799;
     text-align: center;
@@ -253,4 +266,17 @@ md-content {
         margin-left: 16%;
         margin-bottom: 60%;
     }
+}
+
+#searchList{
+    font-size:2vw;
+    margin-bottom: 70%;
+}
+
+.search-item-img {
+    width: 16%;
+    margin-right: 4%;
+    /*box-shadow: 0px 0px 15px #999;*/
+    border-style: solid;
+    border-color: rgba(103, 198, 228, 0.41);
 }
