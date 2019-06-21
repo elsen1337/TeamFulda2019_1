@@ -1,5 +1,12 @@
 studyHomeApp.controller('StudyHomeCtrl', ['$scope', '$http', '$location', function($scope, $http, $location){
 
+    $scope.searchItems = [{}];
+
+    if(window.searchItems) {
+        $scope.searchItems = window.searchItems;
+    }
+    // alert(window.searchItems);
+
     $scope.searchFormData = {
 
         "fulltext" : '',
@@ -26,9 +33,6 @@ studyHomeApp.controller('StudyHomeCtrl', ['$scope', '$http', '$location', functi
     // });
 
 
-    $scope.searchItems = [{}];
-
-
     $scope.submitSearchForm = function() {
         console.log($scope.searchFormData);
         let submitData = convertSearchFormData($scope.searchFormData);
@@ -36,8 +40,8 @@ studyHomeApp.controller('StudyHomeCtrl', ['$scope', '$http', '$location', functi
         $http({
             url : "../restapi/handler.php?objAction=estatesearch",
             method: "PUT",
-            // headers: {'Content-Type': 'application/x-www-form-urlencoded'},
-            data: submitData
+            // headers : {'Content-Type': 'application/x-www-form-urlencoded'},
+            data : submitData
         }).then(function mySuccess(response) {
             $scope.putSucc = response.data;
             console.log(response.data);
@@ -47,6 +51,7 @@ studyHomeApp.controller('StudyHomeCtrl', ['$scope', '$http', '$location', functi
             $http({
                 method : "POST",
                 url : "../restapi/handler.php?objAction=estatesearch"
+                // headers : {'Content-Type': 'application/x-www-form-urlencoded'}
             }).then(function mySuccess(response) {
                 $scope.searchData = response.data;
                 console.log(response.data);
@@ -62,6 +67,7 @@ studyHomeApp.controller('StudyHomeCtrl', ['$scope', '$http', '$location', functi
                         surface : "24 m²"
                     };
                 }
+                window.searchItems = $scope.searchItems;
             }, function myError(response) {
                 $scope.error = response.statusText;
                 console.error($scope.error);
