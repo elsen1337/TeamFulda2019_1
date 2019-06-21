@@ -1,7 +1,8 @@
-studyHomeApp.controller('DetailsCtrl', ['$scope', '$http', function($scope, $http){
+studyHomeApp.controller('DetailsCtrl', ['$scope', '$http', '$routeParams', '$location', function($scope, $http, $routeParams, $location){
 
-    //set scope.id in search controller after clicking an item
-    $scope.detailsID = 1;
+    // console.log(getEstateID($location.$$path));
+
+    $scope.detailsID = getEstateID($location.$$path);
 
     $http({
         method : "GET",
@@ -148,3 +149,7 @@ function getDetailsQueryString(objAction, objKey) {
 //     p.innerHTML = "{{item.description}}";
 //     div.append(p);
 // }
+
+function getEstateID(path) {
+    return path.match("[0-9]+");
+}
