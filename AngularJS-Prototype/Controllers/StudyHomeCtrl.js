@@ -57,6 +57,9 @@ studyHomeApp.controller('StudyHomeCtrl', ['$scope', '$http', '$location', functi
                 console.log(response.data);
                 console.log("status: " + response.status);
                 console.log("statusText: " + response.statusText);
+                //reset search items because sth could be left over
+                window.searchItems = [{}];
+                $scope.searchItems = [{}];
                 for(let i = 0; i < $scope.searchData.length; i++) {
                     $scope.searchItems[i] = {
                         id : $scope.searchData[i].wohn_id,
