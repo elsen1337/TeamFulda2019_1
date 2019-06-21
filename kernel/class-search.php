@@ -114,6 +114,7 @@ class SearchForm {
 		}
 
 		echo json_encode($jsn);
+		return $mrs->num_rows;
     
     
     }

@@ -97,12 +97,19 @@ if (parseCommand($action,'estate')) {
             SearchForm::generateForm();
         
         } elseif ($_SERVER['REQUEST_METHOD']=='PUT') {
+        
+            $reqBody=getRequestBody();
+            parse_str($reqBody,$_REQUEST);
+            #print_r($_REQUEST);
+            
  
             SearchForm::updateSearchSession();
+            #print_r($_SESSION);
       
         } elseif ($_SERVER['REQUEST_METHOD']=='POST') {
         
-            SearchForm::performSearch();
+            $amnt=SearchForm::performSearch();
+            header('X-SearchResult-Size: '.$amnt);
 
         } elseif ($_SERVER['REQUEST_METHOD']=='DELETE') {
         

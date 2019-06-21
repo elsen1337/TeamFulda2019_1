@@ -79,16 +79,6 @@ if (array_key_exists($iDelKey,$_GET)) {
 	foreach ($_GET[$iDelKey] as $bid) {
 		
 		AppartImage::removeImage($bid);
-		/*
-		$row=$msdb->query('SELECT * FROM '.$ptbl.' WHERE '.$pkey.'='.$bid)->fetch_assoc();
-		
-		chdir($uploadBaseDir); $accRes=0;
-
-		$accRes+=(int)@unlink($dirThumb.'/'.AppartImage::formThumbFileName($row['bild']));
-		$accRes+=(int)@unlink($dirOrg.'/'.$row['bild']);
-		
-		$msdb->query('DELETE FROM '.$ptbl.' WHERE '.$pkey.'='.$bid);
-		*/
 	
 	}
 
@@ -114,35 +104,14 @@ if (array_key_exists($uKey,$_FILES)) {
 	$bildUpload=&$_FILES[$uKey];
 	AppartImage::uploadImage($bildUpload,$redArr[$nkey]);
 	
-	/*
+	
 	foreach ($bildUpload['error'] as $bid => $val) {
-		
-		if ($val > 0) {continue;}
-		if ($bildUpload['size'][$bid] > AppartImage::MAX_IMAGE_SIZE_KB * 1024 || $bildUpload['size'][$bid] == 0) {continue;}
-		if (strpos($bildUpload['type'][$bid],'image') === false) {continue;}
-		
-		# stringNormalize::normalizeURL File
-		$oldFileName = $bildUpload['name'][$bid];
-		$pathInfoOld=pathinfo($oldFileName);
-	
-		// Neu erstellter Datensatz für Bild
-		$bsqlid=is_int($bid)===false ? $msdb->insert_id : $bid;
+
 		$_GET['wid']=$_POST['wohn_id'][$bid];
-			
-		// $r=trim(preg_replace('/(\d+)/i', '-$1-', $r),'-');
-		// $r=str_replace('.', '', $r); $r=preg_replace('/\-+/i', '-', $r);
-
-		$newFileName = str_pad($bsqlid, 5, "0", STR_PAD_LEFT).'-'.stringNormalize::normalizeURL($pathInfoOld['filename']).'.'.$pathInfoOld['extension'];
-		$targetFile = implode('/',array($dirOrg, $newFileName));
-
-		move_uploaded_file($bildUpload['tmp_name'][$bid],$targetFile);
-		file_put_contents($dirThumb .'/'.substr($newFileName,0,(false==$p=strrpos($newFileName,'.')) ? strlen($newFileName) : $p).'.jpg', image_get_thumb_file ($targetFile, 100, 100, 65));
 	
-		$msdb->query('UPDATE w_image SET bild = "'.$newFileName.'" WHERE bild_id='.$bsqlid);
-		
 	}
 	 
-	*/
+	
 	
 }
 
