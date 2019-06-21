@@ -63,7 +63,7 @@ studyHomeApp.controller('StudyHomeCtrl', ['$scope', '$http', '$location', functi
                         alt : $scope.searchData[i].imgalt,
                         img: "images/thumb/" + $scope.searchData[i].imgpath,
                         name : $scope.searchData[i].name,
-                        price : $scope.searchData[i].preis,
+                        price : $scope.searchData[i].preis + " €",
                         surface : "24 m²"
                     };
                 }
