@@ -25,7 +25,7 @@ GUI::printNotice('Bearbeitung von Stammdaten, Attributen und Bildern');
 $pkey='wohn_id';
 $ptbl='wohnung';
 
-$type=array('visible'=>'selection','name'=>'text','beschr'=>'area','vm_id'=>'selection','str'=>'text','plz'=>'number','ort'=>'text','preis'=>'number=step>0.01','entf_meter'=>'number','entf_min'=>'number');
+$type=array('visible'=>'selection','name'=>'text','beschr'=>'area','vm_id'=>'selection','str'=>'text','plz'=>'number','ort'=>'text','preis'=>'number=step>0.01','qm_groesse'=>'number','entf_meter'=>'number','entf_min'=>'number');
 
 FormFV::updateDB($_POST,$type,'new',$ptbl,$pkey,'wdel');
 

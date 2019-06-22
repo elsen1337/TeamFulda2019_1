@@ -17,11 +17,17 @@ function parseCommand(&$cmd,$route) {
 
 
 // 202 Accepted, 201 Created, 204 'No Content', 400 BadRequest, 401 'Unauthorized' VS 403 'Forbidden', 404, 410
-function notAllowed() {sentHeader(405,'NotAllowed');}
+function notAllowed() {sentHeader(405,'Not Allowed');}
+function noCredentials() {sentHeader(401,'Unauthorized');}
+function forbiddenAccess() {sentHeader(403,'Forbidden');}
+
 function objUpdated() {sentHeader(204,'No Content');}
 function objRemoved() {sentHeader(204,'No Content');}
+
 function objCreated() {sentHeader(201,'Created');}
 function objProcessing() {sentHeader(202,'Accepted');}
+
+function noContent() {sentHeader(204,'No Content');}
 
 
 function sentHeader($code, $msg) {
@@ -47,6 +53,14 @@ return json_decode($str,$ascarr);
 
 
 function getPostParameter() {
+
+	if ($_SERVER['REQUEST_METHOD']=='PUT') {
+		
+		// $reqBody=getRequestBody();
+        // parse_str($reqBody,$_REQUEST);
+        
+	}
+
 
     if (stripos($_SERVER["CONTENT_TYPE"],'application/json')!==false) {
         return getJSONFromRequestBody();
@@ -96,6 +110,7 @@ if (parseCommand($action,'estate')) {
         
             SearchForm::generateForm();
         
+        
         } elseif ($_SERVER['REQUEST_METHOD']=='PUT') {
         
             $reqBody=getRequestBody();
@@ -104,14 +119,30 @@ if (parseCommand($action,'estate')) {
             
  
             SearchForm::updateSearchSession();
-            #print_r($_SESSION);
-      
+            objProcessing();
+            
+            //header('Content-type: application/json');
+            //echo json_encode($_SESSION[SearchForm::$searchKeyGlobal]);
+	
+	
         } elseif ($_SERVER['REQUEST_METHOD']=='POST') {
         
-            $amnt=SearchForm::performSearch();
-            header('X-SearchResult-Size: '.$amnt);
+        
+            require('../kernel/class-appartimg.php');
+
+            header('Content-type: application/json');
+            list($amnt,$view)=SearchForm::performSearch([],[],[]);
+            header('X-SearchResultSize-Overall: '.$amnt);
+            header('X-SearchResultSize-Limit: '.$view);
+            
 
         } elseif ($_SERVER['REQUEST_METHOD']=='DELETE') {
+        
+        
+            SearchForm::resetSession();
+            noContent();
+            
+            #print_r($_SESSION[SearchForm::$searchKeyGlobal]);
         
 
         } else {
@@ -125,29 +156,33 @@ if (parseCommand($action,'estate')) {
     
         if ($_SERVER['REQUEST_METHOD']=='GET') {
         
+            header('Content-type: application/json');
             echo json_encode(Estate::getDefaultProperties($objkey));
+        
         
         } elseif ($_SERVER['REQUEST_METHOD']=='PUT') {
         
-        
-            $newObjID=Estate::createEstate($postParam);
-                        
-            header('Content-type: application/json');
-            echo '{"newEstateID":'.$newObjID.'}';
-
+			// Parameter !
+            $newObjID=Estate::update($postParam,$objkey);
+            // Header + Status
+       
        
         } elseif ($_SERVER['REQUEST_METHOD']=='POST') {
         
-            $newObjID=Estate::createEstate($postParam);
+            $newObjID=Estate::create($postParam);
                         
             header('Content-type: application/json');
-            echo '{"newEstateID":'.$newObjID.'}';
+            if ($newObjID > 0) {objCreated();}
+            
+            echo '{"newEstateID":'.$newObjID.',"sqlError":"'.$msdb->error.'"}';
 
 
         } elseif ($_SERVER['REQUEST_METHOD']=='DELETE') {
         
-            
-        
+            // Partial 2Do
+            Estate::delete($objkey);
+			// Header + Status
+
         } else {
         
             notAllowed();
@@ -160,15 +195,21 @@ if (parseCommand($action,'estate')) {
       
         if ($_SERVER['REQUEST_METHOD']=='GET') {
         
+            header('Content-type: application/json');
             echo json_encode(Estate::getDynamicProperties($objkey));
         
         } elseif ($_SERVER['REQUEST_METHOD']=='PUT') {
+        
+			// 2Do
  
       
         } elseif ($_SERVER['REQUEST_METHOD']=='POST') {
         
 
         } elseif ($_SERVER['REQUEST_METHOD']=='DELETE') {
+        
+			// 2Do
+			
 
         } else {
         
@@ -191,7 +232,7 @@ if (parseCommand($action,'estate')) {
             $newImgID=AppartImage::addImage($postParam);
 
             header('Content-type: application/json');
-            echo '{"newImgID":'.$newImgID.'}';
+            echo '{"newImgID":'.$newImgID.',"sqlError":"'.$msdb->error.'"}';
       
       
         } elseif ($_SERVER['REQUEST_METHOD']=='POST') {
@@ -204,16 +245,22 @@ if (parseCommand($action,'estate')) {
             chdir('../'.AppartImage::$uploadBaseDir);
             
             $bildUpload=&$_FILES['bild'];
-            AppartImage::uploadImage($bildUpload);
+            $actResult=AppartImage::uploadImage($bildUpload);
             
-            
+			header('Content-type: application/json');
+			echo '{"actSuccess":'.$actResult.',"sqlError":"'.$msdb->error.'"}';
+
 
 
         } elseif ($_SERVER['REQUEST_METHOD']=='DELETE') {
             
             chdir('../'.AppartImage::$uploadBaseDir);
             
-            AppartImage::removeImage($objkey);
+            $actResult=AppartImage::removeImage($objkey);
+            
+			header('Content-type: application/json');
+			echo '{"actSuccess":'.$actResult.',"sqlError":"'.$msdb->error.'"}';
+
 
 
         } else {
@@ -253,35 +300,61 @@ if (parseCommand($action,'estate')) {
         } elseif ($_SERVER['REQUEST_METHOD']=='POST') {
         
         
-            $usr=Lessor::login($postParam['user'],$postParam['auth']);
-            $_SESSION['LAUTH']['id']=$usr->{Lessor::$entPrimKey}; // Wahlweise auch mehrer Daten in Session kopieren; z.B Nutzernamenanzeige: Hallo <Name>....
+            $usr=Lessor::login($postParam['email'],$postParam['pwort']);
+            $_SESSION[Lessor::$sKey]['id']=$usr->{Lessor::$entPrimKey}; // Wahlweise auch mehrer Daten in Session kopieren; z.B Nutzernamenanzeige: Hallo <Name>....
 
             header('Content-type: application/json');
             echo json_encode($usr);
             
 
         } elseif ($_SERVER['REQUEST_METHOD']=='DELETE') {
-             $_SESSION[Lessor::$sKey]=array();
+        
+			$_SESSION[Lessor::$sKey]=array();
+			noContent();
 
         } else {
+        
             notAllowed();
+            
         }  
 
 
     } elseif (parseCommand($action,'account')) {
     
+    
         if ($_SERVER['REQUEST_METHOD']=='GET') {
         
-            // 2Do
+			session_start();
+        
+			if (is_array($_SESSION[Lessor::$sKey]) && array_key_exists('id',$_SESSION[Lessor::$sKey])) {
+			
+				if ($_SESSION[Lessor::$sKey]['id']==$objkey) {
+            
+					header('Content-type: application/json');
+					$usr=Lessor::about($objkey);
+					echo json_encode($usr);
+					
+				} else {
+				
+					noCredentials();
+				
+				}
+					
+            } else {
+
+				forbiddenAccess();
+				
+            }
             
             
         
         } elseif ($_SERVER['REQUEST_METHOD']=='PUT') {
         
-            $newObjID=Lessor::update($postParam);
+            $actResult=Lessor::update($postParam,$objkey);
 
             header('Content-type: application/json');
-            echo '{"newLessorID":'.$newObjID.'}';
+			echo '{"actSuccess":'.$actResult.',"sqlError":"'.$msdb->error.'"}';
+
 
       
         } elseif ($_SERVER['REQUEST_METHOD']=='POST') {
@@ -289,20 +362,25 @@ if (parseCommand($action,'estate')) {
             $newObjID=Lessor::register($postParam);
 
             header('Content-type: application/json');
-            echo '{"newLessorID":'.$newObjID.'}';
+            if ($newObjID > 0) {objCreated();}
+
+            echo '{"newLessorID":'.$newObjID.',"sqlError":"'.$msdb->error.'"}';
 
 
         } elseif ($_SERVER['REQUEST_METHOD']=='DELETE') {
 
 
 
-            $newObjID=Lessor::delete($objkey);
+            $actResult=Lessor::delete($objkey);
 
-            header('Content-type: application/json');
-            echo '{"newLessorID":'.$newObjID.'}';
+			header('Content-type: application/json');
+			echo '{"actSuccess":'.$actResult.',"sqlError":"'.$msdb->error.'"}';
+
 
         } else {
+        
             notAllowed();
+            
         }
 
     }
@@ -311,49 +389,163 @@ if (parseCommand($action,'estate')) {
 } elseif (parseCommand($action,'tenant')) {
 
 
-
+    session_start();
+    require('../kernel/class-tenant.php');
+   
 
     if (parseCommand($action,'login')) {
     
-    
+        if ($_SERVER['REQUEST_METHOD']=='GET') {
+        
+            $aKey=Tenant::$sKey;
+            if (array_key_exists($aKey,$_SESSION)===false) {$_SESSION[$aKey]=array();}
+
+            header('Content-type: application/json');
+            echo json_encode($_SESSION[$aKey]);
+        
+        
+        } elseif ($_SERVER['REQUEST_METHOD']=='PUT') {
+        
+            // NotImplemented
+ 
+      
+        } elseif ($_SERVER['REQUEST_METHOD']=='POST') {
+        
+        
+            $usr=Tenant::login($postParam['email'],$postParam['pwort']);
+            $_SESSION[Tenant::$sKey]['id']=$usr->{Tenant::$entPrimKey}; // Wahlweise auch mehrer Daten in Session kopieren; z.B Nutzernamenanzeige: Hallo <Name>....
+
+            header('Content-type: application/json');
+            echo json_encode($usr);
+            
+
+        } elseif ($_SERVER['REQUEST_METHOD']=='DELETE') {
+        
+			$_SESSION[Tenant::$sKey]=array();
+			noContent();
+
+        } else {
+        
+            notAllowed();
+            
+        }      
         
     
     } elseif (parseCommand($action,'account')) {
-    } elseif (parseCommand($action,'account')) {
+
+    
     
         if ($_SERVER['REQUEST_METHOD']=='GET') {
         
-            // 2Do
+			session_start();
         
+			if (is_array($_SESSION[Tenant::$sKey]) && array_key_exists('id',$_SESSION[Tenant::$sKey])) {
+			
+				if ($_SESSION[Tenant::$sKey]['id']==$objkey) {
             
+					header('Content-type: application/json');
+					$usr=Tenant::about($objkey);
+					echo json_encode($usr);
+					
+				} else {
+				
+					noCredentials();
+				
+				}
+					
+            } else {
+
+				forbiddenAccess();
+				
+            }
+            
+            
+        
+        } elseif ($_SERVER['REQUEST_METHOD']=='PUT') {
+        
+            $actResult=Tenant::update($postParam,$objkey);
+			echo '{"actSuccess":'.$actResult.',"sqlError":"'.$msdb->error.'"}';
+
+      
+        } elseif ($_SERVER['REQUEST_METHOD']=='POST') {
+        
+            $newObjID=Tenant::register($postParam);
+
+            header('Content-type: application/json');
+            if ($newObjID > 0) {objCreated();}
+
+            echo '{"newLessorID":'.$newObjID.',"sqlError":"'.$msdb->error.'"}';
+
+
+        } elseif ($_SERVER['REQUEST_METHOD']=='DELETE') {
+
+        
+            $actResult=Tenant::delete($objkey);
+
+            // No Content
+            #  echo '{"actSuccess":'.$actResult.',"sqlError":"'.$msdb->error.'"}';
+
+
+
+        } else {
+        
+            notAllowed();
+            
+        }
+        
+        
+    
+    } elseif (parseCommand($action,'favorit')) {
+    
+        if ($_SERVER['REQUEST_METHOD']=='GET') {
+        
+        
+			
+        
+           
         
         } elseif ($_SERVER['REQUEST_METHOD']=='PUT') {
         
             $newObjID=Tenant::update($postParam);
 
-            header('Content-type: application/json');
-            echo '{"state":'.$newObjID.'}';
+            #header('Content-type: application/json');
+            #echo '{"state":'.$newObjID.'}';
 
  
       
         } elseif ($_SERVER['REQUEST_METHOD']=='POST') {
         
-            // 2Do
-        
 
 
         } elseif ($_SERVER['REQUEST_METHOD']=='DELETE') {
-             $_SESSION['LAUTH']=array();
-             // 2Do
+
 
         }
 
     }
 
+    
+    // (Chat), Meeting, [Metadaten]
 
 
 }
 
+
+
+
+if (array_key_exists('debug',$_GET)) {
+
+
+	echo "Session-Daten (Sofern SESSION_START() in enstsprechender Sektion):\n";
+	print_r($_SESSION);
+
+	echo "Body-Parameter (Except PUT Requests; 2 Be Fixed):\n";
+	print_r($postParam);
+
+	echo "Session-Daten:\n";
+	print_r($_SESSION);
+
+}
 
 
 

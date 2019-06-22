@@ -80,7 +80,9 @@ class SearchForm {
                 } else {
                 
                     $fullTextSearch=&$sessionRef[$formKey];
-                    $sqlWhere[]='( m.name LIKE "%'.$fullTextSearch.'%" OR MATCH(a.val) AGAINST("'.$fullTextSearch.'") OR w.name LIKE "%'.$fullTextSearch.'%" OR MATCH(w.beschr) AGAINST ("'.$fullTextSearch.'") )';
+                    if (strlen($fullTextSearch) > 0) {
+                        $sqlWhere[]='( m.name LIKE "%'.$fullTextSearch.'%" OR MATCH(a.val) AGAINST("'.$fullTextSearch.'") OR w.name LIKE "%'.$fullTextSearch.'%" OR MATCH(w.beschr) AGAINST ("'.$fullTextSearch.'") )';
+                    }
                 }
             }
 
@@ -93,10 +95,11 @@ class SearchForm {
             $sqlOrder=[];		
         }
     
-        // SUBSTRING_INDEX(GROUP_CONCAT(ColName ORDER BY ColName DESC), ',', 5)
-        $sql='SELECT w.*, v.anrede, v.nname, GROUP_CONCAT(i.alt ORDER BY i.rdr SEPARATOR " // ") AS imgalt, SUBSTRING_INDEX(GROUP_CONCAT(i.bild ORDER BY i.rdr), ",", 1) AS imgpath, AVG(f.score) AS score, COUNT(DISTINCT f.m_id) AS cnt FROM wohnung AS w JOIN vermieter AS v ON v.vm_id=w.vm_id LEFT JOIN w_image AS i ON w.wohn_id=i.wohn_id LEFT JOIN m_favorit AS f ON f.wohn_id=w.wohn_id LEFT JOIN w_attrvals AS a ON a.wohn_id=w.wohn_id LEFT JOIN w_attrmeta AS m ON m.aid=a.aid WHERE w.visible > 0 '.(count($sqlWhere) > 0 ? 'AND '.implode(' AND ',$sqlWhere) : '').' GROUP BY w.wohn_id ORDER BY '.(count($sqlOrder) > 0 ? implode(',',$sqlOrder) : 'cnt DESC').(count($sqlLimit)==2 ? ' LIMIT '.$sqlLimit[0].','.$sqlLimit[1] : '');
+
+        $sql='SELECT SQL_CALC_FOUND_ROWS w.*, v.anrede, v.nname, GROUP_CONCAT(i.alt ORDER BY i.rdr SEPARATOR " // ") AS imgalt, SUBSTRING_INDEX(GROUP_CONCAT(i.bild ORDER BY i.rdr), ",", 1) AS imgpath, AVG(f.score) AS favscore, COUNT(DISTINCT f.m_id) AS favcnt FROM wohnung AS w JOIN vermieter AS v ON v.vm_id=w.vm_id LEFT JOIN w_image AS i ON w.wohn_id=i.wohn_id LEFT JOIN m_favorit AS f ON f.wohn_id=w.wohn_id LEFT JOIN w_attrvals AS a ON a.wohn_id=w.wohn_id LEFT JOIN w_attrmeta AS m ON m.aid=a.aid WHERE w.visible > 0 '.(count($sqlWhere) > 0 ? 'AND '.implode(' AND ',$sqlWhere) : '').' GROUP BY w.wohn_id ORDER BY '.(count($sqlOrder) > 0 ? implode(',',$sqlOrder) : 'favcnt DESC').(count($sqlLimit)==2 ? ' LIMIT '.$sqlLimit[0].','.$sqlLimit[1] : '');
         
-        $mrs=$GLOBALS[self::$dbvar]->query($sql); echo $msdb->error;
+        $mrs=$GLOBALS[self::$dbvar]->query($sql);
+        echo $GLOBALS[self::$dbvar]->error;
         return $mrs;
         
     }
@@ -105,16 +108,21 @@ class SearchForm {
     public static function performSearch ($sqlWhere=array(),$sqlOrder=array(),$sqlLimit=array()) {
 
         $mrs=self::formQuery($sqlWhere,$sqlOrder,$sqlLimit);
+        list($amnt)=$GLOBALS[self::$dbvar]->query('SELECT FOUND_ROWS()')->fetch_array();
+        
         $jsn=array();
         
         while ($row=$mrs->fetch_object()) {
+        
+            $row->paththumb=AppartImage::formThumbFilePath($row->imgpath);
+            $row->pathnormal=AppartImage::formNormalFilePath($row->imgpath);
 			
-			 $jsn[]=$row;
+			$jsn[]=$row;
 			
 		}
 
 		echo json_encode($jsn);
-		return $mrs->num_rows;
+		return array($amnt,$mrs->num_rows);
     
     
     }
@@ -145,6 +153,8 @@ class SearchForm {
                 if ($isRequestSearch && array_key_exists($formKey,$searchRef)) {
                     $sessionRef[$formKey]=$searchRef[$formKey];
                 }
+                
+                /*
                 if (array_key_exists($formKey,$sessionRef)) {
                     
                     if ($sqlKey != 'val') {
@@ -152,18 +162,23 @@ class SearchForm {
                     } else {
                     
                         $fullTextSearch=&$sessionRef[$formKey];
-                        $sqlWhere[]='( m.name LIKE "%'.$fullTextSearch.'%" OR MATCH(a.val) AGAINST("'.$fullTextSearch.'") OR w.name LIKE "%'.$fullTextSearch.'%" OR MATCH(w.beschr) AGAINST ("'.$fullTextSearch.'") )';
+                        if (strlen($fullTextSearch) > 0) {
+                            $sqlWhere[]='( m.name LIKE "%'.$fullTextSearch.'%" OR MATCH(a.val) AGAINST("'.$fullTextSearch.'") OR w.name LIKE "%'.$fullTextSearch.'%" OR MATCH(w.beschr) AGAINST ("'.$fullTextSearch.'") )';
+                        }
                     }
                 }
+                */
 
                 
             }
             
             
+            /*
             if ($fullTextSearch != null) {
                 // sqlOrder Unset on Fulltext... Order By Match Score AUTOMATICALLY from MATCH AGAINST Clause / FullTextSearch 
                 $sqlOrder=[];		
             }
+            */
             
         }
 
@@ -171,6 +186,14 @@ class SearchForm {
         // self::performSearch($sqlWhere,$sqlOrder);
     
     
+    
+    }
+    
+    
+    
+    public static function resetSession() {
+    
+        $_SESSION[self::$searchKeyGlobal]=array();
     
     }
    

@@ -59,7 +59,7 @@ if (strlen($_GET['edit']) > 0) {
 
 	echo '<table cellpadding="2"><tr><th>Vermieter-Name</th><th>#Bookmark</th><th title="Mieter / Gesamt">#Chat</th><th>Optionen</th></tr>';
 
-	$sql='SELECT m.m_id, anrede, nname, vname, COUNT(DISTINCT f.wohn_id) AS fcnt, COUNT(DISTINCT c.vm_id) AS cdcnt, COUNT(c.mid) AS mcnt FROM '.$ptbl.' AS m LEFT JOIN m_favorit AS f ON m.m_id = m.m_id LEFT JOIN m_chat AS c ON c.m_id=m.m_id  GROUP BY m.m_id';
+	$sql='SELECT m.m_id, anrede, nname, vname, COUNT(DISTINCT f.wohn_id) AS fcnt, COUNT(DISTINCT c.vm_id) AS cdcnt, COUNT(c.mid) AS mcnt FROM '.$ptbl.' AS m LEFT JOIN m_favorit AS f ON m.m_id = f.m_id LEFT JOIN m_chat AS c ON c.m_id=m.m_id  GROUP BY m.m_id';
 	$msr=$msdb->query($sql); echo $msdb->error;
 
 	while ($row=$msr->fetch_assoc()) {

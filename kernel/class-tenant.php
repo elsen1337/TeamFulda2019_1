@@ -2,7 +2,7 @@
 
 
 
-class Lessor {
+class Tenant {
 
 
     private static $dbvar='msdb';
@@ -11,10 +11,10 @@ class Lessor {
     public static $formFields=array('anrede'=>'selection','vname'=>'text','nname'=>'text','email'=>'mail','tel_nr'=>'text','mob_nr'=>'text');
     public static $formFieldPasswort='pwort';
     
-    public static $entPrimKey='vm_id';
-    public static $entSQLTable='vermieter';
+    public static $entPrimKey='m_id';
+    public static $entSQLTable='mieter';
 
-    public static $sKey='LAUTH';
+    public static $sKey='TAUTH';
 
 
 
@@ -23,10 +23,9 @@ class Lessor {
         return md5($token);
     
     }
-
     public static function login($name, $passwort) {
     
-        $sql='SELECT vm_id, anrede, nname, vname, email FROM '.self::$entSQLTable.' WHERE email="'.$name.'" AND pwort=0x'.self::cryptPasswort($passwort).'';
+        $sql='SELECT m_id, anrede, nname, vname, email FROM '.self::$entSQLTable.' WHERE email="'.$name.'" AND pwort=0x'.self::cryptPasswort($passwort).'';
         
         $mrs=$GLOBALS[self::$dbvar]->query($sql);
         return ($mrs->num_rows == 1) ? $mrs->fetch_object() : null;
@@ -52,7 +51,7 @@ class Lessor {
     
     public static function about($pkey) {
     
-		$sql='SELECT vm_id, anrede, vname, nname, email, tel_nr, mob_nr, profil FROM '.self::$entSQLTable.' WHERE '.self::$entPrimKey.'='.$pkey;
+		$sql='SELECT m_id, anrede, vname, nname, email, profil FROM '.self::$entSQLTable.' WHERE '.self::$entPrimKey.'='.$pkey;
 		$mrs=$GLOBALS[self::$dbvar]->query($sql);
 		
         return ($mrs->num_rows == 1) ? $mrs->fetch_object() : null;
@@ -94,8 +93,8 @@ class Lessor {
     
     }
 
-
 }
 
 
 ?>
+ 

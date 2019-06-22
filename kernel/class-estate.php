@@ -8,9 +8,13 @@ class Estate {
     
     
     public static $formFields=array('wohn_id'=>'selection','rdr'=>'number','alt'=>'text');
-    public static $formFieldsDefault=array('visible'=>'selection','name'=>'text','beschr'=>'area','vm_id'=>'selection','str'=>'text','plz'=>'number','ort'=>'text','preis'=>'number=step>0.01','entf_meter'=>'number','entf_min'=>'number');
+    public static $formFieldsDefault=array('visible'=>'selection','name'=>'text','beschr'=>'area','vm_id'=>'selection','str'=>'text','plz'=>'number','ort'=>'text','preis'=>'number=step>0.01','qm_groesse'=>'number','entf_meter'=>'number','entf_min'=>'number');
 
 
+    public static $entPrimKey='wohn_id';
+    public static $entSQLTable='wohnung';
+
+    
 
     public static function getDefaultProperties ($wid) {
     
@@ -60,22 +64,48 @@ class Estate {
 
     
         
-    public static function createEstate ($prp) {
+    public static function create ($prp) {
     
 
         $prp=array_intersect_key($prp,self::$formFieldsDefault); // Escape
         $prp['visible']='1'; // Debug
-        
-        #print_r($prp);
-        
-        $sql='INSERT INTO wohnung ('.implode(',',array_keys($prp)).') VALUES ("'.implode('","',($prp)).'")';
+                
+        $sql='INSERT INTO '.self::$entSQLTable.' ('.implode(',',array_keys($prp)).') VALUES ("'.implode('","',($prp)).'")';
         $mrs=$GLOBALS[self::$dbvar]->query($sql);
-        echo $GLOBALS[self::$dbvar]->error;
         
         return $GLOBALS[self::$dbvar]->insert_id;
 
     }
     
+    public static function update($prp,$pkey) {
+    
+        $prp=array_intersect_key($prp,self::$formFieldsDefault); // Escape
+
+        $ufarr=array();
+        foreach ($prp as $key => $val) {
+            $ufarr[]=$key.'="'.$GLOBALS[self::$dbvar]->escape_string($val).'"';
+        }
+        
+        $sql='UPDATE '.self::$entSQLTable.' SET '.implode(',',$ufarr).' WHERE '.self::$entPrimKey.'='.$pkey;
+        $mrs=$GLOBALS[self::$dbvar]->query($sql);
+        
+        return $GLOBALS[self::$dbvar]->affected_rows===1;
+    
+    
+    }
+    
+        
+    public static function delete($pkey) {
+    
+		// DELETE Properties & Images
+    
+        $sql='DELETE FROM '.self::$entSQLTable.' WHERE '.self::$entPrimKey.'='.$pkey;
+        $mrs=$GLOBALS[self::$dbvar]->query($sql);
+        
+        return $GLOBALS[self::$dbvar]->affected_rows===1;
+    
+    
+    }
 }
 
 ?>
