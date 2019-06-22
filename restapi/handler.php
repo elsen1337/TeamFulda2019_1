@@ -85,6 +85,7 @@ $objkey=$_GET['objKey'];
 $postParam=getPostParameter();
 
 
+// (Chat), Meeting, UpdateEstateData, [Metadaten]
 
 
 
@@ -162,14 +163,15 @@ if (parseCommand($action,'estate')) {
         
         } elseif ($_SERVER['REQUEST_METHOD']=='PUT') {
         
-			// Parameter !
+			// 2Do Parameter !
             $newObjID=Estate::update($postParam,$objkey);
             // Header + Status
        
        
         } elseif ($_SERVER['REQUEST_METHOD']=='POST') {
         
-            $newObjID=Estate::create($postParam);
+			// DEBUG: Visible=1 (!!!)
+            $newObjID=Estate::create($postParam+array('visible'=>'1'));
                         
             header('Content-type: application/json');
             if ($newObjID > 0) {objCreated();}
@@ -179,7 +181,7 @@ if (parseCommand($action,'estate')) {
 
         } elseif ($_SERVER['REQUEST_METHOD']=='DELETE') {
         
-            // Partial 2Do
+            // Internal / Partial 2Do
             Estate::delete($objkey);
 			// Header + Status
 
@@ -220,11 +222,11 @@ if (parseCommand($action,'estate')) {
     } elseif (parseCommand($action,'images')) {
     
         require('../kernel/class-appartimg.php');
-
+		
          
         if ($_SERVER['REQUEST_METHOD']=='GET') {
         
-            echo json_encode(Estate::getImagesMetaData($objkey));
+            echo json_encode(AppartImage::getImagesMetaData($objkey));
 
             
         } elseif ($_SERVER['REQUEST_METHOD']=='PUT') {
@@ -250,6 +252,10 @@ if (parseCommand($action,'estate')) {
 			header('Content-type: application/json');
 			echo '{"actSuccess":'.$actResult.',"sqlError":"'.$msdb->error.'"}';
 
+
+        } elseif ($_SERVER['REQUEST_METHOD']=='PATCH') {
+        
+			// AppartImage::updateMetaData($postParam,$objkey);
 
 
         } elseif ($_SERVER['REQUEST_METHOD']=='DELETE') {
@@ -371,6 +377,7 @@ if (parseCommand($action,'estate')) {
 
 
 
+			// Internal 2Do
             $actResult=Lessor::delete($objkey);
 
 			header('Content-type: application/json');
@@ -479,7 +486,7 @@ if (parseCommand($action,'estate')) {
 
         } elseif ($_SERVER['REQUEST_METHOD']=='DELETE') {
 
-        
+			// Internal 2Do
             $actResult=Tenant::delete($objkey);
 
             // No Content
@@ -499,33 +506,39 @@ if (parseCommand($action,'estate')) {
     
         if ($_SERVER['REQUEST_METHOD']=='GET') {
         
-        
-			
-        
-           
-        
+			$lst=Tenant::favouriteList($objkey);
+			header('Content-type: application/json');
+			echo json_encode($lst);
+   
+
         } elseif ($_SERVER['REQUEST_METHOD']=='PUT') {
-        
-            $newObjID=Tenant::update($postParam);
+		
+			$actResult=Tenant::favouriteAddUpdate($postParam['m_id'],$postParam['wohn_id'],$postParam['score']);
 
-            #header('Content-type: application/json');
-            #echo '{"state":'.$newObjID.'}';
+			header('Content-type: application/json');
+			echo '{"success":'.var_export($actResult, true).',"sqlError":"'.$msdb->error.'"}';
 
- 
       
-        } elseif ($_SERVER['REQUEST_METHOD']=='POST') {
+		} elseif ($_SERVER['REQUEST_METHOD']=='POST') {
         
-
+			// Not NotImplemented
 
         } elseif ($_SERVER['REQUEST_METHOD']=='DELETE') {
+        
+			$actResult=Tenant::favouriteRemove($postParam['m_id'],$postParam['wohn_id']);
+
+			header('Content-type: application/json');
+			echo '{"success":'.var_export($actResult, true).',"sqlError":"'.$msdb->error.'"}';
 
 
+        } else {
+        
+            notAllowed();
+            
         }
+        
 
     }
-
-    
-    // (Chat), Meeting, [Metadaten]
 
 
 }
@@ -542,8 +555,8 @@ if (array_key_exists('debug',$_GET)) {
 	echo "Body-Parameter (Except PUT Requests; 2 Be Fixed):\n";
 	print_r($postParam);
 
-	echo "Session-Daten:\n";
-	print_r($_SESSION);
+	#echo "Session-Daten:\n";
+	#print_r($_SESSION);
 
 }
 

@@ -86,10 +86,19 @@ class Lessor {
         
     public static function delete($pkey) {
     
-        $sql='DELETE FROM '.self::$entSQLTable.' WHERE '.self::$entPrimKey.'='.$pkey;
+		// Zuerst: Chatnachtichten, Wohnungen[RECUR]
+		
+		set_include_path(__DIR__);
+		require_once('class-estate.php');
+		
+		//foreach () {}
+		//Estate::delete();
+		
+    
+        $sql='DELETE c, v FROM '.self::$entSQLTable.' AS v LEFT JOIN m_chat AS c ON c.vm_id=v.vm_id WHERE v.'.self::$entPrimKey.'='.$pkey;
         $mrs=$GLOBALS[self::$dbvar]->query($sql);
         
-        return $GLOBALS[self::$dbvar]->affected_rows===1;
+        return $GLOBALS[self::$dbvar]->affected_rows > 0;
     
     
     }

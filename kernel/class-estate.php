@@ -7,8 +7,9 @@ class Estate {
     private static $dbvar='msdb';
     
     
-    public static $formFields=array('wohn_id'=>'selection','rdr'=>'number','alt'=>'text');
-    public static $formFieldsDefault=array('visible'=>'selection','name'=>'text','beschr'=>'area','vm_id'=>'selection','str'=>'text','plz'=>'number','ort'=>'text','preis'=>'number=step>0.01','qm_groesse'=>'number','entf_meter'=>'number','entf_min'=>'number');
+    public static $formFieldsAttr = array('aid'=>'selection','wid'=>'number','val'=>'text');
+    
+    public static $formFieldsDefault = array('visible'=>'selection', 'name'=>'text','beschr'=>'area', 'vm_id'=>'selection', 'str'=>'text','plz'=>'number','ort'=>'text', 'preis'=>'number=step>0.01','qm_groesse'=>'number', 'entf_meter'=>'number','entf_min'=>'number');
 
 
     public static $entPrimKey='wohn_id';
@@ -33,7 +34,7 @@ class Estate {
         $attrarr=[];
         while (list($key,$val)=$mrs->fetch_array()) {
         
-            $attrarr[$key]=$val;
+            $attrarr[]=array($key=>$val);
                             
         }
         
@@ -42,7 +43,7 @@ class Estate {
     }
 
         
-    
+    // -> AppartImage
     public static function getImagesMetaData ($wid) {
     
        	$sql='SELECT alt,bild,bild_id FROM w_image WHERE wohn_id='.$wid.' ORDER BY rdr';
@@ -68,7 +69,6 @@ class Estate {
     
 
         $prp=array_intersect_key($prp,self::$formFieldsDefault); // Escape
-        $prp['visible']='1'; // Debug
                 
         $sql='INSERT INTO '.self::$entSQLTable.' ('.implode(',',array_keys($prp)).') VALUES ("'.implode('","',($prp)).'")';
         $mrs=$GLOBALS[self::$dbvar]->query($sql);
@@ -76,10 +76,11 @@ class Estate {
         return $GLOBALS[self::$dbvar]->insert_id;
 
     }
-    
+   
+   
     public static function update($prp,$pkey) {
     
-        $prp=array_intersect_key($prp,self::$formFieldsDefault); // Escape
+        $prp=array_intersect_key($prp,self::$formFieldsDefault);
 
         $ufarr=array();
         foreach ($prp as $key => $val) {
@@ -97,15 +98,25 @@ class Estate {
         
     public static function delete($pkey) {
     
-		// DELETE Properties & Images
-    
-        $sql='DELETE FROM '.self::$entSQLTable.' WHERE '.self::$entPrimKey.'='.$pkey;
-        $mrs=$GLOBALS[self::$dbvar]->query($sql);
-        
-        return $GLOBALS[self::$dbvar]->affected_rows===1;
-    
+		// DELETE Images
+		set_include_path(__DIR__);
+		require_once('class-appartimg.php');
+		
+		//foreach () {}
+		//CHDIR Strategie ?!
+		//AppartImage::delete();
+		
+		// Properties, Termine, [Stream, Video]
+		$sql='DELETE v,w FROM '.self::$entSQLTable.' AS w LEFT JOIN w_attrvals AS v ON v.wid=w.wohn_id LEFT JOIN w_meet AS m ON m.wohn_id=w.wohn_id  WHERE w.'.self::$entPrimKey.'='.$pkey;
+		$mrs=$GLOBALS[self::$dbvar]->query($sql);
+		
+		return $GLOBALS[self::$dbvar]->affected_rows > 0;
+
     
     }
+    
+    
 }
+
 
 ?>

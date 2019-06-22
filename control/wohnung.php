@@ -22,10 +22,15 @@ header('Content-Type: text/html; charset=UTF-8');
 GUI::printNotice('Bearbeitung von Stammdaten, Attributen und Bildern');
 
 
-$pkey='wohn_id';
-$ptbl='wohnung';
+require('../kernel/class-estate.php');
 
+
+$pkey='wohn_id'; // Estate::$entPrimKey
+$ptbl='wohnung'; // Estate::$entSQLTable
+
+// Estate::$formFieldsDefault
 $type=array('visible'=>'selection','name'=>'text','beschr'=>'area','vm_id'=>'selection','str'=>'text','plz'=>'number','ort'=>'text','preis'=>'number=step>0.01','qm_groesse'=>'number','entf_meter'=>'number','entf_min'=>'number');
+
 
 FormFV::updateDB($_POST,$type,'new',$ptbl,$pkey,'wdel');
 

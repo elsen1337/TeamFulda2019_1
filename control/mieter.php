@@ -23,24 +23,27 @@ GUI::printNotice('Übersicht aller Mieter');
 
 
 // Profilbild; Geringere Priorität
+require('../kernel/class-tenant.php');
+
 
 $tselect=array('M'=>'Mr.','F'=>'Mrs.'); 
-$type=array('anrede'=>'selection','vname'=>'text','nname'=>'text','email'=>'mail');
-$ptbl='mieter';
-$pkey='m_id';
+$type=array('anrede'=>'selection','vname'=>'text','nname'=>'text','email'=>'mail');  // Tenant::$formFields
+$ptbl='mieter'; // Tenant::$entSQLTable
+$pkey='m_id'; // Tenant::$entPrimKey
+
 
 FormFV::updateDB($_POST,$type,'new',$ptbl,$pkey,'vdel');
+
 
 $tokenKey='pwort';
 if (array_key_exists($tokenKey,$_POST) && is_array($_POST[$tokenKey])) {
 	foreach ($_POST[$tokenKey] as $uid => $plainpw) {
 		if (strlen($plainpw) == 0) {continue;}
-		$sql='UPDATE '.$ptbl.' SET '.$tokenKey.'=0x'.md5($plainpw).' WHERE '.$pkey.'='.$uid;
+		$sql='UPDATE '.$ptbl.' SET '.$tokenKey.'=0x'.Tenant::cryptPasswort($plainpw).' WHERE '.$pkey.'='.$uid;
 		$msdb->query($sql);
 	}
 }
 
-#var_dump($msdb);
 
 
 if (strlen($_GET['edit']) > 0) {

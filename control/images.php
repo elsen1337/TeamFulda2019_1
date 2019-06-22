@@ -22,13 +22,15 @@ header('Content-Type: text/html; charset=UTF-8');
 
 require('../kernel/class-appartimg.php');
 
-$type=array('wohn_id'=>'selection','rdr'=>'number','alt'=>'text');
-$ptbl='w_image';
-$pkey='bild_id';
+$type=array('wohn_id'=>'selection','rdr'=>'number','alt'=>'text');  // AppartImage::$formFields
+$ptbl='w_image'; // AppartImage::$entSQLTable
+$pkey='bild_id'; // AppartImage::$entPrimKey
+
 $nkey='new';
 
 
-//FormFV::updateDB($_POST,$type,'new',$ptbl,$pkey);
+// Update & Erstellen über BildAPI 
+# FormFV::updateDB($_POST,$type,'new',$ptbl,$pkey);
 
 
 $uploadBaseDir='../'.AppartImage::$uploadBaseDir;
@@ -64,11 +66,19 @@ function reduceIndexedFields2Array(&$src,$fields,$keys,$reqkeys=array()) {
 		
 	}
 	
-	foreach ($retarr as &$obj) {
+	$nrk=count($reqkeys);
+	if ($nrk> 0) {
+		
+		foreach ($retarr as $i=>$obj) {
+			
+			$tmp=array_intersect(array_keys($obj),$reqkeys);
+			if (count($tmp) < $nrk) {unset($retarr[$i]);}
+			
+		}
 		
 	}
 	
-	return $retarr;
+	return ($sng) ? current($retarr) : $retarr;
 	
 }
 

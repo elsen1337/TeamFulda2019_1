@@ -8,8 +8,8 @@ class Tenant {
     private static $dbvar='msdb';
     
 
-    public static $formFields=array('anrede'=>'selection','vname'=>'text','nname'=>'text','email'=>'mail','tel_nr'=>'text','mob_nr'=>'text');
     public static $formFieldPasswort='pwort';
+    public static $formFields=array('anrede'=>'selection','vname'=>'text','nname'=>'text', 'email'=>'mail', 'tel_nr'=>'text','mob_nr'=>'text');
     
     public static $entPrimKey='m_id';
     public static $entSQLTable='mieter';
@@ -23,6 +23,8 @@ class Tenant {
         return md5($token);
     
     }
+    
+    
     public static function login($name, $passwort) {
     
         $sql='SELECT m_id, anrede, nname, vname, email FROM '.self::$entSQLTable.' WHERE email="'.$name.'" AND pwort=0x'.self::cryptPasswort($passwort).'';
@@ -85,12 +87,52 @@ class Tenant {
         
     public static function delete($pkey) {
     
-        $sql='DELETE FROM '.self::$entSQLTable.' WHERE '.self::$entPrimKey.'='.$pkey;
+		// Zuerst: Favoriten, Chatnachrichten
+    
+		$sql='DELETE f,c,m FROM '.self::$entSQLTable.' AS m LEFT JOIN m_chat AS c ON c.m_id=m.m_id LEFT JOIN m_favorit AS f ON f.m_id=m.mid  WHERE m.'.self::$entPrimKey.'='.$pkey;
+		$mrs=$GLOBALS[self::$dbvar]->query($sql);
+		
+		return $GLOBALS[self::$dbvar]->affected_rows > 0;
+
+    
+    }
+    
+            
+    public static function favouriteAddUpdate($mid,$wid,$scr=null) {
+    
+		if (strlen($scr)==0) {$scr='null';}
+        $sql='INSERT INTO m_favorit (m_id,wohn_id,score,cdate) VALUES ('.$mid.', '.$wid.','.$scr.', NOW() ) ON DUPLICATE KEY UPDATE cdate=VALUES(cdate), score=VALUES(score)';
+        $mrs=$GLOBALS[self::$dbvar]->query($sql);
+        
+        return $GLOBALS[self::$dbvar]->affected_rows > 0; // !!! Spezialfall 0,1(Insert),2(Update)
+    
+    }    
+    
+    
+    public static function favouriteRemove($mid,$wid) {
+    
+        $sql='DELETE FROM m_favorit WHERE wohn_id='.$wid.' AND m_id='.$mid;
         $mrs=$GLOBALS[self::$dbvar]->query($sql);
         
         return $GLOBALS[self::$dbvar]->affected_rows===1;
     
+    }    
     
+    
+	public static function favouriteList($mid) {
+
+		$sql='SELECT m_id, w.name, score, cdate FROM m_favorit AS f JOIN wohnung AS w ON w.wohn_id=f.wohn_id WHERE f.m_id='.$mid.' ORDER BY cdate DESC, score DESC';
+		$mrs=$GLOBALS[self::$dbvar]->query($sql);
+		
+		$attrarr=[];
+		while ($obj=$mrs->fetch_object()) {
+
+			$attrarr[]=$obj;
+							
+		}
+		
+		return $attrarr;
+
     }
 
 }
