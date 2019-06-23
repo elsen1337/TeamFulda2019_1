@@ -8,7 +8,7 @@ h1{
 body
 {
     min-height: 100%;
-    height: auto;
+    height: 100%;
 }
 
 html
@@ -51,6 +51,7 @@ main#main-ext-nav-cnt-show{
     top: 60px;
     z-index: 0;
     height:100%;
+    min-height: 100%;
 }
 
 main#main-ext-nav-cnt-hidden {
@@ -270,7 +271,7 @@ md-content {
 
 #searchList{
     font-size:2vw;
-    margin-bottom: 70%;
+    /*margin-bottom: 70%;*/
 }
 
 .search-item-img {
