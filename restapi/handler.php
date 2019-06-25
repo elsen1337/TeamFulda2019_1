@@ -61,16 +61,21 @@ function getPostParameter() {
         
 	}
 
-
     if (stripos($_SERVER["CONTENT_TYPE"],'application/json')!==false) {
         return getJSONFromRequestBody();
         
-    } elseif (stripos($_SERVER["CONTENT_TYPE"],'multipart/form-data')!==false) {
-        return $_POST + $_FILES; # ?
-    
     } else {
-        // Default: application/x-www-form-urlencoded
-        return $_POST;
+    
+		// parse_str POST + 
+    
+		if (stripos($_SERVER["CONTENT_TYPE"],'multipart/form-data')!==false) {
+			return $_POST; // + $_FILES; # ?
+		
+		} else {
+			// Default: application/x-www-form-urlencoded
+			return $_POST;
+		}
+
     }
 
 }
@@ -115,15 +120,27 @@ if (parseCommand($action,'estate')) {
         } elseif ($_SERVER['REQUEST_METHOD']=='PUT') {
         
             $reqBody=getRequestBody();
-            parse_str($reqBody,$_REQUEST);
+            
+            require('../kernel/class-formdata.php');
+            
+            $mPartFDataParser=new MultipartFormData($reqBody);
+            $_REQUEST=$mPartFDataParser->getFormData();
+            
+            #parse_str($reqBody,$_REQUEST);
             #print_r($_REQUEST);
             
+            #var_dump($reqBody);
+            #var_dump($_SERVER["CONTENT_TYPE"]);
+            #print_r($postParam);
+			#print_r($_SERVER);
+			
+			#print_r($_REQUEST);
  
             SearchForm::updateSearchSession();
             objProcessing();
             
-            //header('Content-type: application/json');
-            //echo json_encode($_SESSION[SearchForm::$searchKeyGlobal]);
+            header('Content-type: application/json');
+            echo json_encode($_SESSION[SearchForm::$searchKeyGlobal]);
 	
 	
         } elseif ($_SERVER['REQUEST_METHOD']=='POST') {
