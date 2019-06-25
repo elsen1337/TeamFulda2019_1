@@ -12,14 +12,21 @@ class MultipartFormData {
 		if ($cntype==null) {$cntype=$_SERVER['CONTENT_TYPE'];}
 		if ($body==null) {$body=file_get_contents('php://input');}
 		
-		$this->bnd=self::getBoundary($cntype,'boundary=');
-		if ($this->bnd==null) {
-			$this->bnd=substr($body,0,strpos($body,"\n")-1);
-			#var_dump($this->bnd);
+		
+		if (stripos($cntype,'content-type')!==false || stripos($cntype,'multipart/form-data')!==false) {
+			$this->bnd=self::getBoundary($cntype,'boundary=');
+		} else {
+			$this->bnd=$cntype;
 		}
-				
+		
+
+		if (strlen($this->bnd)==0) {
+			$bep=min( strpos($body,"\r"), strpos($body,"\n") );
+			$this->bnd=substr($body,0,$bep);
+		}
+
 		self::parseMultipartFormData($body,$this->bnd,$this->prm);
-	
+
 	}
 	
 	
@@ -122,7 +129,7 @@ class MultipartFormData {
 	public static function parseMultipartFormData($body,$del,&$prm) {
 
 		$qdel=preg_quote($del);
-		$cdel='/[\r|\n]{0,2}'.$qdel.'(?:[\r|\n]{2,4}|\-\-[\r|\n]{0,4})/'; #.'(?:\n|\-\-)/U';
+		$cdel='/[\r|\n]{0,2}'.$qdel.'(?:\-\-[\s]{0,4}|[\r|\n]{0,4})/'; #/U
 		$parts=preg_split($cdel,$body,null,PREG_SPLIT_NO_EMPTY);
 		
 		#var_dump($del);
@@ -132,7 +139,8 @@ class MultipartFormData {
 		
 			#var_dump($part);
 			
-			if (strlen(trim($part))==0) {continue;}
+			#if (strlen(trim($part))==0) {continue;}
+			
 			list($key,$val)=preg_split("/\s{2,4}/",$part,2,PREG_SPLIT_NO_EMPTY);
 			
 			#echo "$key,$val\n";

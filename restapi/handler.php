@@ -17,20 +17,20 @@ function parseCommand(&$cmd,$route) {
 
 
 // 202 Accepted, 201 Created, 204 'No Content', 400 BadRequest, 401 'Unauthorized' VS 403 'Forbidden', 404, 410
-function notAllowed() {sentHeader(405,'Not Allowed');}
-function noCredentials() {sentHeader(401,'Unauthorized');}
-function forbiddenAccess() {sentHeader(403,'Forbidden');}
+function notAllowed() {sendHeader(405,'Not Allowed');}
+function noCredentials() {sendHeader(401,'Unauthorized');}
+function forbiddenAccess() {sendHeader(403,'Forbidden');}
 
-function objUpdated() {sentHeader(204,'No Content');}
-function objRemoved() {sentHeader(204,'No Content');}
+function objUpdated() {sendHeader(204,'No Content');}
+function objRemoved() {sendHeader(204,'No Content');}
 
-function objCreated() {sentHeader(201,'Created');}
-function objProcessing() {sentHeader(202,'Accepted');}
+function objCreated() {sendHeader(201,'Created');}
+function objProcessing() {sendHeader(202,'Accepted');}
 
-function noContent() {sentHeader(204,'No Content');}
+function noContent() {sendHeader(204,'No Content');}
 
 
-function sentHeader($code, $msg) {
+function sendHeader($code, $msg) {
     header( implode("\x20", array($_SERVER['SERVER_PROTOCOL'], $code, $msg) ) );
 }
 
@@ -126,15 +126,18 @@ if (parseCommand($action,'estate')) {
             $mPartFDataParser=new MultipartFormData($reqBody);
             $_REQUEST=$mPartFDataParser->getFormData();
             
+            #X-WWW-FORM
             #parse_str($reqBody,$_REQUEST);
             #print_r($_REQUEST);
             
             #var_dump($reqBody);
             #var_dump($_SERVER["CONTENT_TYPE"]);
-            #print_r($postParam);
+            
+ 			#print_r($_REQUEST);
+ 			#print_r($postParam);
+ 			
 			#print_r($_SERVER);
 			
-			#print_r($_REQUEST);
  
             SearchForm::updateSearchSession();
             objProcessing();
@@ -180,11 +183,12 @@ if (parseCommand($action,'estate')) {
         
         } elseif ($_SERVER['REQUEST_METHOD']=='PUT') {
         
-			// 2Do Parameter !
             $newObjID=Estate::update($postParam,$objkey);
-            // Header + Status
-       
-       
+			
+			header('Content-type: application/json');
+			echo '{"actSuccess":'.var_export($actResult,true).',"sqlError":"'.$msdb->error.'"}';
+
+            // Header + Status       
         } elseif ($_SERVER['REQUEST_METHOD']=='POST') {
         
 			// DEBUG: Visible=1 (!!!)
@@ -198,9 +202,12 @@ if (parseCommand($action,'estate')) {
 
         } elseif ($_SERVER['REQUEST_METHOD']=='DELETE') {
         
-            // Internal / Partial 2Do
-            Estate::delete($objkey);
-			// Header + Status
+			// Internal / Partial 2Do
+			$actResult=Estate::delete($objkey);
+			
+			header('Content-type: application/json');
+			echo '{"actSuccess":'.var_export($actResult, true).',"sqlError":"'.$msdb->error.'"}';
+
 
         } else {
         
@@ -488,7 +495,7 @@ if (parseCommand($action,'estate')) {
         } elseif ($_SERVER['REQUEST_METHOD']=='PUT') {
         
             $actResult=Tenant::update($postParam,$objkey);
-			echo '{"actSuccess":'.$actResult.',"sqlError":"'.$msdb->error.'"}';
+			echo '{"actSuccess":'.var_export($actResult, true).',"sqlError":"'.$msdb->error.'"}';
 
       
         } elseif ($_SERVER['REQUEST_METHOD']=='POST') {
@@ -498,17 +505,16 @@ if (parseCommand($action,'estate')) {
             header('Content-type: application/json');
             if ($newObjID > 0) {objCreated();}
 
-            echo '{"newLessorID":'.$newObjID.',"sqlError":"'.$msdb->error.'"}';
+            echo '{"newTenantID":'.$newObjID.',"sqlError":"'.$msdb->error.'"}';
 
 
         } elseif ($_SERVER['REQUEST_METHOD']=='DELETE') {
 
 			// Internal 2Do
             $actResult=Tenant::delete($objkey);
-
-            // No Content
-            #  echo '{"actSuccess":'.$actResult.',"sqlError":"'.$msdb->error.'"}';
-
+			
+			header('Content-type: application/json');
+			echo '{"actSuccess":'.var_export($actResult, true).',"sqlError":"'.$msdb->error.'"}';
 
 
         } else {
@@ -557,6 +563,10 @@ if (parseCommand($action,'estate')) {
 
     }
 
+
+} else {
+
+	notAllowed();
 
 }
 

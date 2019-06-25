@@ -7,7 +7,7 @@ class Estate {
     private static $dbvar='msdb';
     
     
-    public static $formFieldsAttr = array('aid'=>'selection','wid'=>'number','val'=>'text');
+    public static $formFieldsAttr = array('aid'=>'selection','wohn_id'=>'number','val'=>'text');
     
     public static $formFieldsDefault = array('visible'=>'selection', 'name'=>'text','beschr'=>'area', 'vm_id'=>'selection', 'str'=>'text','plz'=>'number','ort'=>'text', 'preis'=>'number=step>0.01','qm_groesse'=>'number', 'entf_meter'=>'number','entf_min'=>'number');
 
@@ -108,6 +108,35 @@ class Estate {
 		
 		// Properties, Termine, [Stream, Video]
 		$sql='DELETE v,w FROM '.self::$entSQLTable.' AS w LEFT JOIN w_attrvals AS v ON v.wid=w.wohn_id LEFT JOIN w_meet AS m ON m.wohn_id=w.wohn_id  WHERE w.'.self::$entPrimKey.'='.$pkey;
+		$mrs=$GLOBALS[self::$dbvar]->query($sql);
+		
+		return $GLOBALS[self::$dbvar]->affected_rows > 0;
+
+    
+    }
+	
+	
+	public static function updateAttrib($prp) {
+    
+		$prp=array_intersect_key($prp,self::$formFieldsAttr);
+
+		$ufarr=array();
+		foreach ($prp as $key => $val) {
+			$ufarr[$key]=$GLOBALS[self::$dbvar]->escape_string($val);
+		}
+		
+		$sql='INSERT INTO w_attrvals ('.implode(',',array_keys($prp)).') VALUES ("'.implode('","',($prp)).'") ON DUPLICATE KEY UPDATE val=VALUES(val)';
+		$mrs=$GLOBALS[self::$dbvar]->query($sql);
+		
+		return $GLOBALS[self::$dbvar]->affected_rows >= 0;
+
+    
+    }
+    
+        
+    public static function deleteAttrib($pkey,$akeys) {
+    
+		$sql='DELETE FROM w_attrvals WHERE '.self::$entPrimKey.'='.$pkey.' AND aid IN ('.implode(',',$akeys).')';
 		$mrs=$GLOBALS[self::$dbvar]->query($sql);
 		
 		return $GLOBALS[self::$dbvar]->affected_rows > 0;
