@@ -1,6 +1,6 @@
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
 
-<header class="topnav" id="myTopnav">
+<header class="topnav" id="myTopnav" data-ng-controller="HeaderCtrl">
     <a id="logo-a" href="https://github.com/sl05/TeamFulda2019_1" target="_blank" onclick="myFunction()">
         <img class="logo" src="logo-studyhome.png" alt="logo" />
     </a>
@@ -10,9 +10,9 @@
     <a href="./index.html#!/profile" class="nav-item-hd nav-item-menu" onclick="myFunction()">My Account</a>
     <a href="./index.html#!/login" class="nav-item-hd nav-item-menu" onclick="myFunction()">Login</a>
 
-        <input id="hd-input-search" type="text" placeholder="Search..." name="search">
-    <a href="./index.html#!/home" id="search-button-hd" class="nav-item-menu">
-        <button id="hd-btn-search"type="submit"><i class="fa fa-search" onclick="myFunction()"></i></button>
+        <input id="hd-input-search" type="text" placeholder="Search..." name="search" ng-model="startSearch">
+    <a href="./index.html#!/home" onlcick="return setSearchKey();" id="search-button-hd" class="nav-item-menu">
+        <i class="fa fa-search" onclick="setSearchKey()"></i>
     </a>
     <a href="javascript:void(0);" class="nav-item-hd icon" onclick="myFunction()">
         &#9776;

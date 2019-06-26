@@ -88,7 +88,7 @@ studyHomeApp.controller('StudyHomeCtrl', ['$scope', '$http', '$location', functi
                 //reset search items because sth could be left over
                 window.searchItems = [{}];
                 $scope.searchItems = [{}];
-                for(let i = 1; i < $scope.searchData.length; i++) {
+                for(let i = 0; i < $scope.searchData.length; i++) {
                     $scope.searchItems[i] = {
                         id : $scope.searchData[i].wohn_id,
                         alt : $scope.searchData[i].imgalt,
