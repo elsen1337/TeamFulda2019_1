@@ -77,7 +77,7 @@ studyHomeApp.controller('RentingCtrl', ['$scope', '$http', function($scope, $htt
 
                             let fdi = new FormData();
                             fdi.append("wohn_id", serviceResponse.data.newEstateID);
-                            fdi.append("alt", "Bild von der Wohnung");
+                            fdi.append("alt", "Bild der Wohnung");
                             fdi.append("rdr", 1);
 
                             let fdijson = JSON.stringify(Object.fromEntries(fdi));

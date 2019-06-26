@@ -13,19 +13,19 @@ var ROUTES = {
     page4: "profile",
     page5: "messages",
     page6: "advertise"*/
-    page0: "home",
     page1: "renting",
     page2: "messages",
     page3: "login",
     page4: "register",
     page10: "profile",
+    page11: "homeStart",
     // none nav item routes
     page5: "details",
     page6: "agb",
     page7: "contactAndHelp",
     page8: "aboutUs",
     page9: "impressum",
-    page11: "homeStart"
+    page0: "home"
 };
 
 // App Module
@@ -80,11 +80,11 @@ studyHomeApp.config(['$routeProvider', '$mdThemingProvider', function($routeProv
         })
         .when('/' + ROUTES.page1, {
             templateUrl: 'Views/' + ROUTES.page1 + '.html',
-            controller: 'LoginCtrl'
+            controller: 'RentingCtrl'
         })
         .when('/' + ROUTES.page2, {
             templateUrl: 'Views/' + ROUTES.page2 + '.html',
-            controller: 'RentingCtrl'
+            controller: 'MessagesCtrl'
         })
         .when('/' + ROUTES.page3, {
             templateUrl: 'Views/' + ROUTES.page3 + '.html',
