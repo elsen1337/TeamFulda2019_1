@@ -20,10 +20,16 @@ class MultipartFormData {
 			$this->bnd=$cntype;
 		}
 		
+		// +: / ; = ?
+		str_replace(array("\t","\x20",'/',';'),'',$this->bnd,$cnt);
+
+		if ($cnt > 0) {
+			$this->bnd=null;
+		}
 
 		if (strlen($this->bnd)==0) {
 			$bep=min( strpos($body,"\r"), strpos($body,"\n") );
-			$this->bnd=substr($body,0,$bep);
+			$this->bnd=substr($body,0,$bep); // Startposition +2
 		}
 
 		self::parseMultipartFormData($body,$this->bnd,$this->prm);

@@ -148,6 +148,7 @@ class Estate {
     }
 
     
+    
     public static function getAttributeList() {
     
 		$sql='SELECT aid, name FROM w_attrmeta WHERE vsb > 0 ORDER BY rdr';

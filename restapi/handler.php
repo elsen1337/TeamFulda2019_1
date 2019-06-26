@@ -90,7 +90,7 @@ $objkey=$_GET['objKey'];
 $postParam=getPostParameter();
 
 
-// (Chat), Meeting, Bilddaten PATCH UpdateEstateData:OK, [Metadaten:OK]
+// (Chat), Meeting, BilddatenPATCH:OK, UpdateEstateData:OK, [Metadaten:OK]
 
 
 
@@ -299,12 +299,15 @@ if (parseCommand($action,'estate')) {
             $actResult=AppartImage::uploadImage($bildUpload);
             
 			header('Content-type: application/json');
-			echo '{"actSuccess":'.$actResult.',"sqlError":"'.$msdb->error.'"}';
+			echo '{"actSuccess":'.var_export($actResult,true).',"sqlError":"'.$msdb->error.'"}';
 
 
         } elseif ($_SERVER['REQUEST_METHOD']=='PATCH') {
         
-			// AppartImage::updateMetaData($postParam,$objkey);
+			$actResult=AppartImage::updateMetaData($postParam,$objkey);
+
+			header('Content-type: application/json');
+			echo '{"actSuccess":'.var_export($actResult,true).',"sqlError":"'.$msdb->error.'"}';
 
 
         } elseif ($_SERVER['REQUEST_METHOD']=='DELETE') {
@@ -314,7 +317,7 @@ if (parseCommand($action,'estate')) {
             $actResult=AppartImage::removeImage($objkey);
             
 			header('Content-type: application/json');
-			echo '{"actSuccess":'.$actResult.',"sqlError":"'.$msdb->error.'"}';
+			echo '{"actSuccess":'.var_export($actResult,true).',"sqlError":"'.$msdb->error.'"}';
 
 
 
@@ -594,7 +597,30 @@ if (parseCommand($action,'estate')) {
     require('../kernel/class-chat.php');
    
 
-    if (parseCommand($action,'lessor4tenant')) {
+    if (parseCommand($action,'lessors4tenant')) {
+    
+        if ($_SERVER['REQUEST_METHOD']=='GET') {
+        
+			$lst=Chat::getChatPartner($objkey);
+			header('Content-type: application/json');
+			echo json_encode($lst);
+   
+
+        } elseif ($_SERVER['REQUEST_METHOD']=='PUT') {
+
+      
+		} elseif ($_SERVER['REQUEST_METHOD']=='POST') {
+        
+        } elseif ($_SERVER['REQUEST_METHOD']=='DELETE') {
+
+        } else {
+        
+            notAllowed();
+            
+        }
+       
+       
+	}  elseif (parseCommand($action,'tenants4lessor')) {
     
         if ($_SERVER['REQUEST_METHOD']=='GET') {
         
