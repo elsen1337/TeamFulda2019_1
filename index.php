@@ -279,7 +279,7 @@ foreach (glob($aboutDir . '*.profile.html') as $phpfile)
 
 }
 
-echo ' &middot; <a href="AngularJS-Prototype/index.html#!/home">AngularJS-Prototype</a>';
+echo ' &middot; <a href="AngularJS-Prototype/index.html#!/homeStart">AngularJS-Prototype</a>';
 
 
 ?></div>

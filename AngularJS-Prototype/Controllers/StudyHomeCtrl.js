@@ -1,5 +1,7 @@
 studyHomeApp.controller('StudyHomeCtrl', ['$scope', '$http', '$location', function($scope, $http, $location){
 
+
+
     $scope.searchItems = [{}];
 
     if(window.searchItems) {
@@ -7,8 +9,8 @@ studyHomeApp.controller('StudyHomeCtrl', ['$scope', '$http', '$location', functi
     }
     // alert(window.searchItems);
 
-    $scope.searchFormData = {
 
+    $scope.searchFormData = {
         "appsearch[fulltext]" : '',
         "appsearch[distmeter][Min]" : '',
         "appsearch[distmeter][Max]" : '',
@@ -17,6 +19,9 @@ studyHomeApp.controller('StudyHomeCtrl', ['$scope', '$http', '$location', functi
         "appsearch[price][Min]" : '',
         "appsearch[price][Max]" : ''
     };
+
+    $scope.searchFormData.fulltext = window.startSearch;
+
 
     // $http({
     //     method : "GET",
@@ -33,11 +38,13 @@ studyHomeApp.controller('StudyHomeCtrl', ['$scope', '$http', '$location', functi
 
 
     $scope.submitSearchForm = function() {
+
         console.log($scope.searchFormData);
         let formData = convertSearchFormData($scope.searchFormData);
 
         let submitData = new FormData();
-        console.log(formData);
+        //console.log(formData);
+
         for(let key in formData)
         {
             if(formData[key] != null)
@@ -46,6 +53,8 @@ studyHomeApp.controller('StudyHomeCtrl', ['$scope', '$http', '$location', functi
                 console.log(key);
             }
         }
+
+
         //submitData.append("appsearch[fulltext]", $scope.searchFormData.fulltext);
         /*
         submitData.append("appsearch[distmeter][Min]", $scope.searchFormData.distmeterMin);
@@ -105,6 +114,7 @@ studyHomeApp.controller('StudyHomeCtrl', ['$scope', '$http', '$location', functi
         $location.path("details?id=" + id);
     }
 
+    $scope.submitSearchForm();
 }]);
 
 function convertSearchFormData(formData){
@@ -133,3 +143,6 @@ function triggerSubmit() {
         document.getElementById("searchForm").triggerHandler('submit');
     }
 };
+
+
+

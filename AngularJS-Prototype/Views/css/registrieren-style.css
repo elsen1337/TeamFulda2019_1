@@ -2,7 +2,7 @@
     display: flex;
     align-items: center;
     justify-content: center;
-    padding-bottom: 60px;
+    padding-bottom: 120px;
 }
 
 .registrieren-form{
@@ -17,7 +17,7 @@
     border-color: #7f7e7e;
     border-bottom-style: solid;
     padding-bottom: 10px;
-    width: 620px;
+    width: 640px;
 }
 
 .registrieren-btn{
