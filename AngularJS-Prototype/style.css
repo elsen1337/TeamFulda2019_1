@@ -1,70 +1,20 @@
-* {
-    margin: 0;
-}
-
-body
-{
+body {
     min-height: 100%;
     height: 100%;
 }
 
-md-nav-bar .md-nav-bar {
-    background-color: #dbf1f8;
-}
-
-span._md-nav-button-text.ng-scope {
-}
-
-#navbar {
-    width: 100%;
-    z-index: 1;
-}
-
-main#main-ext-nav-cnt-show{
+main#main-ext-nav-cnt-show {
     position: relative;
     top: 60px;
     z-index: 0;
-    height:100%;
+    height: 100%;
     min-height: 100%;
 }
 
-main#main-ext-nav-cnt-hidden {
-    position: relative;
-    top: 100px;
-}
-
-.menu-bottom a {
-    color: #006799;
-    text-align: center;
-    text-decoration: none;
-    font-family: arial;
-    font-size: 1.5em;
-    padding: 40px 60px;
-}
-
-.menu-bottom a:hover {
-    background-color: #b5e6f5;	
-}
-
-#arrow{
-    position: absolute;
-    left: 300px;
-    bottom: 15px;
-    margin: auto;
-}
-
 #md-content-ins-b4 {
-    padding: 0px!important;
-    display: initial!important;
-    overflow: hidden!important;
-}
-
-md-content {
-    display: initial!important;
-}
-
-.nav-item{
-    padding-left: 10%;
+    padding: 0px !important;
+    display: initial !important;
+    overflow: hidden !important;
 }
 
 .slide.ng-hide-add,
@@ -73,18 +23,20 @@ md-content {
     -moz-transition: all linear 0.5s;
     -o-transition: all linear 0.5s;
     transition: all linear 0.5s;
-    display: block!important;
+    display: block !important;
 }
+
 .slide.ng-hide-add.ng-hide-add-active,
 .slide.ng-hide-remove {
     opacity: 0;
 }
+
 .slide.ng-hide-add,
 .slide.ng-hide-remove.ng-hide-remove-active {
     opacity: 1;
 }
 
-.slide img{
+.slide img {
     width: 100%;
     height: auto;
     box-shadow: 0px 0px 15px #999;
@@ -93,6 +45,7 @@ md-content {
 .center-grey {
     background: #f2f2f2;
 }
+
 .slider {
     position: relative;
     padding: 5px;
@@ -100,19 +53,23 @@ md-content {
     margin: auto;
     /*margin-top: 40px;*/
 }
+
 .slide {
     position: absolute;
     top: 0;
     left: 0;
 }
+
 .arrows {
     position: absolute;
     top: 10px;
     cursor: pointer;
 }
+
 .arrows img {
     height: 32px;
 }
+
 #slide-show-title {
     /*text-align: center;*/
     padding: 10px;
@@ -128,6 +85,7 @@ md-content {
     /*margin-bottom: 75%;*/
     /*margin-left: 10%;*/
 }
+
 .details-top {
     margin-left: 10%;
     margin-bottom: 16%;
@@ -138,8 +96,7 @@ md-content {
 }
 
 
-
-.sh-btn{
+.sh-btn {
     background-color: #67c6e4;
     border: none;
     padding: 2px 20px;
@@ -153,62 +110,54 @@ md-content {
     border-radius: 10px;
 }
 
-#bottom-text, #estate-text {
-    font-size:2vw;
-}
-#bottom-text{
-    margin-top: 2%;
-    margin-bottom: 25%;
-    margin-left: 10%;
-    margin-right: 6%;
-}
-
-#bottom-attrs{
-    margin-left: 6%;
-    margin-right: 6%;
-}
-
-@media(max-width: 959px){
-    .details-top-right{
+@media (max-width: 959px) {
+    .details-top-right {
         margin-bottom: 7.5%;
         margin-left: 10%;
     }
-    .details-top-left{
+
+    .details-top-left {
         margin-bottom: 65%;
         margin-right: 8%;
     }
-    .details-bottom{
+
+    .details-bottom {
         margin-bottom: 2%;
         margin-left: 5%;
     }
+
     #bottom-text {
         margin-left: 12%;
         margin-bottom: 32%;
     }
 }
-@media(max-width: 599px){
-    .details-top-right{
+
+@media (max-width: 599px) {
+    .details-top-right {
         /*margin-right: 2%;*/
         position: absolute;
         margin-top: 70%;
-        margin-left:12%;
+        margin-left: 12%;
     }
+
     .details-top-left {
         margin-right: 8%;
         margin-bottom: 65%;
     }
-    .details-bottom{
+
+    .details-bottom {
         margin-left: 6%;
         margin-top: 350px;
     }
-    #bottom-text{
+
+    #bottom-text {
         margin-left: 16%;
         margin-bottom: 60%;
     }
 }
 
-#searchList{
-    font-size:2vw;
+#searchList {
+    font-size: 2vw;
     /*margin-bottom: 70%;*/
     margin-top: 103px;
 }
