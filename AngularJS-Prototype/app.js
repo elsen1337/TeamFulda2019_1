@@ -123,7 +123,7 @@ studyHomeApp.config(['$routeProvider', '$mdThemingProvider', function($routeProv
             controller: 'HomeStartCtrl'
         })
         .otherwise({
-            redirectTo: '/' + ROUTES.page0
+            redirectTo: '/' + ROUTES.page11
         });
 }]);
 
