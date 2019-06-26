@@ -151,7 +151,17 @@ class SearchForm {
             $fullTextSearch=null;
             foreach (self::$searchParameters as $sqlKey => $formKey) {
                 if ($isRequestSearch && array_key_exists($formKey,$searchRef)) {
-                    $sessionRef[$formKey]=$searchRef[$formKey];
+                
+					$valRef=&$searchRef[$formKey];
+					
+					if (is_array($valRef)==false && ($valRef=='null' || $valRef=='undefined' || $valRef=='')) {
+						unset($sessionRef[$formKey]);
+					} else {
+						$sessionRef[$formKey]=$searchRef[$formKey];
+						if (is_array($valRef)) {
+							$sessionRef[$formKey] = array_filter($sessionRef[$formKey],function ($valRef) {return !($valRef=='null' || $valRef=='undefined' || $valRef=='');});
+						}
+                    }
                 }
                 
                 /*
