@@ -36,6 +36,7 @@ studyHomeApp.controller('StudyHomeCtrl', ['$scope', '$http', '$location', functi
 
 
     $scope.submitSearchForm = function() {
+
         console.log($scope.searchFormData);
         let formData = convertSearchFormData($scope.searchFormData);
 
@@ -44,14 +45,12 @@ studyHomeApp.controller('StudyHomeCtrl', ['$scope', '$http', '$location', functi
 
         for(let key in formData)
         {
-            if(formData[key] != null)
-            {
+
                 submitData.append(key, formData[key]);
                 console.log(key);
-            }
+
+    //if(formData[key] != null) {}
         }
-
-
         //submitData.append("appsearch[fulltext]", $scope.searchFormData.fulltext);
         /*
         submitData.append("appsearch[distmeter][Min]", $scope.searchFormData.distmeterMin);
