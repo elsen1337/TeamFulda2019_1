@@ -90,7 +90,7 @@ $objkey=$_GET['objKey'];
 $postParam=getPostParameter();
 
 
-// (Chat), Meeting, UpdateEstateData, [Metadaten]
+// (Chat), Meeting, Bilddaten PATCH UpdateEstateData:OK, [Metadaten:OK]
 
 
 
@@ -188,8 +188,8 @@ if (parseCommand($action,'estate')) {
 			header('Content-type: application/json');
 			echo '{"actSuccess":'.var_export($actResult,true).',"sqlError":"'.$msdb->error.'"}';
 
-            // Header + Status       
-        } elseif ($_SERVER['REQUEST_METHOD']=='POST') {
+
+		} elseif ($_SERVER['REQUEST_METHOD']=='POST') {
         
 			// DEBUG: Visible=1 (!!!)
             $newObjID=Estate::create($postParam+array('visible'=>'1'));
@@ -226,7 +226,8 @@ if (parseCommand($action,'estate')) {
         
         } elseif ($_SERVER['REQUEST_METHOD']=='PUT') {
         
-			// 2Do
+			$actResult=Estate::updateAttrib($postParam);
+			echo '{"actSuccess":'.var_export($actResult, true).',"sqlError":"'.$msdb->error.'"}';
  
       
         } elseif ($_SERVER['REQUEST_METHOD']=='POST') {
@@ -234,9 +235,33 @@ if (parseCommand($action,'estate')) {
 
         } elseif ($_SERVER['REQUEST_METHOD']=='DELETE') {
         
-			// 2Do
-			
+			$actResult=Estate::deleteAttrib($objkey,$postParam['akeys']);
+			echo '{"actSuccess":'.var_export($actResult, true).',"sqlError":"'.$msdb->error.'"}';
 
+        } else {
+        
+            notAllowed();
+
+        }
+	
+	
+    } elseif (parseCommand($action,'attribmeta')) {
+
+      
+        if ($_SERVER['REQUEST_METHOD']=='GET') {
+        
+            header('Content-type: application/json');
+            echo json_encode(Estate::getAttributeList());
+        
+        } elseif ($_SERVER['REQUEST_METHOD']=='PUT') {
+        
+   
+        } elseif ($_SERVER['REQUEST_METHOD']=='POST') {
+        
+
+        } elseif ($_SERVER['REQUEST_METHOD']=='DELETE') {
+        
+        
         } else {
         
             notAllowed();
@@ -563,7 +588,36 @@ if (parseCommand($action,'estate')) {
 
     }
 
+} elseif (parseCommand($action,'chat')) {
 
+
+    require('../kernel/class-chat.php');
+   
+
+    if (parseCommand($action,'lessor4tenant')) {
+    
+        if ($_SERVER['REQUEST_METHOD']=='GET') {
+        
+			$lst=Chat::getChatPartner($objkey);
+			header('Content-type: application/json');
+			echo json_encode($lst);
+   
+
+        } elseif ($_SERVER['REQUEST_METHOD']=='PUT') {
+
+      
+		} elseif ($_SERVER['REQUEST_METHOD']=='POST') {
+        
+        } elseif ($_SERVER['REQUEST_METHOD']=='DELETE') {
+
+        } else {
+        
+            notAllowed();
+            
+        }
+        
+	}
+        
 } else {
 
 	notAllowed();

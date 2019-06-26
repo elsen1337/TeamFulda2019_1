@@ -113,8 +113,9 @@ class Estate {
 		return $GLOBALS[self::$dbvar]->affected_rows > 0;
 
     
-    }
-	
+	}
+
+    
 	
 	public static function updateAttrib($prp) {
     
@@ -125,7 +126,7 @@ class Estate {
 			$ufarr[$key]=$GLOBALS[self::$dbvar]->escape_string($val);
 		}
 		
-		$sql='INSERT INTO w_attrvals ('.implode(',',array_keys($prp)).') VALUES ("'.implode('","',($prp)).'") ON DUPLICATE KEY UPDATE val=VALUES(val)';
+		echo $sql='INSERT INTO w_attrvals ('.implode(',',array_keys($ufarr)).') VALUES ("'.implode('","',($ufarr)).'") ON DUPLICATE KEY UPDATE val=VALUES(val)';
 		$mrs=$GLOBALS[self::$dbvar]->query($sql);
 		
 		return $GLOBALS[self::$dbvar]->affected_rows >= 0;
@@ -136,11 +137,30 @@ class Estate {
         
     public static function deleteAttrib($pkey,$akeys) {
     
-		$sql='DELETE FROM w_attrvals WHERE '.self::$entPrimKey.'='.$pkey.' AND aid IN ('.implode(',',$akeys).')';
+		// Subkeys als GET ? implode(',',$akeys)
+		#  echo $sql='DELETE FROM w_attrvals WHERE '.self::$entPrimKey.'='.$pkey.' AND aid IN ('..')';
+		$sql='DELETE FROM w_attrvals WHERE '.self::$entPrimKey.'='.$pkey.' AND aid IN ('.$akeys.')';
 		$mrs=$GLOBALS[self::$dbvar]->query($sql);
 		
 		return $GLOBALS[self::$dbvar]->affected_rows > 0;
 
+    
+    }
+
+    
+    public static function getAttributeList() {
+    
+		$sql='SELECT aid, name FROM w_attrmeta WHERE vsb > 0 ORDER BY rdr';
+		$mrs=$GLOBALS[self::$dbvar]->query($sql);
+		        
+        $attrarr=[];
+        while (list($key,$val)=$mrs->fetch_array()) {
+        
+            $attrarr[]=array($key=>$val);
+                            
+        }
+        
+        return $attrarr;
     
     }
     

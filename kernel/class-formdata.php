@@ -15,6 +15,7 @@ class MultipartFormData {
 		
 		if (stripos($cntype,'content-type')!==false || stripos($cntype,'multipart/form-data')!==false) {
 			$this->bnd=self::getBoundary($cntype,'boundary=');
+
 		} else {
 			$this->bnd=$cntype;
 		}
@@ -129,7 +130,8 @@ class MultipartFormData {
 	public static function parseMultipartFormData($body,$del,&$prm) {
 
 		$qdel=preg_quote($del);
-		$cdel='/[\r|\n]{0,2}'.$qdel.'(?:\-\-[\s]{0,4}|[\r|\n]{0,4})/'; #/U
+		// Reihenfolge am Ende und -- Zusätzlich (1) - Unabhängig vom Boundary mit -  
+		$cdel='/[\r|\n]{0,2}[\-]{0,2}'.$qdel.'(?:\-\-[\s]{0,4}|[\r|\n]{0,4})/'; #/U
 		$parts=preg_split($cdel,$body,null,PREG_SPLIT_NO_EMPTY);
 		
 		#var_dump($del);
