@@ -6,19 +6,19 @@ studyHomeApp.controller('StudyHomeCtrl', ['$scope', '$http', '$location', functi
         $scope.searchItems = window.searchItems;
     }
     // alert(window.searchItems);
-/*
+
     $scope.searchFormData = {
 
         "fulltext" : '',
-        "distmeterMin" : 0,
-        "distmeterMax" : 0,
-        "distopnvMin" : 0,
-        "distopnvMax" : 0,
-        "priceMin" : 0,
-        "priceMax" : 0
+        "distmeterMin" : '',
+        "distmeterMax" : '',
+        "distopnvMin" : '',
+        "distopnvMax" : '',
+        "priceMin" : '',
+        "priceMax" : ''
 
     };
-*/
+
     // $http({
     //     method : "GET",
     //     url : "../restapi/handler.php?objAction=estatesearch"
@@ -39,18 +39,19 @@ studyHomeApp.controller('StudyHomeCtrl', ['$scope', '$http', '$location', functi
 
         let submitData = new FormData();
         submitData.append("appsearch[fulltext]", $scope.searchFormData.fulltext);
+        /*
         submitData.append("appsearch[distmeter][Min]", $scope.searchFormData.distmeterMin);
         submitData.append("appsearch[distmeter][Max]", $scope.searchFormData.distmeterMax);
         submitData.append("appsearch[distopnv][Min]", $scope.searchFormData.distopnvMin);
         submitData.append("appsearch[distopnv][Max]", $scope.searchFormData.distopnvMax);
         submitData.append("appsearch[price][Min]", $scope.searchFormData.priceMin);
         submitData.append("appsearch[price][Max]", $scope.searchFormData.priceMax);
-
+        */
         console.log(submitData);
         $http({
             url : "../restapi/handler.php?objAction=estatesearch",
             method: "PUT",
-            // headers : {'Content-Type': 'application/x-www-form-urlencoded'},
+            headers : {'Content-Type': undefined},
             data : submitData
         }).then(function mySuccess(response) {
             $scope.putSucc = response.data;
