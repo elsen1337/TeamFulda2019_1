@@ -30,21 +30,21 @@
            <form id="searchForm" ng-submit="submitSearchForm();">
                <fieldset>
                    <legend>FullText-Search</legend>
-                   <input type="search" name="appsearch[fulltext]" value="" placeholder="Type any search value... We're hoping to match your request..." ng-model="searchFormData.fulltext">
+                   <input type="search" name="appsearch[fulltext]" value="" placeholder="Type any search value... We're hoping to match your request..." ng-model="searchFormData.appsearch[fulltext]">
                </fieldset>
                <fieldset><legend>Distance to Campus (Meter)</legend>
-                    <input type="number" name="appsearch[distmeter][Min]" value="" placeholder="Min" ng-model="searchFormData.distmeterMin">
-                   <input type="number" name="appsearch[distmeter][Max]" value="" placeholder="Max" ng-model="searchFormData.distmeterMax">
+                    <input type="number" name="appsearch[distmeter][Min]" value="" placeholder="Min" ng-model="searchFormData.appsearch[distmeter][Min]">
+                   <input type="number" name="appsearch[distmeter][Max]" value="" placeholder="Max" ng-model="searchFormData.appsearch[distmeter][Max]">
                </fieldset>
                <fieldset>
                    <legend>Distance to Campus (Minutes by <abbr title="Low-Range Personal Traffic">LPT</abbr>)</legend>
-                   <input type="number" name="appsearch[distopnv][Min]" value="" placeholder="Min" ng-model="searchFormData.distopnvMin">
-                   <input type="number" name="appsearch[distopnv][Max]" value="" placeholder="Max" ng-model="searchFormData.distopnvMax">
+                   <input type="number" name="appsearch[distopnv][Min]" value="" placeholder="Min" ng-model="searchFormData.appsearch[distopnv][Min]">
+                   <input type="number" name="appsearch[distopnv][Max]" value="" placeholder="Max" ng-model="searchFormData.appsearch[distopnv][Max]">
                </fieldset>
                <fieldset>
                    <legend>Price / Week</legend>
-                   <input type="number" name="appsearch[price][Min]" value="" placeholder="Min" ng-model="searchFormData.priceMin">
-                   <input type="number" name="appsearch[price][Max]" value="" placeholder="Max" ng-model="searchFormData.priceMax">
+                   <input type="number" name="appsearch[price][Min]" value="" placeholder="Min" ng-model="searchFormData.appsearch[price][Min]">
+                   <input type="number" name="appsearch[price][Max]" value="" placeholder="Max" ng-model="searchFormData.appsearch[price][Max]">
                </fieldset>
                <fieldset>
                    <legend>Filter...</legend>

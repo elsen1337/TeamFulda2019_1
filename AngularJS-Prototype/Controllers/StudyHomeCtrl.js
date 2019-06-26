@@ -9,14 +9,13 @@ studyHomeApp.controller('StudyHomeCtrl', ['$scope', '$http', '$location', functi
 
     $scope.searchFormData = {
 
-        "fulltext" : '',
-        "distmeterMin" : '',
-        "distmeterMax" : '',
-        "distopnvMin" : '',
-        "distopnvMax" : '',
-        "priceMin" : '',
-        "priceMax" : ''
-
+        "appsearch[fulltext]" : '',
+        "appsearch[distmeter][Min]" : '',
+        "appsearch[distmeter][Max]" : '',
+        "appsearch[distopnv][Min]" : '',
+        "appsearch[distopnv][Max]" : '',
+        "appsearch[price][Min]" : '',
+        "appsearch[price][Max]" : ''
     };
 
     // $http({
@@ -35,10 +34,19 @@ studyHomeApp.controller('StudyHomeCtrl', ['$scope', '$http', '$location', functi
 
     $scope.submitSearchForm = function() {
         console.log($scope.searchFormData);
-        //let submitData = convertSearchFormData($scope.searchFormData);
+        let formData = convertSearchFormData($scope.searchFormData);
 
         let submitData = new FormData();
-        submitData.append("appsearch[fulltext]", $scope.searchFormData.fulltext);
+        console.log(formData);
+        for(let key in formData)
+        {
+            if(formData[key] != null)
+            {
+                submitData.append(key, formData[key]);
+                console.log(key);
+            }
+        }
+        //submitData.append("appsearch[fulltext]", $scope.searchFormData.fulltext);
         /*
         submitData.append("appsearch[distmeter][Min]", $scope.searchFormData.distmeterMin);
         submitData.append("appsearch[distmeter][Max]", $scope.searchFormData.distmeterMax);
