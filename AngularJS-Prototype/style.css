@@ -20,12 +20,6 @@ span._md-nav-button-text.ng-scope {
     z-index: 1;
 }
 
-#gitLink {
-}
-
-#hide{
-}
-
 main#main-ext-nav-cnt-show{
     position: relative;
     top: 60px;
@@ -94,8 +88,6 @@ md-content {
     width: 100%;
     height: auto;
     box-shadow: 0px 0px 15px #999;
-}
-.arrows a img{
 }
 
 .center-grey {
@@ -228,4 +220,3 @@ md-content {
     border-style: solid;
     border-color: rgba(103, 198, 228, 0.41);
 }
-
