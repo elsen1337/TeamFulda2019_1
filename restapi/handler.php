@@ -4,7 +4,7 @@
 
 function parseCommand(&$cmd,$route) {
 
-    if (strpos($cmd , $route) !== false) {
+    if (strpos($cmd , $route) === 0) {
 
         $cmd=substr($cmd,strlen($route));
         return true;
@@ -443,7 +443,7 @@ if (parseCommand($action,'estate')) {
         }
 
     }
-    
+   
 
 } elseif (parseCommand($action,'tenant')) {
 
@@ -595,13 +595,12 @@ if (parseCommand($action,'estate')) {
 
 
     require('../kernel/class-chat.php');
-   
 
     if (parseCommand($action,'lessors4tenant')) {
     
         if ($_SERVER['REQUEST_METHOD']=='GET') {
         
-			$lst=Chat::getChatPartner($objkey);
+			$lst=Chat::getChatPartner4Tenant($objkey);
 			header('Content-type: application/json');
 			echo json_encode($lst);
    
@@ -610,6 +609,11 @@ if (parseCommand($action,'estate')) {
 
       
 		} elseif ($_SERVER['REQUEST_METHOD']=='POST') {
+
+			$actResult=Chat::insertMessageFromLessor2Tenant($postParam['vm_id'],$postParam['m_id'],$postParam['msg']);
+
+			header('Content-type: application/json');
+			echo '{"success":'.var_export($actResult, true).',"sqlError":"'.$msdb->error.'"}';
         
         } elseif ($_SERVER['REQUEST_METHOD']=='DELETE') {
 
@@ -624,7 +628,34 @@ if (parseCommand($action,'estate')) {
     
         if ($_SERVER['REQUEST_METHOD']=='GET') {
         
-			$lst=Chat::getChatPartner($objkey);
+			$lst=Chat::getChatPartner4Lessor($objkey);
+			header('Content-type: application/json');
+			echo json_encode($lst);
+   
+
+        } elseif ($_SERVER['REQUEST_METHOD']=='PUT') {
+
+      
+		} elseif ($_SERVER['REQUEST_METHOD']=='POST') {
+
+			$actResult=Chat::insertMessageFromTenant2Lessor($postParam['m_id'],$postParam['vm_id'],$postParam['msg']);
+
+			header('Content-type: application/json');
+			echo '{"success":'.var_export($actResult, true).',"sqlError":"'.$msdb->error.'"}';
+
+        } elseif ($_SERVER['REQUEST_METHOD']=='DELETE') {
+
+        } else {
+        
+            notAllowed();
+            
+        }
+        
+	}  elseif (parseCommand($action,'lastmsg')) {
+    
+        if ($_SERVER['REQUEST_METHOD']=='GET') {
+        
+			$lst=Chat::getLastMessages4LessorTenant($_GET['vm_id'],$_GET['m_id']);
 			header('Content-type: application/json');
 			echo json_encode($lst);
    

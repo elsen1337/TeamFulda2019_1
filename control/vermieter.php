@@ -39,7 +39,7 @@ $tokenKey='pwort';
 if (array_key_exists($tokenKey,$_POST) && is_array($_POST[$tokenKey])) {
 	foreach ($_POST[$tokenKey] as $uid => $plainpw) {
 		if (strlen($plainpw) == 0) {continue;}
-		$sql='UPDATE '.$ptbl.' SET '.$tokenKey.'=0x'.Lessor::cryptPasswort(($plainpw).' WHERE '.$pkey.'='.$uid;
+		$sql='UPDATE '.$ptbl.' SET '.$tokenKey.'=0x'.Lessor::cryptPasswort($plainpw).' WHERE '.$pkey.'='.$uid;
 		$msdb->query($sql);
 	}
 }
@@ -63,7 +63,7 @@ if (strlen($_GET['edit']) > 0) {
 
 	echo '<table cellpadding="2" style="empty-cells:show"><tr><th>Vermieter-Name</th><th>#Wohnungen</th><th title="Mieter / Gesamt">#Chat</th><th>Optionen</th></tr>';
 
-	$sql='SELECT v.vm_id, anrede, nname, vname, COUNT(w.wohn_id) AS cnt, COUNT(DISTINCT c.m_id) AS cdcnt, COUNT(DISTINCT c.mid) AS mcnt FROM '.$ptbl.' AS v LEFT JOIN wohnung AS w ON v.vm_id = w.vm_id LEFT JOIN m_chat AS c ON c.vm_id=v.vm_id GROUP BY v.vm_id';
+	$sql='SELECT v.vm_id, anrede, nname, vname, COUNT(w.wohn_id) AS cnt, COUNT(DISTINCT ABS(c.m_id)) AS cdcnt, COUNT(DISTINCT c.mid) AS mcnt FROM '.$ptbl.' AS v LEFT JOIN wohnung AS w ON v.vm_id = w.vm_id LEFT JOIN m_chat AS c ON c.vm_id=v.vm_id GROUP BY v.vm_id';
 	$msr=$msdb->query($sql); echo $msdb->error;
 
 	while ($row=$msr->fetch_assoc()) {
