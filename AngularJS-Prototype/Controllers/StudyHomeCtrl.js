@@ -1,12 +1,13 @@
 studyHomeApp.controller('StudyHomeCtrl', ['$scope', '$http', '$location', function($scope, $http, $location){
 
+
     $scope.searchItems = [{}];
 
     if(window.searchItems) {
         $scope.searchItems = window.searchItems;
     }
     // alert(window.searchItems);
-
+/*
     $scope.searchFormData = {
 
         "appsearch[fulltext]" : '',
@@ -17,6 +18,8 @@ studyHomeApp.controller('StudyHomeCtrl', ['$scope', '$http', '$location', functi
         "appsearch[price][Min]" : '',
         "appsearch[price][Max]" : ''
     };
+*/
+
 
     // $http({
     //     method : "GET",
@@ -37,7 +40,8 @@ studyHomeApp.controller('StudyHomeCtrl', ['$scope', '$http', '$location', functi
         let formData = convertSearchFormData($scope.searchFormData);
 
         let submitData = new FormData();
-        console.log(formData);
+        //console.log(formData);
+
         for(let key in formData)
         {
             if(formData[key] != null)
@@ -46,6 +50,8 @@ studyHomeApp.controller('StudyHomeCtrl', ['$scope', '$http', '$location', functi
                 console.log(key);
             }
         }
+
+
         //submitData.append("appsearch[fulltext]", $scope.searchFormData.fulltext);
         /*
         submitData.append("appsearch[distmeter][Min]", $scope.searchFormData.distmeterMin);
