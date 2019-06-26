@@ -24,7 +24,8 @@ var ROUTES = {
     page6: "agb",
     page7: "contactAndHelp",
     page8: "aboutUs",
-    page9: "impressum"
+    page9: "impressum",
+    page11: "homeStart"
 };
 
 // App Module
@@ -117,6 +118,10 @@ studyHomeApp.config(['$routeProvider', '$mdThemingProvider', function($routeProv
             templateUrl: 'Views/' + ROUTES.page10 + '.html',
             controller: 'ProfileCtrl'
         })
+        .when('/' + ROUTES.page11, {
+            templateUrl: 'Views/' + ROUTES.page11 + '.html',
+            controller: 'HomeStartCtrl'
+        })
         .otherwise({
             redirectTo: '/' + ROUTES.page0
         });
@@ -151,6 +156,8 @@ studyHomeApp.controller('NavCtrl', ['$scope', '$location', function($scope, $loc
                 return ROUTES.page9;
             case '/' + ROUTES.page10:
                 return ROUTES.page10;
+            case '/' + ROUTES.page11:
+                return ROUTES.page11;
             default:
                 return $scope.lastNavItem;
         }

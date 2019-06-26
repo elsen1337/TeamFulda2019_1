@@ -19,6 +19,11 @@
     position: relative;
     top: 15px;
 }
+#hd-input-search
+{
+    position: relative;
+    top: 22px;
+}
 
 #search-button-hd {
     position: relative;
@@ -28,6 +33,7 @@
 
 #search-button-hd input {
     border: none;
+
 }
 
 #search-button-hd button {
