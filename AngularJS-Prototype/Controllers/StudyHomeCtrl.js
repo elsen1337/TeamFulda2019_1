@@ -7,7 +7,7 @@ studyHomeApp.controller('StudyHomeCtrl', ['$scope', '$http', '$location', functi
         $scope.searchItems = window.searchItems;
     }
     // alert(window.searchItems);
-/*
+
     $scope.searchFormData = {
 
         "appsearch[fulltext]" : '',
@@ -18,7 +18,7 @@ studyHomeApp.controller('StudyHomeCtrl', ['$scope', '$http', '$location', functi
         "appsearch[price][Min]" : '',
         "appsearch[price][Max]" : ''
     };
-*/
+
 
 
     // $http({
