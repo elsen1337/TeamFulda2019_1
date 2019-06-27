@@ -1,4 +1,10 @@
+.search-input-hd
+{
+    position: relative;
+}
+
 #hd-btn-search {
+    padding: 5px;
     color: #ffffff;
     background-color: #689dad;
 }
@@ -22,7 +28,6 @@
 #hd-input-search
 {
     position: relative;
-    top: 22px;
 }
 
 #search-button-hd {
@@ -102,6 +107,10 @@
 
 @media screen and (max-width: 900px) {
     .topnav a:not(:first-child) {
+        display: none;
+    }
+
+    .topnav p:not(:first-child) {
         display: none;
     }
 

@@ -9,10 +9,11 @@
     <a href="./index.html#!/messages" class="nav-item-hd nav-item-menu" onclick="myFunction()">Messages</a>
     <a href="./index.html#!/profile" class="nav-item-hd nav-item-menu" onclick="myFunction()">My Account</a>
     <a href="./index.html#!/login" class="nav-item-hd nav-item-menu" onclick="myFunction()">Login</a>
-
+    <a class="nav-item-hd nav-item-menu search-input-hd">
         <input id="hd-input-search" type="text" placeholder="Search..." name="search" ng-model="startSearchHeader">
-    <a href="./index.html#!/home" onlcick="return setSearchKeyHeader();" id="search-button-hd" class="nav-item-menu">
-        <i class="fa fa-search" onclick="setSearchKeyHeader()"></i>
+    </a>
+    <a href="./index.html#!/home" onlcick="return setSearchKeyHeader();" id="search-button-hd" >
+        <i id="hd-btn-search" class="fa fa-search search-input-hd" onclick="setSearchKeyHeader()"></i>
     </a>
     <a href="javascript:void(0);" class="nav-item-hd icon" onclick="myFunction()">
         &#9776;
