@@ -61,8 +61,9 @@
         <md-list-item ng-repeat="item in searchItems" ng-click="goToDetails(item.id, $event)" class="noright">
             <img alt="{{ item.alt }}" ng-src="{{ item.img }}" class="search-item-img" />
             <p>{{item.name}}</p>
+            <p>{{item.entf_meter}}</p>
+            <p>{{item.entf_min}}</p>
             <p>{{item.price}}</p>
-            <p>{{item.surface}}</p>
 <!--            <md-checkbox class="md-secondary" ng-model="person.selected"></md-checkbox>-->
 <!--            <md-icon md-svg-icon="communication:email"  ng-click="doSecondaryAction($event)" aria-label="Send Email" class="md-secondary md-hue-3" ></md-icon>-->
 <!--            <md-icon class="md-secondary" ng-click="contactLessor($event)" aria-label="Chat" md-svg-icon="communication:message"></md-icon>-->
