@@ -1,3 +1,8 @@
+<style>
+    body, #home {
+        background-color: #b6dbe6;
+    }
+</style>
 
 <div id=home>
    <!--
@@ -28,46 +33,86 @@
    <div id="search">
        <div id="filtermenu">
            <form id="searchForm" ng-submit="submitSearchForm();">
-               <fieldset>
-                   <legend>FullText-Search</legend>
-                   <input type="search" name="appsearch[fulltext]" value="" placeholder="Type any search value... We're hoping to match your request..." ng-model="searchFormData.fulltext">
+               <fieldset class="home-fieldset">
+                   <legend class="home-legend">Searchfield</legend>
+                   <md-input-container class="home-container">
+                       <div class="home-input">
+                           <input class="home-input" type="search" name="appsearch[fulltext]" value="" placeholder="Type any search value..." ng-model="searchFormData.fulltext">
+                       </div>
+                   </md-input-container>
                </fieldset>
-               <fieldset><legend>Distance to Campus (Meter)</legend>
-                    <input type="number" name="appsearch[distmeter][Min]" value="" placeholder="Min" ng-model="searchFormData.distmeterMin">
-                   <input type="number" name="appsearch[distmeter][Max]" value="" placeholder="Max" ng-model="searchFormData.distmeterMax">
+               <fieldset class="home-fieldset">
+                   <legend class="home-legend">Distance to Campus (Meter)</legend>
+                   <md-input-container class="home-container">
+                       <div class="home-input">
+                           <input type="number" name="appsearch[distmeter][Min]" value="" placeholder="Min" ng-model="searchFormData.distmeterMin">
+                       </div>
+                   </md-input-container>
+                   <md-input-container class="home-container">
+                       <div class="home-input">
+                           <input type="number" name="appsearch[distmeter][Max]" value="" placeholder="Max" ng-model="searchFormData.distmeterMax">
+                       </div>
+                   </md-input-container>
                </fieldset>
-               <fieldset>
-                   <legend>Distance to Campus (Minutes by <abbr title="Low-Range Personal Traffic">LPT</abbr>)</legend>
-                   <input type="number" name="appsearch[distopnv][Min]" value="" placeholder="Min" ng-model="searchFormData.distopnvMin">
-                   <input type="number" name="appsearch[distopnv][Max]" value="" placeholder="Max" ng-model="searchFormData.distopnvMax">
+               <fieldset class="home-fieldset">
+                   <legend class="home-legend">Distance to Campus (Minutes)</legend>
+                   <md-input-container class="home-container">
+                       <div class="home-input">
+                           <input type="number" name="appsearch[distopnv][Min]" value="" placeholder="Min" ng-model="searchFormData.distopnvMin">
+                       </div>
+                   </md-input-container>
+                   <md-input-container class="home-container">
+                       <div class="home-input">
+                           <input type="number" name="appsearch[distopnv][Max]" value="" placeholder="Max" ng-model="searchFormData.distopnvMax">
+                       </div>
+                   </md-input-container>
                </fieldset>
-               <fieldset>
-                   <legend>Price / Week</legend>
-                   <input type="number" name="appsearch[price][Min]" value="" placeholder="Min" ng-model="searchFormData.priceMin">
-                   <input type="number" name="appsearch[price][Max]" value="" placeholder="Max" ng-model="searchFormData.priceMax">
+               <fieldset class="home-fieldset">
+                   <legend class="home-legend">Price per month</legend>
+                   <md-input-container class="home-container">
+                       <div class="home-input">
+                           <input type="number" name="appsearch[price][Min]" value="" placeholder="Min" ng-model="searchFormData.priceMin">
+                       </div>
+                   </md-input-container>
+                   <md-input-container class="home-container">
+                       <div class="home-input">
+                           <input type="number" name="appsearch[price][Max]" value="" placeholder="Max" ng-model="searchFormData.priceMax">
+                       </div>
+                   </md-input-container>
                </fieldset>
-               <fieldset>
-                   <legend>Filter...</legend>
-                   <input type="submit" value="Show Me ResultSet">
+               <fieldset class="home-fieldset">
+                   <legend class="home-legend">Filter...</legend>
+                   <md-input-container class="home-container">
+                       <div class="home-input">
+                           <md-button class="login-btn" type="submit">
+                               Show Me ResultSet
+                           </md-button>
+                           <md-button class="login-btn">
+                               Save Search
+                           </md-button>
+                       </div>
+                   </md-input-container>
                </fieldset>
            </form>
        </div>
    </div>
 
 <!--    List Items-->
-
-    <md-list ng-cloak id="searchList">
-        <md-subheader class="md-no-sticky">Search Items</md-subheader>
-        <md-list-item ng-repeat="item in searchItems" ng-click="goToDetails(item.id, $event)" class="noright">
-            <img alt="{{ item.alt }}" ng-src="{{ item.img }}" class="search-item-img" />
-            <p>{{item.name}}</p>
-            <p>{{item.entf_meter}}</p>
-            <p>{{item.entf_min}}</p>
-            <p>{{item.price}}</p>
-<!--            <md-checkbox class="md-secondary" ng-model="person.selected"></md-checkbox>-->
-<!--            <md-icon md-svg-icon="communication:email"  ng-click="doSecondaryAction($event)" aria-label="Send Email" class="md-secondary md-hue-3" ></md-icon>-->
-<!--            <md-icon class="md-secondary" ng-click="contactLessor($event)" aria-label="Chat" md-svg-icon="communication:message"></md-icon>-->
-        </md-list-item>
-    </md-list>
+  <div class="home-suchergebnis">
+      <md-list ng-cloak id="searchList">
+          <!--<md-subheader class="md-no-sticky">Search Items</md-subheader>-->
+          <h3>Search Items</h3>
+          <md-list-item ng-repeat="item in searchItems" ng-click="goToDetails(item.id, $event)" class="noright">
+              <img alt="{{ item.alt }}" ng-src="{{ item.img }}" class="search-item-img" />
+              <p>{{item.name}}</p>
+              <p>{{item.entf_meter}}</p>
+              <p>{{item.entf_min}}</p>
+              <p>{{item.price}}</p>
+              <!--            <md-checkbox class="md-secondary" ng-model="person.selected"></md-checkbox>-->
+              <!--            <md-icon md-svg-icon="communication:email"  ng-click="doSecondaryAction($event)" aria-label="Send Email" class="md-secondary md-hue-3" ></md-icon>-->
+              <!--            <md-icon class="md-secondary" ng-click="contactLessor($event)" aria-label="Chat" md-svg-icon="communication:message"></md-icon>-->
+          </md-list-item>
+      </md-list>
+  </div>
 
 </div>

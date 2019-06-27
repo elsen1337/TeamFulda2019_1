@@ -1,5 +1,15 @@
 studyHomeApp.controller('RegisterCtrl', ['$scope', '$http', function($scope, $http){
 
+    $scope.rollen = [
+        "Lessor",
+        "Tenant"
+    ];
+
+    $scope.anreden = [
+        "Ms.",
+        "Mr."
+    ];
+
     $scope.user = [{}];
 
     $scope.register = function(){
