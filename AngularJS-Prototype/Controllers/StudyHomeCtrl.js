@@ -47,11 +47,7 @@ studyHomeApp.controller('StudyHomeCtrl', ['$scope', '$http', '$location', functi
 
         for(let key in formData)
         {
-            if(formData[key] != null)
-            {
                 submitData.append(key, formData[key]);
-                console.log(key);
-            }
         }
 
 
