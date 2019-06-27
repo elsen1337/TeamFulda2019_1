@@ -21,18 +21,30 @@
                 <md-content layout-padding="">
                     <div layout-gt-xs="row">
                         <div name="registrieren-block" class="md-block" flex-gt-sm="">
-                            <label>Art</label><br>
+                            <md-input-container style="margin-right: 10px;">
+                                <label>Roll</label>
+                                <md-select id="acc-type" required="" ng-model="rolle">
+                                    <md-option ng-repeat="rolle in rollen" value="{{rolle}}">{{rolle}}</md-option>
+                                </md-select>
+                            </md-input-container>
+                            <!--<label>Art</label><br>
                             <select id="acc-type" required="" type="text" name="registry[account]" ng-model="registryForm.account">
                                 <option value="lessor">Lessor</option>
                                 <option value="tenant">Tenant</option>
-                            </select>
+                            </select>-->
                         </div>
                         <div class="md-block" flex-gt-sm="">
-                            <label>Anrede</label><br>
+                            <md-input-container style="margin-right: 10px;">
+                                <label>Salutation</label>
+                                <md-select id="p-title" required="" ng-model="anrede">
+                                    <md-option ng-repeat="anrede in anreden" value="{{anrede}}">{{anrede}}</md-option>
+                                </md-select>
+                            </md-input-container>
+                            <!--<label>Anrede</label><br>
                             <select id="p-title" required="" type="text" name="registry[title]" ng-model="registryForm.title">
                                 <option value="m">M</option>
                                 <option value="f">F</option>
-                            </select>
+                            </select>-->
                         </div>
                     </div>
                     <div layout-gt-xs="row">
