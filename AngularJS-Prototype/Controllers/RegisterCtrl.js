@@ -26,8 +26,7 @@ studyHomeApp.controller('RegisterCtrl', ['$scope', '$http', function($scope, $ht
         };
 
 
-        $scope.user.account = document.getElementById("acc-type").value;
-        $scope.user.anrede = document.getElementById("p-title").value;
+        $scope.user.account = $scope.rolle;
         $scope.user.vname = document.getElementById("prename").value;
         $scope.user.nname = document.getElementById("lastname").value;
         $scope.user.pwort = document.getElementById("password").value;
@@ -37,11 +36,21 @@ studyHomeApp.controller('RegisterCtrl', ['$scope', '$http', function($scope, $ht
 
         urlVar = "";
 
-        if ($scope.user.account == "lessor")
+        if ($scope.anrede == "Mr.")
+        {
+            $scope.user.anrede = "M";
+
+        }
+        else if ($scope.anrede == "Ms.")
+        {
+            $scope.user.anrede = "F";
+        }
+
+        if ($scope.user.account == "Lessor")
         {
             urlVar = "../restapi/handler.php?objAction=lessoraccount"
         }
-        else if ($scope.user.account == "tenant")
+        else if ($scope.user.account == "Tenant")
         {
             urlVar = "../restapi/handler.php?objAction=tenantaccount"
         }
