@@ -1,0 +1,33 @@
+#homeStart {
+    display: flex;
+    align-content: center;
+    justify-content: center;
+}
+
+.homeStart-container {
+    display: flex;
+    align-content: center;
+    justify-content: center;
+    width: 32%;
+    background-color: white;
+    position: absolute;
+    top: 40%;
+}
+
+.homeStart-input {
+    width: 100%;
+}
+
+.homeStart-btn {
+    margin-top: 1%;
+}
+
+.homeStart-backgroundPic {
+    position: absolute;
+    margin-left: auto;
+    margin-right: auto;
+    left: 0;
+    right: 0;
+    width: auto;
+    height: auto;
+}
