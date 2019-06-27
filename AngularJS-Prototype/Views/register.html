@@ -20,20 +20,20 @@
             <div class="registrieren">
                 <md-content layout-padding="">
                     <div layout-gt-xs="row">
-                        <md-input-container name="registrieren-block" class="md-block" flex-gt-sm="">
-                            <label>Art</label>
+                        <div name="registrieren-block" class="md-block" flex-gt-sm="">
+                            <label>Art</label><br>
                             <select id="acc-type" required="" type="text" name="registry[account]" ng-model="registryForm.account">
                                 <option value="lessor">Lessor</option>
                                 <option value="tenant">Tenant</option>
                             </select>
-                        </md-input-container>
-                        <md-input-container class="md-block" flex-gt-sm="">
-                            <label>Anrede</label>
+                        </div>
+                        <div class="md-block" flex-gt-sm="">
+                            <label>Anrede</label><br>
                             <select id="p-title" required="" type="text" name="registry[title]" ng-model="registryForm.title">
                                 <option value="m">M</option>
                                 <option value="f">F</option>
                             </select>
-                        </md-input-container>
+                        </div>
                     </div>
                     <div layout-gt-xs="row">
                         <md-input-container name="registrieren-block" class="md-block" flex-gt-sm="">
@@ -67,6 +67,10 @@
                         </md-input-container>
                     </div>
                 </md-content>
+                <div class="col-sm-12">
+                    <p>Image upload for profile</p>
+                    <input type="file"  id="fileinput" name="bilder" aria-label="bilderInput" file-model="bilder" multiple="multiple" class="form-control" required=""/>
+                </div>
                 <md-button type="submit" class="registrieren-btn" ng-click="register()">
                     Submit
                 </md-button>

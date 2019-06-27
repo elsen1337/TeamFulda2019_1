@@ -53,25 +53,5 @@ studyHomeApp.controller('RegisterCtrl', ['$scope', '$http', function($scope, $ht
             console.error($scope.error);
         });
     };
-
-    $scope.submitSearchForm = function() {
-        console.log($scope.user);
-        let submitData = convertRegisterFormData($scope.user);
-        console.log(submitData);
-        $http({
-            url : "../restapi/handler.php?objAction=lessoraccount",
-            method: "POST",
-            // headers : {'Content-Type': 'application/x-www-form-urlencoded'},
-            data : submitData
-        }).then(function mySuccess(response) {
-            $scope.putSucc = response.data;
-            console.log(response.data);
-            console.log("status: " + response.status);
-            console.log("statusText: " + response.statusText);
-        }, function myError(response) {
-            $scope.error = response.statusText;
-            console.error($scope.error);
-        });
-    };
 }]);
 
