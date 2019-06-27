@@ -1,9 +1,15 @@
-
 <div id="homeStart">
-    <md-input-container>
-        <input type="search" name="startSearch" value="" placeholder="Type any search value... We're hoping to match your request..." ng-model="startSearch">
-        <a href="./index.html#!/home" onlcick="return setSearchKey();" id="search-button-hd" class="nav-item-menu">
-            <i class="fa fa-search" onclick="setSearchKey()"></i>
-        </a>
+    <!--Src sucht vom Ordner aus, indem die index.html drinnen ist. (AngularJS-Prototpye)-->
+    <img class="homeStart-backgroundPic" src="images/normal/00001-sfs-abw-fd-hef.jpg" alt="background"/>
+    <md-input-container class="homeStart-container">
+        <div class="homeStart-input">
+            <input type="search" name="startSearch" value=""
+                   placeholder="Type any search value... We're hoping to match your request..." ng-model="startSearch">
+        </div>
+        <div class="homeStart-btn">
+            <a href="./index.html#!/home" onlcick="return setSearchKey();" id="" class="nav-item-menu">
+                <i class="fa fa-search" onclick="setSearchKey()"></i>
+            </a>
+        </div>
     </md-input-container>
 </div>
