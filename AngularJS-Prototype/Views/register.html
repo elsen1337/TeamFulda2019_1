@@ -81,7 +81,9 @@
                 </md-content>
                 <div class="col-sm-12">
                     <p>Image upload for profile</p>
-                    <input type="file"  id="fileinput" name="bilder" aria-label="bilderInput" file-model="bilder" multiple="multiple" class="form-control" required=""/>
+                    <md-input-container>
+                        <input type="file"  id="fileinput" name="bilder" aria-label="bilderInput" file-model="bilder" multiple="multiple" class="form-control" required=""/>
+                    </md-input-container>
                 </div>
                 <md-button type="submit" class="registrieren-btn" ng-click="register()">
                     Submit
