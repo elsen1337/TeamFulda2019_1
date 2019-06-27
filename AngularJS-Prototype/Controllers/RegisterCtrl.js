@@ -3,37 +3,46 @@ studyHomeApp.controller('RegisterCtrl', ['$scope', '$http', function($scope, $ht
     $scope.user = [{}];
 
     $scope.register = function(){
-        var prename = document.getElementById("prename").value;
-        var lastname = document.getElementById("lastname").value;
-        var password = document.getElementById("password").value;
-        var repeatPassword = document.getElementById("repeatPassword").value;
-        var email = document.getElementById("email").value;
-        var birthDate = document.getElementById("birthDate").value;
-        console.log('Prename = ' + prename
-            + ', Lastname = ' + lastname
-            + ', Passwort = ' + password
-            + ', Repeat Passwort = ' + repeatPassword
-            + ', E-Mail = ' + email
-            + ', Birth Date = ' + birthDate);
 
         $scope.user = {
 
-            "prename" : prename,
-            "lastname" : lastname,
-            "password" : password,
-            "repeatPassword" : repeatPassword,
-            "email" : email,
-            "birthDate" : birthDate,
+            "account" : "",
+            "anrede" : "",
+            "vname" : "",
+            "nname" : "",
+            "pwort" : "",
+            "email" : "",
+            "profil" : ""
         };
 
+
+        $scope.user.account = document.getElementById("acc-type").value;
+        $scope.user.anrede = document.getElementById("p-title").value;
+        $scope.user.vname = document.getElementById("prename").value;
+        $scope.user.nname = document.getElementById("lastname").value;
+        $scope.user.pwort = document.getElementById("password").value;
+        $scope.user.email = document.getElementById("email").value;
+
         console.log($scope.user);
-        let submitData = convertRegisterFormData($scope.user);
-        console.log(submitData);
+
+        urlVar = "";
+
+        if ($scope.user.account == "lessor")
+        {
+            urlVar = "../restapi/handler.php?objAction=lessoraccount"
+        }
+        else if ($scope.user.account == "tenant")
+        {
+            urlVar = "../restapi/handler.php?objAction=tenantaccount"
+        }
+
+        console.log($scope.user.account);
+
         $http({
-            url : "../restapi/handler.php?objAction=lessoraccount",
+            url : urlVar,
             method: "POST",
             // headers : {'Content-Type': 'application/x-www-form-urlencoded'},
-            data : submitData
+            data : $scope.user
         }).then(function mySuccess(response) {
             $scope.putSucc = response.data;
             console.log(response.data);
@@ -64,32 +73,5 @@ studyHomeApp.controller('RegisterCtrl', ['$scope', '$http', function($scope, $ht
             console.error($scope.error);
         });
     };
-
 }]);
 
-function convertRegisterFormData(formData){
-    let result = {
-        "registry[prename]" : formData.prename,
-        "registry[lastname]" : formData.lastname,
-        "registry[password]" : formData.password,
-        "registry[repeatPassword]" : formData.repeatPassword,
-        "registry[email]" : formData.email,
-        "registry[birthDate]" : formData.birthDate
-    };
-    // let result = [];
-    // result["appsearch[fulltext]"] = formData.fulltext;
-    // result["appsearch[distmeter][Min]"] = formData.distmeterMin;
-    // result["appsearch[distmeter][Max]"] = formData.distmeterMax;
-    // result["appsearch[distopnv][Min]"] = formData.distopnvMin;
-    // result["appsearch[distopnv][Max]"] = formData.distopnvMax;
-    // result["appsearch[price][Min]"] = formData.priceMin;
-    // result["appsearch[price][Max]"] = formData.priceMax;
-    return result;
-}
-
-function triggerSubmit() {
-    if(document.getElementById("regForm")) {
-        document.getElementById("regForm").triggerHandler('submit');
-        console.log("sdsafdsfdsfdsf");
-    }
-};
