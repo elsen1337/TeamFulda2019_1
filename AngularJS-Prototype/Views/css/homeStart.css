@@ -4,18 +4,28 @@
     justify-content: center;
 }
 
+.homeStart-containerBorder {
+    width: 20%;
+    background-color: white;
+    position: absolute;
+    top: 40%;
+    border-style: solid;
+    border-color: gray;
+}
+
 .homeStart-container {
     display: flex;
     align-content: center;
     justify-content: center;
-    width: 32%;
-    background-color: white;
-    position: absolute;
-    top: 40%;
+    width: 100%;
 }
 
 .homeStart-input {
-    width: 100%;
+    width: 90%;
+}
+
+.homeStart-input > .md-errors-spacer {
+    display: none;
 }
 
 .homeStart-btn {
