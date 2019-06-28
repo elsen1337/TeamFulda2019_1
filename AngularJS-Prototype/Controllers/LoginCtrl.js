@@ -9,12 +9,17 @@ studyHomeApp.controller('LoginCtrl', ['$scope', '$http','$location', function($s
 
 
     $scope.login = function (Auth) {
-        var email = document.getElementById("email").value;
-        var passwort = document.getElementById("passwort").value;
+        //var email = document.getElementById("email").value;
+        //var pwort = document.getElementById("passwort").value;
+
         console.log('E-Mail = ' + email + ', Passwort = ' + passwort);
 
-        $scope.user.email = email;
-        $scope.user.passwort = passwort;
+        let user = {
+            "email" : $scope.email,
+            "pwort" : $scope.pwort
+        }
+
+        console.log(user);
 
         if ($scope.loginrolle == "Lessor")
         {
@@ -30,7 +35,7 @@ studyHomeApp.controller('LoginCtrl', ['$scope', '$http','$location', function($s
             url : urlVar,
             method: "POST",
             // headers : {'Content-Type': 'application/x-www-form-urlencoded'},
-            data : $scope.user
+            data : user
         }).then(function mySuccess(response) {
             $location.path("/login");
             console.log($scope.loginrolle);
