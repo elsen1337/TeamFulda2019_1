@@ -18,6 +18,13 @@
                 </md-input-container>
             </div>
             <div class="login">
+                <md-input-container style="margin-right: 10px;">
+                    <label>Roll</label>
+                    <md-select id="acc-type" required="" ng-model="loginrolle">
+                        <md-option ng-selected="true" value="Tenant">Tenant</md-option>
+                        <md-option value="Lessor">Lessor</md-option>
+                    </md-select>
+                </md-input-container>
                 <md-input-container class="md-block">
                     <label>E-Mail</label>
                     <input id="email" required="" type="email" name="email" ng-model="email" ng-pattern="/^.+@.+\..+$/"

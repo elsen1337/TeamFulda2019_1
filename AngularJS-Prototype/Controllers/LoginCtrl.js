@@ -1,7 +1,12 @@
 studyHomeApp.controller('LoginCtrl', ['$scope', '$http','$location', function($scope, $http, $location){
+
+    var urlVar = "";
+
     $scope.routes = ROUTES;
 
     $scope.user = [{}];
+
+
 
     $scope.login = function (Auth) {
         var email = document.getElementById("email").value;
@@ -11,15 +16,24 @@ studyHomeApp.controller('LoginCtrl', ['$scope', '$http','$location', function($s
         $scope.user.email = email;
         $scope.user.passwort = passwort;
 
-        console.log
+        if ($scope.loginrolle == "Lessor")
+        {
+            urlVar = "../restapi/handler.php?objAction=lessorlogin";
+        }
+        else if ($scope.loginrolle == "Tenant")
+        {
+            urlVar = "../restapi/handler.php?objAction=tenantlogin";
+        }
 
         $http({
-            url : "../restapi/handler.php?objAction=lessorlogin",
+
+            url : urlVar,
             method: "POST",
             // headers : {'Content-Type': 'application/x-www-form-urlencoded'},
             data : $scope.user
         }).then(function mySuccess(response) {
-            console.log("Fischkopf");
+            $location.path("/login");
+            console.log($scope.loginrolle);
             $scope.putSucc = response.data;
             console.log(response.data);
             console.log("status: " + response.status);
@@ -28,8 +42,6 @@ studyHomeApp.controller('LoginCtrl', ['$scope', '$http','$location', function($s
             $scope.error = response.statusText;
             console.error($scope.error);
         });
-
-        $location.path('/renting');
     };
 
     $scope.goto = function ( path ) {
