@@ -27,7 +27,7 @@
                 </md-input-container>
                 <md-input-container class="md-block">
                     <label>E-Mail</label>
-                    <input id="email" required="" type="email" name="email" ng-model="email" ng-pattern="/^.+@.+\..+$/"
+                    <input id="email" required="" type="email" name="email" ng-model="email" ng-pattern="/^.+@\b(\w*hs\w*)\b\-\b(\w*fulda\w*)\b\.\b(\w*de\w*\b)/"
                            placeholder="Max.Mustermann@informatik.hs-fulda.de">
                     <!--<div ng-messages="login-form.login.md-block.email.$error" role="alert">
                         <div ng-message="['required', 'pattern']">
