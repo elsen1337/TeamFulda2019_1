@@ -1,4 +1,4 @@
-studyHomeApp.controller('FavouritesCtrl', ['$scope', function($scope){
+studyHomeApp.controller('SavedSearchesCtrl', ['$scope', '$http', function($scope, $http) {
 
     // Test which navbar should be displayed according to the logged in person's role.
     if (sessionStorage.getItem("role") === "Tenant")
