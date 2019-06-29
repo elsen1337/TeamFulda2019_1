@@ -10,7 +10,8 @@ studyHomeApp.controller('StudyHomeCtrl', ['$scope', '$http', '$location', functi
     // alert(window.searchItems);
 
 
-    $scope.searchFormData = {
+    $scope.searchFormData =
+    {
         "appsearch[fulltext]" : '',
         "appsearch[distmeter][Min]" : '',
         "appsearch[distmeter][Max]" : '',
@@ -37,7 +38,8 @@ studyHomeApp.controller('StudyHomeCtrl', ['$scope', '$http', '$location', functi
     // });
 
 
-    $scope.submitSearchForm = function() {
+    $scope.submitSearchForm = function()
+    {
 
         console.log($scope.searchFormData);
         let formData = convertSearchFormData($scope.searchFormData);
