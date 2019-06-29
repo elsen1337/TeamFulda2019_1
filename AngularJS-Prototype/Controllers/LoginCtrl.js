@@ -39,25 +39,23 @@ studyHomeApp.controller('LoginCtrl', ['$scope', '$http','$location', function($s
         }).then(function mySuccess(response) {
             console.log($scope.loginrolle);
             $scope.putSucc = response.data;
-            if (typeof(Storage) !== "undefined") {
+            if (typeof(Storage) !== "undefined" && $scope.putSucc !== null) {
                 // Store
                 sessionStorage.setItem("isLoggedIn", "yes")
                 sessionStorage.setItem("vm_id", $scope.putSucc["vm_id"]);
                 sessionStorage.setItem("vname", $scope.putSucc["vname"]);
                 sessionStorage.setItem("nname", $scope.putSucc["nname"]);
                 sessionStorage.setItem("role", $scope.loginrolle);
-
-                console.log(sessionStorage.getItem("role"))
                 // Retrieve
+
+                console.log(response.data);
+                //console.log($scope.putSucc["vname"]);
+                console.log("status: " + response.status);
+                console.log("statusText: " + response.statusText);
+                window.location.href = "./index.html#!/homeStart";
+                window.location.reload();
             }
            // $location.path("index.html#!/homeStart");
-
-            console.log(response.data);
-            //console.log($scope.putSucc["vname"]);
-            console.log("status: " + response.status);
-            console.log("statusText: " + response.statusText);
-            window.location.href = "./index.html#!/homeStart";
-            window.location.reload();
         }, function myError(response) {
             $scope.error = response.statusText;
             console.error($scope.error);
