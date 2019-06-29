@@ -39,6 +39,12 @@ studyHomeApp.controller('LoginCtrl', ['$scope', '$http','$location', function($s
         }).then(function mySuccess(response) {
             console.log($scope.loginrolle);
             $scope.putSucc = response.data;
+
+            if (response.data === null)
+            {
+                $scope.log_mytext = "The password is wrong or the user doesn't exist. Try again and watch of your selected role.";
+            }
+
             if (typeof(Storage) !== "undefined" && $scope.putSucc !== null) {
                 // Store
                 sessionStorage.setItem("isLoggedIn", "yes")
@@ -47,6 +53,9 @@ studyHomeApp.controller('LoginCtrl', ['$scope', '$http','$location', function($s
                 sessionStorage.setItem("nname", $scope.putSucc["nname"]);
                 sessionStorage.setItem("role", $scope.loginrolle);
                 // Retrieve
+
+                $scope.log_mytext = "";
+
 
                 console.log(response.data);
                 //console.log($scope.putSucc["vname"]);

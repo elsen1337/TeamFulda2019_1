@@ -19,7 +19,7 @@
             </div>
             <div class="login">
                 <md-input-container style="margin-right: 10px;">
-                    <label>Roll</label>
+                    <label>Role</label>
                     <md-select id="acc-type" required="" ng-model="loginrolle">
                         <md-option ng-selected="true" value="Tenant">Tenant</md-option>
                         <md-option value="Lessor">Lessor</md-option>
@@ -27,7 +27,7 @@
                 </md-input-container>
                 <md-input-container class="md-block">
                     <label>E-Mail</label>
-                    <input id="email" required type="email" name="email" ng-model="email" ng-pattern="/^[a-z0-9]*\.[a-zA-Z0-9]*@(\b(informatik)\b|\b(cs)\b)\.\b(hs)\b\-\b(fulda)\b\.\b(de)\b/"
+                    <input id="email" required type="email" name="email" ng-model="email" ng-pattern="/^[a-z0-9]*\.[a-z0-9]*@(\b(informatik)\b|\b(cs)\b)\.\b(hs)\b\-\b(fulda)\b\.\b(de)\b/"
                            placeholder="Max.Mustermann@informatik.hs-fulda.de">
                     <!--<div ng-messages="login-form.login.md-block.email.$error" role="alert">
                         <div ng-message="['required', 'pattern']">
@@ -39,6 +39,11 @@
                     <label>Password</label>
                     <input id="passwort" required="" type="password" name="passwort" ng-model="pwort" placeholder="••••••••">
                 </md-input-container>
+                <div>
+                    <span layout-gt-xs="row" style="color: #9f0404; display: inline;" ng-model="log_msg_text" role="alert">
+                        {{log_mytext}}
+                    </span>
+                </div>
                 <md-button type="submit" class="login-btn" ng-click="login()">
                     Login
                 </md-button>

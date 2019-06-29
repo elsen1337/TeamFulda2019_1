@@ -102,6 +102,32 @@
             </header>
 
             <script>
+
+                setInterval(disablePaths, 500);
+
+                function disablePaths() {
+                    if (sessionStorage.getItem("isLoggedIn") === "yes" && document.URL.split('/').pop() === "login")
+                    {
+                        window.location.href = "./index.html#!/homeStart";
+                    }
+                    else if (sessionStorage.getItem("isLoggedIn") === "yes" && document.URL.split('/').pop() === "register")
+                    {
+                        window.location.href = "./index.html#!/homeStart";
+                    }
+                    else if (sessionStorage.getItem("isLoggedIn") !== "yes" && document.URL.split('/').pop() === "myAccount")
+                    {
+                        window.location.href = "./index.html#!/homeStart";
+                    }
+                    else if (sessionStorage.getItem("isLoggedIn") !== "yes" && document.URL.split('/').pop() === "messages")
+                    {
+                        window.location.href = "./index.html#!/homeStart";
+                    }
+                    else if (sessionStorage.getItem("isLoggedIn") !== "yes" && document.URL.split('/').pop() === "renting")
+                    {
+                        window.location.href = "./index.html#!/homeStart";
+                    }
+                }
+
                 //sessionStorage.clear()
                 if (sessionStorage.getItem("isLoggedIn") === "yes") {
                     document.getElementById("login-nav").style.display = "none";
@@ -174,7 +200,12 @@
                 {
                     myFunction();
                     sessionStorage.clear();
+                    window.location.href = "./index.html#!/homeStart";
                     window.location.reload();
+                }
+
+                function disablePage() {
+                    alert("test");
                 }
             </script>
 
