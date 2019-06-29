@@ -1,4 +1,5 @@
 studyHomeApp.controller('RentingCtrl', ['$scope', '$http', function($scope, $http){
+    /*
     $scope.beschr = 'Schöne kleine 2-Zimmer-Wohnung. Ca. 30 Quadratmeter mit Badezimmer. ' +
         'Kaltmiete 200 € + Nebenkosten = 360 € Warmmiete. ' +
         'Zur Besichtigung kontaktieren Sie mich bitte über Study Home.';
@@ -9,7 +10,8 @@ studyHomeApp.controller('RentingCtrl', ['$scope', '$http', function($scope, $htt
     $scope.plz = 36039;
     $scope.preis = 360;
     $scope.str = 'Gerloserweg 5';
-
+    */
+    
     $scope.submit = () =>
     {
         if($scope.entf_meter !== undefined
