@@ -37,12 +37,27 @@ studyHomeApp.controller('LoginCtrl', ['$scope', '$http','$location', function($s
             // headers : {'Content-Type': 'application/x-www-form-urlencoded'},
             data : user
         }).then(function mySuccess(response) {
-            $location.path("/login");
             console.log($scope.loginrolle);
             $scope.putSucc = response.data;
+            if (typeof(Storage) !== "undefined") {
+                // Store
+                sessionStorage.setItem("isLoggedIn", "yes")
+                sessionStorage.setItem("vm_id", $scope.putSucc["vm_id"]);
+                sessionStorage.setItem("vname", $scope.putSucc["vname"]);
+                sessionStorage.setItem("nname", $scope.putSucc["nname"]);
+                sessionStorage.setItem("role", $scope.loginrolle);
+
+                console.log(sessionStorage.getItem("role"))
+                // Retrieve
+            }
+           // $location.path("index.html#!/homeStart");
+
             console.log(response.data);
+            //console.log($scope.putSucc["vname"]);
             console.log("status: " + response.status);
             console.log("statusText: " + response.statusText);
+            window.location.href = "./index.html#!/homeStart";
+            window.location.reload();
         }, function myError(response) {
             $scope.error = response.statusText;
             console.error($scope.error);
@@ -52,4 +67,9 @@ studyHomeApp.controller('LoginCtrl', ['$scope', '$http','$location', function($s
     $scope.goto = function ( path ) {
         $location.path( path );
     };
+
+    function reloadpage() {
+        window.location.reload();
+    }
 }]);
+

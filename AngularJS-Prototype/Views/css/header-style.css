@@ -15,9 +15,15 @@
     transition: 0.5s;
 }
 
+#greeting-nav
+{
+    padding: 20px;
+    color: #000000;
+}
+
 #logo-a {
     position: relative;
-    padding-right: 12%;
+    margin-right: 12%;
     left: 35px;
 }
 
@@ -103,6 +109,16 @@
 
 .icon {
     display: none !important;
+}
+
+.lessor-nav
+{
+    display:none!important;
+}
+
+.nav-logged-out
+{
+    display:none!important;
 }
 
 @media screen and (max-width: 900px) {
