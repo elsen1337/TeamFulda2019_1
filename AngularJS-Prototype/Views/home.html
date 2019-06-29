@@ -104,7 +104,7 @@
           <h3>Search Items</h3>
           <md-list-item ng-repeat="item in searchItems" ng-click="goToDetails(item.id, $event)" class="noright">
               <img alt="{{ item.alt }}" ng-src="{{ item.img }}" class="search-item-img" />
-              <p>{{item.name}}</p>
+              <p id="home-name">{{item.name}}</p>
               <p>{{item.entf_meter}}</p>
               <p>{{item.entf_min}}</p>
               <p>{{item.price}}</p>
