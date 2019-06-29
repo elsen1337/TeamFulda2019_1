@@ -14,19 +14,21 @@ var ROUTES = {
     page5: "messages",
     page6: "advertise"*/
     page1: "renting",
-    page2: "messages",
     page3: "login",
     page4: "register",
-    page10: "profile",
+    page10: "myAccount",
     page11: "homeStart",
-    page12: "favourites",
     // none nav item routes
     page5: "details",
     page6: "agb",
     page7: "contactAndHelp",
     page8: "aboutUs",
     page9: "impressum",
-    page0: "home"
+    page0: "home",
+    // sideNav item routes
+    page13: "myData",
+    page2: "messages",
+    page12: "favourites",
 };
 
 // App Module
@@ -117,7 +119,7 @@ studyHomeApp.config(['$routeProvider', '$mdThemingProvider', function($routeProv
         })
         .when('/' + ROUTES.page10, {
             templateUrl: 'Views/' + ROUTES.page10 + '.html',
-            controller: 'ProfileCtrl'
+            controller: 'MyAccountCtrl'
         })
         .when('/' + ROUTES.page11, {
             templateUrl: 'Views/' + ROUTES.page11 + '.html',

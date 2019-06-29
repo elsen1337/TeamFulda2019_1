@@ -34,7 +34,7 @@ studyHomeApp.controller('RentingCtrl', ['$scope', '$http', function($scope, $htt
             fd.append("plz", $scope.plz);
             fd.append("preis", $scope.preis);
             fd.append("str", $scope.str);
-            fd.append("vm_id", 1);
+            fd.append("vm_id", sessionStorage.getItem("vm_id"));
 /*
             var jsonData = `{ "beschr": ${$scope.beschr},' +
             '"entf_meter": ${$scope.entf_meter},' +
