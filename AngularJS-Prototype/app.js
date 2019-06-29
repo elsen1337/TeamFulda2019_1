@@ -26,9 +26,17 @@ var ROUTES = {
     page9: "impressum",
     page0: "home",
     // sideNav item routes
+    // tenant/lessor
     page13: "myData",
     page2: "messages",
+    page14: "manageAccount",
+    // tenant
     page12: "favourites",
+    page15: "savedSearches",
+    // lessor
+    page16: "viewingAppointments",
+    page17: "apartments"
+
 };
 
 // App Module
@@ -129,6 +137,26 @@ studyHomeApp.config(['$routeProvider', '$mdThemingProvider', function($routeProv
             templateUrl: 'Views/' + ROUTES.page12 + '.html',
             controller: 'FavouritesCtrl'
         })
+        .when('/' + ROUTES.page13, {
+            templateUrl: 'Views/' + ROUTES.page13 + '.html',
+            controller: 'MyDataCtrl'
+        })
+        .when('/' + ROUTES.page14, {
+            templateUrl: 'Views/' + ROUTES.page14 + '.html',
+            controller: 'ManageAccountCtrl'
+        })
+        .when('/' + ROUTES.page15, {
+            templateUrl: 'Views/' + ROUTES.page15 + '.html',
+            controller: 'SavedSearchesCtrl'
+        })
+        .when('/' + ROUTES.page16, {
+            templateUrl: 'Views/' + ROUTES.page16 + '.html',
+            controller: 'ViewingAppointmentsCtrl'
+        })
+        .when('/' + ROUTES.page17, {
+            templateUrl: 'Views/' + ROUTES.page17 + '.html',
+            controller: 'ApartmentsCtrl'
+        })
         .otherwise({
             redirectTo: '/' + ROUTES.page11
         });
@@ -167,6 +195,16 @@ studyHomeApp.controller('NavCtrl', ['$scope', '$location', function($scope, $loc
                 return ROUTES.page11;
             case '/' + ROUTES.page12:
                 return ROUTES.page12;
+            case '/' + ROUTES.page13:
+                return ROUTES.page13;
+            case '/' + ROUTES.page14:
+                return ROUTES.page14;
+            case '/' + ROUTES.page15:
+                return ROUTES.page15;
+            case '/' + ROUTES.page16:
+                return ROUTES.page16;
+            case '/' + ROUTES.page17:
+                return ROUTES.page17;
             default:
                 return $scope.lastNavItem;
         }

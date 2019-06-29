@@ -1,4 +1,4 @@
-studyHomeApp.controller('MyAccountCtrl', ['$scope', '$http', function($scope, $http){
+studyHomeApp.controller('ViewingAppointmentsCtrl', ['$scope', '$http', function($scope, $http) {
 
     $scope.rolle = sessionStorage.getItem("role");
 

@@ -1,6 +1,4 @@
-studyHomeApp.controller('MyAccountCtrl', ['$scope', '$http', function($scope, $http){
-
-    $scope.rolle = sessionStorage.getItem("role");
+studyHomeApp.controller('ManageAccountCtrl', ['$scope', '$http', function($scope, $http) {
 
     // Test which navbar should be displayed according to the logged in person's role.
     if (sessionStorage.getItem("role") === "Tenant")
