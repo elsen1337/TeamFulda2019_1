@@ -11,7 +11,7 @@ studyHomeApp.controller('RentingCtrl', ['$scope', '$http', function($scope, $htt
     $scope.preis = 360;
     $scope.str = 'Gerloserweg 5';
     */
-    
+
     $scope.submit = () =>
     {
         if($scope.entf_meter !== undefined
