@@ -14,12 +14,11 @@ studyHomeApp.controller('LoginCtrl', ['$scope', '$http','$location', function($s
 
         console.log('E-Mail = ' + email + ', Passwort = ' + passwort);
 
-
-        var pattern = /^[a-z0-9]*\.[a-z0-9]*@(\b(informatik)\b|\b(cs)\b)\.\b(hs)\b\-\b(fulda)\b\.\b(de)\b/;
+        //console.log($scope.email.toLowerCase());
 
         if ($scope.loginForm.$valid) {
                 let user = {
-                    "email": $scope.email,
+                    "email": $scope.email.toLowerCase(),
                     "pwort": $scope.pwort
                 }
 

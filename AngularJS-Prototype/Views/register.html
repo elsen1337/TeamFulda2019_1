@@ -71,7 +71,7 @@
                         <md-input-container class="md-block" flex-gt-sm="">
                             <label>E-Mail</label>
                             <input id="email" required="" type="email" name="registry[email]" ng-model="reg_email"
-                                   ng-pattern="/^[a-z0-9]*\.[a-z0-9]*@(\b(informatik)\b|\b(cs)\b)\.\b(hs)\b\-\b(fulda)\b\.\b(de)\b/" placeholder="Max.Mustermann@informatik.hs-fulda.de">
+                                   ng-pattern="/^[a-z0-9]*(\-)?([a-z0-9]*)?(\.)?[a-z0-9]*(\-)?([a-z0-9]*)?@(\b(informatik\.)\b|\b(cs\.)\b)?\b(hs)\b\-\b(fulda)\b\.\b(de)\b/i" placeholder="Max.Mustermann@informatik.hs-fulda.de">
                         </md-input-container>
                         <md-input-container class="md-block" flex-gt-sm="">
                             <label>Birth Date</label>

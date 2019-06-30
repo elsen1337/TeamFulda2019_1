@@ -52,7 +52,7 @@ studyHomeApp.controller('RegisterCtrl', ['$scope', '$http', function($scope, $ht
                     "vname"     : $scope.reg_firstname,
                     "nname"     : $scope.reg_lastname,
                     "pwort"     : $scope.reg_pwd,
-                    "email"     : $scope.reg_email,
+                    "email"     : $scope.reg_email.toLowerCase(),
                     "profil"    : ""
                 };
                 console.log($scope.user);
