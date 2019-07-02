@@ -1,12 +1,17 @@
 studyHomeApp.controller('ManageAccountCtrl', ['$scope', '$http', function($scope, $http) {
 
     // Test which navbar should be displayed according to the logged in person's role.
-    if (sessionStorage.getItem("role") === "Tenant")
+    if ($scope.rolle === "Tenant")
     {
-        document.getElementById("lessorSidenavCont").remove();
+
+        let element = document.getElementById("lessorSidenavCont");
+        element.parentNode.removeChild(element);
     }
-    else if (sessionStorage.getItem("role") === "Lessor") {
-        document.getElementById("tenantSidenavCont").remove();
+    else
+    {
+
+        let element = document.getElementById("tenantSidenavCont");
+        element.parentNode.removeChild(element);
     }
 
 }]);

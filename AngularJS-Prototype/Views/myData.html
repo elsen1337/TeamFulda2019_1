@@ -1,15 +1,16 @@
 
-<div class="sideNav">
-
+<div id="lessorSidenavBorder">
     <div id="lessorSidenavCont">
         <div id="lessorSidenav" data-ng-include="'Views/lessorSidenav.html'">{{rolle}}Sidenav.html</div>
     </div>
+</div>
+<div id="tenantSidenavBorder">
     <div id="tenantSidenavCont">
         <div id="tenantSidenav" data-ng-include="'Views/tenantSidenav.html'">{{rolle}}Sidenav.html</div>
     </div>
-
 </div>
 
+<border>
 <div id="myDataPage">
     <!--tipp für weiteres deven: repeat directiven von angularjs nutzen um derartige tables zu machen, ist mega ez-->
     <!--am ende werden die daten dann immer (in einer fctn im controller scope) mit $http gefetcht vom server und -->
@@ -52,3 +53,4 @@
     </div>
     <button class="button" name="edit">Edit</button>
 </div>
+</border>

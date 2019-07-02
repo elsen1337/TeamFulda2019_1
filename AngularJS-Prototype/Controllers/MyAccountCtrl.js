@@ -7,15 +7,14 @@ studyHomeApp.controller('MyAccountCtrl', ['$scope', '$http', function($scope, $h
 
     if ($scope.rolle === "Tenant")
     {
-        console.log(sessionStorage.getItem("role"));
-        document.getElementById("lessorSidenavCont").remove();
-        console.log($scope.rolle);
+        let element = document.getElementById("lessorSidenavCont");
+        element.parentNode.removeChild(element);
     }
     else
     {
 
-        document.getElementById("tenantSidenavCont").remove();
-
+        let element = document.getElementById("tenantSidenavCont");
+        element.parentNode.removeChild(element);
     }
 
 }]);
