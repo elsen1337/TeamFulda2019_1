@@ -16,7 +16,6 @@ var ROUTES = {
     page1: "renting",
     page3: "login",
     page4: "register",
-    page10: "myAccount",
     page11: "homeStart",
     // none nav item routes
     page5: "details",
@@ -35,7 +34,7 @@ var ROUTES = {
     page15: "savedSearches",
     // lessor
     page16: "viewingAppointments",
-    page17: "apartments"
+    page10: "apartments"
 
 };
 
@@ -127,7 +126,7 @@ studyHomeApp.config(['$routeProvider', '$mdThemingProvider', function($routeProv
         })
         .when('/' + ROUTES.page10, {
             templateUrl: 'Views/' + ROUTES.page10 + '.html',
-            controller: 'MyAccountCtrl'
+            controller: 'ApartmentsCtrl'
         })
         .when('/' + ROUTES.page11, {
             templateUrl: 'Views/' + ROUTES.page11 + '.html',
@@ -153,10 +152,7 @@ studyHomeApp.config(['$routeProvider', '$mdThemingProvider', function($routeProv
             templateUrl: 'Views/' + ROUTES.page16 + '.html',
             controller: 'ViewingAppointmentsCtrl'
         })
-        .when('/' + ROUTES.page17, {
-            templateUrl: 'Views/' + ROUTES.page17 + '.html',
-            controller: 'ApartmentsCtrl'
-        })
+
         .otherwise({
             redirectTo: '/' + ROUTES.page11
         });
@@ -203,8 +199,6 @@ studyHomeApp.controller('NavCtrl', ['$scope', '$location', function($scope, $loc
                 return ROUTES.page15;
             case '/' + ROUTES.page16:
                 return ROUTES.page16;
-            case '/' + ROUTES.page17:
-                return ROUTES.page17;
             default:
                 return $scope.lastNavItem;
         }
