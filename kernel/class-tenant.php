@@ -134,6 +134,40 @@ class Tenant {
 		return $attrarr;
 
     }
+    
+    public static function getMyMeetingSlots($pkey) {
+    
+		$sql='SELECT h.tid, m.slot, w.name FROM m_meet AS h JOIN w_meet AS m ON h.tid=m.tid LEFT JOIN wohnung AS w ON w.wohn_id=m.wohn_id WHERE h.m_id = '.$pkey.' ORDER BY slot';
+		$mrs=$GLOBALS[self::$dbvar]->query($sql);
+		        
+        $attrarr=[];
+        while ($row=$mrs->fetch_assoc()) {
+        
+            $attrarr[]=$row;
+                            
+        }
+        
+        return $attrarr;
+    
+    }   
+    
+    public static function addMeetingSlot($pkey,$tid) {
+    
+		$sql='INSERT IGNORE INTO m_meet (tid, m_id) VALUES ('.$tid.','.$pkey.')';
+		$mrs=$GLOBALS[self::$dbvar]->query($sql);
+		        
+		return $GLOBALS[self::$dbvar]->insert_id;
+
+    }
+    
+    public static function removeMeetingSlot($pkey,$tid) {
+    
+		$sql='DELETE h FROM m_meet AS h WHERE h.tid = '.$tid.' AND h.m_id = '.$pkey;
+		$mrs=$GLOBALS[self::$dbvar]->query($sql);
+		        
+		return $GLOBALS[self::$dbvar]->affected_rows;
+
+    }
 
 }
 
