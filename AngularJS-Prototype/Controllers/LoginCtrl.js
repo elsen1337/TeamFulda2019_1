@@ -6,7 +6,8 @@ studyHomeApp.controller('LoginCtrl', ['$scope', '$http','$location', function($s
 
     $scope.user = [{}];
 
-
+    // roleId can either be vm_id for lessor or m_id for tenant
+    var roleId;
 
     $scope.login = function (Auth) {
         //var email = document.getElementById("email").value;
@@ -24,8 +25,10 @@ studyHomeApp.controller('LoginCtrl', ['$scope', '$http','$location', function($s
 
                 if ($scope.loginrolle == "Lessor") {
                     urlVar = "../restapi/handler.php?objAction=lessorlogin";
+                    roleId = "vm_id"
                 } else if ($scope.loginrolle == "Tenant") {
                     urlVar = "../restapi/handler.php?objAction=tenantlogin";
+                    roleId = "m_id"
                 }
 
                 $http({
@@ -45,7 +48,7 @@ studyHomeApp.controller('LoginCtrl', ['$scope', '$http','$location', function($s
                     if (typeof (Storage) !== "undefined" && $scope.putSucc !== null) {
                         // Store
                         sessionStorage.setItem("isLoggedIn", "yes")
-                        sessionStorage.setItem("vm_id", $scope.putSucc["vm_id"]);
+                        sessionStorage.setItem(roleId, $scope.putSucc[roleId]);
                         sessionStorage.setItem("vname", $scope.putSucc["vname"]);
                         sessionStorage.setItem("nname", $scope.putSucc["nname"]);
                         sessionStorage.setItem("role", $scope.loginrolle);
