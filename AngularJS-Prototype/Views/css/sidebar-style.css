@@ -1,17 +1,27 @@
-.sidenav{
+.tenantSidenav{
+  padding-top: 2%;
+  height: 100%;
   float: left;
-  width: 160px;
+  width: 10%;
   position: fixed;
-  z-index: 1;
-  top: 100px;
-  left: 0;
   background-color: #dbf1f8;
   overflow-x: hidden;
-  padding-top: 20px;
+  vertical-align: middle;
 }
 
-.sidenav a {
-  padding: 20px;
+.lessorSidenav{
+  padding-top: 2%;
+  height: 100%;
+  float: left;
+  width: 10%;
+  position: fixed;
+  background-color: #dbf1f8;
+  overflow-x: hidden;
+  vertical-align: middle;
+}
+
+.tenantSidenav a {
+  padding: 20%;
   text-decoration: none;
   font-family: arial;
   font-size: 1em;
@@ -19,6 +29,19 @@
   display: block;
 }
 
-.sidenav a:hover {
+.lessorSidenav a {
+  padding: 20%;
+  text-decoration: none;
+  font-family: arial;
+  font-size: 1em;
+  color: #006799;
+  display: block;
+}
+
+.tenantSidenav a:hover {
+  background-color: #b5e6f5;
+}
+
+.lessorSidenav a:hover {
   background-color: #b5e6f5;
 }
