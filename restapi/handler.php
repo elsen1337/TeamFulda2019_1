@@ -327,6 +327,38 @@ if (parseCommand($action,'estate')) {
         
         }   
 
+        
+    } elseif (parseCommand($action,'meeting')) {
+
+      
+        if ($_SERVER['REQUEST_METHOD']=='GET') {
+        
+            header('Content-type: application/json');
+            echo json_encode(Estate::getProposedMeetingSlots($objkey));
+        
+        } elseif ($_SERVER['REQUEST_METHOD']=='PUT') {
+        
+   
+        } elseif ($_SERVER['REQUEST_METHOD']=='POST') {
+        
+			$newObjID=Estate::addMeetingSlotProposal($objkey,$postParam['slot']);
+			if ($newObjID > 0) {objCreated();}
+
+			header('Content-type: application/json');
+			echo '{"newMeetID":'.var_export($newObjID,true).',"sqlError":"'.$msdb->error.'"}';
+
+        } elseif ($_SERVER['REQUEST_METHOD']=='DELETE') {
+        
+			$actResult=Estate::removePredefinedMeetingSlot($objkey);
+
+			header('Content-type: application/json');
+			echo '{"actSuccess":'.var_export($actResult,true).',"sqlError":"'.$msdb->error.'"}';
+       
+        } else {
+        
+            notAllowed();
+
+        } 
 
     }
 
@@ -577,6 +609,41 @@ if (parseCommand($action,'estate')) {
         } elseif ($_SERVER['REQUEST_METHOD']=='DELETE') {
         
 			$actResult=Tenant::favouriteRemove($postParam['m_id'],$postParam['wohn_id']);
+
+			header('Content-type: application/json');
+			echo '{"success":'.var_export($actResult, true).',"sqlError":"'.$msdb->error.'"}';
+
+
+        } else {
+        
+            notAllowed();
+            
+        }        
+    
+    } elseif (parseCommand($action,'meeting')) {
+    
+        if ($_SERVER['REQUEST_METHOD']=='GET') {
+        
+			$lst=Tenant::getMyMeetingSlots($objkey);
+			header('Content-type: application/json');
+			echo json_encode($lst);
+   
+
+        } elseif ($_SERVER['REQUEST_METHOD']=='PUT') {
+		
+			$actResult=Tenant::addMeetingSlot($postParam['m_id'],$postParam['tid']);
+
+			header('Content-type: application/json');
+			echo '{"success":'.var_export($actResult, true).',"sqlError":"'.$msdb->error.'"}';
+
+      
+		} elseif ($_SERVER['REQUEST_METHOD']=='POST') {
+        
+			// Not NotImplemented
+
+        } elseif ($_SERVER['REQUEST_METHOD']=='DELETE') {
+        
+			$actResult=Tenant::removeMeetingSlot($postParam['m_id'],$postParam['tid']);
 
 			header('Content-type: application/json');
 			echo '{"success":'.var_export($actResult, true).',"sqlError":"'.$msdb->error.'"}';
