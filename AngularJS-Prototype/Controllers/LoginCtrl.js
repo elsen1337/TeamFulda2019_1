@@ -45,10 +45,17 @@ studyHomeApp.controller('LoginCtrl', ['$scope', '$http','$location', function($s
                     if (typeof (Storage) !== "undefined" && $scope.putSucc !== null) {
                         // Store
                         sessionStorage.setItem("isLoggedIn", "yes")
-                        sessionStorage.setItem("vm_id", $scope.putSucc["vm_id"]);
                         sessionStorage.setItem("vname", $scope.putSucc["vname"]);
                         sessionStorage.setItem("nname", $scope.putSucc["nname"]);
+                        sessionStorage.setItem("email", $scope.putSucc["email"]);
                         sessionStorage.setItem("role", $scope.loginrolle);
+
+                        if ($scope.loginrolle == "Lessor") {
+                            sessionStorage.setItem("vm_id", $scope.putSucc["vm_id"]);
+                        }
+                        else {
+                            sessionStorage.setItem("m_id", $scope.putSucc["m_id"]);
+                        }
                         // Retrieve
 
                         $scope.log_mytext = "";
