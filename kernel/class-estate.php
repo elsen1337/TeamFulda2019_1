@@ -163,6 +163,42 @@ class Estate {
         
         return $attrarr;
     
+    }    
+
+    
+    
+    public static function getProposedMeetingSlots($pkey) {
+    
+		$sql='SELECT tid, slot FROM w_meet WHERE wohn_id = '.$pkey.'  ORDER BY slot';
+		$mrs=$GLOBALS[self::$dbvar]->query($sql);
+		        
+        $attrarr=[];
+        while (list($key,$val)=$mrs->fetch_array()) {
+        
+            $attrarr[]=array($key=>$val);
+                            
+        }
+        
+        return $attrarr;
+    
+    }   
+    
+    public static function addMeetingSlotProposal($pkey,$date) {
+    
+		$sql='INSERT INTO w_meet (wohn_id, slot) VALUES ('.$pkey.',"'.$date.'")';
+		$mrs=$GLOBALS[self::$dbvar]->query($sql);
+		        
+		return $GLOBALS[self::$dbvar]->insert_id;
+
+    }
+    
+    public static function removePredefinedMeetingSlot($pkey) {
+    
+		$sql='DELETE h,m FROM w_meet AS m LEFT JOIN m_meet AS h ON h.tid=m.tid WHERE m.tid ='.$pkey;
+		$mrs=$GLOBALS[self::$dbvar]->query($sql);
+		        
+		return $GLOBALS[self::$dbvar]->affected_rows;
+
     }
     
     

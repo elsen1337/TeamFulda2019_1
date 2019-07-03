@@ -23,10 +23,10 @@ studyHomeApp.controller('LoginCtrl', ['$scope', '$http','$location', function($s
                     "pwort": $scope.pwort
                 }
 
-                if ($scope.loginrolle == "Lessor") {
+                if ($scope.loginrolle === "Lessor") {
                     urlVar = "../restapi/handler.php?objAction=lessorlogin";
                     roleId = "vm_id"
-                } else if ($scope.loginrolle == "Tenant") {
+                } else if ($scope.loginrolle === "Tenant") {
                     urlVar = "../restapi/handler.php?objAction=tenantlogin";
                     roleId = "m_id"
                 }
@@ -47,11 +47,19 @@ studyHomeApp.controller('LoginCtrl', ['$scope', '$http','$location', function($s
 
                     if (typeof (Storage) !== "undefined" && $scope.putSucc !== null) {
                         // Store
-                        sessionStorage.setItem("isLoggedIn", "yes")
+                        sessionStorage.setItem("isLoggedIn", "yes");
                         sessionStorage.setItem(roleId, $scope.putSucc[roleId]);
                         sessionStorage.setItem("vname", $scope.putSucc["vname"]);
                         sessionStorage.setItem("nname", $scope.putSucc["nname"]);
+                        sessionStorage.setItem("email", $scope.putSucc["email"]);
                         sessionStorage.setItem("role", $scope.loginrolle);
+
+                        if ($scope.loginrolle === "Lessor") {
+                            sessionStorage.setItem("vm_id", $scope.putSucc["vm_id"]);
+                        }
+                        else {
+                            sessionStorage.setItem("m_id", $scope.putSucc["m_id"]);
+                        }
                         // Retrieve
 
                         $scope.log_mytext = "";

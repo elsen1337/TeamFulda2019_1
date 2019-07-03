@@ -10,47 +10,45 @@
     </div>
 </div>
 
-<border>
 <div id="myDataPage">
     <!--tipp für weiteres deven: repeat directiven von angularjs nutzen um derartige tables zu machen, ist mega ez-->
     <!--am ende werden die daten dann immer (in einer fctn im controller scope) mit $http gefetcht vom server und -->
     <!--nem json obj oder so zugewisen, das man dann in den directiven benutzen kann, um ein tabelle dynamisch zu erstellen-->
 
 
-    <img src="./benutzerbild" height="130px" width="192px"/>
+    <img src="./benutzerbild" height="130px" width="192px" alt="Here could be a picture of you."/>
     <div id="dataTable">
         <table>
             <tr>
-                <td id="testname">First Name</td>
-                <td>Max</td>
+                <td class="myData-festeVar">Role</td>
+                <td class="myData-loseVar"></td>
             </tr>
 
             <tr>
-                <td>Last Name</td>
-                <td>Mustermann</td>
+                <td class="myData-festeVar">Salutation</td>
+                <td class="myData-loseVar"></td>
             </tr>
 
             <tr>
-                <td>E-Mail</td>
-                <td>Max.Mustermann@Fachbereich.hs-fulda.de</td>
+                <td class="myData-festeVar">First Name</td>
+                <td class="myData-loseVar"></td>
             </tr>
 
             <tr>
-                <td>Max. Rent</td>
-                <td>500€</td>
+                <td class="myData-festeVar">Last Name</td>
+                <td class="myData-loseVar"></td>
             </tr>
 
             <tr>
-                <td>Size</td>
-                <td>70 cm&sup2;</td>
+                <td class="myData-festeVar">E-Mail</td>
+                <td class="myData-loseVar"></td>
             </tr>
 
             <tr>
-                <td>Rooms</td>
-                <td>2</td>
+                <td class="myData-festeVar">Birth Date</td>
+                <td class="myData-loseVar"></td>
             </tr>
         </table>
     </div>
-    <button class="button" name="edit">Edit</button>
+    <md-button class="login-btn" name="edit">Edit</md-button>
 </div>
-</border>
