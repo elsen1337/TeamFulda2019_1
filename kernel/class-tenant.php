@@ -89,7 +89,7 @@ class Tenant {
     
 		// Zuerst: Favoriten, Chatnachrichten
     
-		$sql='DELETE f,c,m FROM '.self::$entSQLTable.' AS m LEFT JOIN m_chat AS c ON c.m_id=m.m_id LEFT JOIN m_favorit AS f ON f.m_id=m.mid  WHERE m.'.self::$entPrimKey.'='.$pkey;
+		$sql='DELETE f,c,m FROM '.self::$entSQLTable.' AS m LEFT JOIN m_chat AS c ON c.m_id=m.m_id LEFT JOIN m_favorit AS f ON f.m_id=m.m_id  WHERE m.'.self::$entPrimKey.'='.$pkey;
 		$mrs=$GLOBALS[self::$dbvar]->query($sql);
 		
 		return $GLOBALS[self::$dbvar]->affected_rows > 0;
