@@ -1,10 +1,10 @@
 footer {
-    position: relative;
+    position: fixed;
     clear: both;
 }
 
 .navbar {
-    position: relative;
+    position: fixed;
     width: 100%;
     bottom: 0;
     left: 0;

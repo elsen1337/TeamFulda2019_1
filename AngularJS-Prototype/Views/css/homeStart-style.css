@@ -1,0 +1,43 @@
+#homeStart {
+    display: flex;
+    align-content: center;
+    justify-content: center;
+}
+
+.homeStart-containerBorder {
+    width: 20%;
+    background-color: #f2f2f2;
+    position: absolute;
+    top: 40%;
+    border-style: solid;
+    border-color: gray;
+}
+
+.homeStart-container {
+    display: flex;
+    align-content: center;
+    justify-content: center;
+    width: 100%;
+}
+
+.homeStart-input {
+    width: 90%;
+}
+
+.homeStart-input > .md-errors-spacer {
+    display: none;
+}
+
+.homeStart-btn {
+    margin-top: 1%;
+}
+
+.homeStart-backgroundPic {
+    position: absolute;
+    margin-left: auto;
+    margin-right: auto;
+    left: 0;
+    right: 0;
+    width: auto;
+    height: auto;
+}

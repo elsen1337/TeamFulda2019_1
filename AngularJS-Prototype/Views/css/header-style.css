@@ -1,4 +1,10 @@
+.search-input-hd
+{
+    position: relative;
+}
+
 #hd-btn-search {
+    padding: 5px;
     color: #ffffff;
     background-color: #689dad;
 }
@@ -9,9 +15,15 @@
     transition: 0.5s;
 }
 
+#greeting-nav
+{
+    padding: 20px;
+    color: #000000;
+}
+
 #logo-a {
     position: relative;
-    padding-right: 12%;
+    margin-right: 12%;
     left: 35px;
 }
 
@@ -22,7 +34,6 @@
 #hd-input-search
 {
     position: relative;
-    top: 22px;
 }
 
 #search-button-hd {
@@ -100,8 +111,22 @@
     display: none !important;
 }
 
+.lessor-nav
+{
+    display:none!important;
+}
+
+.nav-logged-out
+{
+    display:none!important;
+}
+
 @media screen and (max-width: 900px) {
     .topnav a:not(:first-child) {
+        display: none;
+    }
+
+    .topnav p:not(:first-child) {
         display: none;
     }
 

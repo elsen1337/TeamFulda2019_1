@@ -14,10 +14,8 @@ var ROUTES = {
     page5: "messages",
     page6: "advertise"*/
     page1: "renting",
-    page2: "messages",
     page3: "login",
     page4: "register",
-    page10: "profile",
     page11: "homeStart",
     // none nav item routes
     page5: "details",
@@ -25,7 +23,19 @@ var ROUTES = {
     page7: "contactAndHelp",
     page8: "aboutUs",
     page9: "impressum",
-    page0: "home"
+    page0: "home",
+    // sideNav item routes
+    // tenant/lessor
+    page13: "myData",
+    page2: "messages",
+    page14: "manageAccount",
+    // tenant
+    page12: "favourites",
+    page15: "savedSearches",
+    // lessor
+    page16: "viewingAppointments",
+    page10: "apartments"
+
 };
 
 // App Module
@@ -116,12 +126,33 @@ studyHomeApp.config(['$routeProvider', '$mdThemingProvider', function($routeProv
         })
         .when('/' + ROUTES.page10, {
             templateUrl: 'Views/' + ROUTES.page10 + '.html',
-            controller: 'ProfileCtrl'
+            controller: 'ApartmentsCtrl'
         })
         .when('/' + ROUTES.page11, {
             templateUrl: 'Views/' + ROUTES.page11 + '.html',
             controller: 'HomeStartCtrl'
         })
+        .when('/' + ROUTES.page12, {
+            templateUrl: 'Views/' + ROUTES.page12 + '.html',
+            controller: 'FavouritesCtrl'
+        })
+        .when('/' + ROUTES.page13, {
+            templateUrl: 'Views/' + ROUTES.page13 + '.html',
+            controller: 'MyDataCtrl'
+        })
+        .when('/' + ROUTES.page14, {
+            templateUrl: 'Views/' + ROUTES.page14 + '.html',
+            controller: 'ManageAccountCtrl'
+        })
+        .when('/' + ROUTES.page15, {
+            templateUrl: 'Views/' + ROUTES.page15 + '.html',
+            controller: 'SavedSearchesCtrl'
+        })
+        .when('/' + ROUTES.page16, {
+            templateUrl: 'Views/' + ROUTES.page16 + '.html',
+            controller: 'ViewingAppointmentsCtrl'
+        })
+
         .otherwise({
             redirectTo: '/' + ROUTES.page11
         });
@@ -158,6 +189,16 @@ studyHomeApp.controller('NavCtrl', ['$scope', '$location', function($scope, $loc
                 return ROUTES.page10;
             case '/' + ROUTES.page11:
                 return ROUTES.page11;
+            case '/' + ROUTES.page12:
+                return ROUTES.page12;
+            case '/' + ROUTES.page13:
+                return ROUTES.page13;
+            case '/' + ROUTES.page14:
+                return ROUTES.page14;
+            case '/' + ROUTES.page15:
+                return ROUTES.page15;
+            case '/' + ROUTES.page16:
+                return ROUTES.page16;
             default:
                 return $scope.lastNavItem;
         }

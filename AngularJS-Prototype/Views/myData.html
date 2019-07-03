@@ -1,17 +1,32 @@
+
+<div id="lessorSidenavBorder">
+    <div id="lessorSidenavCont">
+        <div id="lessorSidenav" data-ng-include="'Views/lessorSidenav.html'">{{rolle}}Sidenav.html</div>
+    </div>
+</div>
+<div id="tenantSidenavBorder">
+    <div id="tenantSidenavCont">
+        <div id="tenantSidenav" data-ng-include="'Views/tenantSidenav.html'">{{rolle}}Sidenav.html</div>
+    </div>
+</div>
+
+<border>
 <div id="myDataPage">
     <!--tipp für weiteres deven: repeat directiven von angularjs nutzen um derartige tables zu machen, ist mega ez-->
     <!--am ende werden die daten dann immer (in einer fctn im controller scope) mit $http gefetcht vom server und -->
     <!--nem json obj oder so zugewisen, das man dann in den directiven benutzen kann, um ein tabelle dynamisch zu erstellen-->
+
+
     <img src="./benutzerbild" height="130px" width="192px"/>
     <div id="dataTable">
         <table>
             <tr>
-                <td>Prename</td>
+                <td id="testname">First Name</td>
                 <td>Max</td>
             </tr>
 
             <tr>
-                <td>Lastname</td>
+                <td>Last Name</td>
                 <td>Mustermann</td>
             </tr>
 
@@ -38,3 +53,4 @@
     </div>
     <button class="button" name="edit">Edit</button>
 </div>
+</border>

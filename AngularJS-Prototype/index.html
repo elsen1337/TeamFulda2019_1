@@ -17,36 +17,133 @@
     <link rel="stylesheet" href="./Views/css/sidebar-style.css"/>
     <link rel="stylesheet" href="./Views/css/header-style.css"/>
     <link rel="stylesheet" href="./Views/css/footer-style.css"/>
+    <link rel="stylesheet" href="Views/css/homeStart-style.css"/>
+    <link rel="stylesheet" href="./Views/css/home-style.css"/>
 
     <style>
         #main-ext-nav-cnt-show {
             margin-top: 20px;
         }
     </style>
-
 </head>
 <body>
+<!--
 <script>
-    function myFunction() {
-        var x = document.getElementById("myTopnav");
-        console.log(x.className);
-        if (x.className === "topnav") {
-            //console.log(x.className);
-            x.className += " responsive";
-        } else if (x.className == "topnav ng-scope") {
-            x.className = "topnav";
-            //console.log(x.className);
-            x.className += " responsive";
-        } else if (x.className == null) {
-            //console.log(x.className);
-            x.className = "topnav";
-        } else {
-            //console.log(x.className);
-            x.className = "topnav";
-        }
-    }
+    /**
+     * This module is a variant which supports document.write. If you need document.write use this instead
+     * Author: Deepak Subramanian @subudeepak(https://github.com/subudeepak)
+     * Distributed under MIT License
+     */
+    /*global angular */
+    (function (ng) {
+        'use strict';
+        app.directive('script', function() {
+            return {
+                restrict: 'E',
+                scope: false,
+                link: function(scope, elem, attr)
+                {
+                    var angularCorrections = //Document.write
+                        function(code)
+                        {
+                            var parentNode = elem[0].parentNode;
+                            if(!parentNode.id) parentNode.id = Date.now() +'_' + Math.floor((Math.random()*10)+1); //replace with your own random id generator
+                            var re = new RegExp("document.write(ln)?", "g"); //Support for Document.write only
+                            var newCode = code.replace(re,"document.getElementById('"+parentNode.id+"').innerHTML += ");
+                            console.log(newCode);
+                            return newCode;
+                        };
+                    if (attr.type==='text/javascript-lazy')
+                    {
+                        var s = document.createElement("script");
+                        s.type = "text/javascript";
+                        var src = elem.attr('src');
+                        if(src!==undefined)
+                        {
+                            s.src = src;
+                        }
+                        else
+                        {
+                            var code = elem.text();
+                            s.text = angularCorrections(code);
+                        }
+                        document.head.appendChild(s);
+                        elem.remove();
+                    }
+                }
+            };
+        });
+    }(angular));
 </script>
-            <header id="header" data-ng-include="'header.html'"></header>
+-->
+            <!--<header id="header" data-ng-include="'header.html'" onload=""></header>-->
+
+            <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+            <header class="topnav" id="myTopnav" data-ng-controller="HeaderCtrl">
+                <a id="logo-a" href="https://github.com/sl05/TeamFulda2019_1" target="_blank" onclick="myFunction()">
+                    <img class="logo" src="logo-studyhome.png" alt="logo" />
+                </a>
+                <a id="greeting-nav" class="nav-logged-out"></a>
+                <a href="./index.html#!/homeStart" class="nav-item-hd nav-item-menu" onclick="myFunction()">Home</a>
+                <a href="./index.html#!/renting" id="renting-nav" class="nav-item-hd nav-item-menu lessor-nav" onclick="myFunction()">Renting</a>
+                <a href="./index.html#!/messages" id="msg-nav" class="nav-item-hd nav-item-menu nav-logged-out" onclick="myFunction()">Messages</a>
+                <a href="./index.html#!/myData" id="my-site-nav" class="nav-item-hd nav-item-menu nav-logged-out" onclick="myFunction()">My Account</a>
+                <a href="./index.html#!/login" id="login-nav" class="nav-item-hd nav-item-menu" onclick="myFunction()">Login</a>
+                <a href="" id="logout-nav" class="nav-item-hd nav-item-menu nav-logged-out" onclick="logout()">Logout</a>
+                <a class="nav-item-hd nav-item-menu search-input-hd">
+                    <input id="hd-input-search" type="text" placeholder="Search..." name="search" ng-model="startSearchHeader">
+                </a>
+                <a href="./index.html#!/home" onlcick="return setSearchKeyHeader();" id="search-button-hd" >
+                    <i id="hd-btn-search" class="fa fa-search search-input-hd" onclick="setSearchKeyHeader()"></i>
+                </a>
+                <a href="javascript:void(0);" class="nav-item-hd icon" onclick="myFunction()">
+                    &#9776;
+                </a>
+            </header>
+
+            <script>
+
+                setInterval(disablePaths, 500);
+
+                function disablePaths() {
+                    if (sessionStorage.getItem("isLoggedIn") === "yes" && document.URL.split('/').pop() === "login")
+                    {
+                        window.location.href = "./index.html#!/homeStart";
+                    }
+                    else if (sessionStorage.getItem("isLoggedIn") === "yes" && document.URL.split('/').pop() === "register")
+                    {
+                        window.location.href = "./index.html#!/homeStart";
+                    }
+                    else if (sessionStorage.getItem("isLoggedIn") !== "yes" && document.URL.split('/').pop() === "myAccount")
+                    {
+                        window.location.href = "./index.html#!/homeStart";
+                    }
+                    else if (sessionStorage.getItem("isLoggedIn") !== "yes" && document.URL.split('/').pop() === "messages")
+                    {
+                        window.location.href = "./index.html#!/homeStart";
+                    }
+                    else if (sessionStorage.getItem("isLoggedIn") !== "yes" && document.URL.split('/').pop() === "renting")
+                    {
+                        window.location.href = "./index.html#!/homeStart";
+                    }
+                }
+
+                //sessionStorage.clear()
+                if (sessionStorage.getItem("isLoggedIn") === "yes") {
+                    document.getElementById("login-nav").style.display = "none";
+                    document.getElementById("logout-nav").classList.remove("nav-logged-out");
+                    document.getElementById("my-site-nav").classList.remove("nav-logged-out");
+                    document.getElementById("msg-nav").classList.remove("nav-logged-out");
+                    document.getElementById("greeting-nav").classList.remove("nav-logged-out");
+                    document.getElementById("greeting-nav").innerHTML = "Hallo, " +
+                    sessionStorage.getItem("vname") + " " + sessionStorage.getItem("nname");
+                }
+
+                if (sessionStorage.getItem("role") === "Lessor")
+                {
+                    document.getElementById("renting-nav").classList.remove("lessor-nav");
+                }
+            </script>
 
             <main id="main-ext-nav-cnt-show" data-ng-view></main>
 
@@ -63,7 +160,7 @@
             <script src="Controllers/LoginCtrl.js"></script>
             <script src="Controllers/RegisterCtrl.js"></script>
             <script src="Controllers/EstatesCtrl.js"></script>
-            <script src="Controllers/ProfileCtrl.js"></script>
+            <script src="Controllers/MyDataCtrl.js"></script>
             <script src="Controllers/MessagesCtrl.js"></script>
             <script src="Controllers/RentingCtrl.js"></script>
             <script src="Controllers/DetailsCtrl.js"></script>
@@ -74,5 +171,46 @@
             <script src="Controllers/Impressum.js"></script>
             <script src="Controllers/HomeStartCtrl.js"></script>
             <script src="Controllers/HeaderCtrl.js"></script>
+            <script src="chatkit.js"></script>
+            <script src="Controllers/FavouritesCtrl.js"></script>
+            <script src="Controllers/ManageAccountCtrl.js"></script>
+            <script src="Controllers/SavedSearchesCtrl.js"></script>
+            <script src="Controllers/ViewingAppointmentsCtrl.js"></script>
+            <script src="Controllers/ApartmentsCtrl.js"></script>
+
+
+            <script type="text/javascript">
+                function myFunction() {
+                    var x = document.getElementById("myTopnav");
+                    //console.log(x.className);
+                    if (x.className === "topnav") {
+                        //console.log(x.className);
+                        x.className += " responsive";
+                    } else if (x.className == "topnav ng-scope") {
+                        x.className = "topnav";
+                        //console.log(x.className);
+                        x.className += " responsive";
+                    } else if (x.className == null) {
+                        //console.log(x.className);
+                        x.className = "topnav";
+                    } else {
+                        //console.log(x.className);
+                        x.className = "topnav";
+                    }
+                }
+
+                function logout()
+                {
+                    myFunction();
+                    sessionStorage.clear();
+                    window.location.href = "./index.html#!/homeStart";
+                    window.location.reload();
+                }
+
+                function disablePage() {
+                    alert("test");
+                }
+            </script>
+
 </body>
 </html>

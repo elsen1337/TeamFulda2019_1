@@ -10,7 +10,8 @@ studyHomeApp.controller('StudyHomeCtrl', ['$scope', '$http', '$location', functi
     // alert(window.searchItems);
 
 
-    $scope.searchFormData = {
+    $scope.searchFormData =
+    {
         "appsearch[fulltext]" : '',
         "appsearch[distmeter][Min]" : '',
         "appsearch[distmeter][Max]" : '',
@@ -37,7 +38,8 @@ studyHomeApp.controller('StudyHomeCtrl', ['$scope', '$http', '$location', functi
     // });
 
 
-    $scope.submitSearchForm = function() {
+    $scope.submitSearchForm = function()
+    {
 
         console.log($scope.searchFormData);
         let formData = convertSearchFormData($scope.searchFormData);
@@ -47,11 +49,7 @@ studyHomeApp.controller('StudyHomeCtrl', ['$scope', '$http', '$location', functi
 
         for(let key in formData)
         {
-            if(formData[key] != null)
-            {
                 submitData.append(key, formData[key]);
-                console.log(key);
-            }
         }
 
 
@@ -95,7 +93,8 @@ studyHomeApp.controller('StudyHomeCtrl', ['$scope', '$http', '$location', functi
                         img: "images/thumb/" + $scope.searchData[i].imgpath,
                         name : $scope.searchData[i].name,
                         price : $scope.searchData[i].preis + " €",
-                        surface : "24 m²"
+                        entf_meter: $scope.searchData[i].entf_meter + " m",
+                        entf_min: $scope.searchData[i].entf_min + " min"
                     };
                 }
                 window.searchItems = $scope.searchItems;

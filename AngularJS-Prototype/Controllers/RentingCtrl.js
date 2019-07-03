@@ -1,4 +1,5 @@
 studyHomeApp.controller('RentingCtrl', ['$scope', '$http', function($scope, $http){
+    /*
     $scope.beschr = 'Schöne kleine 2-Zimmer-Wohnung. Ca. 30 Quadratmeter mit Badezimmer. ' +
         'Kaltmiete 200 € + Nebenkosten = 360 € Warmmiete. ' +
         'Zur Besichtigung kontaktieren Sie mich bitte über Study Home.';
@@ -9,6 +10,7 @@ studyHomeApp.controller('RentingCtrl', ['$scope', '$http', function($scope, $htt
     $scope.plz = 36039;
     $scope.preis = 360;
     $scope.str = 'Gerloserweg 5';
+    */
 
     $scope.submit = () =>
     {
@@ -32,7 +34,7 @@ studyHomeApp.controller('RentingCtrl', ['$scope', '$http', function($scope, $htt
             fd.append("plz", $scope.plz);
             fd.append("preis", $scope.preis);
             fd.append("str", $scope.str);
-            fd.append("vm_id", 1);
+            fd.append("vm_id", sessionStorage.getItem("vm_id"));
 /*
             var jsonData = `{ "beschr": ${$scope.beschr},' +
             '"entf_meter": ${$scope.entf_meter},' +
@@ -131,23 +133,28 @@ studyHomeApp.controller('RentingCtrl', ['$scope', '$http', function($scope, $htt
                         console.log(err);
                         document.getElementById('renting_output').innerText = `There seems to have been an error. We'll try to fix that soon.`;
                     });
-        };
 
-        let tempName = $scope.name;
-        document.getElementById('renting_output').innerText = `Your ad '${tempName}' has been succesfully added.`;
 
-        $scope.beschr = '';
-        $scope.entf_meter = '';
-        $scope.entf_min = '';
-        $scope.name = '';
-        $scope.ort = '';
-        $scope.plz = '';
-        $scope.preis = '';
-        $scope.str = '';
-        document.getElementById('fileinput').value = '';
+            let tempName = $scope.name;
+            document.getElementById('renting_output').innerText = `Your ad '${tempName}' has been succesfully added.`;
+
+            $scope.beschr = '';
+            $scope.entf_meter = '';
+            $scope.entf_min = '';
+            $scope.name = '';
+            $scope.ort = '';
+            $scope.plz = '';
+            $scope.preis = '';
+            $scope.str = '';
+            document.getElementById('fileinput').value = '';
         }
+        else
+        {
+            document.getElementById('renting_output').innerText = 'Please fill out the required fields first.';
+        }
+    }
 
-    }])
+}])
 
     // Adds the selected files to the files array
     .directive('fileModel', ['$parse', function ($parse) {

@@ -11,7 +11,7 @@
 
 <div id="register" data-ng-controller="RegisterCtrl">
     <border class="registrieren-border">
-        <form id="regForm" class="registrieren-form">
+        <form id="regForm" name="registryForm" class="registrieren-form">
             <div>
                 <md-input-container class="registrieren-title">
                     <h1>Register</h1>
@@ -20,37 +20,76 @@
             <div class="registrieren">
                 <md-content layout-padding="">
                     <div layout-gt-xs="row">
+                        <div name="registrieren-block" class="md-block" flex-gt-sm="">
+                            <md-input-container style="margin-right: 10px;">
+                                <label>Role</label>
+                                <md-select id="acc-type" name="sunny" ng-model="reg_role" required="">
+                                    <md-option ng-repeat="role in reg_roles" value="{{role}}">{{role}}</md-option>
+                                </md-select>
+                            </md-input-container>
+                            <!--<label>Art</label><br>
+                            <select id="acc-type" required="" type="text" name="registry[account]" ng-model="registryForm.account">
+                                <option value="lessor">Lessor</option>
+                                <option value="tenant">Tenant</option>
+                            </select>-->
+                        </div>
+                        <div class="md-block" flex-gt-sm="">
+                            <md-input-container style="margin-right: 10px;">
+                                <label>Salutation</label>
+                                <md-select id="p-title" required="" ng-model="salutation">
+                                    <md-option ng-repeat="salutation in salutations" value="{{salutation}}">{{salutation}}</md-option>
+                                </md-select>
+                            </md-input-container>
+                            <!--<label>Anrede</label><br>
+                            <select id="p-title" required="" type="text" name="registry[title]" ng-model="registryForm.title">
+                                <option value="m">M</option>
+                                <option value="f">F</option>
+                            </select>-->
+                        </div>
+                    </div>
+                    <div layout-gt-xs="row">
                         <md-input-container name="registrieren-block" class="md-block" flex-gt-sm="">
-                            <label>Prename</label>
-                            <input id="prename" required="" type="text" name="registry[prename]" ng-model="registryForm.prename" placeholder="Max">
+                            <label>First Name</label>
+                            <input id="prename" required="" type="text" name="registry[prename]" ng-model="reg_firstname" placeholder="Max">
                         </md-input-container>
                         <md-input-container class="md-block" flex-gt-sm="">
-                            <label>Lastname</label>
-                            <input id="lastname" required="" type="text" name="registry[lastname]" ng-model="registryForm.lastname" placeholder="Mustermann">
+                            <label>Last Name</label>
+                            <input id="lastname" required="" type="text" name="registry[lastname]" ng-model="reg_lastname" placeholder="Mustermann">
                         </md-input-container>
                     </div>
                     <div layout-gt-xs="row">
                         <md-input-container class="md-block" flex-gt-sm="">
                             <label>Password</label>
-                            <input id="password" required="" type="password" name="registry[passwort]" ng-model="registryForm.passwort" placeholder="••••••••">
+                            <input id="password" required="" type="password" name="registry[passwort]" ng-model="reg_pwd" placeholder="••••••••">
                         </md-input-container>
                         <md-input-container class="md-block" flex-gt-sm="">
                             <label>Repeat Password</label>
-                            <input id="repeatPassword" required="" type="password" name="registry[repeatPasswort]" ng-model="registryForm.repeatPasswort" placeholder="••••••••">
+                            <input id="repeatPassword" required="" type="password" name="registry[repeatPasswort]" ng-model="reg_rep_pwd" placeholder="••••••••">
                         </md-input-container>
                     </div>
                     <div layout-gt-xs="row">
                         <md-input-container class="md-block" flex-gt-sm="">
                             <label>E-Mail</label>
-                            <input id="email" required="" type="email" name="registry[email]" ng-model="registryForm.email"
-                                   placeholder="Max.Mustermann@informatik.hs-fulda.de">
+                            <input id="email" required="" type="email" name="registry[email]" ng-model="reg_email"
+                                   ng-pattern="/^[a-z0-9]*(\-)?([a-z0-9]*)?(\.)?[a-z0-9]*(\-)?([a-z0-9]*)?@(\b(informatik\.)\b|\b(cs\.)\b)?\b(hs)\b\-\b(fulda)\b\.\b(de)\b/i" placeholder="Max.Mustermann@informatik.hs-fulda.de">
                         </md-input-container>
                         <md-input-container class="md-block" flex-gt-sm="">
                             <label>Birth Date</label>
-                            <input id="birthDate" required="" type="date" name="registry[birthDate]" ng-model="registryForm.birthDate" placeholder="09.09.1999">
+                            <input id="birthDate" required="" type="date" name="registry[birthDate]" ng-model="reg_birthDate" placeholder="09.09.1999">
                         </md-input-container>
                     </div>
                 </md-content>
+                <div class="col-sm-12">
+                    <p>Image upload for profile</p>
+                    <md-input-container>
+                        <input type="file"  id="fileinput" name="bilder" aria-label="bilderInput" file-model="bilder" multiple="multiple" class="form-control" required=""/>
+                    </md-input-container>
+                </div>
+                <div>
+                    <span layout-gt-xs="row" style="color: #9f0404; display: inline;" ng-model="msg_text" role="alert">
+                        {{mytext}}
+                    </span>
+                </div>
                 <md-button type="submit" class="registrieren-btn" ng-click="register()">
                     Submit
                 </md-button>
