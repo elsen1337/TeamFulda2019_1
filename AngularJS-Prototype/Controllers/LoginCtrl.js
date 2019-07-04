@@ -69,13 +69,35 @@ studyHomeApp.controller('LoginCtrl', ['$scope', '$http','$location', function($s
                         //console.log($scope.putSucc["vname"]);
                         console.log("status: " + response.status);
                         console.log("statusText: " + response.statusText);
-                        window.location.href = "./index.html#!/homeStart";
-                        window.location.reload();
+
+                        // alert(getChatKitAuthQS());
+
+                        $http({
+                            url: "../Pusher/pusher.php" + getChatKitAuthQS(),
+                            method: "GET"
+                        }).then(function mySuccess(response) {
+                            console.log(response.data);
+                            // alert(response.data);
+
+                            window.location.href = "./index.html#!/homeStart";
+                            window.location.reload();
+
+                        }, function myError(response) {
+                            console.log(response);
+
+                            window.location.href = "./index.html#!/homeStart";
+                            window.location.reload();
+                        });
+
+                        // window.location.href = "./index.html#!/homeStart";
+                        // window.location.reload();
                     }
+
+
+
                     // $location.path("index.html#!/homeStart");
                 }, function myError(response) {
-                    $scope.error = response.statusText;
-                    console.error($scope.error);
+                    console.log(response);
                 });
         }
         else
@@ -93,3 +115,13 @@ studyHomeApp.controller('LoginCtrl', ['$scope', '$http','$location', function($s
     }
 }]);
 
+function getChatKitAuthQS() {
+    let result = "?";
+
+    result += "name=" + sessionStorage.getItem("nname");
+    result += "&role=" + sessionStorage.getItem("role");
+    result += "&id=";
+    result += sessionStorage.getItem("role") === "Lessor" ? sessionStorage.getItem("vm_id") : sessionStorage.getItem("m_id");
+
+    return result;
+}

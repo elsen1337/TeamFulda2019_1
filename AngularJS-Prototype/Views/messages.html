@@ -52,14 +52,17 @@
             <!--                    <md-button class="contactButton" name="sendButton">Example Contact 3</md-button>-->
             <!--                </p>-->
             <!--            </div>-->
-            <md-list ng-cloak id="contactList">
-                <md-subheader class="md-no-sticky">Contacts</md-subheader>
-                <md-list-item ng-repeat="contact in contacts" ng-click="invokeHistory();" class="noright">
-                    <p>
-                        <md-button class="contactButton" name="sendButton">{{contact.name}}</md-button>
-                    </p>
-                </md-list-item>
-            </md-list>
+            <div id="contactsContainer">
+                <md-list ng-cloak id="contactList">
+                    <!--                <md-subheader class="md-no-sticky">Contacts</md-subheader>-->
+                    <!--                <md-list-item ng-repeat="contact in contacts" ng-click="invokeHistory();" class="noright">-->
+                    <!--                    <p>-->
+                    <!--                        <md-button class="contactButton" name="sendButton">{{contact.name}}</md-button>-->
+                    <!--                    </p>-->
+                    <!--                </md-list-item>-->
+                </md-list>
+            </div>
+
             <div class="input">
                     <textarea id="m_area_id" name="btn-input" maxlength="600" wrap="soft"
                               placeholder="Write your message here..." required></textarea>
@@ -68,11 +71,11 @@
                 </md-button>
             </div>
         </form>
-        Current User: <input type="text" id="currUser">
-        <input type="button" value="connect" data-ng-click="connectToChatkit();">
-        <pre id="chatlog">
-            {{currentChatLog}}
-        </pre>
+<!--        Current User: <input type="text" id="currUser">-->
+<!--        <input type="button" value="connect" data-ng-click="connectToChatkit();">-->
+<!--        <pre id="chatlog" data-ng-repeat="message in demTest">-->
+<!--            {{message.text}}-->
+<!--        </pre>-->
     </border>
 
     <!--    <ul id="message-list"></ul>-->
