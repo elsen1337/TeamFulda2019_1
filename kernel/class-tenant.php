@@ -88,10 +88,12 @@ class Tenant {
     public static function delete($pkey) {
     
 		// Zuerst: Favoriten, Chatnachrichten
-    
+		
+		  
 		$sql='DELETE f,c,m FROM '.self::$entSQLTable.' AS m LEFT JOIN m_chat AS c ON c.m_id=m.m_id LEFT JOIN m_favorit AS f ON f.m_id=m.m_id  WHERE m.'.self::$entPrimKey.'='.$pkey;
 		$mrs=$GLOBALS[self::$dbvar]->query($sql);
 		
+		echo $sql;
 		return $GLOBALS[self::$dbvar]->affected_rows > 0;
 
     
@@ -163,6 +165,15 @@ class Tenant {
     public static function removeMeetingSlot($pkey,$tid) {
     
 		$sql='DELETE h FROM m_meet AS h WHERE h.tid = '.$tid.' AND h.m_id = '.$pkey;
+		$mrs=$GLOBALS[self::$dbvar]->query($sql);
+		        
+		return $GLOBALS[self::$dbvar]->affected_rows;
+
+    }
+	
+	public static function getPassword($pkey) {
+    
+		$sql='SELECT pwort FROM '.$entSQLTable.' WHERE '.$entPrimKey.' = '.$pkey;
 		$mrs=$GLOBALS[self::$dbvar]->query($sql);
 		        
 		return $GLOBALS[self::$dbvar]->affected_rows;

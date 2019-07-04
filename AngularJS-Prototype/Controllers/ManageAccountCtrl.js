@@ -12,6 +12,7 @@ studyHomeApp.controller('ManageAccountCtrl', ['$scope', '$http', '$mdDialog', fu
             .required(true)
             .ok('Delete my account')
             .cancel('I keep the account');
+        input_3
 
         $mdDialog.show(confirm).then(function(result) {
                // console.log(result);
@@ -88,32 +89,27 @@ studyHomeApp.controller('ManageAccountCtrl', ['$scope', '$http', '$mdDialog', fu
     function deleteAccount(role, id)
     {
         var path = "";
-        var del_user = [];
 
         if (role === "Lessor") {
-            path = "../restapi/handler.php?objAction=lessoraccount";
-            del_user.vm_id = id;
+            path = `../restapi/handler.php?objAction=lessoraccount&objKey=${id}`;
         } else if (role === "Tenant") {
-            path = "../restapi/handler.php?objAction=tenantaccount";
-            del_user.m_id = id;
+            path = `../restapi/handler.php?objAction=tenantaccount&objKey=${id}`;
         }
+
+        objkey = parseInt(id);
 
         $http({
 
             url: path,
             method: "DELETE",
             // headers : {'Content-Type': 'application/x-www-form-urlencoded'},
-            data: del_user
+            //data: id
         }).then(function mySuccess(response) {
             $scope.putSucc = response.data;
-            //sessionStorage.clear();
-            console.log(path);
-            console.log(del_user)
-            console.log(response.data);
-            //window.location.href = "./index.html#!/homeStart";
-            //window.location.reload();
-
-            // $location.path("index.html#!/homeStart");
+            console.log($scope.putSucc);
+            sessionStorage.clear();
+            window.location.href = "./index.html#!/homeStart";
+            window.location.reload();
         }, function myError(response) {
             $scope.error = response.statusText;
             console.error($scope.error);

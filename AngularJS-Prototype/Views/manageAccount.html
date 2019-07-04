@@ -10,9 +10,12 @@ md-dialog {
     }
 </style>
 
-<div>
+<div ng-app="deletePrompt">
     <div id="lessorSidenavCont">
         <div id="lessorSidenav" data-ng-include="'Views/lessorSidenav.html'"></div>
+        <div class="dialog-demo-content" layout="row" layout-wrap layout-margin layout-align="center">
+            <button ng-click="showPrompt()">Prompt</button>
+        </div>
     </div>
 </div>
 <div ng-app="deletePrompt">
