@@ -6,7 +6,8 @@ studyHomeApp.controller('LoginCtrl', ['$scope', '$http','$location', function($s
 
     $scope.user = [{}];
 
-
+    // roleId can either be vm_id for lessor or m_id for tenant
+    var roleId;
 
     $scope.login = function (Auth) {
         //var email = document.getElementById("email").value;
@@ -22,10 +23,12 @@ studyHomeApp.controller('LoginCtrl', ['$scope', '$http','$location', function($s
                     "pwort": $scope.pwort
                 }
 
-                if ($scope.loginrolle == "Lessor") {
+                if ($scope.loginrolle === "Lessor") {
                     urlVar = "../restapi/handler.php?objAction=lessorlogin";
-                } else if ($scope.loginrolle == "Tenant") {
+                    roleId = "vm_id"
+                } else if ($scope.loginrolle === "Tenant") {
                     urlVar = "../restapi/handler.php?objAction=tenantlogin";
+                    roleId = "m_id"
                 }
 
                 $http({
@@ -44,11 +47,19 @@ studyHomeApp.controller('LoginCtrl', ['$scope', '$http','$location', function($s
 
                     if (typeof (Storage) !== "undefined" && $scope.putSucc !== null) {
                         // Store
-                        sessionStorage.setItem("isLoggedIn", "yes")
-                        sessionStorage.setItem("vm_id", $scope.putSucc["vm_id"]);
+                        sessionStorage.setItem("isLoggedIn", "yes");
+                        sessionStorage.setItem(roleId, $scope.putSucc[roleId]);
                         sessionStorage.setItem("vname", $scope.putSucc["vname"]);
                         sessionStorage.setItem("nname", $scope.putSucc["nname"]);
+                        sessionStorage.setItem("email", $scope.putSucc["email"]);
                         sessionStorage.setItem("role", $scope.loginrolle);
+
+                        if ($scope.loginrolle === "Lessor") {
+                            sessionStorage.setItem("vm_id", $scope.putSucc["vm_id"]);
+                        }
+                        else {
+                            sessionStorage.setItem("m_id", $scope.putSucc["m_id"]);
+                        }
                         // Retrieve
 
                         $scope.log_mytext = "";
@@ -58,13 +69,35 @@ studyHomeApp.controller('LoginCtrl', ['$scope', '$http','$location', function($s
                         //console.log($scope.putSucc["vname"]);
                         console.log("status: " + response.status);
                         console.log("statusText: " + response.statusText);
-                        window.location.href = "./index.html#!/homeStart";
-                        window.location.reload();
+
+                        // alert(getChatKitAuthQS());
+
+                        $http({
+                            url: "../Pusher/pusher.php" + getChatKitAuthQS(),
+                            method: "GET"
+                        }).then(function mySuccess(response) {
+                            console.log(response.data);
+                            // alert(response.data);
+
+                            window.location.href = "./index.html#!/homeStart";
+                            window.location.reload();
+
+                        }, function myError(response) {
+                            console.log(response);
+
+                            window.location.href = "./index.html#!/homeStart";
+                            window.location.reload();
+                        });
+
+                        // window.location.href = "./index.html#!/homeStart";
+                        // window.location.reload();
                     }
+
+
+
                     // $location.path("index.html#!/homeStart");
                 }, function myError(response) {
-                    $scope.error = response.statusText;
-                    console.error($scope.error);
+                    console.log(response);
                 });
         }
         else
@@ -82,3 +115,13 @@ studyHomeApp.controller('LoginCtrl', ['$scope', '$http','$location', function($s
     }
 }]);
 
+function getChatKitAuthQS() {
+    let result = "?";
+
+    result += "name=" + sessionStorage.getItem("nname");
+    result += "&role=" + sessionStorage.getItem("role");
+    result += "&id=";
+    result += sessionStorage.getItem("role") === "Lessor" ? sessionStorage.getItem("vm_id") : sessionStorage.getItem("m_id");
+
+    return result;
+}

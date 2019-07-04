@@ -1,10 +1,25 @@
+<style>
+md-dialog {
+    overflow: hidden;
+    width: 50%;
+    padding: 20px;
+}
+
+    md-dialog .ng-binding {
+        width: 100%;
+    }
+</style>
+
 <div>
     <div id="lessorSidenavCont">
         <div id="lessorSidenav" data-ng-include="'Views/lessorSidenav.html'"></div>
     </div>
 </div>
-<div>
+<div ng-app="deletePrompt">
     <div id="tenantSidenavCont">
         <div id="tenantSidenav" data-ng-include="'Views/tenantSidenav.html'"></div>
+        <div class="dialog-demo-content" layout="row" layout-wrap layout-margin layout-align="center">
+            <button ng-click="showPrompt()">Prompt</button>
+        </div>
     </div>
 </div>
