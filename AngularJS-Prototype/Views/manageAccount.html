@@ -8,22 +8,28 @@ md-dialog {
     md-dialog .ng-binding {
         width: 100%;
     }
+
+#delete {
+    margin-left: 215px;
+    padding: 30.5px;
+    width: 40%;
+}
 </style>
 
 <div>
     <div id="lessorSidenavCont">
-        <div style="bottom: 20px; position: relative;" id="lessorSidenav" data-ng-include="'Views/lessorSidenav.html'"></div>
+        <div id="lessorSidenav" data-ng-include="'Views/lessorSidenav.html'"></div>
     </div>
 </div>
 <div >
     <div id="tenantSidenavCont">
-        <div style="bottom: 20px; position: relative;" id="tenantSidenav" data-ng-include="'Views/tenantSidenav.html'"></div>
+        <div  id="tenantSidenav" data-ng-include="'Views/tenantSidenav.html'"></div>
         </div>
     </div>
 </div>
 
-<div ng-app="deletePrompt" style="text-align: center">
-    <h1>Delete account</h1>
+<div ng-app="deletePrompt" id="delete">
+    <h3>Delete account</h3>
 
     <md-button class="dialog-demo-content login-btn" ng-click="showPrompt()" type="password" layout="row" layout-align="center center">
         Delete your account
