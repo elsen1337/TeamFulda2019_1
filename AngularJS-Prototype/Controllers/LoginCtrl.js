@@ -102,7 +102,7 @@ studyHomeApp.controller('LoginCtrl', ['$scope', '$http','$location', function($s
         }
         else
         {
-            $scope.log_mytext = "Please, fill out the formular correktly.";
+            $scope.log_mytext = "Please, fill out the formular correctly.";
         }
     };
 
