@@ -1,8 +1,62 @@
 studyHomeApp.controller('DetailsCtrl', ['$scope', '$http', '$routeParams', '$location', function($scope, $http, $routeParams, $location){
 
+	var routeLink=$location.$$path;
+	var estateID=routeLink.substr( routeLink.indexOf('=')+1 );
+     
+	
+	$scope.favAdd = function () {
+		
+   
+		// console.log(estateID);
+		
+		/*
+		let dialogRef = dialog.open(UserProfileComponent, {
+			height: '400px',
+			width: '600px',
+		});
+		*/
+		
+		var mID = sessionStorage.getItem('m_id');
+		
+		if (mID < 1) {
+			
+			alert('Nicht als Mieter eingeloggt !');
+			
+		} else {
+
+			$http({
+				method : "PUT",
+				url : "../restapi/handler.php?objAction=tenantfavorit",
+				headers : {'Content-Type': 'application/json'},
+				data : {"wohn_id":estateID, "m_id": mID, 'score': 'null'}
+			}).then(function mySuccess(response) {
+				
+				
+
+			}, function myError(response) {
+				$scope.error = response.statusText;
+				console.error($scope.error);
+			});
+		
+		}
+    };
+	
     // console.log(getEstateID($location.$$path));
 
     $scope.detailsID = getEstateID($location.$$path);
+	
+
+	$http({
+		method : "GET",
+		url : "../restapi/handler.php?objAction=estateimages&objKey="+estateID,
+	}).then(function mySuccess(response) {
+		
+		console.log(response);
+
+	}, function myError(response) {
+		$scope.error = response.statusText;
+		console.error($scope.error);
+	});
 
     $http({
         method : "GET",
