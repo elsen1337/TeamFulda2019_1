@@ -1,5 +1,7 @@
 studyHomeApp.controller('SavedSearchesCtrl', ['$scope', '$http', function($scope, $http) {
 
+    let url = '';
+
     $http.get(url,
         {
             transformRequest: angular.identity,
