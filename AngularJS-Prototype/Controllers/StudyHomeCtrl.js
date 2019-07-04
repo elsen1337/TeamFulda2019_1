@@ -90,7 +90,7 @@ studyHomeApp.controller('StudyHomeCtrl', ['$scope', '$http', '$location', functi
                     $scope.searchItems[i] = {
                         id : $scope.searchData[i].wohn_id,
                         alt : $scope.searchData[i].imgalt,
-                        img: "images/thumb/" + $scope.searchData[i].imgpath,
+                        img: "../images/thumb/" + $scope.searchData[i].imgpath,
                         name : $scope.searchData[i].name,
                         price : $scope.searchData[i].preis + " €",
                         entf_meter: $scope.searchData[i].entf_meter + " m",
