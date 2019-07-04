@@ -1,4 +1,4 @@
-studyHomeApp.controller('MyDataCtrl', ['$scope', function($scope){
+studyHomeApp.controller('MyDataCtrl', ['$scope', '$http', '$mdDialog', function($scope, $http, $mdDialog){
 
     $scope.rolle = sessionStorage.getItem("role");
 
@@ -10,9 +10,96 @@ studyHomeApp.controller('MyDataCtrl', ['$scope', function($scope){
     }
     else
     {
-
         let element = document.getElementById("tenantSidenavCont");
         element.parentNode.removeChild(element);
     }
 
+    if($scope.rolle === 'Lessor') {
+        $scope.roleid = sessionStorage.getItem('vm_id');
+    } else {
+        $scope.roleid = sessionStorage.getItem('m_id');
+    }
+    console.log($scope.roleid);
+
+    let url = `../restapi/handler.php?objAction=${$scope.rolle.toLowerCase()}account&objKey=${$scope.roleid}`;
+    console.log(url);
+
+    $http.get(url,
+        {
+            transformRequest: angular.identity,
+            headers: {
+                withCredentials: true
+            }
+        })
+        .then((response) =>
+            {
+                $scope.userData = response.data;
+                console.log(response.data);
+                console.log("status: " + response.status);
+                console.log("statusText: " + response.statusText);
+                $scope.tableRole = sessionStorage.getItem('role');
+                $scope.tableSalutation = sessionStorage.getItem('role');
+                $scope.tableFirstName = sessionStorage.getItem('vname');
+                $scope.tableLastName = sessionStorage.getItem('nname');
+                $scope.tableEmail = sessionStorage.getItem('email');
+                $scope.tableBirthDate = sessionStorage.getItem('role');
+
+            },
+            (err) => {
+                console.log(err);
+            });
+
+    $scope.editData = (ev) => {
+        document.getElementById('myDataOutput').style.display = 'block';
+        document.getElementById('editDataBtn').style.display = 'none';
+        document.getElementById('succesText').innerText = '';
+    }
+
+    $scope.sendData = () => {
+        if($scope.newPw === $scope.repeatPw && $scope.newPw !== '') {
+            document.getElementById('myDataOutput').style.display = 'none';
+            document.getElementById('editDataBtn').style.display = 'block';
+
+            let url = `../restapi/handler.php?objAction=${$scope.rolle}account&objKey=${sessionStorage.getItem($scope.roleid)}`;
+            data = `{pwort: ${$scope.oldPw}`;
+
+            $http.post(url, data,
+                {
+                    transformRequest: angular.identity,
+                    headers: {
+                        'Content-Type': undefined
+                    }
+                })
+                .then((response) => {
+                        $scope.userData = response.data;
+                        console.log(response.data);
+                        console.log("status: " + response.status);
+                        console.log("statusText: " + response.statusText);
+
+                        data = `{pwort: ${$scope.newPw}`;
+                        $http.put(url, data,
+                            {
+                                transformRequest: angular.identity,
+                                headers: {
+                                    'Content-Type': undefined
+                                }
+                            })
+                            .then((response) => {
+                                    $scope.userData = response.data;
+                                    console.log(response.data);
+                                    console.log("status: " + response.status);
+                                    console.log("statusText: " + response.statusText);
+                                    document.getElementById('succesText').innerText = 'The password was succesfully changed!';
+                                },
+                                (err) => {
+                                    console.log(err);
+                                });
+                    },
+                    (err) => {
+                        console.log(err);
+                    });
+        } else {
+            document.getElementById('notEqualText').innerText = 'The passwords don\'t match.';
+        }
+    }
 }]);

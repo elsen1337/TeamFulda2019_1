@@ -21,34 +21,58 @@
         <table>
             <tr>
                 <td class="myData-festeVar">Role</td>
-                <td class="myData-loseVar"></td>
+                <td class="myData-loseVar" ng-model="$scope.tableRole"></td>
             </tr>
 
             <tr>
                 <td class="myData-festeVar">Salutation</td>
-                <td class="myData-loseVar"></td>
+                <td class="myData-loseVar" ng-model="$scope.tableSalutation"></td>
             </tr>
 
             <tr>
                 <td class="myData-festeVar">First Name</td>
-                <td class="myData-loseVar"></td>
+                <td class="myData-loseVar" ng-model="$scope.tableFirstName"></td>
             </tr>
 
             <tr>
                 <td class="myData-festeVar">Last Name</td>
-                <td class="myData-loseVar"></td>
+                <td class="myData-loseVar" ng-model="$scope.tableLastName"></td>
             </tr>
 
             <tr>
                 <td class="myData-festeVar">E-Mail</td>
-                <td class="myData-loseVar"></td>
+                <td class="myData-loseVar" ng-model="$scope.tableEmail"></td>
             </tr>
 
             <tr>
                 <td class="myData-festeVar">Birth Date</td>
-                <td class="myData-loseVar"></td>
+                <td class="myData-loseVar" ng-model="$scope.tableBirthDate"></td>
             </tr>
         </table>
     </div>
-    <md-button class="login-btn" name="edit">Edit</md-button>
+    <div id="editBtn">
+        <md-button class="login-btn" id="editDataBtn" name="edit" ng-click="editData()">Edit Password</md-button>
+        <div id="succesText"></div>
+    </div>
+
+    <div id="myDataOutput">
+        <h3>Change Password</h3>
+        <p class="myData-input">
+            <md-input-container>
+                <input id="oldPw" placeholder="Old Password" type="password" ng-model="$scope.oldPw">
+            </md-input-container>
+        </p>
+        <p class="myData-input">
+            <md-input-container>
+                <input id="newPw" placeholder="New Password" type="password" ng-model="$scope.newPw">
+            </md-input-container>
+            <md-input-container>
+                <input id="repeatPw" placeholder="Repeat Password" type="password" ng-model="$scope.repeatPw">
+            </md-input-container>
+        </p>
+        <p>
+            <div id="notEqualText"></div>
+            <md-button class="login-btn" name="send" ng-click="sendData()">Send</md-button>
+        </p>
+    </div>
 </div>

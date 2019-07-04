@@ -1,6 +1,7 @@
 #myDataPage {
 	padding-top: 2%;
 	margin-left: 15%;
+	padding-bottom: 5%;
 }
 
 #dataTable > table{
@@ -26,3 +27,15 @@ td{
 .myData-loseVar {
 	width: 70%;
 }
+
+.myData-input > md-input-container > .md-errors-spacer {
+	display: none;
+}
+
+#myDataOutput {
+	display: none;
+	border-style: solid;
+	border-color: #7f7e7e;
+	width: 28%;
+}
+
