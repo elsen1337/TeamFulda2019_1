@@ -341,7 +341,7 @@ if (parseCommand($action,'estate')) {
    
         } elseif ($_SERVER['REQUEST_METHOD']=='POST') {
         
-			$newObjID=Estate::addMeetingSlotProposal($objkey,$postParam['slot']);
+			$newObjID=Estate::addMeetingSlotProposal($postParam['wohn_id'],$postParam['slot']);
 			if ($newObjID > 0) {objCreated();}
 
 			header('Content-type: application/json');
@@ -418,6 +418,9 @@ if (parseCommand($action,'estate')) {
         
 			if (is_array($_SESSION[Lessor::$sKey]) && array_key_exists('id',$_SESSION[Lessor::$sKey])) {
 			
+				#var_dump($_SESSION[Lessor::$sKey]['id']);
+				#var_dump($objkey);
+				
 				if ($_SESSION[Lessor::$sKey]['id']==$objkey) {
             
 					header('Content-type: application/json');
