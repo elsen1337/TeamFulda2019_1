@@ -10,19 +10,22 @@ md-dialog {
     }
 </style>
 
-<div ng-app="deletePrompt">
+<div>
     <div id="lessorSidenavCont">
-        <div id="lessorSidenav" data-ng-include="'Views/lessorSidenav.html'"></div>
-        <div class="dialog-demo-content" layout="row" layout-wrap layout-margin layout-align="center">
-            <button ng-click="showPrompt()">Prompt</button>
+        <div style="bottom: 20px; position: relative;" id="lessorSidenav" data-ng-include="'Views/lessorSidenav.html'"></div>
+    </div>
+</div>
+<div >
+    <div id="tenantSidenavCont">
+        <div style="bottom: 20px; position: relative;" id="tenantSidenav" data-ng-include="'Views/tenantSidenav.html'"></div>
         </div>
     </div>
 </div>
-<div ng-app="deletePrompt">
-    <div id="tenantSidenavCont">
-        <div id="tenantSidenav" data-ng-include="'Views/tenantSidenav.html'"></div>
-        <div class="dialog-demo-content" layout="row" layout-wrap layout-margin layout-align="center">
-            <button ng-click="showPrompt()">Prompt</button>
-        </div>
-    </div>
+
+<div ng-app="deletePrompt" style="text-align: center">
+    <h1>Delete account</h1>
+
+    <md-button class="dialog-demo-content login-btn" ng-click="showPrompt()" type="password" layout="row" layout-align="center center">
+        Delete your account
+    </md-button>
 </div>

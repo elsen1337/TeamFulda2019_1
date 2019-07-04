@@ -12,7 +12,6 @@ studyHomeApp.controller('ManageAccountCtrl', ['$scope', '$http', '$mdDialog', fu
             .required(true)
             .ok('Delete my account')
             .cancel('I keep the account');
-        input_3
 
         $mdDialog.show(confirm).then(function(result) {
                // console.log(result);
