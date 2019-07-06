@@ -1,10 +1,37 @@
+<style>
+md-dialog {
+    overflow: hidden;
+    width: 50%;
+    padding: 20px;
+}
+
+    md-dialog .ng-binding {
+        width: 100%;
+    }
+
+#delete {
+    margin-left: 215px;
+    padding: 30.5px;
+    width: 40%;
+}
+</style>
+
 <div>
     <div id="lessorSidenavCont">
         <div id="lessorSidenav" data-ng-include="'Views/lessorSidenav.html'"></div>
     </div>
 </div>
-<div>
+<div >
     <div id="tenantSidenavCont">
-        <div id="tenantSidenav" data-ng-include="'Views/tenantSidenav.html'"></div>
+        <div  id="tenantSidenav" data-ng-include="'Views/tenantSidenav.html'"></div>
+        </div>
     </div>
+</div>
+
+<div ng-app="deletePrompt" id="delete">
+    <h3>Delete account</h3>
+
+    <md-button class="dialog-demo-content login-btn" ng-click="showPrompt()" type="password" layout="row" layout-align="center center">
+        Delete your account
+    </md-button>
 </div>

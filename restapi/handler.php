@@ -417,10 +417,12 @@ if (parseCommand($action,'estate')) {
 			session_start();
         
 			if (is_array($_SESSION[Lessor::$sKey]) && array_key_exists('id',$_SESSION[Lessor::$sKey])) {
-			
+
+
 				#var_dump($_SESSION[Lessor::$sKey]['id']);
 				#var_dump($objkey);
 				
+
 				if ($_SESSION[Lessor::$sKey]['id']==$objkey) {
             
 					header('Content-type: application/json');

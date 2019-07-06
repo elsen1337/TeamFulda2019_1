@@ -62,6 +62,7 @@ studyHomeApp.controller('DetailsCtrl', ['$scope', '$http', '$routeParams', '$loc
         method : "GET",
         url : "../restapi/handler.php" + getDetailsQueryString("default", $scope.detailsID)
     }).then(function mySuccess(response) {
+        $scope.vm_id = null;
         $scope.default = response.data;
         console.log(response.data);
         console.log("status: " + response.status);
@@ -81,6 +82,8 @@ studyHomeApp.controller('DetailsCtrl', ['$scope', '$http', '$routeParams', '$loc
         $scope.ZIP = $scope.default.plz;
         $scope.distance = $scope.default.entf_meter;
         $scope.time = $scope.default.entf_min;
+
+        $scope.vm_id = $scope.default.vm_id;
 
         $scope.rightContent = [
             {
@@ -172,6 +175,21 @@ studyHomeApp.controller('DetailsCtrl', ['$scope', '$http', '$routeParams', '$loc
         $scope.error = response.statusText;
         console.error($scope.error);
     });
+
+
+    $scope.contactLessor = function(){
+        if(sessionStorage.getItem("isLoggedIn") !== "yes") {
+            alert("Please login to use this feature!");
+            return;
+        }
+        if(sessionStorage.getItem("role") === "Lessor") {
+            alert("Please login to your tenant-account!");
+            return;
+        }
+        if($scope.vm_id) {
+            $location.path("messages?id=" + $scope.vm_id);
+        }
+    }
 
     // $http.get("../restapi/handler.php?objAction=estatedefault&objKey=2")
     //     .then(function(response){

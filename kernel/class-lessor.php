@@ -102,6 +102,15 @@ class Lessor {
     
     
     }
+	
+	public static function getPassword($pkey) {
+    
+		$sql='SELECT pwort FROM '.$entSQLTable.' WHERE '.$entPrimKey.' = '.$pkey;
+		$mrs=$GLOBALS[self::$dbvar]->query($sql);
+		        
+		return $GLOBALS[self::$dbvar]->affected_rows;
+
+    }
 
 
 }

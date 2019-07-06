@@ -1,0 +1,41 @@
+#myDataPage {
+	padding-top: 2%;
+	margin-left: 15%;
+	padding-bottom: 5%;
+}
+
+#dataTable > table{
+	border-style: solid;
+	border-color: black;
+	margin-top: 2%;
+	margin-bottom: 2%;
+	width: 50%;
+}
+
+td{
+	border-style: solid;
+	border-color: darkgrey;
+	border-width: 2px;
+	padding: 5px;
+}
+
+.myData-festeVar {
+	font-weight: bold;
+	width: 30%;
+}
+
+.myData-loseVar {
+	width: 70%;
+}
+
+.myData-input > md-input-container > .md-errors-spacer {
+	display: none;
+}
+
+#myDataOutput {
+	display: none;
+	border-style: solid;
+	border-color: #7f7e7e;
+	width: 28%;
+}
+
