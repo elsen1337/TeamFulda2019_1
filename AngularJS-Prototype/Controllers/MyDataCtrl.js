@@ -37,12 +37,12 @@ studyHomeApp.controller('MyDataCtrl', ['$scope', '$http', '$mdDialog', function(
                 console.log(response.data);
                 console.log("status: " + response.status);
                 console.log("statusText: " + response.statusText);
-                $scope.tableRole = sessionStorage.getItem('role');
-                $scope.tableSalutation = sessionStorage.getItem('role');
-                $scope.tableFirstName = sessionStorage.getItem('vname');
-                $scope.tableLastName = sessionStorage.getItem('nname');
-                $scope.tableEmail = sessionStorage.getItem('email');
-                $scope.tableBirthDate = sessionStorage.getItem('role');
+                document.getElementById('tablerole').innerText = sessionStorage.getItem('role');
+                document.getElementById('tablesalute').innerText = response.data.anrede;
+                document.getElementById('tablevname').innerText = response.data.vname;
+                document.getElementById('tablenname').innerText = response.data.nname;
+                document.getElementById('tableemail').innerText = response.data.email;
+                document.getElementById('tablebirthdate').innerText = '';
 
             },
             (err) => {
@@ -57,26 +57,33 @@ studyHomeApp.controller('MyDataCtrl', ['$scope', '$http', '$mdDialog', function(
 
     $scope.sendData = () => {
         if($scope.newPw === $scope.repeatPw && $scope.newPw !== '') {
+            var newPass = $scope.newPw;
+            console.log($scope.oldPw);
+            console.log("Password = " + newPass);
             document.getElementById('myDataOutput').style.display = 'none';
             document.getElementById('editDataBtn').style.display = 'block';
 
-            let url = `../restapi/handler.php?objAction=${$scope.rolle}account&objKey=${sessionStorage.getItem($scope.roleid)}`;
-            data = `{pwort: ${$scope.oldPw}`;
+            let url = `../restapi/handler.php?objAction=${$scope.rolle.toLowerCase()}login&objKey=${$scope.roleid}`;
 
-            $http.post(url, data,
+            let user = JSON.stringify({
+                "email": $scope.userData.email.toLowerCase(),
+                "pwort": $scope.oldPw
+            });
+            $http.post(url, user,
                 {
                     transformRequest: angular.identity,
                     headers: {
-                        'Content-Type': undefined
+                        'Content-Type': 'application/json'
                     }
                 })
                 .then((response) => {
-                        $scope.userData = response.data;
                         console.log(response.data);
                         console.log("status: " + response.status);
                         console.log("statusText: " + response.statusText);
 
-                        data = `{pwort: ${$scope.newPw}`;
+                        url = `../restapi/handler.php?objAction=${$scope.rolle.toLowerCase()}account&objKey=${$scope.roleid}`;
+
+                        data = JSON.stringify({'pwort': $scope.newPw});
                         $http.put(url, data,
                             {
                                 transformRequest: angular.identity,
