@@ -170,15 +170,17 @@ class Tenant {
 		return $GLOBALS[self::$dbvar]->affected_rows;
 
     }
-	
+
+
 	public static function getPassword($pkey) {
     
-		$sql='SELECT pwort FROM '.$entSQLTable.' WHERE '.$entPrimKey.' = '.$pkey;
+		$sql='SELECT pwort FROM '.self::$entSQLTable.' WHERE '.self::$entPrimKey.' = '.$pkey;
 		$mrs=$GLOBALS[self::$dbvar]->query($sql);
-		        
+
 		return $GLOBALS[self::$dbvar]->affected_rows;
 
     }
+
 
 }
 

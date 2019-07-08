@@ -62,25 +62,39 @@ class Chat {
 	}
 	
 	
-	private static function insertMessage($vid,$mid,$msg) {
+	private static function insertMessage($vid,$mid,$msg,$msgid) {
 	
-		$sql='INSERT INTO m_chat (vm_id, m_id, date, msg) VALUES ('.$vid.', '.$mid.', NOW(), "'.$GLOBALS[self::$dbvar]->escape_string($msg).'")';
-		$mrs=$GLOBALS[self::$dbvar]->query($sql);
+	
+		$emsg=$GLOBALS[self::$dbvar]->escape_string($msg);
+	
+		if ($msgid > 0) {
 		
-		return $GLOBALS[self::$dbvar]->insert_id;
+			$sql='UPDATE m_chat SET m_id='.$mid.', vm_id='.$vid.', msg="'.$emsg.'" WHERE mid='.$msgid;
+			$mrs=$GLOBALS[self::$dbvar]->query($sql);
+			
+			return $GLOBALS[self::$dbvar]->affected_rows;
+
+		} else {
+	
+			$sql='INSERT INTO m_chat (vm_id, m_id, date, msg) VALUES ('.$vid.', '.$mid.', NOW(), "'.$emsg.'")';
+			$mrs=$GLOBALS[self::$dbvar]->query($sql);
+			
+			return $GLOBALS[self::$dbvar]->insert_id;
+			
+		}
 		
 	}
 	
 	
-	public static function insertMessageFromLessor2Tenant($vid,$mid,$msg) {
+	public static function insertMessageFromLessor2Tenant($vid,$mid,$msg,$updtmid=false) {
 	
-		return self::insertMessage($vid*-1,$mid,$msg);
+		return self::insertMessage($vid*-1,$mid,$msg,$updtmid);
 
 	}
 	
-	public static function insertMessageFromTenant2Lessor($mid,$vid,$msg) {
+	public static function insertMessageFromTenant2Lessor($mid,$vid,$msg,$updtmid=false) {
 	
-		return self::insertMessage($vid,$mid*-1,$msg);
+		return self::insertMessage($vid,$mid*-1,$msg,$updtmid);
 
 	}
 

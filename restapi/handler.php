@@ -448,7 +448,7 @@ if (parseCommand($action,'estate')) {
             $actResult=Lessor::update($postParam,$objkey);
 
             header('Content-type: application/json');
-			echo '{"actSuccess":'.$actResult.',"sqlError":"'.$msdb->error.'"}';
+			echo '{"actSuccess":'.var_export($actResult, true).',"sqlError":"'.$msdb->error.'"}';
 
 
       
