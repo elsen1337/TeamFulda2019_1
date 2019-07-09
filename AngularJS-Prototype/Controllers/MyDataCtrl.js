@@ -84,11 +84,12 @@ studyHomeApp.controller('MyDataCtrl', ['$scope', '$http', '$mdDialog', function(
                         url = `../restapi/handler.php?objAction=${$scope.rolle.toLowerCase()}account&objKey=${$scope.roleid}`;
 
                         data = JSON.stringify({'pwort': $scope.newPw});
+
                         $http.put(url, data,
                             {
                                 transformRequest: angular.identity,
                                 headers: {
-                                    'Content-Type': undefined
+                                    'Content-Type': 'application/json'
                                 }
                             })
                             .then((response) => {
