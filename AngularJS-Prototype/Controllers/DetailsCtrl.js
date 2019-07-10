@@ -73,7 +73,7 @@ studyHomeApp.controller('DetailsCtrl', ['$scope', '$http', '$routeParams', '$loc
 
         $scope.rent = $scope.default.preis;
         $scope.rooms = $scope.default.zimmer;
-        $scope.surface = $scope.default.groesse;
+        $scope.surface = $scope.default.qm_groesse;
 
         $scope.city = $scope.default.ort;
         $scope.street = $scope.default.str;
