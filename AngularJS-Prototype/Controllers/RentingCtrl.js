@@ -34,7 +34,17 @@ studyHomeApp.controller('RentingCtrl', ['$scope', '$http', function($scope, $htt
             fd.append("plz", $scope.plz);
             fd.append("preis", $scope.preis);
             fd.append("str", $scope.str);
+            fd.append("hausnummer", $scope.hausnummer);
+            fd.append("zimmer", $scope.zimmer);
+            fd.append("qm_groesse", $scope.qm_groesse);
+            fd.append("garage", $scope.garage);
+            fd.append("frei_ab", $scope.frei_ab);
+            fd.append("tiere", $scope.tiere);
+            fd.append("kaution", $scope.kaution);
             fd.append("vm_id", sessionStorage.getItem("vm_id"));
+            for (let value of fd.values()) {
+                console.log(value);
+            }
 /*
             var jsonData = `{ "beschr": ${$scope.beschr},' +
             '"entf_meter": ${$scope.entf_meter},' +
@@ -146,6 +156,13 @@ studyHomeApp.controller('RentingCtrl', ['$scope', '$http', function($scope, $htt
             $scope.plz = '';
             $scope.preis = '';
             $scope.str = '';
+            $scope.hausnummer = '';
+            $scope.zimmer = '';
+            $scope.qm_groesse = '';
+            $scope.garage = '';
+            $scope.frei_ab = '';
+            $scope.tiere = '';
+            $scope.kaution = '';
             document.getElementById('fileinput').value = '';
         }
         else
