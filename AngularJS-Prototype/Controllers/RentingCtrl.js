@@ -80,6 +80,34 @@ studyHomeApp.controller('RentingCtrl', ['$scope', '$http', function($scope, $htt
                         with the newly created appartment's id an alternate text and the order they should be safed in.
                         After that attach the current picture to a formdata object and send it to the server with it's newly assigned id.
                          */
+
+                        dynamicAttribs = new FormData();
+
+                        dynamicAttribs.append("wohn_id", $scope.newEstateID);
+                        dynamicAttribs.append("qm_groesse", $scope.qm_groesse);
+                        dynamicAttribs.append("garage", $scope.garage);
+                        dynamicAttribs.append("frei_ab", $scope.frei_ab);
+                        dynamicAttribs.append("tiere", $scope.tiere);
+                        dynamicAttribs.append("kaution", $scope.kaution);
+
+                        let attribjson = JSON.stringify(Object.fromEntries(dynamicAttribs));
+
+                        $http.put('../restapi/handler.php?objAction=estateattribute', attribjson,
+                            {
+                                transformRequest: angular.identity,
+                                headers: {
+                                    'Content-Type': 'application/json'
+                                }
+                            })
+                            .then((serviceResponse) =>
+                                {
+                                    console.log('Dynamic attribsResponse: ' + serviceResponse);
+                                },
+                                (err) => {
+                                    console.log(err);
+                                });
+
+
                         angular.forEach($scope.bilder, (val, key) =>
                         {
 
@@ -118,33 +146,6 @@ studyHomeApp.controller('RentingCtrl', ['$scope', '$http', function($scope, $htt
                                             .then((serviceResponse) =>
                                                 {
                                                     console.log(serviceResponse);
-
-                                                    dynamicAttribs = new FormData();
-
-                                                    dynamicAttribs.append("wohn_id", $scope.newEstateID);
-                                                    dynamicAttribs.append("qm_groesse", $scope.qm_groesse);
-                                                    dynamicAttribs.append("garage", $scope.garage);
-                                                    dynamicAttribs.append("frei_ab", $scope.frei_ab);
-                                                    dynamicAttribs.append("tiere", $scope.tiere);
-                                                    dynamicAttribs.append("kaution", $scope.kaution);
-
-                                                    let attribjson = JSON.stringify(Object.fromEntries(dynamicAttribs));
-
-                                                    $http.put('../restapi/handler.php?objAction=estateattribute', attribjson,
-                                                        {
-                                                            transformRequest: angular.identity,
-                                                            headers: {
-                                                                'Content-Type': 'application/json'
-                                                            }
-                                                        })
-                                                        .then((serviceResponse) =>
-                                                            {
-                                                                console.log(serviceResponse);
-                                                            },
-                                                            (err) => {
-                                                                console.log(err);
-                                                            });
-
                                                 },
                                                 (err) => {
                                                     console.log(err);
