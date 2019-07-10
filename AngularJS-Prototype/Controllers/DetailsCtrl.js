@@ -46,6 +46,7 @@ studyHomeApp.controller('DetailsCtrl', ['$scope', '$http', '$routeParams', '$loc
     $scope.detailsID = getEstateID($location.$$path);
 	
 
+	/*
 	$http({
 		method : "GET",
 		url : "../restapi/handler.php?objAction=estateimages&objKey="+estateID,
@@ -57,27 +58,28 @@ studyHomeApp.controller('DetailsCtrl', ['$scope', '$http', '$routeParams', '$loc
 		$scope.error = response.statusText;
 		console.error($scope.error);
 	});
+*/
 
     $http({
         method : "GET",
         url : "../restapi/handler.php" + getDetailsQueryString("default", $scope.detailsID)
     }).then(function mySuccess(response) {
+		
         $scope.vm_id = null;
         $scope.default = response.data;
+		
         console.log(response.data);
-        console.log("status: " + response.status);
-        console.log("statusText: " + response.statusText);
 
         $scope.name = $scope.default.name;
         $scope.desc = $scope.default.beschr;
 
         $scope.rent = $scope.default.preis;
         $scope.rooms = "5";
-        $scope.surface = "27m²"
+        // $scope.surface = response.data+"m²";
 
         $scope.location = $scope.default.ort;
         $scope.street = $scope.default.str;
-        $scope.number = "123";
+        $scope.number = "123"; // PregMatach
 
         $scope.ZIP = $scope.default.plz;
         $scope.distance = $scope.default.entf_meter;
@@ -96,7 +98,7 @@ studyHomeApp.controller('DetailsCtrl', ['$scope', '$http', '$routeParams', '$loc
             },
             {
                 title: "Surface",
-                description: $scope.surface
+                description: response.data.qm_groesse+"m²"
             }
         ];
         $scope.bottomContent1 = [

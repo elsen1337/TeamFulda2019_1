@@ -44,9 +44,8 @@ studyHomeApp.controller('SliderCtrl', ['$scope', '$http', function ($scope, $htt
         $scope.currentIndex = 0;
         $scope.images[$scope.currentIndex].visible = true; // make the current image visible
 
-        console.log(response.data);
-        console.log("status: " + response.status);
-        console.log("statusText: " + response.statusText);
+        console.log(response);
+
     }, function myError(response) {
         $scope.error = response.statusText;
         console.error($scope.error);
