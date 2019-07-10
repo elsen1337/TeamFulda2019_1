@@ -65,29 +65,35 @@ studyHomeApp.controller('DetailsCtrl', ['$scope', '$http', '$routeParams', '$loc
         $scope.vm_id = null;
         $scope.default = response.data;
         console.log(response.data);
-        console.log("status: " + response.status);
-        console.log("statusText: " + response.statusText);
+        //console.log("status: " + response.status);
+        //console.log("statusText: " + response.statusText);
 
         $scope.name = $scope.default.name;
         $scope.desc = $scope.default.beschr;
 
         $scope.rent = $scope.default.preis;
-        $scope.rooms = "5";
-        $scope.surface = "27m²"
+        $scope.rooms = $scope.default.zimmer;
+        $scope.surface = $scope.default.groesse;
 
-        $scope.location = $scope.default.ort;
+        $scope.city = $scope.default.ort;
         $scope.street = $scope.default.str;
         $scope.number = "123";
 
-        $scope.ZIP = $scope.default.plz;
+        $scope.Postcode = $scope.default.plz;
         $scope.distance = $scope.default.entf_meter;
         $scope.time = $scope.default.entf_min;
+
+        $scope.deposit = $scope.default.deposit;
+        $scope.garage = $scope.default.garage;
+        $scope.pets = $scope.default.tiere;
+
+        $scope.free = $scope.default.frei;
 
         $scope.vm_id = $scope.default.vm_id;
 
         $scope.rightContent = [
             {
-                title: "Rent",
+                title: "Rental Fee",
                 description: $scope.rent
             },
             {
@@ -101,8 +107,8 @@ studyHomeApp.controller('DetailsCtrl', ['$scope', '$http', '$routeParams', '$loc
         ];
         $scope.bottomContent1 = [
             {
-                title: "Location",
-                description: $scope.location
+                title: "City",
+                description: $scope.city
             },
             {
                 title: "Street",
@@ -115,43 +121,19 @@ studyHomeApp.controller('DetailsCtrl', ['$scope', '$http', '$routeParams', '$loc
         ];
         $scope.bottomContent2 = [
             {
-                title: "ZIP",
-                description: $scope.ZIP
+                title: "Postcode",
+                description: $scope.Postcode
             },
             {
-                title: "Distance",
+                title: "Distance (Meter)",
                 description: $scope.distance + " m"
             },
             {
-                title: "Time",
+                title: "Distance (Minutes)",
                 description: $scope.time + " min"
             }
         ];
-    }, function myError(response) {
-        $scope.error = response.statusText;
-        console.error($scope.error);
-    });
-
-    $http({
-        method : "GET",
-        url : "../restapi/handler.php" + getDetailsQueryString("attribute", $scope.detailsID)
-    }).then(function mySuccess(response) {
-        $scope.attributes = response.data;
-        console.log(response.data);
-        console.log("status: " + response.status);
-        console.log("statusText: " + response.statusText);
-
-        $scope.type = $scope.attributes.Wohnungstyp;
-        $scope.deposit = "300";
-        $scope.garage = "Yes";
-        $scope.pets = "Katze";
-        $scope.free = "20.10.19";
-
         $scope.bottomContent3 = [
-            {
-                title: "Type",
-                description: $scope.type
-            },
             {
                 title: "Deposit",
                 description: $scope.deposit + " €"
@@ -159,23 +141,22 @@ studyHomeApp.controller('DetailsCtrl', ['$scope', '$http', '$routeParams', '$loc
             {
                 title: "Garage",
                 description: $scope.garage
-            }
-        ];
-        $scope.bottomContent4 = [
-            {
-                title: "Pets",
-                description: $scope.pets
             },
             {
                 title: "Free On",
                 description: $scope.free
             }
         ];
+        $scope.bottomContent4 = [
+            {
+                title: "Pets",
+                description: $scope.pets
+            }
+        ];
     }, function myError(response) {
         $scope.error = response.statusText;
         console.error($scope.error);
     });
-
 
     $scope.contactLessor = function(){
         if(sessionStorage.getItem("isLoggedIn") !== "yes") {
