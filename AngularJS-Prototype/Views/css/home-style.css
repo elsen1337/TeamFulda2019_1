@@ -48,6 +48,6 @@
     width: 40%;
 }
 
-.ng-binding {
+p > .ng-binding {
     width: 20%;
 }
