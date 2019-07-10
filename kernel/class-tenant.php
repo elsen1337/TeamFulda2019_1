@@ -62,6 +62,7 @@ class Tenant {
 
     public static function update($prp,$pkey) {
 
+        $ufarr=array();
 
         if (array_key_exists(self::$formFieldPasswort,$prp)) {
 			// $prp[self::$formFieldPasswort]=self::cryptPasswort($prp[self::$formFieldPasswort]);
@@ -70,7 +71,6 @@ class Tenant {
 
         $prp=array_intersect_key($prp,self::$formFields);
         
-        $ufarr=array();
         foreach ($prp as $key => $val) {
 			if ($key == 'pwort') {continue;}
             $ufarr[]=$key.'="'.$GLOBALS[self::$dbvar]->escape_string($val).'"';
