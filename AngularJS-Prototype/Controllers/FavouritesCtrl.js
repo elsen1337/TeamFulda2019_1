@@ -38,15 +38,11 @@ studyHomeApp.controller('FavouritesCtrl', ['$http', '$scope', '$location', funct
         console.log("Hallo:" + id);
     }
 
-    let url2 = `../restapi/handler.php?objAction=tenantfavorit`;
-    $scope.delete = (id, evt) => {
-        $scope.favouriteDeleteData = JSON.stringify({
-            "wohn_id": id,
-            "m_id": sessionStorage.getItem('m_id')
-        });
-        console.log($scope.favouriteDeleteData);
+    let mid = sessionStorage.getItem('m_id');
 
-        $http.delete(url2, $scope.favouriteDeleteData)
+    let url2 = `../restapi/handler.php?objAction=tenantfavorit&objKey=${mid}-${id}`;
+    $scope.delete = (id, evt) => {
+        $http.delete(url2)
             .then((response) =>
                 {
                     $scope.searchData = response.data;
