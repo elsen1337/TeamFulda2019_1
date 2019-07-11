@@ -613,6 +613,7 @@ if (parseCommand($action,'estate')) {
 
         } elseif ($_SERVER['REQUEST_METHOD']=='DELETE') {
         
+			list($postParam['m_id'],$postParam['wohn_id'])=explode('-',$objkey);
 			$actResult=Tenant::favouriteRemove($postParam['m_id'],$postParam['wohn_id']);
 
 			header('Content-type: application/json');
