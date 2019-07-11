@@ -32,7 +32,7 @@ $ptbl='wohnung'; // Estate::$entSQLTable
 $type=array('visible'=>'selection','name'=>'text','beschr'=>'area','vm_id'=>'selection','str'=>'text','plz'=>'number','ort'=>'text','preis'=>'number=step>0.01','qm_groesse'=>'number','entf_meter'=>'number','entf_min'=>'number');
 
 
-FormFV::updateDB($_POST,$type,'new',$ptbl,$pkey,'wdel');
+FormFV::updateDB($_REQUEST,$type,'new',$ptbl,$pkey,'wdel');
 
 
 

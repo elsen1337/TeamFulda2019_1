@@ -9,7 +9,8 @@ class Estate {
     
     public static $formFieldsAttr = array('aid'=>'selection','wohn_id'=>'number','val'=>'text');
     
-    public static $formFieldsDefault = array('visible'=>'selection', 'name'=>'text','beschr'=>'area', 'vm_id'=>'selection', 'str'=>'text','plz'=>'number','ort'=>'text', 'preis'=>'number=step>0.01','qm_groesse'=>'number', 'entf_meter'=>'number','entf_min'=>'number');
+    public static $formFieldsDefault = array('visible'=>'selection', 'name'=>'text','beschr'=>'area', 'vm_id'=>'selection', 'str'=>'text','plz'=>'number','ort'=>'text', 'preis'=>'number=step>0.01','qm_groesse'=>'number', 'entf_meter'=>'number','entf_min'=>'number',
+    'kaution'=>'number','garage'=>'text','frei_ab'=>'date','zimmer'=>'number','tiere'=>'text');
 
 
     public static $entPrimKey='wohn_id';
