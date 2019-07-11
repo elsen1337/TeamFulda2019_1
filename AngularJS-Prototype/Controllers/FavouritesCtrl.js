@@ -22,6 +22,9 @@ studyHomeApp.controller('FavouritesCtrl', ['$http', '$scope', '$location', funct
                     //reset search items because sth could be left over
 
                     $scope.searchItems = [{}];
+                    if($scope.searchData.length === 0) {
+                        document.getElementById("searchList").style.display="none";
+                    }
                     for(let i = 0; i < $scope.searchData.length; i++) {
                         $scope.searchItems[i] = {
                             id : $scope.searchData[i].wohn_id,
@@ -58,7 +61,9 @@ studyHomeApp.controller('FavouritesCtrl', ['$http', '$scope', '$location', funct
                 },
                 (err) => {
                     console.log(err);
+                    $scope.getFavorites();
                 });
+        $scope.getFavorites();
     }
 }]);
 
