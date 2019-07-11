@@ -43,8 +43,6 @@ studyHomeApp.controller('MyDataCtrl', ['$scope', '$http', '$mdDialog', function(
                 document.getElementById('tablenname').innerText = response.data.nname;
                 document.getElementById('tableemail').innerText = response.data.email;
                 document.getElementById('tablebirthdate').innerText = response.data.birthdate;
-                document.getElementById('tablebirthdate').innerText = '';
-
             },
             (err) => {
                 console.log(err);
