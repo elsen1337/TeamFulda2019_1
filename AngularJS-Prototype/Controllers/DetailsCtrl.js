@@ -85,10 +85,14 @@ studyHomeApp.controller('DetailsCtrl', ['$scope', '$http', '$routeParams', '$loc
         $scope.entf_min = $scope.default.entf_min;
 
         $scope.kaution = $scope.default.kaution;
-        $scope.garage = $scope.default.garage;
+        console.log($scope.default.garage);
+        if($scope.default.garage == 1) {
+            $scope.garage = 'Yes';
+        } else {
+            $scope.garage = 'No';
+        }
         $scope.tiere = $scope.default.tiere;
 
-        $scope.frei_ab = $scope.default.frei_ab;
 
         $scope.vm_id = $scope.default.vm_id;
 
@@ -108,43 +112,39 @@ studyHomeApp.controller('DetailsCtrl', ['$scope', '$http', '$routeParams', '$loc
         ];
         $scope.bottomContent1 = [
             {
-                title: "City",
-                description: $scope.ort
-            },
-            {
-                title: "Street",
-                description: $scope.str
-            }
-        ];
-        $scope.bottomContent2 = [
-            {
                 title: "Postcode",
                 description: $scope.plz
             },
             {
-                title: "Distance (Meter)",
-                description: $scope.entf_meter + " m"
+                title: "City",
+                description: $scope.ort
+            }
+        ];
+        $scope.bottomContent2 = [
+            {
+                title: "Street",
+                description: $scope.str
             },
             {
-                title: "Distance (Minutes)",
-                description: $scope.entf_min + " min"
+                title: "Distance (Meter)",
+                description: $scope.entf_meter + " m"
             }
         ];
         $scope.bottomContent3 = [
             {
+                title: "Distance (Minutes)",
+                description: $scope.entf_min + " min"
+            },
+            {
                 title: "Deposit",
                 description: $scope.kaution + " €"
-            },
+            }
+        ];
+        $scope.bottomContent4 = [
             {
                 title: "Garage",
                 description: $scope.garage
             },
-            {
-                title: "Free On",
-                description: $scope.frei_ab
-            }
-        ];
-        $scope.bottomContent4 = [
             {
                 title: "Pets",
                 description: $scope.tiere

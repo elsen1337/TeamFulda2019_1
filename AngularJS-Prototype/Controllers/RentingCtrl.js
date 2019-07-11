@@ -37,15 +37,18 @@ studyHomeApp.controller('RentingCtrl', ['$scope', '$http', function($scope, $htt
             fd.append("zimmer", $scope.zimmer);
             fd.append("wohn_id", $scope.newEstateID);
             fd.append("qm_groesse", $scope.qm_groesse);
-            fd.append("garage", $scope.garage);
-            fd.append("frei_ab", $scope.frei_ab);
+            if($scope.garage.toLowerCase() === 'ja' || $scope.garage.toLowerCase() === 'yes') {
+                fd.append("garage", 1);
+            } else {
+                fd.append("garage", 0);
+            }
             fd.append("tiere", $scope.tiere);
             fd.append("kaution", $scope.kaution);
             fd.append("vm_id", sessionStorage.getItem("vm_id"));
             for (let value of fd.values()) {
                 console.log(value);
             }
-            
+
             console.log(fd.get('preis'));
 
             // Convert formdata object to JSON
@@ -142,7 +145,6 @@ studyHomeApp.controller('RentingCtrl', ['$scope', '$http', function($scope, $htt
             $scope.zimmer = '';
             $scope.qm_groesse = '';
             $scope.garage = '';
-            $scope.frei_ab = '';
             $scope.tiere = '';
             $scope.kaution = '';
             document.getElementById('fileinput').value = '';
