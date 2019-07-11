@@ -1,9 +1,9 @@
 studyHomeApp.controller('FavouritesCtrl', ['$http', '$scope', '$location', function($http, $scope, $location){
 
 
-    console.log(sessionStorage.getItem('vm_id'));
+    console.log(sessionStorage.getItem('m_id'));
     console.log(sessionStorage.getItem('vname'));
-    let url = `../restapi/handler.php?objAction=estateimages&objKey=${sessionStorage.getItem('vm_id')}`;
+    let url = `../restapi/handler.php?objAction=tenantfavorit&objKey=${sessionStorage.getItem('m_id')}`;
 
     $http.get(url,
         {
@@ -25,20 +25,16 @@ studyHomeApp.controller('FavouritesCtrl', ['$http', '$scope', '$location', funct
                     $scope.searchItems[i] = {
                         id : $scope.searchData[i].wohn_id,
                         alt : $scope.searchData[i].imgalt,
-                        img: "images/thumb/" + $scope.searchData[i].imgpath,
                         name : $scope.searchData[i].name,
-                        price : $scope.searchData[i].preis + " €",
-                        entf_meter: $scope.searchData[i].entf_meter + " m",
-                        entf_min: $scope.searchData[i].entf_min + " min"
                     };
                 }
-
             },
             (err) => {
                 console.log(err);
             });
 
-    $scope.goToDetails = function(id, evt){
+    $scope.goToDetails2 = function(id, evt){
         $location.path("details?id=" + id);
+        console.log("Hallo:" + id);
     }
 }]);

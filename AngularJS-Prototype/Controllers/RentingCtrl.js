@@ -34,7 +34,13 @@ studyHomeApp.controller('RentingCtrl', ['$scope', '$http', function($scope, $htt
             fd.append("plz", $scope.plz);
             fd.append("preis", $scope.preis);
             fd.append("str", $scope.str);
+            fd.append("hausnummer", $scope.hausnummer);
+            fd.append("zimmer", $scope.zimmer);
             fd.append("vm_id", sessionStorage.getItem("vm_id"));
+            for (let value of fd.values()) {
+                console.log(value);
+            }
+
 /*
             var jsonData = `{ "beschr": ${$scope.beschr},' +
             '"entf_meter": ${$scope.entf_meter},' +
@@ -69,16 +75,44 @@ studyHomeApp.controller('RentingCtrl', ['$scope', '$http', function($scope, $htt
                 })
                 .then((serviceResponse) =>
                     {
-
+                        $scope.newEstateID = serviceResponse.data.newEstateID;
                         /* For every picture attached to the file input send a put request
                         with the newly created appartment's id an alternate text and the order they should be safed in.
                         After that attach the current picture to a formdata object and send it to the server with it's newly assigned id.
                          */
+
+                        dynamicAttribs = new FormData();
+
+                        dynamicAttribs.append("wohn_id", $scope.newEstateID);
+                        dynamicAttribs.append("qm_groesse", $scope.qm_groesse);
+                        dynamicAttribs.append("garage", $scope.garage);
+                        dynamicAttribs.append("frei_ab", $scope.frei_ab);
+                        dynamicAttribs.append("tiere", $scope.tiere);
+                        dynamicAttribs.append("kaution", $scope.kaution);
+
+                        let attribjson = JSON.stringify(Object.fromEntries(dynamicAttribs));
+
+                        $http.put('../restapi/handler.php?objAction=estateattribute', attribjson,
+                            {
+                                transformRequest: angular.identity,
+                                headers: {
+                                    'Content-Type': 'application/json'
+                                }
+                            })
+                            .then((serviceResponse) =>
+                                {
+                                    console.log('Dynamic attribsResponse: ' + serviceResponse);
+                                },
+                                (err) => {
+                                    console.log(err);
+                                });
+
+
                         angular.forEach($scope.bilder, (val, key) =>
                         {
 
                             let fdi = new FormData();
-                            fdi.append("wohn_id", serviceResponse.data.newEstateID);
+                            fdi.append("wohn_id", $scope.newEstateID);
                             fdi.append("alt", "Bild der Wohnung");
                             fdi.append("rdr", 1);
 
@@ -96,7 +130,6 @@ studyHomeApp.controller('RentingCtrl', ['$scope', '$http', function($scope, $htt
                                 })
                                 .then((serviceResponse) =>
                                     {
-
                                         let image = new FormData();
                                         console.log(serviceResponse.data.newImgID);
                                         image.append('bild' + '[' + serviceResponse.data.newImgID + ']', val);
@@ -146,6 +179,13 @@ studyHomeApp.controller('RentingCtrl', ['$scope', '$http', function($scope, $htt
             $scope.plz = '';
             $scope.preis = '';
             $scope.str = '';
+            $scope.hausnummer = '';
+            $scope.zimmer = '';
+            $scope.qm_groesse = '';
+            $scope.garage = '';
+            $scope.frei_ab = '';
+            $scope.tiere = '';
+            $scope.kaution = '';
             document.getElementById('fileinput').value = '';
         }
         else

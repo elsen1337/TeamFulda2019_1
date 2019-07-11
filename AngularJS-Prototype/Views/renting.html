@@ -82,6 +82,12 @@
             <input type="number" ng-model="preis" name="preis">
 
         </md-input-container>
+
+        <md-input-container>
+            <label>Deposit €</label>
+            <input type="number" ng-model="kaution" name="kaution">
+
+        </md-input-container>
     </div>
 
     <div id="second_line">
@@ -96,30 +102,67 @@
             <input type="number" ng-model="entf_min" name="entf_min">
 
         </md-input-container>
-    </div>
-
-        <div id="third_line">
-
-            <md-input-container>
-                <label>Postcode</label>
-                <input type="number" ng-model="plz" name="plz">
-
-            </md-input-container>
-
-            <md-input-container>
-                <label>City</label>
-                <input type="text" ng-model="ort" name="ort">
-
-            </md-input-container>
 
         <md-input-container>
-            <label>Street a. No.</label>
+            <label>Postcode</label>
+            <input type="number" ng-model="plz" name="plz">
+
+        </md-input-container>
+    </div>
+
+    <div id="third_line">
+        <md-input-container>
+            <label>City</label>
+            <input type="text" ng-model="ort" name="ort">
+
+        </md-input-container>
+
+        <md-input-container>
+            <label>Street</label>
             <input type="text" ng-model="str" name="str">
 
         </md-input-container>
-        </div>
 
+        <md-input-container>
+            <label>Number</label>
+            <input type="number" ng-model="hausnummer" name="hausnummer">
 
+        </md-input-container>
+    </div>
+
+    <div id="fourth-line">
+        <md-input-container>
+            <label>Rooms</label>
+            <input type="number" ng-model="zimmer" name="zimmer">
+
+        </md-input-container>
+
+        <md-input-container>
+            <label>Surface m²</label>
+            <input type="number" ng-model="qm_groesse" name="qm_groesse">
+
+        </md-input-container>
+
+        <md-input-container>
+            <label>Garage</label>
+            <input type="text" ng-model="garage" name="garage">
+
+        </md-input-container>
+    </div>
+
+    <div fifth-line>
+        <md-input-container>
+            <label>Free On</label>
+            <input type="date" ng-model="frei_ab" name="frei_ab">
+
+        </md-input-container>
+
+        <md-input-container>
+            <label>Pets</label>
+            <input type="text" ng-model="tiere" name="tiere">
+
+        </md-input-container>
+    </div>
 
     <md-input-container id="md-text-area">
         <label>Description</label>

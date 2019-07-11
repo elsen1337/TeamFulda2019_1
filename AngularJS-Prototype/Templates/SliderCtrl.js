@@ -87,7 +87,7 @@ function getImageData(pix){
     let result = [{}];
     for(let i = 0; i < pix.length; i++) {
         result[i] = {};
-        result[i].src = pix[i].pathnormal;
+        result[i].src = '../' + pix[i].pathnormal;
         result[i].title = "Pic" + i;
     }
     return result;
