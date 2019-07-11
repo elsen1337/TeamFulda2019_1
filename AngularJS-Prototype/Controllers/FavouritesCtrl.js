@@ -1,9 +1,9 @@
 studyHomeApp.controller('FavouritesCtrl', ['$http', '$scope', '$location', function($http, $scope, $location){
 
 
-    console.log(sessionStorage.getItem('vm_id'));
+    console.log(sessionStorage.getItem('m_id'));
     console.log(sessionStorage.getItem('vname'));
-    let url = `../restapi/handler.php?objAction=estateimages&objKey=${sessionStorage.getItem('vm_id')}`;
+    let url = `../restapi/handler.php?objAction=estateimages&objKey=${sessionStorage.getItem('m_id')}`;
 
     $http.get(url,
         {
