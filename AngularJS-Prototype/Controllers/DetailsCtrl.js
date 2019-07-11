@@ -92,7 +92,6 @@ studyHomeApp.controller('DetailsCtrl', ['$scope', '$http', '$routeParams', '$loc
         }
         $scope.tiere = $scope.default.tiere;
 
-        $scope.frei_ab = $scope.default.frei_ab;
 
         $scope.vm_id = $scope.default.vm_id;
 
@@ -112,6 +111,10 @@ studyHomeApp.controller('DetailsCtrl', ['$scope', '$http', '$routeParams', '$loc
         ];
         $scope.bottomContent1 = [
             {
+                title: "Postcode",
+                description: $scope.plz
+            },
+            {
                 title: "City",
                 description: $scope.ort
             },
@@ -121,10 +124,6 @@ studyHomeApp.controller('DetailsCtrl', ['$scope', '$http', '$routeParams', '$loc
             }
         ];
         $scope.bottomContent2 = [
-            {
-                title: "Postcode",
-                description: $scope.plz
-            },
             {
                 title: "Distance (Meter)",
                 description: $scope.entf_meter + " m"
@@ -143,12 +142,6 @@ studyHomeApp.controller('DetailsCtrl', ['$scope', '$http', '$routeParams', '$loc
                 title: "Garage",
                 description: $scope.garage
             },
-            {
-                title: "Free On",
-                description: $scope.frei_ab
-            }
-        ];
-        $scope.bottomContent4 = [
             {
                 title: "Pets",
                 description: $scope.tiere

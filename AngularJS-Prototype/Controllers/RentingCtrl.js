@@ -42,7 +42,6 @@ studyHomeApp.controller('RentingCtrl', ['$scope', '$http', function($scope, $htt
             } else {
                 fd.append("garage", 0);
             }
-            fd.append("frei_ab", $scope.frei_ab);
             fd.append("tiere", $scope.tiere);
             fd.append("kaution", $scope.kaution);
             fd.append("vm_id", sessionStorage.getItem("vm_id"));
@@ -146,7 +145,6 @@ studyHomeApp.controller('RentingCtrl', ['$scope', '$http', function($scope, $htt
             $scope.zimmer = '';
             $scope.qm_groesse = '';
             $scope.garage = '';
-            $scope.frei_ab = '';
             $scope.tiere = '';
             $scope.kaution = '';
             document.getElementById('fileinput').value = '';
