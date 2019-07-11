@@ -46,13 +46,7 @@ studyHomeApp.controller('FavouritesCtrl', ['$http', '$scope', '$location', funct
         });
         console.log($scope.favouriteDeleteData);
 
-        $http.delete(url2, $scope.favouriteDeleteData,
-            {
-                transformRequest: angular.identity,
-                headers: {
-                    'Content-Type': undefined
-                }
-            })
+        $http.delete(url2, $scope.favouriteDeleteData)
             .then((response) =>
                 {
                     $scope.searchData = response.data;
