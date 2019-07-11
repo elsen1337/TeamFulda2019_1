@@ -85,7 +85,11 @@ studyHomeApp.controller('DetailsCtrl', ['$scope', '$http', '$routeParams', '$loc
         $scope.entf_min = $scope.default.entf_min;
 
         $scope.kaution = $scope.default.kaution;
-        $scope.garage = $scope.default.garage;
+        if($scope.default.garage === 1) {
+            $scope.garage = 'Yes';
+        } else {
+            $scope.garage = 'No';
+        }
         $scope.tiere = $scope.default.tiere;
 
         $scope.frei_ab = $scope.default.frei_ab;

@@ -37,7 +37,11 @@ studyHomeApp.controller('RentingCtrl', ['$scope', '$http', function($scope, $htt
             fd.append("zimmer", $scope.zimmer);
             fd.append("wohn_id", $scope.newEstateID);
             fd.append("qm_groesse", $scope.qm_groesse);
-            fd.append("garage", $scope.garage);
+            if($scope.garage.toLowerCase() === 'ja' || $scope.garage.toLowerCase() === 'yes') {
+                fd.append("garage", 1);
+            } else {
+                fd.append("garage", 0);
+            }
             fd.append("frei_ab", $scope.frei_ab);
             fd.append("tiere", $scope.tiere);
             fd.append("kaution", $scope.kaution);
@@ -45,7 +49,7 @@ studyHomeApp.controller('RentingCtrl', ['$scope', '$http', function($scope, $htt
             for (let value of fd.values()) {
                 console.log(value);
             }
-            
+
             console.log(fd.get('preis'));
 
             // Convert formdata object to JSON
