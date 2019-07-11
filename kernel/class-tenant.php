@@ -123,7 +123,7 @@ class Tenant {
     
 	public static function favouriteList($mid) {
 
-		$sql='SELECT m_id, w.name, score, cdate FROM m_favorit AS f JOIN wohnung AS w ON w.wohn_id=f.wohn_id WHERE f.m_id='.$mid.' ORDER BY cdate DESC, score DESC';
+		$sql='SELECT f.m_id, f.wohn_id, w.name, f.score, f.cdate FROM m_favorit AS f JOIN wohnung AS w ON w.wohn_id=f.wohn_id WHERE f.m_id='.$mid.' ORDER BY cdate DESC, score DESC';
 		$mrs=$GLOBALS[self::$dbvar]->query($sql);
 		
 		$attrarr=[];
