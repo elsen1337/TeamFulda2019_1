@@ -40,17 +40,17 @@ studyHomeApp.controller('FavouritesCtrl', ['$http', '$scope', '$location', funct
 
     let url2 = `../restapi/handler.php?objAction=tenantfavorit`;
     $scope.delete = (id, evt) => {
-        let data = JSON.stringify({
+        $scope.favouriteDeleteData = JSON.stringify({
             "wohn_id": id,
             "m_id": sessionStorage.getItem('m_id')
         });
-        console.log(data);
+        console.log($scope.favouriteDeleteData);
 
-        $http.delete(url2, data,
+        $http.delete(url2, $scope.favouriteDeleteData,
             {
                 transformRequest: angular.identity,
                 headers: {
-                    'Content-Type': 'application/json'
+                    'Content-Type': undefined
                 }
             })
             .then((response) =>
