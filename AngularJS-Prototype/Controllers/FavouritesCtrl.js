@@ -44,6 +44,7 @@ studyHomeApp.controller('FavouritesCtrl', ['$http', '$scope', '$location', funct
             "wohn_id": id,
             "m_id": sessionStorage.getItem('m_id')
         });
+        console.log(data);
 
         $http.delete(url2, data,
             {
