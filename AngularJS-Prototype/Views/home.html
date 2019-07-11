@@ -103,7 +103,7 @@
       <md-list ng-cloak id="searchList">
           <!--<md-subheader class="md-no-sticky">Search Items</md-subheader>-->
           <h3>Search Items</h3>
-          <md-list-item ng-repeat="item in searchItems" ng-click="goToDetails(item.id, $event)" class="noright">
+          <md-list-item ng-repeat="item in searchItems" ng-click="goToDetails2(item.id, $event)" class="noright">
               <img alt="{{ item.alt }}" ng-src="{{ item.img }}" class="search-item-img" />
               <p id="home-name">{{item.name}}</p>
               <p class="home-pFelder">{{item.entf_meter}}</p>

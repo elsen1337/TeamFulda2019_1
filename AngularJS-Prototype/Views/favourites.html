@@ -14,11 +14,7 @@
     <h3>Favourites</h3>
     <md-list ng-cloak id="searchList">
         <md-list-item ng-repeat="item in searchItems" ng-click="goToDetails(item.id, $event)" class="noright">
-            <img alt="{{ item.alt }}" ng-src="{{ item.img }}" class="search-item-img" />
             <p id="favouriten-name">{{item.name}}</p>
-            <p>{{item.entf_meter}}</p>
-            <p>{{item.entf_min}}</p>
-            <p>{{item.price}}</p>
         </md-list-item>
     </md-list>
 </div>
