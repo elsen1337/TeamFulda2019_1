@@ -35,5 +35,6 @@ studyHomeApp.controller('FavouritesCtrl', ['$http', '$scope', '$location', funct
 
     $scope.goToDetails2 = function(id, evt){
         $location.path("details?id=" + id);
+        console.log("Hallo:" + id);
     }
 }]);
