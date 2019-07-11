@@ -85,6 +85,7 @@ studyHomeApp.controller('DetailsCtrl', ['$scope', '$http', '$routeParams', '$loc
         $scope.entf_min = $scope.default.entf_min;
 
         $scope.kaution = $scope.default.kaution;
+        console.log($scope.default.garage);
         if($scope.default.garage === 1) {
             $scope.garage = 'Yes';
         } else {
