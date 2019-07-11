@@ -8,7 +8,7 @@ class Lessor {
     private static $dbvar='msdb';
     
 
-    public static $formFields=array('anrede'=>'selection','vname'=>'text','nname'=>'text','email'=>'mail','tel_nr'=>'text','mob_nr'=>'text');
+    public static $formFields=array('anrede'=>'selection','vname'=>'text','nname'=>'text','email'=>'mail','tel_nr'=>'text','mob_nr'=>'text','birthdate'=>'date');
     public static $formFieldPasswort='pwort';
     
     public static $entPrimKey='vm_id';
@@ -52,7 +52,7 @@ class Lessor {
     
     public static function about($pkey) {
     
-		$sql='SELECT vm_id, anrede, vname, nname, email, tel_nr, mob_nr, profil FROM '.self::$entSQLTable.' WHERE '.self::$entPrimKey.'='.$pkey;
+		$sql='SELECT vm_id, anrede, vname, nname, email, tel_nr, mob_nr, profil, birthdate FROM '.self::$entSQLTable.' WHERE '.self::$entPrimKey.'='.$pkey;
 		$mrs=$GLOBALS[self::$dbvar]->query($sql);
 		
         return ($mrs->num_rows == 1) ? $mrs->fetch_object() : null;
@@ -92,11 +92,15 @@ class Lessor {
 		set_include_path(__DIR__);
 		require_once('class-estate.php');
 		
-		//foreach () {}
-		//Estate::delete();
+		$tmparr=self::getEstates($pkey);
+		
+		foreach ($tmparr as $tmpobj) {
+			Estate::delete($tmpobj->wohn_id);
+		}
+		
 		
     
-        $sql='DELETE c, v FROM '.self::$entSQLTable.' AS v LEFT JOIN m_chat AS c ON c.vm_id=v.vm_id WHERE v.'.self::$entPrimKey.'='.$pkey;
+        $sql='DELETE c, v FROM '.self::$entSQLTable.' AS v LEFT JOIN m_chat AS c ON ABS(c.vm_id)=v.vm_id WHERE v.'.self::$entPrimKey.'='.$pkey;
         $mrs=$GLOBALS[self::$dbvar]->query($sql);
         
         return $GLOBALS[self::$dbvar]->affected_rows > 0;
@@ -104,6 +108,16 @@ class Lessor {
     
     }
 
+    
+	public static function getEstates($pkey) {
+    
+		$sql='SELECT pwort FROM '.self::$entSQLTable.' WHERE '.self::$entPrimKey.' = '.$pkey;
+		$mrs=$GLOBALS[self::$dbvar]->query($sql);
+
+		return $GLOBALS[self::$dbvar]->affected_rows;
+
+    }
+    
     
 	public static function getPassword($pkey) {
     
