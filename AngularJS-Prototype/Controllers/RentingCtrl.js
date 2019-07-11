@@ -34,31 +34,18 @@ studyHomeApp.controller('RentingCtrl', ['$scope', '$http', function($scope, $htt
             fd.append("plz", $scope.plz);
             fd.append("preis", $scope.preis);
             fd.append("str", $scope.str);
-            fd.append("hausnummer", $scope.hausnummer);
             fd.append("zimmer", $scope.zimmer);
+            fd.append("wohn_id", $scope.newEstateID);
+            fd.append("qm_groesse", $scope.qm_groesse);
+            fd.append("garage", $scope.garage);
+            fd.append("frei_ab", $scope.frei_ab);
+            fd.append("tiere", $scope.tiere);
+            fd.append("kaution", $scope.kaution);
             fd.append("vm_id", sessionStorage.getItem("vm_id"));
             for (let value of fd.values()) {
                 console.log(value);
             }
-
-/*
-            var jsonData = `{ "beschr": ${$scope.beschr},' +
-            '"entf_meter": ${$scope.entf_meter},' +
-            '"entf_min": ${$scope.entf},' +
-            '"name": ${$scope.entf},' +
-            '"ort": ${$scope.name},' +
-            '"plz": ${$scope.ort},' +
-            '"preis": ${$scope.plz},' +
-            '"str": ${$scope.preis},' +
-            '"vm_id": ${$scope.str}}`
-*/
-
-/*
-            angular.forEach($scope.bilder, (val, key) =>
-            {
-                fd.append('bild' + '[' + key + ']', val);
-            });
-*/
+            
             console.log(fd.get('preis'));
 
             // Convert formdata object to JSON
@@ -80,33 +67,6 @@ studyHomeApp.controller('RentingCtrl', ['$scope', '$http', function($scope, $htt
                         with the newly created appartment's id an alternate text and the order they should be safed in.
                         After that attach the current picture to a formdata object and send it to the server with it's newly assigned id.
                          */
-
-                        dynamicAttribs = new FormData();
-
-                        dynamicAttribs.append("wohn_id", $scope.newEstateID);
-                        dynamicAttribs.append("qm_groesse", $scope.qm_groesse);
-                        dynamicAttribs.append("garage", $scope.garage);
-                        dynamicAttribs.append("frei_ab", $scope.frei_ab);
-                        dynamicAttribs.append("tiere", $scope.tiere);
-                        dynamicAttribs.append("kaution", $scope.kaution);
-
-                        let attribjson = JSON.stringify(Object.fromEntries(dynamicAttribs));
-
-                        $http.put('../restapi/handler.php?objAction=estateattribute', attribjson,
-                            {
-                                transformRequest: angular.identity,
-                                headers: {
-                                    'Content-Type': 'application/json'
-                                }
-                            })
-                            .then((serviceResponse) =>
-                                {
-                                    console.log('Dynamic attribsResponse: ' + serviceResponse);
-                                },
-                                (err) => {
-                                    console.log(err);
-                                });
-
 
                         angular.forEach($scope.bilder, (val, key) =>
                         {
@@ -179,7 +139,6 @@ studyHomeApp.controller('RentingCtrl', ['$scope', '$http', function($scope, $htt
             $scope.plz = '';
             $scope.preis = '';
             $scope.str = '';
-            $scope.hausnummer = '';
             $scope.zimmer = '';
             $scope.qm_groesse = '';
             $scope.garage = '';

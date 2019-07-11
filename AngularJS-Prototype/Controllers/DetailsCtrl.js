@@ -79,7 +79,6 @@ studyHomeApp.controller('DetailsCtrl', ['$scope', '$http', '$routeParams', '$loc
 
         $scope.ort = $scope.default.ort;
         $scope.str = $scope.default.str;
-        $scope.hausnummer = $scope.default.hausnummer;
 
         $scope.plz = $scope.default.plz;
         $scope.entf_meter = $scope.default.entf_meter;
@@ -115,10 +114,6 @@ studyHomeApp.controller('DetailsCtrl', ['$scope', '$http', '$routeParams', '$loc
             {
                 title: "Street",
                 description: $scope.str
-            },
-            {
-                title: "Number",
-                description: $scope.hausnummer
             }
         ];
         $scope.bottomContent2 = [
