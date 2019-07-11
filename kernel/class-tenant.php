@@ -9,7 +9,7 @@ class Tenant {
     
 
     public static $formFieldPasswort='pwort';
-    public static $formFields=array('anrede'=>'selection','vname'=>'text','nname'=>'text', 'email'=>'mail', 'tel_nr'=>'text','mob_nr'=>'text');
+    public static $formFields=array('anrede'=>'selection','vname'=>'text','nname'=>'text', 'email'=>'mail', 'tel_nr'=>'text','mob_nr'=>'text', 'birthdate'=>'date');
     
     public static $entPrimKey='m_id';
     public static $entSQLTable='mieter';
@@ -53,7 +53,7 @@ class Tenant {
     
     public static function about($pkey) {
     
-		$sql='SELECT m_id, anrede, vname, nname, email, profil FROM '.self::$entSQLTable.' WHERE '.self::$entPrimKey.'='.$pkey;
+		$sql='SELECT m_id, anrede, vname, nname, email, profil, birthdate FROM '.self::$entSQLTable.' WHERE '.self::$entPrimKey.'='.$pkey;
 		$mrs=$GLOBALS[self::$dbvar]->query($sql);
 		
         return ($mrs->num_rows == 1) ? $mrs->fetch_object() : null;
@@ -87,13 +87,10 @@ class Tenant {
         
     public static function delete($pkey) {
     
-		// Zuerst: Favoriten, Chatnachrichten
-		
-		  
-		$sql='DELETE f,c,m FROM '.self::$entSQLTable.' AS m LEFT JOIN m_chat AS c ON c.m_id=m.m_id LEFT JOIN m_favorit AS f ON f.m_id=m.m_id  WHERE m.'.self::$entPrimKey.'='.$pkey;
+		// Zuerst: Favoriten, Chatnachrichten [OK]
+		$sql='DELETE f,c,m FROM '.self::$entSQLTable.' AS m LEFT JOIN m_chat AS c ON c.m_id=m.m_id LEFT JOIN m_favorit AS f ON f.m_id=m.m_id LEFT JOIN m_chat AS c ON ABS(c.m_id)=m.m_id WHERE m.'.self::$entPrimKey.'='.$pkey;
 		$mrs=$GLOBALS[self::$dbvar]->query($sql);
 		
-		echo $sql;
 		return $GLOBALS[self::$dbvar]->affected_rows > 0;
 
     

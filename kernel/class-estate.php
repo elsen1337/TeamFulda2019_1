@@ -103,12 +103,20 @@ class Estate {
 		set_include_path(__DIR__);
 		require_once('class-appartimg.php');
 		
-		//foreach () {}
 		//CHDIR Strategie ?!
-		//AppartImage::delete();
+		$tmpimg=AppartImage::getImagesMetaData($pkey);
+		chdir(__DIR__.'/../'.AppartImage::$uploadBaseDir);
+
+		
+		foreach ($tmpimg as $imgobj) {
+		
+			AppartImage::removeImage($imgobj->bild_id);
+			
+		}
+		
 		
 		// Properties, Termine, [Stream, Video]
-		$sql='DELETE v,w FROM '.self::$entSQLTable.' AS w LEFT JOIN w_attrvals AS v ON v.wid=w.wohn_id LEFT JOIN w_meet AS m ON m.wohn_id=w.wohn_id  WHERE w.'.self::$entPrimKey.'='.$pkey;
+		$sql='DELETE v,w FROM '.self::$entSQLTable.' AS w LEFT JOIN w_attrvals AS v ON v.wohn_id=w.wohn_id LEFT JOIN w_meet AS wm ON wm.wohn_id=w.wohn_id LEFT JOIN m_meet AS mm ON mm.tid=wm.tid LEFT JOIN m_favorit AS f ON f.wohn_id=w.wohn_id WHERE w.'.self::$entPrimKey.'='.$pkey;
 		$mrs=$GLOBALS[self::$dbvar]->query($sql);
 		
 		return $GLOBALS[self::$dbvar]->affected_rows > 0;

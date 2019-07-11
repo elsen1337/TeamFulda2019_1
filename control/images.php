@@ -158,7 +158,7 @@ if (strlen($_GET['edit']) > 0) {
 	while ($row=$msr->fetch_assoc()) {
 		
 		echo '<tr><td>#'.$row['rdr'].'<td>'.$row['alt'].'<td>'.($row['bild'] ? '<img title="'.$row['bild'].'" src="'.implode('/', array($uploadBaseDir,$dirThumb,AppartImage::formThumbFileName($row['bild']) ) ).'">' : $row['bild']);
-		echo '<td><a href="?edit='.$row[$pkey].'&wid='.$row['wohn_id'].'">Bearbeiten</a> &middot; <a href="?'.$iDelKey.'[]='.$row[$pkey].'">Löschen</a>'.'</td></tr>'."\n";
+		echo '<td><a href="?edit='.$row[$pkey].'&wid='.$row['wohn_id'].'">Bearbeiten</a> &middot; <a href="?'.$iDelKey.'[]='.$row[$pkey].'&wid='.$row['wohn_id'].'">Löschen</a>'.'</td></tr>'."\n";
 		
 	}
 
