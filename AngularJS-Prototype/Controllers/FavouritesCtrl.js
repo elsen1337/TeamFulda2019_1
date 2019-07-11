@@ -3,7 +3,7 @@ studyHomeApp.controller('FavouritesCtrl', ['$http', '$scope', '$location', funct
 
     console.log(sessionStorage.getItem('m_id'));
     console.log(sessionStorage.getItem('vname'));
-    let url = `../restapi/handler.php?objAction=estateimages&objKey=${sessionStorage.getItem('m_id')}`;
+    let url = `../restapi/handler.php?objAction=tenantfavorit&objKey=${sessionStorage.getItem('m_id')}`;
 
     $http.get(url,
         {
