@@ -38,10 +38,10 @@ studyHomeApp.controller('FavouritesCtrl', ['$http', '$scope', '$location', funct
         console.log("Hallo:" + id);
     }
 
-    let mid = sessionStorage.getItem('m_id');
-
-    let url2 = `../restapi/handler.php?objAction=tenantfavorit&objKey=${mid}-${id}`;
     $scope.delete = (id, evt) => {
+        let mid = sessionStorage.getItem('m_id');
+        let url2 = `../restapi/handler.php?objAction=tenantfavorit&objKey=${mid}-${id}`;
+        
         $http.delete(url2)
             .then((response) =>
                 {
