@@ -25,9 +25,10 @@ GUI::printNotice('Übersicht aller Mieter');
 // Profilbild; Geringere Priorität
 require('../kernel/class-tenant.php');
 
+// $type=array('anrede'=>'selection','vname'=>'text','nname'=>'text','email'=>'mail');  // Tenant::$formFields
 
 $tselect=array('M'=>'Mr.','F'=>'Mrs.'); 
-$type=array('anrede'=>'selection','vname'=>'text','nname'=>'text','email'=>'mail');  // Tenant::$formFields
+$type=Tenant::$formFields;
 $ptbl='mieter'; // Tenant::$entSQLTable
 $pkey='m_id'; // Tenant::$entPrimKey
 

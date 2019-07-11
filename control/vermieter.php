@@ -27,9 +27,10 @@ GUI::printNotice('Übersicht aller Vermieter');
 
 require('../kernel/class-lessor.php');
 
+// $type=array('anrede'=>'selection','vname'=>'text','nname'=>'text','email'=>'mail','tel_nr'=>'text','mob_nr'=>'text');  // Lessor::$formFields
 
 $tselect=array('M'=>'Mr.','F'=>'Mrs.'); 
-$type=array('anrede'=>'selection','vname'=>'text','nname'=>'text','email'=>'mail','tel_nr'=>'text','mob_nr'=>'text');  // Lessor::$formFields
+$type=Lessor::$formFields;
 $ptbl='vermieter'; // Lessor::$entSQLTable
 $pkey='vm_id'; // Lessor::$entPrimKey
 
