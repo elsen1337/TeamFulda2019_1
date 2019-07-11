@@ -117,27 +117,29 @@ studyHomeApp.controller('DetailsCtrl', ['$scope', '$http', '$routeParams', '$loc
             {
                 title: "City",
                 description: $scope.ort
-            },
-            {
-                title: "Street",
-                description: $scope.str
             }
         ];
         $scope.bottomContent2 = [
             {
-                title: "Distance (Meter)",
-                description: $scope.entf_meter + " m"
+                title: "Street",
+                description: $scope.str
             },
             {
-                title: "Distance (Minutes)",
-                description: $scope.entf_min + " min"
+                title: "Distance (Meter)",
+                description: $scope.entf_meter + " m"
             }
         ];
         $scope.bottomContent3 = [
             {
+                title: "Distance (Minutes)",
+                description: $scope.entf_min + " min"
+            },
+            {
                 title: "Deposit",
                 description: $scope.kaution + " €"
-            },
+            }
+        ];
+        $scope.bottomContent4 = [
             {
                 title: "Garage",
                 description: $scope.garage
