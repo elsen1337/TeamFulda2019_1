@@ -6,13 +6,14 @@ studyHomeApp.controller('EditApartmentCtrl', ['$scope', '$http', '$location', fu
 
     $http({
         method : "GET",
-        url : `../restapi/handler.php?objAction=default&objKey=${estateID}`
+        url : `../restapi/handler.php?objAction=estatedefault&objKey=${estateID}`
     }).then(function mySuccess(response) {
 
         $scope.vm_id = sessionStorage.getItem('vm_id');
         $scope.default = response.data;
 
         console.log(response.data);
+        console.log($scope.default);
 
         $scope.name = $scope.default.name;
         $scope.beschr = $scope.default.beschr;
