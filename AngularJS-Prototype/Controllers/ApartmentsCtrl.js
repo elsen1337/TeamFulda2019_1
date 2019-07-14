@@ -2,7 +2,7 @@ studyHomeApp.controller('ApartmentsCtrl', ['$scope', '$http', function($scope, $
 
     console.log(sessionStorage.getItem('vm_id'));
     console.log(sessionStorage.getItem('vname'));
-    let url = `../restapi/handler.php?objAction=lessorEstate&objKey=${sessionStorage.getItem('vm_id')}`;
+    let url = `../restapi/handler.php?objAction=lessorestate&objKey=${sessionStorage.getItem('vm_id')}`;
 
     $scope.getApartments = () => {
         $http.get(url,

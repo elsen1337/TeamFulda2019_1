@@ -9,7 +9,7 @@
     <md-list ng-cloak id="searchList">
         <md-list-item ng-repeat="item in searchItems" ng-click="goToDetails2(item.id, $event)" class="noright">
             <p id="favouriten-name">{{item.name}}</p>
-            <md-button type="submit" class="login-btn" ng-click="goToEditPage(item.id, $event)">Delete</md-button>
+            <md-button type="submit" class="login-btn" ng-click="goToEditPage(item.id, $event)">Edit</md-button>
         </md-list-item>
     </md-list>
 </div>
