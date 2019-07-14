@@ -1,0 +1,161 @@
+<style>
+
+    body, #renting-frame{
+        background-color: #b6dbe6;
+        padding-bottom: 10%;
+    }
+
+    form{
+        background-color: #ffffff;
+    }
+    #renting-title {
+        text-align: center;
+    }
+
+    #md-text-area {
+        display: block;
+        margin-bottom: 20px;
+    }
+
+    @media only screen and (max-width: 600px) {
+        #first_line md-input-container
+        {
+            display: block;
+        }
+
+        #renting-title {
+            margin-top: 50px;
+        }
+
+        #first_line md-input-container
+        {
+            display: block;
+        }
+
+    }
+
+    #renting-frame
+    {
+        position: relative;
+        margin-bottom: 10px;
+    }
+
+    #wohnungsform
+    {
+        box-shadow: 0 0 15px #999999;
+        border-radius: 10px;
+        padding: 10px;
+        margin-top: 10px;
+    }
+
+</style>
+
+<h1 id="renting-title">Edit Apartment</h1>
+
+<div id="renting-frame" layout="row" layout-align="center">
+    <form id="wohnungsform" name="wohnungsform"  ng-app="studyHomeApp" ng-controller="RentingCtrl">
+        <h2>Fill out this Form to insert an ad for your estate.</h2>
+        <md-input-container>
+            <div class="col-sm-12">
+                <p>Here you can upload pictures for your estate.</p>
+                <input type="file"  id="fileinput" name="bilder" aria-label="bilderInput" file-model="bilder" multiple="multiple" class="form-control"/>
+            </div>
+
+        </md-input-container>
+
+
+        <md-input-container>
+            <div class="col-sm-12">
+                <md-button type="submit" ng-click="submit()" class="login-btn">Submit</md-button>
+            </div>
+        </md-input-container>
+
+        <div id="first_line">
+            <md-input-container>
+                <label>Headline</label>
+                <input type="text" ng-model="name" name="name">
+
+            </md-input-container>
+
+            <md-input-container>
+                <label>Rental Fee €</label>
+                <input type="number" ng-model="preis" name="preis">
+
+            </md-input-container>
+
+            <md-input-container>
+                <label>Deposit €</label>
+                <input type="number" ng-model="kaution" name="kaution">
+
+            </md-input-container>
+        </div>
+
+        <div id="second_line">
+            <md-input-container>
+                <label>Distance Meter</label>
+                <input type="number" ng-model="entf_meter" name="entf_meter">
+
+            </md-input-container>
+
+            <md-input-container>
+                <label>Distance Minutes</label>
+                <input type="number" ng-model="entf_min" name="entf_min">
+
+            </md-input-container>
+
+            <md-input-container>
+                <label>Postcode</label>
+                <input type="number" ng-model="plz" name="plz">
+
+            </md-input-container>
+        </div>
+
+        <div id="third_line">
+            <md-input-container>
+                <label>City</label>
+                <input type="text" ng-model="ort" name="ort">
+
+            </md-input-container>
+
+            <md-input-container>
+                <label>Street a. Number</label>
+                <input type="text" ng-model="str" name="str">
+
+            </md-input-container>
+
+            <md-input-container>
+                <label>Garage</label>
+                <input type="text" ng-model="garage" name="garage">
+
+            </md-input-container>
+        </div>
+
+        <div id="fourth-line">
+            <md-input-container>
+                <label>Rooms</label>
+                <input type="number" ng-model="zimmer" name="zimmer">
+
+            </md-input-container>
+
+            <md-input-container>
+                <label>Surface m²</label>
+                <input type="number" ng-model="qm_groesse" name="qm_groesse">
+
+            </md-input-container>
+
+            <md-input-container>
+                <label>Pets</label>
+                <input type="text" ng-model="tiere" name="tiere">
+
+            </md-input-container>
+        </div>
+
+        <md-input-container id="md-text-area">
+            <label>Description</label>
+            <textarea ng-model="beschr"></textarea>
+        </md-input-container>
+
+        <div id="renting_output"></div>
+
+    </form>
+</div>
