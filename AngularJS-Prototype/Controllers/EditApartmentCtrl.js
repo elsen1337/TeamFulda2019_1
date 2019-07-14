@@ -12,24 +12,23 @@ studyHomeApp.controller('EditApartmentCtrl', ['$scope', '$http', '$location', fu
         $scope.vm_id = sessionStorage.getItem('vm_id');
         $scope.default = response.data;
 
-        console.log(response.data);
         console.log($scope.default);
 
         $scope.name = $scope.default.name;
         $scope.beschr = $scope.default.beschr;
 
-        $scope.preis = $scope.default.preis;
-        $scope.zimmer = $scope.default.zimmer;
-        $scope.qm_groesse = $scope.default.qm_groesse;
+        $scope.preis = parseInt($scope.default.preis);
+        $scope.zimmer = parseInt($scope.default.zimmer);
+        $scope.qm_groesse = parseInt($scope.default.qm_groesse);
 
         $scope.ort = $scope.default.ort;
         $scope.str = $scope.default.str;
 
-        $scope.plz = $scope.default.plz;
-        $scope.entf_meter = $scope.default.entf_meter;
-        $scope.entf_min = $scope.default.entf_min;
+        $scope.plz = parseInt($scope.default.plz);
+        $scope.entf_meter = parseInt($scope.default.entf_meter);
+        $scope.entf_min = parseInt($scope.default.entf_min);
 
-        $scope.kaution = $scope.default.kaution;
+        $scope.kaution = parseInt($scope.default.kaution);
         console.log($scope.default.garage);
 
         if ($scope.default.garage == 1) {
@@ -80,7 +79,7 @@ studyHomeApp.controller('EditApartmentCtrl', ['$scope', '$http', '$location', fu
             fd.append("kaution", $scope.kaution);
             fd.append("vm_id", sessionStorage.getItem("vm_id"));
             for (let value of fd.values()) {
-                console.log(value);
+
             }
 
             console.log(fd.get('preis'));
@@ -89,7 +88,9 @@ studyHomeApp.controller('EditApartmentCtrl', ['$scope', '$http', '$location', fu
             let fdjson = JSON.stringify(Object.fromEntries(fd));
 
             let vmid = sessionStorage.getItem('vm_id');
-            let url = `../restapi/handler.php?objAction=lessorapartment&objKey=${vmid}`;
+            let url = `../restapi/handler.php?objAction=estatedefault&objKey=${estateID}`;
+
+            console.log("Now make a put");
 
             $http.put(url, fdjson,
                 {
@@ -101,6 +102,7 @@ studyHomeApp.controller('EditApartmentCtrl', ['$scope', '$http', '$location', fu
                 })
                 .then((serviceResponse) =>
                     {
+                        console.log("put done");
                         /* For every picture attached to the file input send a put request
                         with the newly created appartment's id an alternate text and the order they should be safed in.
                         After that attach the current picture to a formdata object and send it to the server with it's newly assigned id.
