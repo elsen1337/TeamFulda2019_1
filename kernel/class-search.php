@@ -201,10 +201,75 @@ class SearchForm {
     
     
     
-    public static function resetSession() {
+	public static function resetSession() {
+	
+		$_SESSION[self::$searchKeyGlobal]=array();
+	
+	}
+
+
+
+	public static function deleteStoredSession($sid) {
+	
+		$sql='DELETE FROM m_search WHERE sid='.$sid;
+		$GLOBALS[self::$dbvar]->query($sql);
+		
+		return $GLOBALS[self::$dbvar]->affected_rows > 0;
+	
+	}    
     
-        $_SESSION[self::$searchKeyGlobal]=array();
     
+    public static function storeSession($mid,$sid=-1) {
+    
+    
+		$jsn=json_encode($_SESSION[self::$searchKeyGlobal]);
+		$sss=$GLOBALS[self::$dbvar]->escape_string($jsn);
+
+		# var_dump($sss);
+		
+		if ($sid > 0) {
+		
+			$sql='UPDATE m_search SET sss="'.$sss.'" WHERE mid = '.$mid.' AND sid = '.$sid;
+			$GLOBALS[self::$dbvar]->query($sql);
+			
+			return array('actSuccess'=> ( $GLOBALS[self::$dbvar]->affected_rows >= 0 ) );
+		
+		} else {
+		
+			$sql='INSERT INTO m_search (mid,shot,sss) VALUES ('.$mid.',NOW(),"'.$sss.'")';
+			$GLOBALS[self::$dbvar]->query($sql);
+			
+			$newid=$GLOBALS[self::$dbvar]->insert_id;
+			return array('actSuccess'=> ($newid > 0), 'newSearchSessionID'=>$newid);
+			
+		}
+    
+
+    }
+    
+    public static function loadStoredSession($mid,$sid=-1) {
+    
+		$sql='SELECT sid,sss FROM m_search WHERE mid = '.$mid.($sid > 0 ? ' AND sid = '.$sid : '') .' ORDER BY shot DESC LIMIT 1';
+		$mrs=$GLOBALS[self::$dbvar]->query($sql);
+		
+		if ($mrs->num_rows > 0) {
+		
+			list($sid,$sss)=$mrs->fetch_row();
+			$decSearchSession=json_decode($sss,true);
+			
+			if (json_last_error() == JSON_ERROR_NONE) {
+			
+				$_SESSION[self::$searchKeyGlobal]=$decSearchSession;
+				
+				return $sid;
+			
+			}
+    		
+		}
+		
+		return -1;
+		
+
     }
    
    

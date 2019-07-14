@@ -1,4 +1,3 @@
- 
 <?php
 
 //require('core-auth.php');
@@ -29,7 +28,6 @@ $pkey='aid';
 
 FormFV::updateDB($_POST,$type,'new',$ptbl,$pkey,'a_del');
 
-#var_dump($msdb);
 
 
 if (strlen($_GET['edit']) > 0) {
