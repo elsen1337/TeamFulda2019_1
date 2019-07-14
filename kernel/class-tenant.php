@@ -87,8 +87,8 @@ class Tenant {
         
     public static function delete($pkey) {
     
-		// Zuerst: Favoriten, Chatnachrichten [OK]
-		$sql='DELETE f,c,m FROM '.self::$entSQLTable.' AS m LEFT JOIN m_chat AS c ON c.m_id=m.m_id LEFT JOIN m_favorit AS f ON f.m_id=m.m_id LEFT JOIN m_chat AS c ON ABS(c.m_id)=m.m_id WHERE m.'.self::$entPrimKey.'='.$pkey;
+		// Zuerst: SearchSessions, Favoriten, Chatnachrichten [OK]
+		$sql='DELETE s,f,c,m FROM '.self::$entSQLTable.' AS m LEFT JOIN m_chat AS c ON ABS(c.m_id)=m.m_id LEFT JOIN m_favorit AS f ON f.m_id=m.m_id LEFT JOIN m_search AS s ON s.mid=m.m_id WHERE m.'.self::$entPrimKey.'='.$pkey;
 		$mrs=$GLOBALS[self::$dbvar]->query($sql);
 		
 		return $GLOBALS[self::$dbvar]->affected_rows > 0;

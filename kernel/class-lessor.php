@@ -94,7 +94,7 @@ class Lessor {
 		
 		$tmparr=self::getEstates($pkey);
 		
-		foreach ($tmparr as $tmpobj) {
+		foreach ($tmparr as &$tmpobj) {
 			Estate::delete($tmpobj->wohn_id);
 		}
 		
@@ -111,11 +111,18 @@ class Lessor {
     
 	public static function getEstates($pkey) {
     
-		$sql='SELECT pwort FROM '.self::$entSQLTable.' WHERE '.self::$entPrimKey.' = '.$pkey;
+		$sql='SELECT wohn_id,name FROM wohnung WHERE '.self::$entPrimKey.' = '.$pkey;
 		$mrs=$GLOBALS[self::$dbvar]->query($sql);
 
-		return $GLOBALS[self::$dbvar]->affected_rows;
+		$attrarr=[];
+		while ($obj=$mrs->fetch_object()) {
 
+			$attrarr[]=$obj;
+							
+		}
+		
+		return $attrarr;
+		
     }
     
     

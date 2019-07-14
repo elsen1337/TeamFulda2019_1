@@ -81,6 +81,16 @@ function getPostParameter() {
 }
 
 
+function sendDefaultActionRequestBody($actState,$sqlCon,$otherProps=array()) {
+
+	header('Content-type: application/json');
+	$restResponse=$otherProps+array('actSuccess'=>var_export($actState, true),'sqlError'=>$sqlCon->error);
+	echo json_encode($restResponse);
+	
+	# echo '{"actSuccess":'.var_export($actState, true).',"sqlError":"'.$sqlCon->error.'"}';
+
+}
+
 
 
 $action=$_GET['objAction'];
@@ -100,108 +110,146 @@ require('../core-mysqla.php');
 if (parseCommand($action,'estate')) {
 
 
-    require('../kernel/class-estate.php');
+	require('../kernel/class-estate.php');
     
 
-    if (parseCommand($action,'search')) {
-    
-    
-        session_start();
-        require('../kernel/class-search.php');
-        
-        #print_r($_SESSION);
+	if (parseCommand($action,'search')) {
+	
+	
+		session_start();
+		require('../kernel/class-search.php');
+		
+		#print_r($_SESSION);
+		
+		if (parseCommand($action,'session')) {
+		
+		
+			if ($_SERVER['REQUEST_METHOD']=='GET') {
 
-    
-        if ($_SERVER['REQUEST_METHOD']=='GET') {
-        
-            SearchForm::generateForm();
-        
-        
-        } elseif ($_SERVER['REQUEST_METHOD']=='PUT') {
-        
-            $reqBody=getRequestBody();
-            
-            require('../kernel/class-formdata.php');
-            
-            $mPartFDataParser=new MultipartFormData($reqBody);
-            $_REQUEST=$mPartFDataParser->getFormData();
-            
-            #X-WWW-FORM
-            #parse_str($reqBody,$_REQUEST);
-            #print_r($_REQUEST);
-            
-            #var_dump($reqBody);
-            #var_dump($_SERVER["CONTENT_TYPE"]);
-            
- 			#print_r($_REQUEST);
- 			#print_r($postParam);
- 			
-			#print_r($_SERVER);
+				$loadedSessionID=SearchForm::loadStoredSession($objkey); // MID; 2Do: Optionale SID
+				sendDefaultActionRequestBody($loadedSessionID > 0,$msdb,array('loadedSessionID'=>$loadedSessionID));
+
+				#print_r($_SESSION[SearchForm::$searchKeyGlobal]);
+				#noContent();
+
+
+			} elseif ($_SERVER['REQUEST_METHOD']=='PUT') {
+
+
+			} elseif ($_SERVER['REQUEST_METHOD']=='POST') {
+
+				$resArr=SearchForm::storeSession($objkey); // MID; 2Do: Optionale SID
+				if ($resArr['newSearchSessionID'] > 0) {objCreated();}
+				
+				sendDefaultActionRequestBody(null,$msdb,$resArr);
+
+
+			} elseif ($_SERVER['REQUEST_METHOD']=='DELETE') {
+
+				$actResult=SearchForm::deleteStoredSession($objkey);
+				sendDefaultActionRequestBody($actResult,$msdb);
+
+
+			} else {
 			
- 
-            SearchForm::updateSearchSession();
-            objProcessing();
-            
-            header('Content-type: application/json');
-            echo json_encode($_SESSION[SearchForm::$searchKeyGlobal]);
-	
-	
-        } elseif ($_SERVER['REQUEST_METHOD']=='POST') {
-        
-        
-            require('../kernel/class-appartimg.php');
+				notAllowed();
 
-            header('Content-type: application/json');
-            list($amnt,$view)=SearchForm::performSearch([],[],[]);
-            header('X-SearchResultSize-Overall: '.$amnt);
-            header('X-SearchResultSize-Limit: '.$view);
-            
+			}
+		
+		// Besser: searchform; jetzt jedoch keine Änderungen mehr.
+		} else {
 
-        } elseif ($_SERVER['REQUEST_METHOD']=='DELETE') {
-        
-        
-            SearchForm::resetSession();
-            noContent();
-            
-            #print_r($_SESSION[SearchForm::$searchKeyGlobal]);
-        
-
-        } else {
-        
-            notAllowed();
-
-        }
-        
     
+			if ($_SERVER['REQUEST_METHOD']=='GET') {
+			
+				SearchForm::generateForm();
+			
+			
+			} elseif ($_SERVER['REQUEST_METHOD']=='PUT') {
+			
+				$reqBody=getRequestBody();
+				
+				require('../kernel/class-formdata.php');
+				
+				$mPartFDataParser=new MultipartFormData($reqBody);
+				$_REQUEST=$mPartFDataParser->getFormData();
+				
+				#X-WWW-FORM
+				#parse_str($reqBody,$_REQUEST);
+				#print_r($_REQUEST);
+				
+				#var_dump($reqBody);
+				#var_dump($_SERVER["CONTENT_TYPE"]);
+				
+				#print_r($_REQUEST);
+				#print_r($postParam);
+				
+				#print_r($_SERVER);
+				
+	
+				SearchForm::updateSearchSession();
+				objProcessing();
+				
+				header('Content-type: application/json');
+				echo json_encode($_SESSION[SearchForm::$searchKeyGlobal]);
+		
+		
+			} elseif ($_SERVER['REQUEST_METHOD']=='POST') {
+			
+			
+				require('../kernel/class-appartimg.php');
+
+				header('Content-type: application/json');
+				list($amnt,$view)=SearchForm::performSearch([],[],[]);
+				header('X-SearchResultSize-Overall: '.$amnt);
+				header('X-SearchResultSize-Limit: '.$view);
+				
+
+			} elseif ($_SERVER['REQUEST_METHOD']=='DELETE') {
+			
+			
+				SearchForm::resetSession();
+				noContent();
+
+
+			} else {
+			
+				notAllowed();
+
+			}
+        
+		}
+        
+
     } elseif (parseCommand($action,'default')) {
     
-        if ($_SERVER['REQUEST_METHOD']=='GET') {
-        
-            header('Content-type: application/json');
-            echo json_encode(Estate::getDefaultProperties($objkey));
-        
-        
-        } elseif ($_SERVER['REQUEST_METHOD']=='PUT') {
-        
-            $newObjID=Estate::update($postParam,$objkey);
+		if ($_SERVER['REQUEST_METHOD']=='GET') {
+		
+			header('Content-type: application/json');
+			echo json_encode(Estate::getDefaultProperties($objkey));
+		
+		
+		} elseif ($_SERVER['REQUEST_METHOD']=='PUT') {
+		
+			$newObjID=Estate::update($postParam,$objkey);
 			
 			header('Content-type: application/json');
 			echo '{"actSuccess":'.var_export($actResult,true).',"sqlError":"'.$msdb->error.'"}';
 
 
 		} elseif ($_SERVER['REQUEST_METHOD']=='POST') {
-        
+		
 			// DEBUG: Visible=1 (!!!)
-            $newObjID=Estate::create($postParam+array('visible'=>'1'));
-                        
-            header('Content-type: application/json');
-            if ($newObjID > 0) {objCreated();}
-            
-            echo '{"newEstateID":'.$newObjID.',"sqlError":"'.$msdb->error.'"}';
+			$newObjID=Estate::create($postParam+array('visible'=>'1'));
+						
+			header('Content-type: application/json');
+			if ($newObjID > 0) {objCreated();}
+			
+			echo '{"newEstateID":'.$newObjID.',"sqlError":"'.$msdb->error.'"}';
 
 
-        } elseif ($_SERVER['REQUEST_METHOD']=='DELETE') {
-        
+		} elseif ($_SERVER['REQUEST_METHOD']=='DELETE') {
+		
 			// Internal / Partial 2Do
 			$actResult=Estate::delete($objkey);
 			
@@ -209,11 +257,11 @@ if (parseCommand($action,'estate')) {
 			echo '{"actSuccess":'.var_export($actResult, true).',"sqlError":"'.$msdb->error.'"}';
 
 
-        } else {
-        
-            notAllowed();
+		} else {
+		
+			notAllowed();
 
-        }
+		}
 
 
     } elseif (parseCommand($action,'attribute')) {
@@ -465,12 +513,11 @@ if (parseCommand($action,'estate')) {
         } elseif ($_SERVER['REQUEST_METHOD']=='DELETE') {
 
 
-
 			// Internal 2Do
             $actResult=Lessor::delete($objkey);
 
 			header('Content-type: application/json');
-			echo '{"actSuccess":'.$actResult.',"sqlError":"'.$msdb->error.'"}';
+			echo '{"actSuccess":'.var_export($actResult, true).',"sqlError":"'.$msdb->error.'"}';
 
 
         } else {
@@ -478,6 +525,19 @@ if (parseCommand($action,'estate')) {
             notAllowed();
             
         }
+
+        
+	} elseif (parseCommand($action,'estate')) {
+    
+    
+        if ($_SERVER['REQUEST_METHOD']=='GET') {
+        
+			header('Content-type: application/json');
+			$usr=Lessor::getEstates($objkey);
+			echo json_encode($usr);
+
+        }
+
 
     }
    
