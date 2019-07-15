@@ -125,15 +125,19 @@ if (parseCommand($action,'estate')) {
 		
 		
 			if ($_SERVER['REQUEST_METHOD']=='GET') {
+			
+				$retJson=SearchForm::getSearchSessionsList($objkey);
+				header('Content-type: application/json');
+				echo json_encode($retJson);
+
+
+			} elseif ($_SERVER['REQUEST_METHOD']=='PUT') {
 
 				$loadedSessionID=SearchForm::loadStoredSession($objkey); // MID; 2Do: Optionale SID
 				sendDefaultActionRequestBody($loadedSessionID > 0,$msdb,array('loadedSessionID'=>$loadedSessionID));
 
 				#print_r($_SESSION[SearchForm::$searchKeyGlobal]);
 				#noContent();
-
-
-			} elseif ($_SERVER['REQUEST_METHOD']=='PUT') {
 
 
 			} elseif ($_SERVER['REQUEST_METHOD']=='POST') {
@@ -231,10 +235,8 @@ if (parseCommand($action,'estate')) {
 		
 		} elseif ($_SERVER['REQUEST_METHOD']=='PUT') {
 		
-			$newObjID=Estate::update($postParam,$objkey);
-			
-			header('Content-type: application/json');
-			echo '{"actSuccess":'.var_export($actResult,true).',"sqlError":"'.$msdb->error.'"}';
+			$actResult=Estate::update($postParam,$objkey);
+			sendDefaultActionRequestBody($actResult,$msdb);
 
 
 		} elseif ($_SERVER['REQUEST_METHOD']=='POST') {
@@ -252,9 +254,7 @@ if (parseCommand($action,'estate')) {
 		
 			// Internal / Partial 2Do
 			$actResult=Estate::delete($objkey);
-			
-			header('Content-type: application/json');
-			echo '{"actSuccess":'.var_export($actResult, true).',"sqlError":"'.$msdb->error.'"}';
+			sendDefaultActionRequestBody($actResult,$msdb);
 
 
 		} else {
@@ -275,7 +275,7 @@ if (parseCommand($action,'estate')) {
         } elseif ($_SERVER['REQUEST_METHOD']=='PUT') {
         
 			$actResult=Estate::updateAttrib($postParam);
-			echo '{"actSuccess":'.var_export($actResult, true).',"sqlError":"'.$msdb->error.'"}';
+			sendDefaultActionRequestBody($actResult,$msdb);
  
       
         } elseif ($_SERVER['REQUEST_METHOD']=='POST') {
@@ -284,7 +284,7 @@ if (parseCommand($action,'estate')) {
         } elseif ($_SERVER['REQUEST_METHOD']=='DELETE') {
         
 			$actResult=Estate::deleteAttrib($objkey,$postParam['akeys']);
-			echo '{"actSuccess":'.var_export($actResult, true).',"sqlError":"'.$msdb->error.'"}';
+			sendDefaultActionRequestBody($actResult,$msdb);
 
         } else {
         
@@ -318,36 +318,36 @@ if (parseCommand($action,'estate')) {
     
     } elseif (parseCommand($action,'images')) {
     
-        require('../kernel/class-appartimg.php');
+		require('../kernel/class-appartimg.php');
 		
-         
-        if ($_SERVER['REQUEST_METHOD']=='GET') {
-        
-            echo json_encode(AppartImage::getImagesMetaData($objkey));
+		
+		if ($_SERVER['REQUEST_METHOD']=='GET') {
+		
+			echo json_encode(AppartImage::getImagesMetaData($objkey));
 
-            
-        } elseif ($_SERVER['REQUEST_METHOD']=='PUT') {
- 
-            $newImgID=AppartImage::addImage($postParam);
+			
+		} elseif ($_SERVER['REQUEST_METHOD']=='PUT') {
 
-            header('Content-type: application/json');
-            echo '{"newImgID":'.$newImgID.',"sqlError":"'.$msdb->error.'"}';
-      
-      
-        } elseif ($_SERVER['REQUEST_METHOD']=='POST') {
-        
-            // Update
-            	
-            require('../kernel/class-string.php');
-            require('../kernel/image-support-thumb.php');
-            
-            chdir('../'.AppartImage::$uploadBaseDir);
-            
-            $bildUpload=&$_FILES['bild'];
-            $actResult=AppartImage::uploadImage($bildUpload);
-            
+			$newImgID=AppartImage::addImage($postParam);
+
 			header('Content-type: application/json');
-			echo '{"actSuccess":'.var_export($actResult,true).',"sqlError":"'.$msdb->error.'"}';
+			echo '{"newImgID":'.$newImgID.',"sqlError":"'.$msdb->error.'"}';
+			#sendDefaultActionRequestBody($actResult,$msdb,array('newImgID'=>$newImgID));
+	
+	
+		} elseif ($_SERVER['REQUEST_METHOD']=='POST') {
+		
+			// Update
+				
+			require('../kernel/class-string.php');
+			require('../kernel/image-support-thumb.php');
+			
+			chdir('../'.AppartImage::$uploadBaseDir);
+			
+			$bildUpload=&$_FILES['bild'];
+			$actResult=AppartImage::uploadImage($bildUpload);
+            
+			sendDefaultActionRequestBody($actResult,$msdb);
 
 
         } elseif ($_SERVER['REQUEST_METHOD']=='PATCH') {

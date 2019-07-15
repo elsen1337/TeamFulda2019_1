@@ -273,6 +273,43 @@ class SearchForm {
     }
    
    
+   //   searchLabels
+   public static function getSearchSessionsList($mid) {
+   
+		$translateList=array_flip(self::$searchParameters);
+   
+		$sql='SELECT * FROM m_search WHERE mid = '.$mid.' ORDER BY shot DESC';
+		$mrs=$GLOBALS[self::$dbvar]->query($sql);
+
+		$attrarr=[];
+		while ($obj=$mrs->fetch_object()) {
+
+			$strRepr=self::transformSearchHumanReadable($translateList,json_decode($obj->sss,true));
+			$attrarr[]=array('sid'=>$obj->sid, 'label'=>$obj->shot.' @ '.$strRepr);
+			
+		}
+		
+		return $attrarr;
+
+	}
+
+
+	public static function transformSearchHumanReadable($trl,$arr) {
+
+		if (is_array($arr)===false) {return 'No Search Parameters Set';}
+	
+		$rar=array();
+		foreach ($arr as $key => $val) {
+			$rar[]=self::$searchLabels[$trl[$key]].': '.(is_array($val) ? implode(',',$val) : $val);
+		}
+		
+		#print_r($arr);
+		#print_r($rar);
+		
+		return implode('; ',$rar);
+
+	}
+   
    
    
     public static function addSQLWhereOrder(&$sqlWhere, &$sqlOrder, &$rangeOperatorMapping, $sqlField, &$inputArr) {
