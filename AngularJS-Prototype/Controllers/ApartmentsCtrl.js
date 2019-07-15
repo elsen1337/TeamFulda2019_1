@@ -1,8 +1,8 @@
-studyHomeApp.controller('ApartmentsCtrl', ['$scope', '$http', function($scope, $http) {
+studyHomeApp.controller('ApartmentsCtrl', ['$scope', '$http', "$location", function($scope, $http, $location) {
 
     console.log(sessionStorage.getItem('vm_id'));
     console.log(sessionStorage.getItem('vname'));
-    let url = `../restapi/handler.php?objAction=lessorapartment&objKey=${sessionStorage.getItem('vm_id')}`;
+    let url = `../restapi/handler.php?objAction=lessorestate&objKey=${sessionStorage.getItem('vm_id')}`;
 
     $scope.getApartments = () => {
         $http.get(url,
@@ -40,6 +40,12 @@ studyHomeApp.controller('ApartmentsCtrl', ['$scope', '$http', function($scope, $
 
     $scope.goToDetails2 = (id, evt) => {
         $location.path("details?id=" + id);
+        console.log("Hallo:" + id);
+    }
+
+    $scope.goToEditPage = (id, evt) =>
+    {
+        $location.path("editApartment?id=" + id);
         console.log("Hallo:" + id);
     }
 
