@@ -193,6 +193,27 @@ studyHomeApp.controller('EditApartmentCtrl', ['$scope', '$http', '$location', fu
 
     };
 
+    $scope.delete = (id, evt) => {
+    //let mid = sessionStorage.getItem('m_id');
+    let url2 = `../restapi/handler.php?objAction=estatedefault&objKey=${estateID}`;
+    $http.delete(url2)
+        .then((response) =>
+            {
+                $scope.searchData = response.data;
+                console.log(response.data);
+                console.log("status: " + response.status);
+                console.log("statusText: " + response.statusText);
+                //reset search items because sth could be left over
+
+                $scope.getFavorites();
+            },
+            (err) => {
+                console.log(err);
+                $scope.getFavorites();
+            });
+    $scope.getFavorites();
+}
+
 }])
 
 // Adds the selected files to the files array
