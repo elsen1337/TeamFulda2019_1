@@ -81,6 +81,22 @@ function getPostParameter() {
 }
 
 
+
+#if(!function_exists('apache_request_headers')) {
+
+    function requestHeaders() {
+        $headers = array();
+        foreach($_SERVER as $key => $value) {
+            if(substr($key, 0, 5) == 'HTTP_') {
+				$key=ucwords(str_replace('_', ' ',  strtolower(substr($key, 5)) ));
+                $headers[str_replace(' ', '-',  $key)] = $value;
+            }
+        }
+        return $headers;
+    }
+#}
+
+
 function sendDefaultActionRequestBody($actState,$sqlCon,$otherProps=array()) {
 
 	header('Content-type: application/json');
@@ -98,6 +114,8 @@ $objkey=$_GET['objKey'];
 
 
 $postParam=getPostParameter();
+$reqHeaders=requestHeaders();
+
 
 
 // (Chat), Meeting, BilddatenPATCH:OK, UpdateEstateData:OK, [Metadaten:OK]
@@ -123,7 +141,11 @@ if (parseCommand($action,'estate')) {
 		
 		if (parseCommand($action,'session')) {
 		
-		
+			$sid=$reqHeaders['X-Additional-Key'];
+			
+			#print_r($reqHeaders);
+			#var_dump($sid);
+
 			if ($_SERVER['REQUEST_METHOD']=='GET') {
 			
 				$retJson=SearchForm::getSearchSessionsList($objkey);
@@ -133,8 +155,8 @@ if (parseCommand($action,'estate')) {
 
 			} elseif ($_SERVER['REQUEST_METHOD']=='PUT') {
 
-				$loadedSessionID=SearchForm::loadStoredSession($objkey); // MID; 2Do: Optionale SID
-				sendDefaultActionRequestBody($loadedSessionID > 0,$msdb,array('loadedSessionID'=>$loadedSessionID));
+				$loadedSessionID=SearchForm::loadStoredSession($objkey,$sid); // MID; 2Do: Optionale SID
+				sendDefaultActionRequestBody(($loadedSessionID>0), $msdb, array('loadedSessionID'=>$loadedSessionID));
 
 				#print_r($_SESSION[SearchForm::$searchKeyGlobal]);
 				#noContent();
@@ -142,7 +164,7 @@ if (parseCommand($action,'estate')) {
 
 			} elseif ($_SERVER['REQUEST_METHOD']=='POST') {
 
-				$resArr=SearchForm::storeSession($objkey); // MID; 2Do: Optionale SID
+				$resArr=SearchForm::storeSession($objkey,$sid); // MID; 2Do: Optionale SID
 				if ($resArr['newSearchSessionID'] > 0) {objCreated();}
 				
 				sendDefaultActionRequestBody(null,$msdb,$resArr);

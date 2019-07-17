@@ -229,7 +229,7 @@ class SearchForm {
 		
 		if ($sid > 0) {
 		
-			$sql='UPDATE m_search SET sss="'.$sss.'" WHERE mid = '.$mid.' AND sid = '.$sid;
+			$sql='UPDATE m_search SET sss="'.$sss.'", shot=NOW() WHERE mid = '.$mid.' AND sid = '.$sid;
 			$GLOBALS[self::$dbvar]->query($sql);
 			
 			return array('actSuccess'=> ( $GLOBALS[self::$dbvar]->affected_rows >= 0 ) );
@@ -273,8 +273,7 @@ class SearchForm {
     }
    
    
-   //   searchLabels
-   public static function getSearchSessionsList($mid) {
+	public static function getSearchSessionsList($mid) {
    
 		$translateList=array_flip(self::$searchParameters);
    
@@ -294,17 +293,15 @@ class SearchForm {
 	}
 
 
+	// Private
 	public static function transformSearchHumanReadable($trl,$arr) {
 
 		if (is_array($arr)===false) {return 'No Search Parameters Set';}
-	
+
 		$rar=array();
 		foreach ($arr as $key => $val) {
 			$rar[]=self::$searchLabels[$trl[$key]].': '.(is_array($val) ? implode(',',$val) : $val);
 		}
-		
-		#print_r($arr);
-		#print_r($rar);
 		
 		return implode('; ',$rar);
 
@@ -312,16 +309,17 @@ class SearchForm {
    
    
    
-    public static function addSQLWhereOrder(&$sqlWhere, &$sqlOrder, &$rangeOperatorMapping, $sqlField, &$inputArr) {
-        
-        foreach ($rangeOperatorMapping as $field => $operator) {
-            if (array_key_exists($field,$inputArr) && strlen($inputArr[$field]) > 0) {
-                $sqlWhere[]=$sqlField.' '.$operator.' '.$inputArr[$field];
-                $sqlOrder[$sqlField]=$sqlField.' ASC';
-            }
-        }
-        
-    }
+	// Private
+	public static function addSQLWhereOrder(&$sqlWhere, &$sqlOrder, &$rangeOperatorMapping, $sqlField, &$inputArr) {
+		
+		foreach ($rangeOperatorMapping as $field => $operator) {
+			if (array_key_exists($field,$inputArr) && strlen($inputArr[$field]) > 0) {
+				$sqlWhere[]=$sqlField.' '.$operator.' '.$inputArr[$field];
+				$sqlOrder[$sqlField]=$sqlField.' ASC';
+			}
+		}
+		
+	}
 
     
     public static function printInitialSearchForm($searchKeyGlobal,$searchKeyText) {
