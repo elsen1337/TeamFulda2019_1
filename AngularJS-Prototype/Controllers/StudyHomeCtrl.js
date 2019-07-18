@@ -89,6 +89,31 @@ studyHomeApp.controller('StudyHomeCtrl', ['$scope', '$http', '$location', functi
     }
 
     $scope.submitSearchForm();
+
+    $scope.saveSearch = () => {
+        let formData = convertSearchFormData($scope.searchFormData);
+        let submitData = new FormData();
+
+        let M_ID = sessionStorage.getItem('m_id');
+        let url = `../restapi/handler.php?objAction=estatesearchsession&objKey=${M_ID}`;
+
+        for(let key in formData)
+        {
+            submitData.append(key, formData[key]);
+        }
+
+        $http.post(url, submitData)
+            .then((response) =>
+                {
+                    console.log(response.data);
+                    console.log("status: " + response.status);
+                    console.log("statusText: " + response.statusText);
+                    //reset search items because sth could be left over
+                },
+                (err) => {
+                    console.log(err);
+                });
+    };
 }]);
 
 function convertSearchFormData(formData){
