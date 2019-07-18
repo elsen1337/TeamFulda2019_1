@@ -69,7 +69,7 @@ studyHomeApp.controller('EditApartmentCtrl', ['$scope', '$http', '$location', fu
             fd.append("str", document.getElementById('str').value);
             fd.append("zimmer", document.getElementById('zimmer').value);
             fd.append("qm_groesse", document.getElementById('qm_groesse').value);
-            if ($scope.garage.toLowerCase() === 'ja' || $scope.garage.toLowerCase() === 'yes') {
+            if (document.getElementById('garage').value.toLowerCase() === 'ja' || document.getElementById('garage').value.toLowerCase() === 'yes') {
                 fd.append("garage", 1);
             } else {
                 fd.append("garage", 0);
