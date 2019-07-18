@@ -59,23 +59,23 @@ studyHomeApp.controller('EditApartmentCtrl', ['$scope', '$http', '$location', fu
 
 
             // Assign values of the input fields to a formdata Object to send them to the server.
-            fd.append("beschr", $scope.beschr);
-            fd.append("entf_meter", $scope.entf_meter);
-            fd.append("entf_min", $scope.entf_min);
-            fd.append("name", $scope.name);
-            fd.append("ort", $scope.ort);
-            fd.append("plz", $scope.plz);
-            fd.append("preis", $scope.preis);
-            fd.append("str", $scope.str);
-            fd.append("zimmer", $scope.zimmer);
-            fd.append("qm_groesse", $scope.qm_groesse);
+            fd.append("beschr", document.getElementById(''));
+            fd.append("entf_meter", document.getElementById(''));
+            fd.append("entf_min", document.getElementById(''));
+            fd.append("name", document.getElementById(''));
+            fd.append("ort", document.getElementById(''));
+            fd.append("plz", document.getElementById(''));
+            fd.append("preis", document.getElementById(''));
+            fd.append("str", document.getElementById(''));
+            fd.append("zimmer", document.getElementById(''));
+            fd.append("qm_groesse", document.getElementById(''));
             if ($scope.garage.toLowerCase() === 'ja' || $scope.garage.toLowerCase() === 'yes') {
                 fd.append("garage", 1);
             } else {
                 fd.append("garage", 0);
             }
-            fd.append("tiere", $scope.tiere);
-            fd.append("kaution", $scope.kaution);
+            fd.append("tiere", document.getElementById(''));
+            fd.append("kaution", document.getElementById(''));
             for (let value of fd.values()) {
 
             }
