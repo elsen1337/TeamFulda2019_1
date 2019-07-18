@@ -150,12 +150,12 @@ class Tenant {
     
     }   
     
-    public static function addMeetingSlot($pkey,$tid) {
+    public static function addMeetingSlot($mid,$tid) {
     
-		$sql='INSERT IGNORE INTO m_meet (tid, m_id) VALUES ('.$tid.','.$pkey.')';
+		$sql='INSERT IGNORE INTO m_meet (tid, m_id) VALUES ('.$tid.','.$mid.')';
 		$mrs=$GLOBALS[self::$dbvar]->query($sql);
 		        
-		return $GLOBALS[self::$dbvar]->insert_id;
+		return $GLOBALS[self::$dbvar]->affected_rows > 0;
 
     }
     
@@ -164,7 +164,7 @@ class Tenant {
 		$sql='DELETE h FROM m_meet AS h WHERE h.tid = '.$tid.' AND h.m_id = '.$pkey;
 		$mrs=$GLOBALS[self::$dbvar]->query($sql);
 		        
-		return $GLOBALS[self::$dbvar]->affected_rows;
+		return $GLOBALS[self::$dbvar]->affected_rows > 0;
 
     }
 

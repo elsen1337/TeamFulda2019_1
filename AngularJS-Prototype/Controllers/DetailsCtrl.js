@@ -1,4 +1,13 @@
-studyHomeApp.controller('DetailsCtrl', ['$scope', '$http', '$routeParams', '$location', function($scope, $http, $routeParams, $location){
+/*
+angular.module('material.components.dialog', [
+  'material.core',
+  'material.components.backdrop'
+]);
+*/
+
+angular.module('selectDemoOptionsAsync', ['ngMaterial'])
+
+studyHomeApp.controller('DetailsCtrl', ['$scope', '$http',  '$routeParams', '$location', '$timeout', function($scope, $http, $routeParams, $location, $timeout){
 
     var routeLink=$location.$$path;
     var estateID=routeLink.substr( routeLink.indexOf('=')+1 );
@@ -6,40 +15,95 @@ studyHomeApp.controller('DetailsCtrl', ['$scope', '$http', '$routeParams', '$loc
 
     $scope.favAdd = function () {
 
-
-        // console.log(estateID);
-
-        /*
-        let dialogRef = dialog.open(UserProfileComponent, {
-            height: '400px',
-            width: '600px',
-        });
-        */
-
         var mID = sessionStorage.getItem('m_id');
+		
 
-        if (mID < 1) {
+		if (mID < 1) {
 
-            alert('Nicht als Mieter eingeloggt !');
+			alert('Nicht als Mieter eingeloggt !');
 
-        } else {
+		} else {
 
-            $http({
-                method : "PUT",
-                url : "../restapi/handler.php?objAction=tenantfavorit",
-                headers : {'Content-Type': 'application/json'},
-                data : {"wohn_id":estateID, "m_id": mID, 'score': 'null'}
-            }).then(function mySuccess(response) {
+			$http({
+				method : "PUT",
+				url : "../restapi/handler.php?objAction=tenantfavorit",
+				data : {"wohn_id":estateID, "m_id": mID, 'score': 'null'},
+				headers : {'Content-Type': 'application/json'}
 
+			}).then(function mySuccess(asyncResp) {
+				console.log(asyncResp.data);
 
+			}, function myError(asyncResp) {
+				console.error(asyncResp.statusText);
+			});
 
-            }, function myError(response) {
-                $scope.error = response.statusText;
-                console.error($scope.error);
-            });
-
-        }
+		}
     };
+
+
+	$scope.user = null;
+	$scope.users = null;
+
+	$scope.meetAdd = function () {
+		
+		console.log($scope.user);
+		if (typeof($scope.user) != 'object') {
+			return false;
+		}
+		
+		var mID = sessionStorage.getItem('m_id');
+
+				
+		$http({
+			method : "PUT",
+			url : "../restapi/handler.php?objAction=tenantmeeting",
+			data : {"tid":$scope.user.tid, "m_id": mID},
+			headers : {'Content-Type': 'application/json'}
+
+		}).then(function mySuccess(asyncResp) {
+			console.log(asyncResp.data);
+			
+			alert("Successful Meeting Notification to Lessor !");
+
+		}, function myError(asyncResp) {
+			console.error(asyncResp.statusText);
+		});
+		
+		
+	};
+
+	$scope.meetTimes = function() {
+		
+		$http({
+			method : "GET",
+			url : "../restapi/handler.php?objAction=estatemeeting&objKey="+estateID
+
+		}).then(function mySuccess(asyncResp) {
+			console.log(asyncResp.data);
+			
+			$scope.users=asyncResp.data;
+
+		}, function myError(asyncResp) {
+			console.error(asyncResp.statusText);
+		});
+		
+		
+		/*
+		// Use timeout to simulate a 650ms request.
+		return $timeout(function() {
+
+		$scope.users =  $scope.users  || [
+			{ id: 1, name: 'Scooby Doo' },
+			{ id: 2, name: 'Shaggy Rodgers' },
+			{ id: 3, name: 'Fred Jones' },
+			{ id: 4, name: 'Daphne Blake' },
+			{ id: 5, name: 'Velma Dinkley' }
+		];
+
+		}, 650);
+		*/
+
+	};
 
     // console.log(getEstateID($location.$$path));
 
