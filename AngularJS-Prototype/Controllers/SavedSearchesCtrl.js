@@ -40,8 +40,9 @@ studyHomeApp.controller('SavedSearchesCtrl', ['$scope', '$http', '$location', fu
     $scope.setSearchKey = (id, event) =>
     {
         console.log("Ich wurde aufgerufen!");
-        let url = `../restapi/handler.php?objAction=estatesearchsession&objKey=${id}`;
-        $http.put(url,
+        let data = JSON.stringify({sid: id});
+        let url = `../restapi/handler.php?objAction=estatesearchsession&objKey=${M_ID}`;
+        $http.put(url, data,
             {
                 transformRequest: angular.identity,
                 headers: {
