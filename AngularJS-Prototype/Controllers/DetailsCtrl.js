@@ -165,7 +165,7 @@ studyHomeApp.controller('DetailsCtrl', ['$scope', '$http', '$routeParams', '$loc
             return;
         }
         if($scope.vm_id) {
-            $location.path("messages?id=" + $scope.vm_id);
+            $location.path("messages?id=" + $scope.vm_id + "&name=" + $scope.default.nname);
         }
     }
 
