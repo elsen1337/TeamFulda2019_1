@@ -1,7 +1,8 @@
 studyHomeApp.controller('HomeStartCtrl', ['$scope', '$http', '$location', function($scope, $http, $location){
     window.setSearchKey = () =>
     {
-        let result = {"appsearch[fulltext]" : $scope.startSearch};
+        let formData = new FormData();
+        formData.append("appsearch[fulltext]", $scope.startSearch);
 
         $http({
             url : "../restapi/handler.php?objAction=estatesearch",
