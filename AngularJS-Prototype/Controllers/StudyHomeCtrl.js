@@ -90,7 +90,7 @@ studyHomeApp.controller('StudyHomeCtrl', ['$scope', '$http', '$location', functi
 
     $scope.submitSearchForm();
 
-/*    $scope.saveSearch = () => {
+    $scope.saveSearch = () => {
         let formData = convertSearchFormData($scope.searchFormData);
         let submitData = new FormData();
 
@@ -113,7 +113,7 @@ studyHomeApp.controller('StudyHomeCtrl', ['$scope', '$http', '$location', functi
                 (err) => {
                     console.log(err);
                 });
-    };*/
+    };
 }]);
 
 function convertSearchFormData(formData){
