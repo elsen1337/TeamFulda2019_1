@@ -17,6 +17,13 @@
                 </md-list-item>
             </md-list>
             <md-button ng-click=favAdd() class="sh-btn">Add To Favourites</md-button>
+			<md-select ng-change="meetAdd()" ng-model="user" md-on-open="meetTimes()" style="max-width:200px" placeholder="Click for choosing meeting times...">
+				<!--<md-option ng-selected="true" selected="selected"><em>... it's up to you:</em></md-option>-->
+				<md-option ng-value="user" ng-repeat="user in users">{{user.slot}}</md-option>
+			</md-select>
+			<!--
+			<p class="md-caption">Selected Meeting Slot: {{ user ? user.slot : 'No one yet' }}</p>
+			-->
         </div>
     </div>
     <div layout="row" layout-sm="column" id="bottom-attrs">

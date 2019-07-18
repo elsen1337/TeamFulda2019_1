@@ -27,7 +27,9 @@ class Estate {
 
     }
 
-    public static function getDynamicProperties ($wid) {
+
+	// Object JSON Format
+	public static function getDynamicProperties ($wid) {
     
         $sql='SELECT m.name,a.val FROM w_attrvals AS a JOIN w_attrmeta AS m ON a.aid=m.aid WHERE a.wohn_id='.$wid.' AND m.vsb > 0 ORDER BY m.rdr';
         $mrs=$GLOBALS[self::$dbvar]->query($sql);
@@ -135,7 +137,7 @@ class Estate {
 			$ufarr[$key]=$GLOBALS[self::$dbvar]->escape_string($val);
 		}
 		
-		echo $sql='INSERT INTO w_attrvals ('.implode(',',array_keys($ufarr)).') VALUES ("'.implode('","',($ufarr)).'") ON DUPLICATE KEY UPDATE val=VALUES(val)';
+		$sql='INSERT INTO w_attrvals ('.implode(',',array_keys($ufarr)).') VALUES ("'.implode('","',($ufarr)).'") ON DUPLICATE KEY UPDATE val=VALUES(val)';
 		$mrs=$GLOBALS[self::$dbvar]->query($sql);
 		
 		return $GLOBALS[self::$dbvar]->affected_rows >= 0;
@@ -157,7 +159,7 @@ class Estate {
     }
 
     
-    
+	// Object JSON Format
     public static function getAttributeList() {
     
 		$sql='SELECT aid, name FROM w_attrmeta WHERE vsb > 0 ORDER BY rdr';
@@ -178,13 +180,13 @@ class Estate {
     
     public static function getProposedMeetingSlots($pkey) {
     
-		$sql='SELECT tid, slot FROM w_meet WHERE wohn_id = '.$pkey.'  ORDER BY slot';
+		$sql='SELECT tid, DATE_FORMAT(slot, "%d.%m.%Y @ %H:%i") AS slot FROM w_meet WHERE wohn_id = '.$pkey.'  ORDER BY slot';
 		$mrs=$GLOBALS[self::$dbvar]->query($sql);
 		        
         $attrarr=[];
-        while (list($key,$val)=$mrs->fetch_array()) {
+        while ($obj=$mrs->fetch_assoc()) {
         
-            $attrarr[]=array($key=>$val);
+            $attrarr[]=$obj;
                             
         }
         

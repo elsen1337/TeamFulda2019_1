@@ -1,6 +1,7 @@
-studyHomeApp.controller('SavedSearchesCtrl', ['$scope', '$http', function($scope, $http) {
+studyHomeApp.controller('SavedSearchesCtrl', ['$scope', '$http', '$location', function($scope, $http, $location) {
 
-    let url = '';
+    let M_ID = sessionStorage.getItem('m_id');
+    let url = `../restapi/handler.php?objAction=estatesearchsession&objKey=${M_ID}`;
 
     $http.get(url,
         {
@@ -26,15 +27,15 @@ studyHomeApp.controller('SavedSearchesCtrl', ['$scope', '$http', function($scope
                 console.log(err);
             });
 
-    window.setSearchKey = () =>
+    window.setSearchKey = (item) =>
     {
-        window.startSearch = $scope.item.searchfield;
-        window.min_meter = $scope.item.min_meter;
-        window.max_meter = $scope.item.max_meter;
-        window.min_min = $scope.item.min_min;
-        window.max_min = $scope.item.max_min;
-        window.price = $scope.item.price;
-
+        window.startSearch = item.searchfield;
+        window.min_meter = item.min_meter;
+        window.max_meter = item.max_meter;
+        window.min_min = item.min_min;
+        window.max_min = item.max_min;
+        window.price = item.price;
+        $location.path("home");
         return true;
     };
 
