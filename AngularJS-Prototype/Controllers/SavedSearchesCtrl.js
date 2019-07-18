@@ -37,7 +37,7 @@ studyHomeApp.controller('SavedSearchesCtrl', ['$scope', '$http', '$location', fu
                 console.log(err);
             });
 
-    window.setSearchKey = (id, event) =>
+    $scope.setSearchKey = (id, event) =>
     {
         console.log("Ich wurde aufgerufen!");
         let url = `../restapi/handler.php?objAction=estatesearchsession&objKey=${id}`;
