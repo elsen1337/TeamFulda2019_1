@@ -1,4 +1,4 @@
-studyHomeApp.controller('HeaderCtrl', ['$scope', function($scope){
+studyHomeApp.controller('HeaderCtrl', ['$scope', '$http', function($scope, $http){
     window.setSearchKeyHeader = () =>
     {
         let formData = new FormData();
