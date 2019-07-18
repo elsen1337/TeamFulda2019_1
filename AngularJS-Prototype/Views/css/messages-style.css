@@ -20,7 +20,7 @@
     margin-top: 2%;
 }
 
-.contacts{
+#contactsContainer{
     width: 20%;
     height: 100%;
     border-right-style: solid;
@@ -34,7 +34,7 @@
     align-items: end;
 }
 
-.message-textfield {
+#chatmessagesContainer {
     width: 100%;
     height: 80%;
 }
