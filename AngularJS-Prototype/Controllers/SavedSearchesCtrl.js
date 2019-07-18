@@ -20,8 +20,7 @@ studyHomeApp.controller('SavedSearchesCtrl', ['$scope', '$http', '$location', fu
                 for(let i = 0; i < $scope.searchData.length; i++) {
                     $scope.searchItems[i] = {
                         id : $scope.searchData[i].sid,
-                        Fulltext : $scope.searchData[i].label.FullText-Search,
-                        label : $scope.searchData[i].label
+                        details : $scope.searchData[i].detail
                     };
                 }
                 console.log(response.data);
