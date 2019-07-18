@@ -23,21 +23,6 @@ studyHomeApp.controller('StudyHomeCtrl', ['$scope', '$http', '$location', functi
 
     $scope.searchFormData.fulltext = window.startSearch;
 
-
-    // $http({
-    //     method : "GET",
-    //     url : "../restapi/handler.php?objAction=estatesearch"
-    // }).then(function mySuccess(response) {
-    //     $scope.getSucc = response.data;
-    //     console.log(response.data);
-    //     console.log("status: " + response.status);
-    //     console.log("statusText: " + response.statusText);
-    // }, function myError(response) {
-    //     $scope.error = response.statusText;
-    //     console.error($scope.error);
-    // });
-
-
     $scope.submitSearchForm = function()
     {
 
@@ -52,16 +37,6 @@ studyHomeApp.controller('StudyHomeCtrl', ['$scope', '$http', '$location', functi
                 submitData.append(key, formData[key]);
         }
 
-
-        //submitData.append("appsearch[fulltext]", $scope.searchFormData.fulltext);
-        /*
-        submitData.append("appsearch[distmeter][Min]", $scope.searchFormData.distmeterMin);
-        submitData.append("appsearch[distmeter][Max]", $scope.searchFormData.distmeterMax);
-        submitData.append("appsearch[distopnv][Min]", $scope.searchFormData.distopnvMin);
-        submitData.append("appsearch[distopnv][Max]", $scope.searchFormData.distopnvMax);
-        submitData.append("appsearch[price][Min]", $scope.searchFormData.priceMin);
-        submitData.append("appsearch[price][Max]", $scope.searchFormData.priceMax);
-        */
         console.log(submitData);
         $http({
             url : "../restapi/handler.php?objAction=estatesearch",
@@ -126,14 +101,6 @@ function convertSearchFormData(formData){
         "appsearch[price][Min]" : formData.priceMin,
         "appsearch[price][Max]" : formData.priceMax
     };
-    // let result = [];
-    // result["appsearch[fulltext]"] = formData.fulltext;
-    // result["appsearch[distmeter][Min]"] = formData.distmeterMin;
-    // result["appsearch[distmeter][Max]"] = formData.distmeterMax;
-    // result["appsearch[distopnv][Min]"] = formData.distopnvMin;
-    // result["appsearch[distopnv][Max]"] = formData.distopnvMax;
-    // result["appsearch[price][Min]"] = formData.priceMin;
-    // result["appsearch[price][Max]"] = formData.priceMax;
     return result;
 }
 

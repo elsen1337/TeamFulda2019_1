@@ -39,7 +39,7 @@
 
 <div id="messages">
     <border class="message-border">
-        <h1>Messages</h1>
+        <h1 id="newMessageIndicator">Messages</h1>
         <form class="message-form" id="message-form">
             <!--            <div class="contacts" ng-repeat="contact in contacts" ng-click="invokeHistory();">-->
             <!--                <p>-->
@@ -70,7 +70,13 @@
                     Send
                 </md-button>
             </div>
+            <div id="chatmessagesContainer">
+                <md-list ng-cloack id="chatmessagesList">
+
+                </md-list>
+            </div>
         </form>
+<!--        <md-button ng-click="test();">Test</md-button>-->
 <!--        Current User: <input type="text" id="currUser">-->
 <!--        <input type="button" value="connect" data-ng-click="connectToChatkit();">-->
 <!--        <pre id="chatlog" data-ng-repeat="message in demTest">-->
