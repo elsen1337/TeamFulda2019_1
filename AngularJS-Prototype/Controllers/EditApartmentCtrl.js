@@ -76,7 +76,6 @@ studyHomeApp.controller('EditApartmentCtrl', ['$scope', '$http', '$location', fu
             }
             fd.append("tiere", $scope.tiere);
             fd.append("kaution", $scope.kaution);
-            fd.append("vm_id", sessionStorage.getItem("vm_id"));
             for (let value of fd.values()) {
 
             }
