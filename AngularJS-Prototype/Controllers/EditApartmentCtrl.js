@@ -90,7 +90,7 @@ studyHomeApp.controller('EditApartmentCtrl', ['$scope', '$http', '$location', fu
             let vmid = sessionStorage.getItem('vm_id');
             let url = `../restapi/handler.php?objAction=estatedefault&objKey=${estateID}`;
 
-            console.log("Now make a put");
+            console.log("Now do a put");
 
             $http.put(url, fdjson,
                 {
@@ -152,6 +152,7 @@ studyHomeApp.controller('EditApartmentCtrl', ['$scope', '$http', '$location', fu
                                                 });
 
                                         console.log(serviceResponse);
+
                                     },
                                     (err) => {
                                         console.log(err);
@@ -159,8 +160,7 @@ studyHomeApp.controller('EditApartmentCtrl', ['$scope', '$http', '$location', fu
 
 
                         });
-
-
+                        $scope.goToApartmentspage();
                     },
                     (err) => {
                         console.log(err);
@@ -193,7 +193,7 @@ studyHomeApp.controller('EditApartmentCtrl', ['$scope', '$http', '$location', fu
 
     };
 
-    $scope.delete = (id, evt) => {
+    $scope.delete = () => {
     //let mid = sessionStorage.getItem('m_id');
     let url2 = `../restapi/handler.php?objAction=estatedefault&objKey=${estateID}`;
     $http.delete(url2)
@@ -204,15 +204,17 @@ studyHomeApp.controller('EditApartmentCtrl', ['$scope', '$http', '$location', fu
                 console.log("status: " + response.status);
                 console.log("statusText: " + response.statusText);
                 //reset search items because sth could be left over
-
-                $scope.getFavorites();
             },
             (err) => {
                 console.log(err);
-                $scope.getFavorites();
             });
-    $scope.getFavorites();
-}
+    $scope.goToApartmentspage();
+    };
+
+    $scope.goToApartmentspage = () =>
+    {
+        $location.path("apartments");
+    }
 
 }])
 
