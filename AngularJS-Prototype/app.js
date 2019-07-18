@@ -6,13 +6,6 @@
 
 // Routes
 var ROUTES = {
-    /*page0: "home",
-    page1: "login",
-    page2: "register",
-    page3: "estates",
-    page4: "profile",
-    page5: "messages",
-    page6: "advertise"*/
     page1: "renting",
     page3: "login",
     page4: "register",
@@ -57,34 +50,6 @@ studyHomeApp.config(['$routeProvider', '$mdThemingProvider', function($routeProv
     //    .dark();
 
     $routeProvider
-        /*.when('/' + ROUTES.page0 , {
-            templateUrl: 'Views/' + ROUTES.page0 + '.html',
-            controller: 'StudyHomeCtrl'
-        })
-        .when('/' + ROUTES.page1, {
-            templateUrl: 'Views/' + ROUTES.page1 + '.html',
-            controller: 'LoginCtrl'
-        })
-        .when('/' + ROUTES.page2, {
-            templateUrl: 'Views/' + ROUTES.page2 + '.html',
-            controller: 'RegisterCtrl'
-        })
-        .when('/' + ROUTES.page3, {
-            templateUrl: 'Views/' + ROUTES.page3 + '.html',
-            controller: 'EstatesCtrl'
-        })
-        .when('/' + ROUTES.page4, {
-            templateUrl: 'Views/' + ROUTES.page4 + '.html',
-            controller: 'ProfileCtrl'
-        })
-        .when('/' + ROUTES.page5, {
-            templateUrl: 'Views/' + ROUTES.page5 + '.html',
-            controller: 'MessagesCtrl'
-        })
-        .when('/' + ROUTES.page6, {
-            templateUrl: 'Views/' + ROUTES.page6 + '.html',
-            controller: 'AdvertiseCtrl'
-        })*/
         .when('/' + ROUTES.page0 , {
             templateUrl: 'Views/' + ROUTES.page0 + '.html',
             controller: 'StudyHomeCtrl'

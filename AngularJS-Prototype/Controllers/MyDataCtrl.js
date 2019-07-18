@@ -38,7 +38,18 @@ studyHomeApp.controller('MyDataCtrl', ['$scope', '$http', '$mdDialog', function(
                 console.log("status: " + response.status);
                 console.log("statusText: " + response.statusText);
                 document.getElementById('tablerole').innerText = sessionStorage.getItem('role');
-                document.getElementById('tablesalute').innerText = response.data.anrede;
+
+                if(response.data.anrede.toLowerCase() === 'f')
+                {
+                    document.getElementById('tablesalute').innerText = 'Ms.';
+                }
+                else
+                {
+                    document.getElementById('tablesalute').innerText = 'Mr.';
+                }
+
+
+
                 document.getElementById('tablevname').innerText = response.data.vname;
                 document.getElementById('tablenname').innerText = response.data.nname;
                 document.getElementById('tableemail').innerText = response.data.email;
