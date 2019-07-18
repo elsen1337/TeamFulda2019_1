@@ -1,7 +1,5 @@
 studyHomeApp.controller('ApartmentsCtrl', ['$scope', '$http', "$location", function($scope, $http, $location) {
-
-    console.log(sessionStorage.getItem('vm_id'));
-    console.log(sessionStorage.getItem('vname'));
+    
     let url = `../restapi/handler.php?objAction=lessorestate&objKey=${sessionStorage.getItem('vm_id')}`;
 
     $scope.getApartments = () => {
