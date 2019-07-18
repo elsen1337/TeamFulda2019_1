@@ -88,7 +88,34 @@ studyHomeApp.controller('StudyHomeCtrl', ['$scope', '$http', '$location', functi
         $location.path("details?id=" + id);
     }
 
-    $scope.submitSearchForm();
+    $http({
+        method : "POST",
+        url : "../restapi/handler.php?objAction=estatesearch"
+        // headers : {'Content-Type': 'application/x-www-form-urlencoded'}
+    }).then(function mySuccess(response) {
+        $scope.searchData = response.data;
+        console.log(response.data);
+        console.log("status: " + response.status);
+        console.log("statusText: " + response.statusText);
+        //reset search items because sth could be left over
+        window.searchItems = [{}];
+        $scope.searchItems = [{}];
+        for(let i = 0; i < $scope.searchData.length; i++) {
+            $scope.searchItems[i] = {
+                id : $scope.searchData[i].wohn_id,
+                alt : $scope.searchData[i].imgalt,
+                img: "../images/thumb/" + $scope.searchData[i].imgpath,
+                name : $scope.searchData[i].name,
+                price : $scope.searchData[i].preis + " €",
+                entf_meter: $scope.searchData[i].entf_meter + " m",
+                entf_min: $scope.searchData[i].entf_min + " min"
+            };
+        }
+        window.searchItems = $scope.searchItems;
+    }, function myError(response) {
+        $scope.error = response.statusText;
+        console.error($scope.error);
+    });
 
     $scope.saveSearch = () => {
         let formData = convertSearchFormData($scope.searchFormData);
