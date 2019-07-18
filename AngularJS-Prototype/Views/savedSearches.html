@@ -7,16 +7,14 @@
 <div class="savedSearchesPage">
     <h3>Saved searches</h3>
     <md-list ng-cloak id="searchList">
-        <md-list-item ng-repeat="item in searchItems" ng-click="goToDetails(item.id, $event)" class="noright">
-            <p>{{item.searchfield}}</p>
+        <md-list-item ng-repeat="item in searchItems" ng-click="setSearchKey(item.id, $event)" class="noright">
+            <!--<p>{{item.searchfield}}</p>
             <p>{{item.min_meter}}</p>
             <p>{{item.max_meter}}</p>
             <p>{{item.min_min}}</p>
             <p>{{item.max_min}}</p>
-            <p>{{item.price}}</p>
-            <md-button class="login-btn" ng-click="setSearchKey(item)" name="{{routes.page0}}" type="submit">
-            Search
-            </md-button>
+            <p>{{item.price}}</p>-->
+            <p>{{item.label}}</p>
         </md-list-item>
     </md-list>
 </div>
