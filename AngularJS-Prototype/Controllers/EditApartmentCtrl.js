@@ -59,23 +59,23 @@ studyHomeApp.controller('EditApartmentCtrl', ['$scope', '$http', '$location', fu
 
 
             // Assign values of the input fields to a formdata Object to send them to the server.
-            fd.append("beschr", document.getElementById(''));
-            fd.append("entf_meter", document.getElementById(''));
-            fd.append("entf_min", document.getElementById(''));
-            fd.append("name", document.getElementById(''));
-            fd.append("ort", document.getElementById(''));
-            fd.append("plz", document.getElementById(''));
-            fd.append("preis", document.getElementById(''));
-            fd.append("str", document.getElementById(''));
-            fd.append("zimmer", document.getElementById(''));
-            fd.append("qm_groesse", document.getElementById(''));
+            fd.append("beschr", document.getElementById('beschr'));
+            fd.append("entf_meter", document.getElementById('entf_meter'));
+            fd.append("entf_min", document.getElementById('entf_min'));
+            fd.append("name", document.getElementById('name'));
+            fd.append("ort", document.getElementById('ort'));
+            fd.append("plz", document.getElementById('plz'));
+            fd.append("preis", document.getElementById('preis'));
+            fd.append("str", document.getElementById('str'));
+            fd.append("zimmer", document.getElementById('zimmer'));
+            fd.append("qm_groesse", document.getElementById('qm_groesse'));
             if ($scope.garage.toLowerCase() === 'ja' || $scope.garage.toLowerCase() === 'yes') {
                 fd.append("garage", 1);
             } else {
                 fd.append("garage", 0);
             }
-            fd.append("tiere", document.getElementById(''));
-            fd.append("kaution", document.getElementById(''));
+            fd.append("tiere", document.getElementById('tiere'));
+            fd.append("kaution", document.getElementById('kaution'));
             for (let value of fd.values()) {
 
             }
