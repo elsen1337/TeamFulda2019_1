@@ -8,7 +8,7 @@ studyHomeApp.controller('HomeStartCtrl', ['$scope', '$http', '$location', functi
             url : "../restapi/handler.php?objAction=estatesearch",
             method: "PUT",
             headers : {'Content-Type': undefined},
-            data : result
+            data : formData
         }).then(function mySuccess(response) {
             $scope.putSucc = response.data;
             console.log(response.data);
