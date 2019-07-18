@@ -68,7 +68,6 @@ studyHomeApp.controller('EditApartmentCtrl', ['$scope', '$http', '$location', fu
             fd.append("preis", $scope.preis);
             fd.append("str", $scope.str);
             fd.append("zimmer", $scope.zimmer);
-            fd.append("wohn_id", $scope.newEstateID);
             fd.append("qm_groesse", $scope.qm_groesse);
             if ($scope.garage.toLowerCase() === 'ja' || $scope.garage.toLowerCase() === 'yes') {
                 fd.append("garage", 1);
