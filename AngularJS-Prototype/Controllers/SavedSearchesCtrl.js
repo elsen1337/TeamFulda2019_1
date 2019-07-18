@@ -20,18 +20,13 @@ studyHomeApp.controller('SavedSearchesCtrl', ['$scope', '$http', '$location', fu
                 for(let i = 0; i < $scope.searchData.length; i++) {
                     $scope.searchItems[i] = {
                         id : $scope.searchData[i].sid,
+                        Fulltext: $scope.searchData[i].label.FullText-Search,
                         label : $scope.searchData[i].label
                     };
                 }
                 console.log(response.data);
                 console.log("status: " + response.status);
                 console.log("statusText: " + response.statusText);
-                /*$scope.item.searchfield = response.data.searchfield;
-                $scope.item.min_meter = response.data.min_meter;
-                $scope.item.max_meter = response.data.max_meter;
-                $scope.item.min_min = response.data.min_min;
-                $scope.item.max_min = response.data.max_meter;
-                $scope.item.price = response.data.price;*/
             },
             (err) => {
                 console.log(err);
@@ -54,12 +49,6 @@ studyHomeApp.controller('SavedSearchesCtrl', ['$scope', '$http', '$location', fu
                     console.log(response.data);
                     console.log("status: " + response.status);
                     console.log("statusText: " + response.statusText);
-                    window.startSearch = response.data.searchfield;
-                    window.min_meter = response.data.min_meter;
-                    window.max_meter = response.data.max_meter;
-                    window.min_min = response.data.min_min;
-                    window.max_min = response.data.max_min;
-                    window.price = response.data.price;
                     $location.path("home");
                 },
                 (err) => {
