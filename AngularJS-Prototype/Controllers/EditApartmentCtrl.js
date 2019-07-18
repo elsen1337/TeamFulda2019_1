@@ -59,23 +59,23 @@ studyHomeApp.controller('EditApartmentCtrl', ['$scope', '$http', '$location', fu
 
 
             // Assign values of the input fields to a formdata Object to send them to the server.
-            fd.append("beschr", document.getElementById('beschr'));
-            fd.append("entf_meter", document.getElementById('entf_meter'));
-            fd.append("entf_min", document.getElementById('entf_min'));
-            fd.append("name", document.getElementById('name'));
-            fd.append("ort", document.getElementById('ort'));
-            fd.append("plz", document.getElementById('plz'));
-            fd.append("preis", document.getElementById('preis'));
-            fd.append("str", document.getElementById('str'));
-            fd.append("zimmer", document.getElementById('zimmer'));
-            fd.append("qm_groesse", document.getElementById('qm_groesse'));
+            fd.append("beschr", document.getElementById('beschr').value);
+            fd.append("entf_meter", document.getElementById('entf_meter').value);
+            fd.append("entf_min", document.getElementById('entf_min').value);
+            fd.append("name", document.getElementById('name').value);
+            fd.append("ort", document.getElementById('ort').value);
+            fd.append("plz", document.getElementById('plz').value);
+            fd.append("preis", document.getElementById('preis').value);
+            fd.append("str", document.getElementById('str').value);
+            fd.append("zimmer", document.getElementById('zimmer').value);
+            fd.append("qm_groesse", document.getElementById('qm_groesse').value);
             if ($scope.garage.toLowerCase() === 'ja' || $scope.garage.toLowerCase() === 'yes') {
                 fd.append("garage", 1);
             } else {
                 fd.append("garage", 0);
             }
-            fd.append("tiere", document.getElementById('tiere'));
-            fd.append("kaution", document.getElementById('kaution'));
+            fd.append("tiere", document.getElementById('tiere').value);
+            fd.append("kaution", document.getElementById('kaution').value);
             for (let value of fd.values()) {
 
             }
