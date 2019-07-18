@@ -277,14 +277,14 @@ class SearchForm {
    
 		$translateList=array_flip(self::$searchParameters);
    
-		$sql='SELECT * FROM m_search WHERE mid = '.$mid.' ORDER BY shot DESC';
+		$sql='SELECT sid, sss, DATE_FORMAT(shot, "%d.%m.%Y @ %H:%i") AS shot FROM m_search WHERE mid = '.$mid.' ORDER BY shot DESC';
 		$mrs=$GLOBALS[self::$dbvar]->query($sql);
 
 		$attrarr=[];
 		while ($obj=$mrs->fetch_object()) {
 
 			$strRepr=self::transformSearchHumanReadable($translateList,json_decode($obj->sss,true));
-			$attrarr[]=array('sid'=>$obj->sid, 'label'=>$obj->shot.' @ '.$strRepr);
+			$attrarr[]=array('sid'=>$obj->sid, 'label'=>$obj->shot, 'detail'=>strip_tags($strRepr));
 			
 		}
 		
