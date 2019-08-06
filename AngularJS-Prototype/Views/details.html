@@ -81,14 +81,22 @@
         <div id="ueberschrift-div">
             <h1>Rate the tenant</h1>
         </div>
+        <div id="bewertungenListe-div">
+            <md-list ng-cloak id="bewertungenListe">
+                <md-list-item ng-repeat="item in bewertungenItems" class="noright">
+                    <p id="sterne-Liste">{{item.sterne}}</p>
+                    <p id="kommentar-Liste">{{item.kommentar}}</p>
+                </md-list-item>
+            </md-list>
+        </div>
         <div id="sterneKommentar-div">
             <div id="sterne-div">
-                <fieldset id="stars" class="stars">
-                    <input type="radio" id="star5" name="rating" value="5" /><label for="star5" title="5"></label>
-                    <input type="radio" id="star4" name="rating" value="4" /><label for="star4" title="4"></label>
-                    <input type="radio" id="star3" name="rating" value="3" /><label for="star3" title="3"></label>
-                    <input type="radio" id="star2" name="rating" value="2" /><label for="star2" title="2"></label>
-                    <input type="radio" id="star1" name="rating" value="1" /><label for="star1" title="1"></label>
+                <fieldset id="sterne">
+                    <input type="radio" id="stern5" name="rating" value="5" /><label for="stern5"></label>
+                    <input type="radio" id="stern4" name="rating" value="4" /><label for="stern4"></label>
+                    <input type="radio" id="stern3" name="rating" value="3" /><label for="stern3"></label>
+                    <input type="radio" id="stern2" name="rating" value="2" /><label for="stern2"></label>
+                    <input type="radio" id="stern1" name="rating" value="1" /><label for="stern1"></label>
                 </fieldset>
             </div>
             <div id="kommentar-div">

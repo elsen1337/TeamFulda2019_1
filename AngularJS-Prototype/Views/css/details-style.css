@@ -43,18 +43,18 @@
 }
 
 /*Rahmen um die Sterne unsichtbar machen*/
-.stars {
+#sterne {
     border: none;
     float: left;
 }
 
 /*Inputfelder hinter den Sternen unsichtbar machen*/
-.stars > input {
+#sterne > input {
     display: none;
 }
 
 /*Sterne darstellen und Stylen*/
-.stars > label:before {
+#sterne > label:before {
     margin: 5px;
     font-size: 1.25em;
     font-family: FontAwesome;   //Iconsammlung
@@ -63,19 +63,19 @@
 }
 
 /*Hintergrundfarbe der Sterne auf weiß setzen und Reihenfolge richtig setzen*/
-.stars > label {
+#sterne > label {
     color: #ddd;
     float: right;
 }
 
 /*Farbe beim anklicken eines Sterns*/
-.stars > input:checked ~ label,
-.stars:not(:checked) > label:hover,
-.stars:not(:checked) > label:hover ~ label {
+#sterne > input:checked ~ label,
+#sterne:not(:checked) > label:hover,
+#sterne:not(:checked) > label:hover ~ label {
     color: gold;
 }
 
 /*Farbe beim drüberfahren*/
-.stars > input:checked ~ label:hover {
+#sterne > input:checked ~ label:hover {
     color: #09F;
 }
