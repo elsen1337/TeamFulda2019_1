@@ -1,0 +1,81 @@
+@import url("http://netdna.bootstrapcdn.com/font-awesome/3.2.1/css/font-awesome.css");
+
+#bewertung {
+    margin-left: 2%;
+    border-style: solid;
+    width: 50%;
+    height: 50%;
+    float: left;
+}
+
+#ueberschrift-div {
+    margin-left: 4%;
+    width: 96%;
+    height: 20%;
+}
+
+#sterneKommentar-div {
+    width: 100%;
+    height: 20%;
+}
+
+#sterne-div {
+    width: 25%;
+    height: 100%;
+    float: left;
+}
+
+#kommentar-div {
+    width: 75%;
+    height: 100%;
+    float: right;
+}
+
+#kommentar {
+    height: 100%;
+    width: 80%;
+}
+
+#bewertung-btn-div {
+    margin-top: 2%;
+    margin-right: 15%;
+    float: right;
+}
+
+/*Rahmen um die Sterne unsichtbar machen*/
+.stars {
+    border: none;
+    float: left;
+}
+
+/*Inputfelder hinter den Sternen unsichtbar machen*/
+.stars > input {
+    display: none;
+}
+
+/*Sterne darstellen und Stylen*/
+.stars > label:before {
+    margin: 5px;
+    font-size: 1.25em;
+    font-family: FontAwesome;   //Iconsammlung
+    display: inline-block;
+    content: "\f005";           //Sternenbild
+}
+
+/*Hintergrundfarbe der Sterne auf weiß setzen und Reihenfolge richtig setzen*/
+.stars > label {
+    color: #ddd;
+    float: right;
+}
+
+/*Farbe beim anklicken eines Sterns*/
+.stars > input:checked ~ label,
+.stars:not(:checked) > label:hover,
+.stars:not(:checked) > label:hover ~ label {
+    color: gold;
+}
+
+/*Farbe beim drüberfahren*/
+.stars > input:checked ~ label:hover {
+    color: #09F;
+}

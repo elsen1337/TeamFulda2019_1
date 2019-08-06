@@ -267,3 +267,14 @@ function getDetailsQueryString(objAction, objKey) {
 function getEstateID(path) {
     return path.match("[0-9]+");
 }
+
+function GetRating(){
+    var stars = document.getElementsByName('rating');
+    for (i = 0;i < stars.length;i++){
+        if(stars[i].checked){
+            return stars[i].value;
+        }
+    }
+    return 0;
+}
+

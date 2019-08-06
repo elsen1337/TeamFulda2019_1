@@ -77,5 +77,30 @@
             {{beschr}}
         </p>
     </div>
+    <div id="bewertung">
+        <div id="ueberschrift-div">
+            <h1>Rating</h1>
+        </div>
+        <div id="sterneKommentar-div">
+            <div id="sterne-div">
+                <fieldset id="stars" class="stars">
+                    <input type="radio" id="star5" name="rating" value="5" /><label for="star5" title="5"></label>
+                    <input type="radio" id="star4" name="rating" value="4" /><label for="star4" title="4"></label>
+                    <input type="radio" id="star3" name="rating" value="3" /><label for="star3" title="3"></label>
+                    <input type="radio" id="star2" name="rating" value="2" /><label for="star2" title="2"></label>
+                    <input type="radio" id="star1" name="rating" value="1" /><label for="star1" title="1"></label>
+                </fieldset>
+            </div>
+            <div id="kommentar-div">
+            <textarea id="kommentar" name="btn-input" maxlength="600" wrap="soft"
+                      placeholder="Write your message here..." required></textarea>
+            </div>
+        </div>
+        <div id="bewertung-btn-div">
+            <md-button class="login-btn" type="submit" id="bewertung-btn" onClick="alert('Anzahl Sterne: ' + GetRating());">
+                Send
+            </md-button>
+        </div>
+    </div>
 </div>
 
