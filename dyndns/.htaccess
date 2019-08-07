@@ -1,0 +1,18 @@
+
+#/nic/dyndns?action=edit&started=1&hostname=YES&host_id=user.provider.tld&myip=2003:dd:ebf3:d1fc:956f:9f6f:341f:929d
+#/nic/update?system=dyndns&hostname=user.provider.tld&myip=2003:dd:ebf3:d1fc:956f:9f6f:341f:929d
+
+
+RewriteEngine On
+RewriteBase /restapi
+
+#RewriteRule nic/update  /dyndns.php [L,QSA]
+#RewriteRule redir/([^/]+)(.*) /dyndns.php?redir=$1&url=$2 [L,QSA]
+
+RewriteRule nic/update  ddns-index.php [L,QSA]
+RewriteRule redir/([^/]+)(.*) ddns-index.php?redir=$1&url=$2 [L,QSA]
+
+
+#DirectoryIndex dyndns.php
+
+DirectoryIndex ddns-index.php
