@@ -4,7 +4,8 @@
 
 
 RewriteEngine On
-RewriteBase /restapi
+RewriteBase /sfsuroombook/dyndns
+
 
 #RewriteRule nic/update  /dyndns.php [L,QSA]
 #RewriteRule redir/([^/]+)(.*) /dyndns.php?redir=$1&url=$2 [L,QSA]
@@ -14,5 +15,12 @@ RewriteRule redir/([^/]+)(.*) ddns-index.php?redir=$1&url=$2 [L,QSA]
 
 
 #DirectoryIndex dyndns.php
-
 DirectoryIndex ddns-index.php
+
+
+<If "%{HTTP_HOST} == 'localhost'">
+	#RewriteBase /
+</If>
+<If "%{HTTP_HOST} == 'hsftp.uber.space'">
+	#RewriteBase /sfsuroombook/
+</If>
