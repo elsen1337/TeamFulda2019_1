@@ -62,19 +62,21 @@
                     <!--                </md-list-item>-->
                 </md-list>
             </div>
+            <div class="message-dialog">
+                <div id="chatmessagesContainer">
+                    <md-list ng-cloack id="chatmessagesList">
 
-            <div class="input">
+                    </md-list>
+                </div>
+                <div class="input">
                     <textarea id="m_area_id" name="btn-input" maxlength="600" wrap="soft"
                               placeholder="Write your message here..." required></textarea>
-                <md-button class="message-btn" type="submit">
-                    Send
-                </md-button>
+                    <md-button class="message-btn" type="submit">
+                        Send
+                    </md-button>
+                </div>
             </div>
-            <div id="chatmessagesContainer">
-                <md-list ng-cloack id="chatmessagesList">
 
-                </md-list>
-            </div>
         </form>
 <!--        <md-button ng-click="test();">Test</md-button>-->
 <!--        Current User: <input type="text" id="currUser">-->
