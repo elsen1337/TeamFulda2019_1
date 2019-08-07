@@ -19,7 +19,7 @@ DirectoryIndex ddns-index.php
 
 
 <If "%{HTTP_HOST} == 'localhost'">
-	RewriteBase /
+	#RewriteBase /
 </If>
 <If "%{HTTP_HOST} == 'hsftp.uber.space'">
 	#RewriteBase /sfsuroombook/

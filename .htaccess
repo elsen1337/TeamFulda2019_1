@@ -7,26 +7,27 @@ RewriteEngine On
 
 #Diese Zeile ist wichtig für die korrekte Ausführung der RewriteRules
 #Sie muss den Basispfad der Webanwendung enthalten; im einfachsten Fall: RewriteBase /
+RewriteBase /
+
 #Je nach Einrichtung auf dem lokalen Rechner muss eine Anpassung erfolgen.
+RewriteCond %{HTTP_HOST} ^localhost$
+RewriteRule . - [E=myRwB:]
 
-
-#RewriteCond %{HTTP_HOST} ^localhost$
-#RewriteRule . - [E=myRwB:/blb/]
-
-#RewriteCond %{HTTP_HOST} !^localhost$
-#RewriteRule . - [E=myRwB:/sfsuroombook/]
+RewriteCond %{HTTP_HOST} !^localhost$
+RewriteRule . - [E=myRwB:sfsuroombook/]
+#%{ENV:myRwB}
 
 
 #RewriteRule nic/update  /dyndns.php [L,QSA]
 #RewriteRule redir/([^/]+)(.*) /dyndns.php?redir=$1&url=$2 [L,QSA]
 
-RewriteRule nic/update  %{ENV:myRwB}dyndns/ddns-index.php [L,QSA]
-RewriteRule redir/([^/]+)(.*) %{ENV:myRwB}dyndns/ddns-index.php?redir=$1&url=$2 [L,QSA]
+RewriteRule nic/update  dyndns/ddns-index.php [L,QSA]
+RewriteRule redir/([^/]+)(.*) dyndns/ddns-index.php?redir=$1&url=$2 [L,QSA]
 
 
-RewriteRule ^/?$ %{ENV:myRwB}AngularJS-Prototype [L,R=301]
+RewriteRule ^/?$ /%{ENV:myRwB}AngularJS-Prototype [L,R=301]
 
 
 RewriteCond %{REQUEST_FILENAME} !-f
 RewriteCond %{REQUEST_FILENAME} !-d
-RewriteRule restapi/([^/]+)/([^/]+) %{ENV:myRwB}restapi/handler.php?objAction=$1&objKey=$1 [L,QSA]
+RewriteRule restapi/([^/]+)/([^/]+) /%{ENV:myRwB}restapi/handler.php?objAction=$1&objKey=$1 [L,QSA]
