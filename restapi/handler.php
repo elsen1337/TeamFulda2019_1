@@ -734,7 +734,11 @@ if (parseCommand($action,'estate')) {
             notAllowed();
             
         }
+
         
+	} elseif (parseCommand($action,'rating')) {
+	
+		require('mod_rating_michael.php');
 
     }
 
