@@ -3,7 +3,7 @@
 #/nic/update?system=dyndns&hostname=user.provider.tld&myip=2003:dd:ebf3:d1fc:956f:9f6f:341f:929d
 
 
-RewriteEngine Off
+RewriteEngine On
 
 #RewriteBase /sfsuroombook/dyndns
 
@@ -20,10 +20,10 @@ DirectoryIndex ddns-index.php
 
 
 <If "%{HTTP_HOST} == 'localhost'">
-	ErrorDocument 404 "LocalNotFoundError"
+	ErrorDocument 404 "LocalNotFoundError(DDNS)"
 	#RewriteBase /
 </If>
 <If "%{HTTP_HOST} == 'hsftp.uber.space'">
-	ErrorDocument 404 "ProductionNotFoundError"
+	ErrorDocument 404 "ProductionNotFoundError(DDNS)"
 	#RewriteBase /sfsuroombook/
 </If>

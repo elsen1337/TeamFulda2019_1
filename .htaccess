@@ -21,13 +21,29 @@ RewriteRule .* - [E=myRWB:sfsuroombook/]
 #RewriteRule nic/update  /dyndns.php [L,QSA]
 #RewriteRule redir/([^/]+)(.*) /dyndns.php?redir=$1&url=$2 [L,QSA]
 
-#RewriteRule nic/update /%{ENV:myRWB}dyndns/ddns-index.php [L,QSA]
-#RewriteRule redir/([^/]+)(.*) /%{ENV:myRWB}dyndns/ddns-index.php?redir=$1&url=$2 [L,QSA]
+RewriteRule nic/update /%{ENV:myRWB}dyndns/ddns-index.php [L,QSA]
+RewriteRule redir/([^/]+)(.*) /%{ENV:myRWB}dyndns/ddns-index.php?redir=$1&url=$2 [L,QSA]
 
-
-#RewriteRule ^/?$ /%{ENV:myRWB}AngularJS-Prototype [L,R=301]
 
 
 RewriteCond %{REQUEST_FILENAME} !-f
 RewriteCond %{REQUEST_FILENAME} !-d
-RewriteRule restapi/([^/]+)/([^/]+) /%{ENV:myRWB}restapi/handler.php?objAction=$1&objKey=$1 [L,QSA]
+RewriteRule restapi/([^/]+)/?([^/]*) /%{ENV:myRWB}restapi/handler.php?objAction=$1&objKey=$2 [L,QSA]
+
+
+
+#Warum nicht mit Pfad; RewriteBase ?!
+#RewriteRule ^/sfsuroombook/?$ /%{ENV:myRWB}AngularJS-Prototype [L,R=301]
+
+RewriteRule ^/?$ /%{ENV:myRWB}AngularJS-Prototype [L,R=301]
+
+
+
+<If "%{HTTP_HOST} == 'localhost'">
+	ErrorDocument 404 "LocalNotFoundError(Index)"
+	#RewriteBase /
+</If>
+<If "%{HTTP_HOST} == 'hsftp.uber.space'">
+	ErrorDocument 404 "ProductionNotFoundError(Index)"
+	#RewriteBase /sfsuroombook/
+</If>
