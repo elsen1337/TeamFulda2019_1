@@ -1,14 +1,14 @@
 RewriteEngine On
 
-#Diese Zeile ist wichtig für die korrekte Ausführung der RewriteRules
-#Sie muss den Basispfad der Webanwendung enthalten; im einfachsten Fall: RewriteBase /
-RewriteBase /
+# Macht keinen Sinn wegen Unterverzeichnis
+# RewriteBase /
 
-#Je nach Einrichtung auf dem lokalen Rechner muss eine Anpassung erfolgen.
+
+#Basispfad der Webanwendung vgl. RewriteBase
 RewriteCond %{HTTP_HOST} ^localhost$
 RewriteRule .* - [E=myRWB:]
 
-RewriteCond %{HTTP_HOST} !^localhost$
+RewriteCond %{HTTP_HOST} ^hsftp\.uber\.space$
 RewriteRule .* - [E=myRWB:sfsuroombook/]
 
 
@@ -16,21 +16,24 @@ RewriteRule .* - [E=myRWB:sfsuroombook/]
 #RewriteRule nic/update  /dyndns.php [L,QSA]
 #RewriteRule redir/([^/]+)(.*) /dyndns.php?redir=$1&url=$2 [L,QSA]
 
-RewriteRule nic/update /%{ENV:myRWB}dyndns/ddns-index.php [L,QSA]
+RewriteRule nic/update /%{ENV:myRWB}dyndns/ddns-index.php?system=dyndns [L,QSA]
 RewriteRule redir/([^/]+)(.*) /%{ENV:myRWB}dyndns/ddns-index.php?redir=$1&url=$2 [L,QSA]
+# Funktionierender Redirect, weil Basispfad in myRWB
 
 
 
 RewriteCond %{REQUEST_FILENAME} !-f
 RewriteCond %{REQUEST_FILENAME} !-d
 RewriteRule restapi/([^/]+)/?([^/]*) /%{ENV:myRWB}restapi/handler.php?objAction=$1&objKey=$2 [L,QSA]
+# Funktionierender Redirect, weil Basispfad in myRWB
 
 
 
 #Warum nicht mit Pfad; RewriteBase ?!
 #RewriteRule ^/sfsuroombook/?$ /%{ENV:myRWB}AngularJS-Prototype [L,R=301]
 
-RewriteRule ^/?$ /%{ENV:myRWB}AngularJS-Prototype [L,R=301]
+RewriteRule ^/?$ /%{ENV:myRWB}AngularJS-Prototype/ [L,R=301]
+# Funktionierender Redirect, weil Basispfad in myRWB
 
 
 
