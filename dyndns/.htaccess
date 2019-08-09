@@ -1,5 +1,6 @@
 RewriteEngine On
-RewriteBase /
+
+# RewriteBase /
 
 
 #RewriteRule nic/update  /dyndns.php [L,QSA]
