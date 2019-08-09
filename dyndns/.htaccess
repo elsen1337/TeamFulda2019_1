@@ -3,8 +3,9 @@
 #/nic/update?system=dyndns&hostname=user.provider.tld&myip=2003:dd:ebf3:d1fc:956f:9f6f:341f:929d
 
 
-RewriteEngine On
-RewriteBase /sfsuroombook/dyndns
+RewriteEngine Off
+
+#RewriteBase /sfsuroombook/dyndns
 
 
 #RewriteRule nic/update  /dyndns.php [L,QSA]
@@ -14,13 +15,15 @@ RewriteRule nic/update  ddns-index.php [L,QSA]
 RewriteRule redir/([^/]+)(.*) ddns-index.php?redir=$1&url=$2 [L,QSA]
 
 
-#DirectoryIndex dyndns.php
+
 DirectoryIndex ddns-index.php
 
 
 <If "%{HTTP_HOST} == 'localhost'">
+	ErrorDocument 404 "LocalNotFoundError"
 	#RewriteBase /
 </If>
 <If "%{HTTP_HOST} == 'hsftp.uber.space'">
+	ErrorDocument 404 "ProductionNotFoundError"
 	#RewriteBase /sfsuroombook/
 </If>
