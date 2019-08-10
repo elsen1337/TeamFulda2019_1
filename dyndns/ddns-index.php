@@ -9,7 +9,12 @@ Update mittels ddclient oder ganz einfach mittels WGET
 
 1)
 
-wget --no-check-certificate --http-user="user" --http-passwd="password" --post-data "DOMAIN=example" -q https://dyndns.example.com
+wget --no-check-certificate --http-user="<eMail>" --http-passwd="<Password>" -q https://hsftp.uber.space/nic/update?system=dyndns&hostname=cst-<UserID>.hsftp.uber.space&ip=<IPv6>
+
+Wobei der IP Parameter einfach nur den Substring ip enthalten muss; also ipv6, myipv4 etc. [...] sind valide.
+Die IPv6 gibt's mit dem Befehl: ip -o -6 addr show <INTERFACE; z. B enp2s0, wlan0> scope global | tr -s ' ' | cut -d ' ' -f 4
+Der Hostname bzw. die Subdomain cst-<UserID>.hsftp.uber.space gibt es nicht wirklich; ich habe mich an das Namensschema gehalten.
+Der Zugriff bzw. Weiterleitung erfolgt über den dynamischen URL Namespace hsftp.uber.space/redir/cst-<UserID>
 
 /nic/dyndns?action=edit&started=1&hostname=YES&host_id=user.provider.tld&myip=2003:dd:ebf3:d1fc:956f:9f6f:341f:929d
 /nic/update?system=dyndns&hostname=user.provider.tld&myip=2003:dd:ebf3:d1fc:956f:9f6f:341f:929d
@@ -25,13 +30,15 @@ use=if, if=enp2s0
 server=hsftp.uber.space
 # Default: /nic/dyndns - Weiterleitung über .htaccess RewriteRules
 # Manuell durch Angabe; Parameter wie DynDNS2 Standard:
-#script=/restapi/ddns-index.php
+# script=/dyndns/ddns-index.php
 
 login=<eMail>
 password=<Password>
 cst-<USRID>.hsftp.uber.space
 
 ddclient -daemon=0 -debug -verbose -noquiet 
+ip -o -6 addr show enp2s0 scope global | sed -e 's/^.*inet6 \([^ ]\+\).*\
+/\1/' cut ?
 
 
 
