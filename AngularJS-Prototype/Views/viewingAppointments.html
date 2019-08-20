@@ -1,4 +1,41 @@
+<style>
+    #delete {
+                position: absolute;
+                top: 30px;
+                left: 240px;
+            }
 
-    <div id="lessorSidenavCont">
-        <div id="lessorSidenav" data-ng-include="'Views/lessorSidenav.html'">{{rolle}}Sidenav.html</div>
-    </div>
+    .list-appointments {
+                position: relative;
+                left: 240px;
+                top: 100px;
+    }
+</style>
+
+<div id="lessorSidenavCont">
+    <div id="lessorSidenav" data-ng-include="'Views/lessorSidenav.html'">{{rolle}}Sidenav.html</div>
+</div>
+
+
+<div ng-app="deletePrompt" id="delete">
+    <h3>Viewing Appointments</h3>
+
+    <md-button class="dialog-demo-content viewing-appointments-btn" ng-click="viewAppointments()"  layout="row" layout-align="center center">
+        Show all
+    </md-button>
+</div>
+
+<div class="list-appointments">
+    <md-list ng-cloak id="searchList">
+        <!--<md-subheader class="md-no-sticky">Search Items</md-subheader>-->
+        <md-list-item ng-repeat="item in searchItems" ng-click="viewAppointments()" class="noright">
+            <p id="home-name">{{item.name}}</p>
+            <p class="home-pFelder">{{item.entf_meter}}</p>
+            <p class="home-pFelder">{{item.entf_min}}</p>
+            <p class="home-pFelder">{{item.price}}</p>
+            <!--            <md-checkbox class="md-secondary" ng-model="person.selected"></md-checkbox>-->
+            <!--            <md-icon md-svg-icon="communication:email"  ng-click="doSecondaryAction($event)" aria-label="Send Email" class="md-secondary md-hue-3" ></md-icon>-->
+            <!--            <md-icon class="md-secondary" ng-click="contactLessor($event)" aria-label="Chat" md-svg-icon="communication:message"></md-icon>-->
+        </md-list-item>
+    </md-list>
+</div>
