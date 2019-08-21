@@ -28,11 +28,9 @@
 <div class="list-appointments">
     <md-list ng-cloak id="searchList">
         <!--<md-subheader class="md-no-sticky">Search Items</md-subheader>-->
-        <md-list-item ng-repeat="item in searchItems" ng-click="viewAppointments()" class="noright">
-            <p id="home-name">{{item.name}}</p>
-            <p class="home-pFelder">{{item.entf_meter}}</p>
-            <p class="home-pFelder">{{item.entf_min}}</p>
-            <p class="home-pFelder">{{item.price}}</p>
+        <md-list-item ng-repeat="slot in slots" ng-click="viewAppointments()" class="noright">
+            <p id="slot-name">{{slot.tid}}</p>
+            <p class="slot-pfelder">{{slot.slot}}</p>
             <!--            <md-checkbox class="md-secondary" ng-model="person.selected"></md-checkbox>-->
             <!--            <md-icon md-svg-icon="communication:email"  ng-click="doSecondaryAction($event)" aria-label="Send Email" class="md-secondary md-hue-3" ></md-icon>-->
             <!--            <md-icon class="md-secondary" ng-click="contactLessor($event)" aria-label="Chat" md-svg-icon="communication:message"></md-icon>-->

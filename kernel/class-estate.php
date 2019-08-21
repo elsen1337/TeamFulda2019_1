@@ -180,7 +180,8 @@ class Estate {
     
     public static function getProposedMeetingSlots($pkey) {
     
-		$sql='SELECT tid, DATE_FORMAT(slot, "%d.%m.%Y @ %H:%i") AS slot FROM w_meet WHERE wohn_id = '.$pkey.'  ORDER BY slot';
+		//$sql='SELECT tid, DATE_FORMAT(slot, "%d.%m.%Y @ %H:%i") AS slot FROM w_meet WHERE wohn_id = '.$pkey.'  ORDER BY slot';
+		$sql='SELECT tid, DATE_FORMAT(slot, "%d.%m.%Y @ %H:%i") AS slot FROM w_meet WHERE wohn_id = ANY (SELECT wohn_id FROM wohnung WHERE vm_id = '.$pkey.') ORDER by slot';
 		$mrs=$GLOBALS[self::$dbvar]->query($sql);
 		        
         $attrarr=[];
