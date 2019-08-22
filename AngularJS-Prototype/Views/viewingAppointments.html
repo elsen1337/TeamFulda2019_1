@@ -1,5 +1,5 @@
 <style>
-    #delete {
+    #showAll {
                 position: absolute;
                 top: 30px;
                 left: 240px;
@@ -8,8 +8,30 @@
     .list-appointments {
                 position: relative;
                 left: 240px;
-                top: 100px;
+                top: 120px;
     }
+
+    body {
+        overflow-x: hidden;
+    }
+
+    #lessorSidenav, #lessorSidenavCont {
+        z-index: 5!important;
+    }
+
+    #searchList {
+        position: relative;
+    }
+
+    md-list-item {
+        width: 50%;
+    }
+
+    button {
+        background-color: #67c6e4!important;
+    }
+
+
 </style>
 
 <div id="lessorSidenavCont">
@@ -17,10 +39,10 @@
 </div>
 
 
-<div ng-app="deletePrompt" id="delete">
+<div ng-app="ViewingAppointmentsCtrl" id="showAll">
     <h3>Viewing Appointments</h3>
 
-    <md-button class="dialog-demo-content viewing-appointments-btn" ng-click="viewAppointments()"  layout="row" layout-align="center center">
+    <md-button id="showAllButton" class="dialog-demo-content viewing-appointments-btn" ng-click="viewAppointments()"  layout="row" layout-align="center center">
         Show all
     </md-button>
 </div>
@@ -28,12 +50,16 @@
 <div class="list-appointments">
     <md-list ng-cloak id="searchList">
         <!--<md-subheader class="md-no-sticky">Search Items</md-subheader>-->
-        <md-list-item ng-repeat="slot in slots" ng-click="viewAppointments()" class="noright">
-            <p id="slot-name">{{slot.tid}}</p>
+        <md-list-item ng-repeat="slot in slots" class="noright">
+            <p class="slot-pfelder">{{slot.name}}</p>
             <p class="slot-pfelder">{{slot.slot}}</p>
-            <!--            <md-checkbox class="md-secondary" ng-model="person.selected"></md-checkbox>-->
-            <!--            <md-icon md-svg-icon="communication:email"  ng-click="doSecondaryAction($event)" aria-label="Send Email" class="md-secondary md-hue-3" ></md-icon>-->
-            <!--            <md-icon class="md-secondary" ng-click="contactLessor($event)" aria-label="Chat" md-svg-icon="communication:message"></md-icon>-->
+            <p class="slot-pfelder" ng-if="slot.isValid === true">
+                <md-button ng-click="deleteSlot(slot.tid)">Delete</md-button>
+            </p>
+
+                <!--            <md-checkbox class="md-secondary" ng-model="person.selected"></md-checkbox>-->
+                <!--            <md-icon md-svg-icon="communication:email"  ng-click="doSecondaryAction($event)" aria-label="Send Email" class="md-secondary md-hue-3" ></md-icon>-->
+                <!--            <md-icon class="md-secondary" ng-click="contactLessor($event)" aria-label="Chat" md-svg-icon="communication:message"></md-icon>-->
         </md-list-item>
     </md-list>
 </div>
