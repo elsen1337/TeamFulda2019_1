@@ -72,6 +72,7 @@ studyHomeApp.controller('DetailsCtrl', ['$scope', '$http',  '$routeParams', '$lo
 		
 	};
 
+
 	$scope.meetTimes = function() {
 		
 		$http({

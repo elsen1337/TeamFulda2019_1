@@ -1,6 +1,42 @@
 studyHomeApp.controller('ViewingAppointmentsCtrl', ['$scope', '$http', function($scope, $http) {
 
     $scope.slots = [{}];
+    $scope.apartments = [{}];
+
+    $scope.sendSlot = function()
+    {
+
+        if ($scope.appartmentform.$valid) {
+            let user = {
+                "wohn_id": $scope.apartmselection,
+                "slot": $scope.datetime
+            }
+
+            $http({
+                url: `../restapi/handler.php?objAction=estatemeeting&objKey`,
+                //url: `../restapi/handler.php?objAction=lessorestate&objKey=${id}`,
+                method: "POST",
+                data: user
+                // headers : {'Content-Type': 'application/x-www-form-urlencoded'},
+            }).then(function mySuccess(response) {
+                /*
+                $scope.putSucc = response.data;
+                slots = $scope.putSucc;
+                console.log(slots);
+                $scope.slots = slots;
+                $scope.slots.button = "<input type='button' value='Click me'/>"
+                */
+                $scope.putSucc = response.data;
+                console.log($scope.putSucc);
+                $scope.slots = [{}];
+                $scope.apartments = [{}];
+                $scope.viewAppointments();
+
+            }, function myError(response) {
+                console.log(response);
+            });
+        }
+    };
 
     $scope.deleteSlot = function(slot_id)
     {
@@ -18,7 +54,8 @@ studyHomeApp.controller('ViewingAppointmentsCtrl', ['$scope', '$http', function(
             $scope.slots.button = "<input type='button' value='Click me'/>"
             */
             $scope.putSucc = response.data;
-            console.log('Deleted: ' + slot_id);
+            $scope.slots = [{}];
+            $scope.apartments = [{}];
             $scope.viewAppointments();
 
         }, function myError(response) {
@@ -27,10 +64,8 @@ studyHomeApp.controller('ViewingAppointmentsCtrl', ['$scope', '$http', function(
     };
 
     $scope.viewAppointments = function () {
-        document.getElementById('showAllButton').style.display = "none";
-        $scope.slots = [{}];
         id = sessionStorage.getItem("vm_id");
-            $http({
+        $http({
                 url: `../restapi/handler.php?objAction=lessorestate&objKey=${id}`,
                 //url: `../restapi/handler.php?objAction=lessorestate&objKey=${id}`,
                 method: "GET",
@@ -38,6 +73,18 @@ studyHomeApp.controller('ViewingAppointmentsCtrl', ['$scope', '$http', function(
             }).then(function mySuccess(response) {
                 $scope.putSucc = response.data;
                 object_wohnungen = $scope.putSucc;
+
+                for (i = 0; i < object_wohnungen.length; i++) {
+                    (function(_i, _object_wohnungen) {
+                        obj = {
+                            wohn_id: _object_wohnungen[_i]["wohn_id"],
+                            name: _object_wohnungen[_i]["name"],
+                        }
+                        $scope.apartments.push(obj);
+                    })(i, object_wohnungen)
+                }
+
+                console.log(object_wohnungen);
 
                 for (i = 0; i < object_wohnungen.length; i++) {
                     (function(_i, _object_wohnungen) {
@@ -54,20 +101,23 @@ studyHomeApp.controller('ViewingAppointmentsCtrl', ['$scope', '$http', function(
                             $scope.slots = slots;
                             $scope.slots.button = "<input type='button' value='Click me'/>"
                             */
+                            //console.log($scope.putSucc);
                             $scope.putSucc = response.data;
                             timeslot = $scope.putSucc;
 
                             if (timeslot.length > 0) {
-                                obj = {
-                                    tid : timeslot[0].tid,
-                                    slot: timeslot[0].slot,
-                                    name: _object_wohnungen[_i]["name"],
-                                    isValid: true
+                                for (j = 0; j < timeslot.length; j++) {
+                                    obj = {
+                                        tid: timeslot[j].tid,
+                                        slot: timeslot[j].slot,
+                                        name: _object_wohnungen[_i]["name"],
+                                        isValid: true
+                                    }
+                                    $scope.slots.push(obj);
                                 }
-                                $scope.slots.push(obj);
-                               // $scope.slots["name"] = _object_wohnungen[_i]["name"];
-                                console.log($scope.slots);
-                                timeslot = null;
+                                   // $scope.slots["name"] = _object_wohnungen[_i]["name"];
+                                    //console.log($scope.slots);
+                                    timeslot = null;
                             }
                         }, function myError(response) {
                             console.log(response);
@@ -79,4 +129,6 @@ studyHomeApp.controller('ViewingAppointmentsCtrl', ['$scope', '$http', function(
                 console.log(response);
             });
     };
+
+    $scope.viewAppointments();
 }]);
