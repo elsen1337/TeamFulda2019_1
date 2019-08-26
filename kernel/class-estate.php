@@ -185,22 +185,33 @@ class Estate {
     
     public static function getProposedMeetingSlots($pkey) {
     
-		$sql='SELECT t.m_id, w.tid, t.vname, t.nname, t.email, DATE_FORMAT(w.slot, "%d.%m.%Y @ %H:%i") AS slot FROM w_meet AS w LEFT JOIN m_meet AS m ON m.tid=w.tid JOIN mieter AS t ON t.m_id=m.m_id WHERE w.wohn_id = '.$pkey.'  ORDER BY slot';
+		$sql='SELECT w.tid, GROUP_CONCAT(m.m_id) AS optionalMIDArr, DATE_FORMAT(w.slot, "%d.%m.%Y @ %H:%i") AS slot FROM w_meet AS w LEFT JOIN m_meet AS m ON m.tid=w.tid WHERE w.wohn_id = '.$pkey.' GROUP BY w.tid ORDER BY slot';
+		
+		//$sql='SELECT t.m_id, w.tid, t.vname, t.nname, t.email, DATE_FORMAT(w.slot, "%d.%m.%Y @ %H:%i") AS slot FROM w_meet AS w LEFT JOIN m_meet AS m ON m.tid=w.tid JOIN mieter AS t ON t.m_id=m.m_id WHERE w.wohn_id = '.$pkey.' GROUP BY w.tid ORDER BY slot';
+
 		//$sql='SELECT tid, DATE_FORMAT(slot, "%d.%m.%Y @ %H:%i") AS slot FROM w_meet WHERE wohn_id = ANY (SELECT wohn_id FROM wohnung WHERE vm_id = '.$pkey.') ORDER by slot';
-		$mrs=$GLOBALS[self::$dbvar]->query($sql);
 		        
-        $attrarr=[];
-        while ($obj=$mrs->fetch_assoc()) {
+		$attrarr=[];
+		$mrs=$GLOBALS[self::$dbvar]->query($sql);
+		while ($mobj=$mrs->fetch_object()) {
         
-            $attrarr[]=$obj;
-                            
-        }
-        
-        return $attrarr;
+			$sql='SELECT m.m_id, m.vname, m.nname, m.email FROM m_meet AS a LEFT JOIN mieter AS m ON a.m_id=m.m_id WHERE a.tid='.$mobj->tid;
+			$srs=$GLOBALS[self::$dbvar]->query($sql);
+			
+			$mobj->bookedBy=array();
+			while ($sobj=$srs->fetch_assoc()) {
+				$mobj->bookedBy[]=$sobj;
+			}
+			
+			$attrarr[]=$mobj;
+
+		}
+		
+		return $attrarr;
+	
+	}   
     
-    }   
-    
-    public static function addMeetingSlotProposal($pkey,$date) {
+	public static function addMeetingSlotProposal($pkey,$date) {
     
 		$sql='INSERT INTO w_meet (wohn_id, slot) VALUES ('.$pkey.',"'.$date.'")';
 		$mrs=$GLOBALS[self::$dbvar]->query($sql);
