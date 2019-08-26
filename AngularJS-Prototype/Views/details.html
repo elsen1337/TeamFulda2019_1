@@ -5,7 +5,17 @@
             <!--            hier ggf noch imagebeschreibung anzeigen!-->
             <slider images="images"/>
         </div>
-        <img width="581" height="436" src="{{vid_url}}" alt="{{vid_url}}"/>
+        <div>
+            <div ng-if="startStream">
+                <img width="581" height="436" src="{{vid_url}}" alt="{{vid_url !== null ? vid_url + ' not available this moment.' : 'Streaming not available!'}}"/>
+            </div>
+            <div ng-if="startStream">
+                <input type="button" value="Run" ng-click="sendEventRaspberryPi('x+')">
+            </div>
+            <div>
+                <input type="button" ng-model="startStream" value="Start Stream" ng-click="startStream = true">
+            </div>
+        </div>
         <div flex="" class="details-divs details-top details-top-right">
             <md-button class="sh-btn" data-ng-click="contactLessor();">Contact Lessor</md-button>
             <md-list id="right-content">

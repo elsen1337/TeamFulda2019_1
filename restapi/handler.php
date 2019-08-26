@@ -429,9 +429,34 @@ if (parseCommand($action,'estate')) {
             notAllowed();
 
         } 
+    } elseif (parseCommand($action,'stream')) {
 
-    }
+		$HOST = '192.168.178.139';
+		$PORT = 21567;
+		$BUFSIZE = 1024;
+		set_time_limit(0);
+		$tcpSocket = socket_create(AF_INET, SOCK_STREAM, SOL_TCP) or die("Could not create socket\n");
+		$tcpSocketCon = socket_connect($tcpSocket, $HOST, $PORT) or die ("Could not connect to server\n");
 
+		
+		if ($_SERVER['REQUEST_METHOD']=='GET')
+		{
+			header('Content-type: application/json');
+			echo '{"ping":"true"}';
+
+		} elseif ($_SERVER['REQUEST_METHOD']=='PUT') {
+			//$result = socket_bind($tcpSocket, $HOST, $PORT) or die("Could not bind to socket!\n");
+			//$result = socket_listen($tcpSocket, 3) or die("Could not set up socket listener\n");
+
+			socket_write($tcpSocket, $postParam['event'], strlen($postParam['event'])) or die ("Could not send data to server\n");
+			echo 'Sent: '.$postParam['event'];
+		} else {
+        
+            notAllowed();
+
+        } 
+
+	}
 } elseif (parseCommand($action,'lessor')) {
 
 
