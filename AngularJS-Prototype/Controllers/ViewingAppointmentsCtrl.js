@@ -84,7 +84,7 @@ studyHomeApp.controller('ViewingAppointmentsCtrl', ['$scope', '$http', function(
                     })(i, object_wohnungen)
                 }
 
-                console.log(object_wohnungen);
+                //console.log(object_wohnungen);
 
                 for (i = 0; i < object_wohnungen.length; i++) {
                     (function(_i, _object_wohnungen) {
@@ -103,33 +103,36 @@ studyHomeApp.controller('ViewingAppointmentsCtrl', ['$scope', '$http', function(
                             */
                             //console.log($scope.putSucc);
                             $scope.putSucc = response.data;
-                            console.log($scope.putSucc);
+
                             timeslot = $scope.putSucc;
 
+
                             if (timeslot.length > 0) {
-                                for (j = 0; j < timeslot.length; j++) {
-                                    obj = {
-                                        tid: timeslot[j].tid,
-                                        slot: timeslot[j].slot,
-                                        nname: timeslot[j].vname,
-                                        vname: timeslot[j].nname,
-                                        email: timeslot[j].email,
-                                        name: _object_wohnungen[_i]["name"],
-                                        isValid: true
+                                    for (j = 0; j < timeslot.length; j++) {
+                                        obj = {
+                                            tid: timeslot[j].tid,
+                                            slot: timeslot[j].slot,
+                                            bookedBy: timeslot[j].bookedBy,
+                                            name: _object_wohnungen[_i]["name"],
+                                            isValid: true
+                                        }
+
+                                        $scope.slots.push(obj);
                                     }
-                                    $scope.slots.push(obj);
-                                }
                                    // $scope.slots["name"] = _object_wohnungen[_i]["name"];
                                     //console.log($scope.slots);
-                                    timeslot = null;
+                                timeslot = null;
+                                //console.log($scope.slots);
                             }
                         }, function myError(response) {
                             console.log(response);
                         });
                     })(i, object_wohnungen)
                 }
+            $scope.slots.splice(0);
+            console.log($scope.slots);
 
-            }, function myError(response) {
+        }, function myError(response) {
                 console.log(response);
             });
     };
