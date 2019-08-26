@@ -136,7 +136,7 @@ studyHomeApp.controller('DetailsCtrl', ['$scope', '$http',  '$routeParams', '$lo
 
         $scope.vid_url = $scope.default.vid_url;
 
-        if (!$scope.vid_url)
+        if ($scope.vid_url == null)
         {
             $scope.vid_url = "Streaming not possible at the moment!";
         }

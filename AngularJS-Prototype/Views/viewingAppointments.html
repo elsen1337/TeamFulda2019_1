@@ -81,8 +81,10 @@
     <div class="list-appointments">
         <md-list ng-cloak id="tenantmeetings">
             <!--<md-subheader class="md-no-sticky">Search Items</md-subheader>-->
-            <md-list-item ng-repeat="slot in slots" class="noright">
-                <p class="slot-pfelder">{{slot.name}}</p>
+            <md-list-item ng-repeat="slot in slots | orderBy:'nname':reverse" class="noright">
+                <p class="slot-pfelder">{{slot.vname}}</p>
+                <p class="slot-pfelder">{{slot.nname}}</p>
+                <p class="slot-pfelder">{{slot.email}}</p>
                 <p class="slot-pfelder">{{slot.slot}}</p>
 
                 <!--            <md-checkbox class="md-secondary" ng-model="person.selected"></md-checkbox>-->

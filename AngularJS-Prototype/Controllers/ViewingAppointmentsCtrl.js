@@ -103,6 +103,7 @@ studyHomeApp.controller('ViewingAppointmentsCtrl', ['$scope', '$http', function(
                             */
                             //console.log($scope.putSucc);
                             $scope.putSucc = response.data;
+                            console.log($scope.putSucc);
                             timeslot = $scope.putSucc;
 
                             if (timeslot.length > 0) {
@@ -110,6 +111,9 @@ studyHomeApp.controller('ViewingAppointmentsCtrl', ['$scope', '$http', function(
                                     obj = {
                                         tid: timeslot[j].tid,
                                         slot: timeslot[j].slot,
+                                        nname: timeslot[j].vname,
+                                        vname: timeslot[j].nname,
+                                        email: timeslot[j].email,
                                         name: _object_wohnungen[_i]["name"],
                                         isValid: true
                                     }
