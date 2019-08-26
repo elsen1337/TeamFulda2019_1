@@ -72,6 +72,7 @@ studyHomeApp.controller('DetailsCtrl', ['$scope', '$http',  '$routeParams', '$lo
 		
 	};
 
+
 	$scope.meetTimes = function() {
 		
 		$http({
@@ -128,11 +129,17 @@ studyHomeApp.controller('DetailsCtrl', ['$scope', '$http',  '$routeParams', '$lo
         method : "GET",
         url : "../restapi/handler.php" + getDetailsQueryString("default", $scope.detailsID)
     }).then(function mySuccess(response) {
-
         $scope.vm_id = null;
         $scope.default = response.data;
 
         console.log(response.data);
+
+        $scope.vid_url = $scope.default.vid_url;
+
+        if (!$scope.vid_url)
+        {
+            $scope.vid_url = "Streaming not possible at the moment!";
+        }
 
         $scope.name = $scope.default.name;
         $scope.beschr = $scope.default.beschr;

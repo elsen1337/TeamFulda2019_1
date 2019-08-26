@@ -1,4 +1,94 @@
+<style>
+    #showAll {
+                position: absolute;
+                top: 30px;
+                left: 240px;
+            }
 
-    <div id="lessorSidenavCont">
-        <div id="lessorSidenav" data-ng-include="'Views/lessorSidenav.html'">{{rolle}}Sidenav.html</div>
+    body {
+        overflow-x: hidden;
+    }
+
+    #lessorSidenav, #lessorSidenavCont {
+        z-index: 5!important;
+    }
+
+    #searchList {
+        position: relative;
+        padding-bottom: 50px;
+    }
+
+    #tenantmeetings
+    {
+        position: relative;
+        padding-bottom: 100px;
+    }
+
+    md-list-item {
+        width: 120%;
+    }
+
+    button {
+        background-color: #67c6e4!important;
+    }
+
+</style>
+
+<div id="lessorSidenavCont">
+    <div id="lessorSidenav" data-ng-include="'Views/lessorSidenav.html'">{{rolle}}Sidenav.html</div>
+</div>
+
+<div id="showAll">
+<form name="appartmentform" ng-app="ViewingAppointmentsCtrl">
+    <h3>Viewing Appointments</h3>
+    <md-input-container class="md-block">
+        <label for="meeting-time">Choose an appointment time for the tenants:</label>
+        <input id="email" required type="text" name="datetime" ng-model="datetime" ng-pattern="/[2][0][1-9][0-9]-(([1][0-2])|([0][1-9]))-(([0][1-9])|([1][0-9])|([2][0-9])|([3][0-1]))\s(([0][0-9])|([1][0-9])|([2][0-3]))\:([0-5][0-9])/g"
+               placeholder="yyyy-mm-dd hh:mm">
+    </md-input-container>
+
+    <md-input-container style="margin-right: 10px;">
+        <label>Apartment</label>
+        <md-select id="apartype" required="" ng-model="apartmselection">
+            <md-option ng-repeat="apartment in apartments track by apartment.wohn_id">
+                <md-option value="{{apartment.wohn_id}}">{{apartment.name}}</md-option>
+            </md-option>
+        </md-select>
+    </md-input-container>
+
+    <md-button type="submit" class="dialog-demo-content viewing-appointments-btn" ng-click="sendSlot()">
+        Send Meeting
+    </md-button>
+</form>
+<h2>My appointments</h2>
+<div class="list-appointments">
+    <md-list ng-cloak id="searchList">
+        <!--<md-subheader class="md-no-sticky">Search Items</md-subheader>-->
+        <md-list-item ng-repeat="slot in slots" class="noright">
+            <p class="slot-pfelder">{{slot.name}}</p>
+            <p class="slot-pfelder">{{slot.slot}}</p>
+            <p class="slot-pfelder" ng-if="slot.isValid === true">
+                <md-button ng-click="deleteSlot(slot.tid)">Delete</md-button>
+            </p>
+
+                <!--            <md-checkbox class="md-secondary" ng-model="person.selected"></md-checkbox>-->
+                <!--            <md-icon md-svg-icon="communication:email"  ng-click="doSecondaryAction($event)" aria-label="Send Email" class="md-secondary md-hue-3" ></md-icon>-->
+                <!--            <md-icon class="md-secondary" ng-click="contactLessor($event)" aria-label="Chat" md-svg-icon="communication:message"></md-icon>-->
+        </md-list-item>
+    </md-list>
+</div>
+<h2>Suggested meetings by tenants</h2>
+    <div class="list-appointments">
+        <md-list ng-cloak id="tenantmeetings">
+            <!--<md-subheader class="md-no-sticky">Search Items</md-subheader>-->
+            <md-list-item ng-repeat="slot in slots" class="noright">
+                <p class="slot-pfelder">{{slot.name}}</p>
+                <p class="slot-pfelder">{{slot.slot}}</p>
+
+                <!--            <md-checkbox class="md-secondary" ng-model="person.selected"></md-checkbox>-->
+                <!--            <md-icon md-svg-icon="communication:email"  ng-click="doSecondaryAction($event)" aria-label="Send Email" class="md-secondary md-hue-3" ></md-icon>-->
+                <!--            <md-icon class="md-secondary" ng-click="contactLessor($event)" aria-label="Chat" md-svg-icon="communication:message"></md-icon>-->
+            </md-list-item>
+        </md-list>
     </div>
+</div>
