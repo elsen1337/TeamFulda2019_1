@@ -20,12 +20,17 @@ class Estate {
 
     public static function getDefaultProperties ($wid) {
     
-        $sql='SELECT w.*, v.nname, COUNT(f.m_id) AS cnt, AVG(f.score) AS score FROM wohnung AS w JOIN vermieter AS v ON w.vm_id=v.vm_id LEFT JOIN m_favorit AS f ON f.wohn_id=w.wohn_id WHERE w.wohn_id='.$wid.' GROUP BY w.wohn_id';
+        $sql='SELECT w.*, v.nname, s.vid_url, COUNT(f.m_id) AS cnt, AVG(f.score) AS score FROM wohnung AS w JOIN vermieter AS v ON w.vm_id=v.vm_id LEFT JOIN m_favorit AS f ON f.wohn_id=w.wohn_id LEFT JOIN w_stream AS s ON s.wohn_id=w.wohn_id WHERE w.wohn_id='.$wid.' GROUP BY w.wohn_id';
 
         $mrs=$GLOBALS[self::$dbvar]->query($sql);
         return ($mrs->num_rows == 1) ? $mrs->fetch_object() : null;
 
     }
+	
+	public static function getVideoStream($wid) 
+	{
+		$sql='SELECT * from w_stream WHERE wohn_id = '.$wid;
+	}
 
 
 	// Object JSON Format
