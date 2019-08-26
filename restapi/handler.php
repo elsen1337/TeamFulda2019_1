@@ -447,8 +447,15 @@ if (parseCommand($action,'estate')) {
 		} elseif ($_SERVER['REQUEST_METHOD']=='PUT') {
 			//$result = socket_bind($tcpSocket, $HOST, $PORT) or die("Could not bind to socket!\n");
 			//$result = socket_listen($tcpSocket, 3) or die("Could not set up socket listener\n");
+			switch($postParam['event'])
+			{
+				case 'stop':
+							socket_write($tcpSocket, $postParam['event'], strlen($postParam['event'])) or die ("Could not send data to server\n");
+							socket_close($tcpSocket);
+				default:
+							socket_write($tcpSocket, $postParam['event'], strlen($postParam['event'])) or die ("Could not send data to server\n");
 
-			socket_write($tcpSocket, $postParam['event'], strlen($postParam['event'])) or die ("Could not send data to server\n");
+			}
 			echo 'Sent: '.$postParam['event'];
 		} else {
         
