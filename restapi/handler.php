@@ -440,23 +440,21 @@ if (parseCommand($action,'estate')) {
 
 		
 		if ($_SERVER['REQUEST_METHOD']=='GET')
-		{
+		{				
+			$speed = 30;
+			$tmp = 'speed';
+			$data = $tmp.strval($speed);
+			socket_write($tcpSocket, $data, strlen($tmp.$data)) or die ("Could not send speed data to server\n");
 			header('Content-type: application/json');
 			echo '{"ping":"true"}';
 
-		} elseif ($_SERVER['REQUEST_METHOD']=='PUT') {
-			//$result = socket_bind($tcpSocket, $HOST, $PORT) or die("Could not bind to socket!\n");
-			//$result = socket_listen($tcpSocket, 3) or die("Could not set up socket listener\n");
-			switch($postParam['event'])
-			{
-				case 'stop':
-							socket_write($tcpSocket, $postParam['event'], strlen($postParam['event'])) or die ("Could not send data to server\n");
-							socket_close($tcpSocket);
-				default:
-							socket_write($tcpSocket, $postParam['event'], strlen($postParam['event'])) or die ("Could not send data to server\n");
-
-			}
+		} elseif ($_SERVER['REQUEST_METHOD']=='PUT') {			
+		
 			echo 'Sent: '.$postParam['event'];
+			socket_write($tcpSocket, $postParam['event'], strlen($postParam['event'])) or die ("Could not send data to server\n");
+			socket_write($tcpSocket, 'stop', strlen('stop')) or die ("Could not send data to server\n");
+			socket_close($tcpSocket);
+
 		} else {
         
             notAllowed();

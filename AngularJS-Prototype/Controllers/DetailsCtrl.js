@@ -44,32 +44,6 @@ studyHomeApp.controller('DetailsCtrl', ['$scope', '$http',  '$routeParams', '$lo
 	$scope.user = null;
 	$scope.users = null;
 
-    $scope.pingRaspberryPi = function(event)
-    {
-        $http({
-            method : "GET",
-            url : "../restapi/handler.php?objAction=estatestream",
-            headers : {'Content-Type': 'application/json'}
-
-        }).then(function mySuccess(asyncResp) {
-            console.log(asyncResp.data);
-            $scope.default = asyncResp.data;
-
-            if ($scope.default.ping) {
-                $scope.urlPing = true;
-            }
-            else
-            {
-                $scope.urlPing = false;
-            }
-
-            console.log($scope.urlPing)
-
-        }, function myError(asyncResp) {
-            console.error(asyncResp.statusText);
-        });
-    }
-
 	$scope.sendEventRaspberryPi = function(event)
     {
         $http({
@@ -176,7 +150,15 @@ studyHomeApp.controller('DetailsCtrl', ['$scope', '$http',  '$routeParams', '$lo
         console.log(response.data);
 
         $scope.vid_url = $scope.default.vid_url;
-        $scope.noVid = ' not reachable at the moment.';
+
+        if ($scope.vid_url !== null)
+        {
+            $scope.stream_available = true;
+        }
+        else
+        {
+            $scope.stream_available = false;
+        }
 
         $scope.name = $scope.default.name;
         $scope.beschr = $scope.default.beschr;
@@ -285,6 +267,28 @@ studyHomeApp.controller('DetailsCtrl', ['$scope', '$http',  '$routeParams', '$lo
     // $scope.bottomContent = [{
     //
     // }];
+    if ($scope.stream_available) {
+        $http({
+            method: "GET",
+            url: "../restapi/handler.php?objAction=estatestream",
+            headers: {'Content-Type': 'application/json'}
+
+        }).then(function mySuccess(asyncResp) {
+            console.log(asyncResp.data);
+            $scope.default = asyncResp.data;
+
+            if ($scope.default.ping) {
+                $scope.urlPing = true;
+            } else {
+                $scope.urlPing = false;
+            }
+
+            console.log($scope.urlPing)
+
+        }, function myError(asyncResp) {
+            console.error(asyncResp.statusText);
+        });
+    }
 }]);
 
 function getDetailsQueryString(objAction, objKey) {
