@@ -1,7 +1,7 @@
 <?php
 
     function ratingList($vmid) {
-		$sql='SELECT * FROM v_rating WHERE vm_id='.$vmid.'';
+        $sql='SELECT * FROM v_rating WHERE vm_id='.$vmid.'';
 		$mrs=$GLOBALS['msdb']->query($sql);
 		$attrarr=[];
 		while ($obj=$mrs->fetch_object()) {
@@ -12,7 +12,7 @@
 
     function ratingAddUpdate($vm_id,$m_id,$stars,$cmt,$scr=null) {
 		if (strlen($scr)==0) {$scr='null';}
-        $sql='INSERT INTO v_rating (vm_id, m_id, stars, cmt) VALUES ('.$vm_id.', '.$m_id.', '.$stars.', '.$cmt.')';
+        $sql='INSERT INTO v_rating (vm_id, m_id, stars, cmt) VALUES ('.$vm_id.', '.$m_id.', '.$stars.', "'.$cmt.'")';
         $mrs=$GLOBALS['msdb']->query($sql);
         return $GLOBALS['msdb']->affected_rows > 0; // !!! Spezialfall 0,1(Insert),2(Update)
     }

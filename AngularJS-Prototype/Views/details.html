@@ -102,14 +102,21 @@
         <div id="bewertungenListe-div">
             <md-list ng-cloak id="bewertungenListe">
                 <md-list-item ng-repeat="item in bewertungenItems" class="noright">
-                    <p id="sterne-Liste">{{item.stars}}</p>
+                    <fieldset class="sterne" id="sterne-Liste">
+                        <input type="radio" id="stern5-Liste" name="rating" value="5" /><label for="stern5"></label>
+                        <input type="radio" id="stern4-Liste" name="rating" value="4" /><label for="stern4"></label>
+                        <input type="radio" id="stern3-Liste" name="rating" value="3" /><label for="stern3"></label>
+                        <input type="radio" id="stern2-Liste" name="rating" value="2" /><label for="stern2"></label>
+                        <input type="radio" id="stern1-Liste" name="rating" value="1" /><label for="stern1"></label>
+                    </fieldset>
+                        {{item.stars}}
                     <p id="kommentar-Liste">{{item.cmt}}</p>
                 </md-list-item>
             </md-list>
         </div>
         <div id="sterneKommentar-div">
             <div id="sterne-div">
-                <fieldset id="sterne">
+                <fieldset class="sterne" id="sterne">
                     <input type="radio" id="stern5" name="rating" value="5" /><label for="stern5"></label>
                     <input type="radio" id="stern4" name="rating" value="4" /><label for="stern4"></label>
                     <input type="radio" id="stern3" name="rating" value="3" /><label for="stern3"></label>
@@ -118,8 +125,8 @@
                 </fieldset>
             </div>
             <div id="kommentar-div">
-            <textarea ng-model="kommentar" id="kommentar" name="btn-input" maxlength="600" wrap="soft"
-                      placeholder="Write your message here..." required></textarea>
+            <textarea ng-model="kommentar" id="kommentar" name="btn-input" maxlength="300" wrap="soft"
+                      placeholder="Write your comment here..."></textarea>
             </div>
         </div>
         <div id="bewertung-btn-div">

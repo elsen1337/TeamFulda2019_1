@@ -139,7 +139,6 @@ studyHomeApp.controller('DetailsCtrl', ['$scope', '$http',  '$routeParams', '$lo
         $scope.entf_min = $scope.default.entf_min;
 
         $scope.kaution = $scope.default.kaution;
-        console.log($scope.default.garage);
         if($scope.default.garage == 1) {
             $scope.garage = 'Yes';
         } else {
@@ -264,15 +263,20 @@ studyHomeApp.controller('DetailsCtrl', ['$scope', '$http',  '$routeParams', '$lo
                     console.log("status: " + response.status);
                     console.log("statusText: " + response.statusText);
 
-                    $scope.ratingItems = [{}];
+                    $scope.bewertungenItems = [{}];
                     if($scope.ratingData.length === 0) {
-                        document.getElementById("searchList").style.display="none";
+                        document.getElementById("bewertungenListe").style.display="none";
+                    } else {
+                        document.getElementById("bewertungenListe").style.display="block";
                     }
                     for(let i = 0; i < $scope.ratingData.length; i++) {
-                        $scope.ratingItems[i] = {
+                        $scope.bewertungenItems[i] = {
                             stars: $scope.ratingData[i].stars,
                             cmt: $scope.ratingData[i].cmt
                         };
+                        if($scope.ratingData[i].stars === '1'){
+                            document.getElementById('stern1')
+                        }
                     }
                 },
                 (err) => {
@@ -284,7 +288,10 @@ studyHomeApp.controller('DetailsCtrl', ['$scope', '$http',  '$routeParams', '$lo
         var mID = sessionStorage.getItem('m_id');
         url = `../restapi/handler.php?objAction=tenantrating&objKey=${mID}`;
         if (mID < 1) {
-            alert('Nicht als Mieter eingeloggt !');
+            alert('Not logged in as a tenant!');
+        }
+        else if($scope.kommentar === '' || $scope.kommentar === undefined){
+            alert('Please write a comment!')
         } else {
             data = JSON.stringify({'vm_id': $scope.vm_id, 'm_id': mID, 'stars': getRating(), 'cmt': $scope.kommentar});
 
@@ -300,6 +307,8 @@ studyHomeApp.controller('DetailsCtrl', ['$scope', '$http',  '$routeParams', '$lo
                         console.log(response.data);
                         console.log("status: " + response.status);
                         console.log("statusText: " + response.statusText);
+                        $scope.getRating();
+                        $scope.kommentar='';
                     },
                     (err) => {
                         console.log(err);

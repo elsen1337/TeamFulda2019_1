@@ -14,6 +14,30 @@
     height: 20%;
 }
 
+#bewertungenListe-div {
+    margin-left: 0%;
+    width: 100%;
+}
+
+#bewertungenListe {
+    width: 100%;
+}
+
+#bewertungenListe > * {
+    justify-content: left;
+    width: 95%;
+}
+
+#sterne-Liste {
+    width: 20%;
+}
+
+#kommentar-Liste {
+    margin-left: 3%;
+    width: 80%;
+    word-wrap: break-word;
+}
+
 #sterneKommentar-div {
     width: 100%;
     height: 20%;
@@ -43,18 +67,19 @@
 }
 
 /*Rahmen um die Sterne unsichtbar machen*/
-#sterne {
+.sterne {
     border: none;
     float: left;
+    margin-left: -4%;
 }
 
 /*Inputfelder hinter den Sternen unsichtbar machen*/
-#sterne > input {
+.sterne > input {
     display: none;
 }
 
 /*Sterne darstellen und Stylen*/
-#sterne > label:before {
+.sterne > label:before {
     margin: 5px;
     font-size: 1.25em;
     font-family: FontAwesome;   //Iconsammlung
@@ -63,7 +88,7 @@
 }
 
 /*Hintergrundfarbe der Sterne auf weiß setzen und Reihenfolge richtig setzen*/
-#sterne > label {
+.sterne > label {
     color: #ddd;
     float: right;
 }
