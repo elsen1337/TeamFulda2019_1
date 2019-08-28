@@ -118,12 +118,12 @@
                 </fieldset>
             </div>
             <div id="kommentar-div">
-            <textarea id="kommentar" name="btn-input" maxlength="600" wrap="soft"
+            <textarea ng-model="kommentar" id="kommentar" name="btn-input" maxlength="600" wrap="soft"
                       placeholder="Write your message here..." required></textarea>
             </div>
         </div>
         <div id="bewertung-btn-div">
-            <md-button class="login-btn" ng-click="putRating()" type="submit" id="bewertung-btn">
+            <md-button class="login-btn" ng-click="postRating()" type="submit" id="bewertung-btn">
                 Send
             </md-button>
         </div>

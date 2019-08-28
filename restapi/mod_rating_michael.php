@@ -24,11 +24,11 @@
         echo json_encode($lst);
 
     } elseif ($_SERVER['REQUEST_METHOD']=='PUT') {
+
+    } elseif ($_SERVER['REQUEST_METHOD']=='POST') {
         //hinzufügen eines neuen Kommentars
         $actResult=ratingAddUpdate($postParam['vm_id'],$postParam['m_id'],$postParam['stars'],$postParam['cmt']);
         sendDefaultActionRequestBody($actResult,$msdb);
-
-    } elseif ($_SERVER['REQUEST_METHOD']=='POST') {
 
     } elseif ($_SERVER['REQUEST_METHOD']=='DELETE') {
 

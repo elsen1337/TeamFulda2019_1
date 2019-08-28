@@ -245,6 +245,8 @@ studyHomeApp.controller('DetailsCtrl', ['$scope', '$http',  '$routeParams', '$lo
         });
     }
 
+    let url = `../restapi/handler.php?objAction=tenantrating&objKey=${sessionStorage.getItem('vm_id')}`;
+
     $scope.getRating = () => {
         $http.get(url,
             {
@@ -277,6 +279,32 @@ studyHomeApp.controller('DetailsCtrl', ['$scope', '$http',  '$routeParams', '$lo
                 });
     }
     $scope.getRating();
+
+    $scope.postRating = () => {
+        var mID = sessionStorage.getItem('m_id');
+        if (mID < 1) {
+            alert('Nicht als Mieter eingeloggt !');
+        } else {
+            data = JSON.stringify({'vm_id': $scope.vm_id, 'm_id': mID, 'stars': getRating(), 'cmt': $scope.kommentar});
+
+            $http.post(url, data,
+                {
+                    transformRequest: angular.identity,
+                    headers: {
+                        'Content-Type': 'application/json'
+                    }
+                })
+                .then((response) => {
+                        $scope.userData = response.data;
+                        console.log(response.data);
+                        console.log("status: " + response.status);
+                        console.log("statusText: " + response.statusText);
+                    },
+                    (err) => {
+                        console.log(err);
+                    });
+        }
+    }
 }]);
 
 function getDetailsQueryString(objAction, objKey) {
@@ -287,3 +315,12 @@ function getEstateID(path) {
     return path.match("[0-9]+");
 }
 
+function getRating(){
+    var stars = document.getElementsByName('rating');
+    for (i = 0;i < stars.length;i++){
+        if(stars[i].checked){
+            return stars[i].value;
+        }
+    }
+    return 0;
+}
