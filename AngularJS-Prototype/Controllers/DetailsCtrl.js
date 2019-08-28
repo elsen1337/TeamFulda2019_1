@@ -7,11 +7,10 @@ angular.module('material.components.dialog', [
 
 angular.module('selectDemoOptionsAsync', ['ngMaterial'])
 
-studyHomeApp.controller('DetailsCtrl', ['$scope', '$http',  '$routeParams', '$location', '$timeout', function($scope, $http, $routeParams, $location, $timeout){
+studyHomeApp.controller('DetailsCtrl', ['$scope', '$http',  '$routeParams', '$location', function($scope, $http, $routeParams, $location){
 
     var routeLink=$location.$$path;
     var estateID=routeLink.substr( routeLink.indexOf('=')+1 );
-
 
     $scope.favAdd = function () {
 
@@ -40,7 +39,6 @@ studyHomeApp.controller('DetailsCtrl', ['$scope', '$http',  '$routeParams', '$lo
 		}
     };
 
-
 	$scope.user = null;
 	$scope.users = null;
 
@@ -68,7 +66,6 @@ studyHomeApp.controller('DetailsCtrl', ['$scope', '$http',  '$routeParams', '$lo
 		
 		var mID = sessionStorage.getItem('m_id');
 
-				
 		$http({
 			method : "PUT",
 			url : "../restapi/handler.php?objAction=tenantmeeting",
@@ -87,7 +84,6 @@ studyHomeApp.controller('DetailsCtrl', ['$scope', '$http',  '$routeParams', '$lo
 		
 	};
 
-
 	$scope.meetTimes = function() {
 		
 		$http({
@@ -102,43 +98,10 @@ studyHomeApp.controller('DetailsCtrl', ['$scope', '$http',  '$routeParams', '$lo
 		}, function myError(asyncResp) {
 			console.error(asyncResp.statusText);
 		});
-		
-		
-		/*
-		// Use timeout to simulate a 650ms request.
-		return $timeout(function() {
-
-		$scope.users =  $scope.users  || [
-			{ id: 1, name: 'Scooby Doo' },
-			{ id: 2, name: 'Shaggy Rodgers' },
-			{ id: 3, name: 'Fred Jones' },
-			{ id: 4, name: 'Daphne Blake' },
-			{ id: 5, name: 'Velma Dinkley' }
-		];
-
-		}, 650);
-		*/
 
 	};
 
-    // console.log(getEstateID($location.$$path));
-
     $scope.detailsID = getEstateID($location.$$path);
-
-
-    /*
-    $http({
-        method : "GET",
-        url : "../restapi/handler.php?objAction=estateimages&objKey="+estateID,
-    }).then(function mySuccess(response) {
-
-        console.log(response);
-
-    }, function myError(response) {
-        $scope.error = response.statusText;
-        console.error($scope.error);
-    });
-*/
 
     $http({
         method : "GET",
@@ -259,14 +222,6 @@ studyHomeApp.controller('DetailsCtrl', ['$scope', '$http',  '$routeParams', '$lo
         }
     }
 
-    // $http.get("../restapi/handler.php?objAction=estatedefault&objKey=2")
-    //     .then(function(response){
-    //         console.log(response.data);
-    //     });
-
-    // $scope.bottomContent = [{
-    //
-    // }];
     if ($scope.stream_available) {
         $http({
             method: "GET",
@@ -289,40 +244,46 @@ studyHomeApp.controller('DetailsCtrl', ['$scope', '$http',  '$routeParams', '$lo
             console.error(asyncResp.statusText);
         });
     }
+
+    $scope.getRating = () => {
+        $http.get(url,
+            {
+                transformRequest: angular.identity,
+                headers: {
+                    'Content-Type': undefined
+                }
+            })
+            .then((response) =>
+                {
+                    $scope.searchData = response.data;
+                    console.log(response.data);
+                    console.log("status: " + response.status);
+                    console.log("statusText: " + response.statusText);
+
+                    $scope.searchItems = [{}];
+                    if($scope.searchData.length === 0) {
+                        document.getElementById("searchList").style.display="none";
+                    }
+                    for(let i = 0; i < $scope.searchData.length; i++) {
+                        $scope.searchItems[i] = {
+                            id : $scope.searchData[i].wohn_id,
+                            alt : $scope.searchData[i].imgalt,
+                            name : $scope.searchData[i].name,
+                        };
+                    }
+                },
+                (err) => {
+                    console.log(err);
+                });
+    }
+    $scope.getRating();
 }]);
 
 function getDetailsQueryString(objAction, objKey) {
     return "?objAction=estate" + objAction + "&objKey=" + objKey;
 }
 
-// this doesn't really work
-// function insertRightContent() {
-//     document.getElementById("right-content");
-//     let li = document.createElement("md-list-item");
-//     li.setAttribute("class", "md-2-line");
-//     li.setAttribute("ng-repeat", "item in rightContent");
-//     let div = document.createElement("div");
-//     div.setAttribute("class", "md-list-item-text");
-//     li.append(div);
-//     let h1 = document.createElement("h1");
-//     h1.innerHTML = "{{item.title}}";
-//     div.append(h1);
-//     let p = document.createElement("p");
-//     p.innerHTML = "{{item.description}}";
-//     div.append(p);
-// }
-
 function getEstateID(path) {
     return path.match("[0-9]+");
-}
-
-function GetRating(){
-    var stars = document.getElementsByName('rating');
-    for (i = 0;i < stars.length;i++){
-        if(stars[i].checked){
-            return stars[i].value;
-        }
-    }
-    return 0;
 }
 
