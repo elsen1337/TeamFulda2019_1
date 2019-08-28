@@ -34,7 +34,7 @@
 
 #kommentar-Liste {
     margin-left: 4%;
-    margin-right:4%;
+    margin-right: 4%;
     width: 75%;
     word-wrap: break-word;
 }
@@ -71,7 +71,7 @@
 .sterne {
     border: none;
     float: left;
-    margin-left: -4.5%;
+    margin-left: -4%;
 }
 
 /*Inputfelder hinter den Sternen unsichtbar machen*/
