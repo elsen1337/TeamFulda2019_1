@@ -103,11 +103,11 @@
             <md-list ng-cloak id="bewertungenListe">
                 <md-list-item ng-repeat="item in bewertungenItems" class="noright">
                     <fieldset class="sterne" id="sterne-Liste">
-                        <input type="radio" id="stern5-Liste" name="rating" value="5" /><label for="stern5"></label>
-                        <input type="radio" id="stern4-Liste" name="rating" value="4" /><label for="stern4"></label>
-                        <input type="radio" id="stern3-Liste" name="rating" value="3" /><label for="stern3"></label>
-                        <input type="radio" id="stern2-Liste" name="rating" value="2" /><label for="stern2"></label>
-                        <input type="radio" id="stern1-Liste" name="rating" value="1" /><label for="stern1"></label>
+                        <input type="radio"/><label id="labelStern5"></label>
+                        <input type="radio"/><label id="labelStern4"></label>
+                        <input type="radio"/><label id="labelStern3"></label>
+                        <input type="radio"/><label id="labelStern2"></label>
+                        <input type="radio"/><label id="labelStern1"></label>
                     </fieldset>
                         {{item.stars}}
                     <p id="kommentar-Liste">{{item.cmt}}</p>

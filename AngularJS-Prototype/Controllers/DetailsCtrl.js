@@ -271,11 +271,15 @@ studyHomeApp.controller('DetailsCtrl', ['$scope', '$http',  '$routeParams', '$lo
                     }
                     for(let i = 0; i < $scope.ratingData.length; i++) {
                         $scope.bewertungenItems[i] = {
-                            stars: $scope.ratingData[i].stars,
                             cmt: $scope.ratingData[i].cmt
                         };
-                        if($scope.ratingData[i].stars === '1'){
-                            document.getElementById('stern1')
+                    }
+                    for(let j = 0; j < $scope.ratingData.length; j++) {
+                        for (let k = 1; k <= $scope.ratingData[j].stars; k++) {
+                            var test = document.getElementById('labelStern' + k);
+                            console.log('labelStern' + k)
+                            console.log(test);
+                            document.getElementById('labelStern' + k).style.color = 'gold';
                         }
                     }
                 },
