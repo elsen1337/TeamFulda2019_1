@@ -9,6 +9,7 @@ angular.module('selectDemoOptionsAsync', ['ngMaterial'])
 
 studyHomeApp.controller('DetailsCtrl', ['$scope', '$http',  '$routeParams', '$location', function($scope, $http, $routeParams, $location){
 
+    let url;
     var routeLink=$location.$$path;
     var estateID=routeLink.substr( routeLink.indexOf('=')+1 );
 
@@ -203,6 +204,7 @@ studyHomeApp.controller('DetailsCtrl', ['$scope', '$http',  '$routeParams', '$lo
                 description: $scope.tiere
             }
         ];
+        $scope.getRating();
     }, function myError(response) {
         $scope.error = response.statusText;
         console.error($scope.error);
@@ -245,9 +247,9 @@ studyHomeApp.controller('DetailsCtrl', ['$scope', '$http',  '$routeParams', '$lo
         });
     }
 
-    let url = `../restapi/handler.php?objAction=tenantrating&objKey=${sessionStorage.getItem('m_id')}`;
 
     $scope.getRating = () => {
+        url = `../restapi/handler.php?objAction=tenantrating&objKey=${$scope.vm_id}`;
         $http.get(url,
             {
                 transformRequest: angular.identity,
@@ -257,20 +259,19 @@ studyHomeApp.controller('DetailsCtrl', ['$scope', '$http',  '$routeParams', '$lo
             })
             .then((response) =>
                 {
-                    $scope.searchData = response.data;
+                    $scope.ratingData = response.data;
                     console.log(response.data);
                     console.log("status: " + response.status);
                     console.log("statusText: " + response.statusText);
 
-                    $scope.searchItems = [{}];
-                    if($scope.searchData.length === 0) {
+                    $scope.ratingItems = [{}];
+                    if($scope.ratingData.length === 0) {
                         document.getElementById("searchList").style.display="none";
                     }
-                    for(let i = 0; i < $scope.searchData.length; i++) {
-                        $scope.searchItems[i] = {
-                            id : $scope.searchData[i].wohn_id,
-                            alt : $scope.searchData[i].imgalt,
-                            name : $scope.searchData[i].name,
+                    for(let i = 0; i < $scope.ratingData.length; i++) {
+                        $scope.ratingItems[i] = {
+                            stars: $scope.ratingData[i].stars,
+                            cmt: $scope.ratingData[i].cmt
                         };
                     }
                 },
@@ -278,10 +279,10 @@ studyHomeApp.controller('DetailsCtrl', ['$scope', '$http',  '$routeParams', '$lo
                     console.log(err);
                 });
     }
-    $scope.getRating();
 
     $scope.postRating = () => {
         var mID = sessionStorage.getItem('m_id');
+        url = `../restapi/handler.php?objAction=tenantrating&objKey=${mID}`;
         if (mID < 1) {
             alert('Nicht als Mieter eingeloggt !');
         } else {
