@@ -1,0 +1,30 @@
+RewriteEngine On
+
+# Macht keinen Sinn wegen Unterverzeichnis
+# RewriteBase /
+
+
+#RewriteRule nic/update  /dyndns.php [L,QSA]
+#RewriteRule redir/([^/]+)(.*) /dyndns.php?redir=$1&url=$2 [L,QSA]
+
+RewriteRule nic/update  ddns-index.php?system=dyndns [L,QSA]
+RewriteRule redir/([^/]+)(.*) ddns-index.php?redir=$1&url=$2 [L,QSA]
+
+
+
+#/nic/dyndns?action=edit&started=1&hostname=YES&host_id=user.provider.tld&myip=2003:dd:ebf3:d1fc:956f:9f6f:341f:929d
+#/nic/update?system=dyndns&hostname=user.provider.tld&myip=2003:dd:ebf3:d1fc:956f:9f6f:341f:929d
+
+
+
+DirectoryIndex ddns-index.php
+
+
+<If "%{HTTP_HOST} == 'localhost'">
+	ErrorDocument 404 "LocalNotFoundError(DDNS)"
+	#RewriteBase /
+</If>
+<If "%{HTTP_HOST} == 'hsftp.uber.space'">
+	ErrorDocument 404 "ProductionNotFoundError(DDNS)"
+	#RewriteBase /sfsuroombook/
+</If>
