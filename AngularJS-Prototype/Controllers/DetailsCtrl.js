@@ -245,7 +245,7 @@ studyHomeApp.controller('DetailsCtrl', ['$scope', '$http',  '$routeParams', '$lo
         });
     }
 
-    let url = `../restapi/handler.php?objAction=tenantrating&objKey=${sessionStorage.getItem('vm_id')}`;
+    let url = `../restapi/handler.php?objAction=tenantrating&objKey=${sessionStorage.getItem('m_id')}`;
 
     $scope.getRating = () => {
         $http.get(url,
