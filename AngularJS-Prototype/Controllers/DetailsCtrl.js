@@ -276,10 +276,12 @@ studyHomeApp.controller('DetailsCtrl', ['$scope', '$http',  '$routeParams', '$lo
                     }
                     for(let j = 0; j < $scope.ratingData.length; j++) {
                         for (let k = 1; k <= $scope.ratingData[j].stars; k++) {
-                            var test = document.getElementById('labelStern' + k);
-                            console.log('labelStern' + k)
-                            console.log(test);
-                            document.getElementById('labelStern' + k).style.color = 'gold';
+                            console.log(k);
+                            $scope.do = function(id) {
+                                var test = angular.element(document.getElementById('inputStern' + k));
+                                console.log(test);
+                                angular.element(document.getElementById(id)).backgroundColor = 'gold';
+                            }
                         }
                     }
                 },
