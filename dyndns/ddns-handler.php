@@ -98,8 +98,15 @@ class DDNSHandler {
 		
 		# Keine IPAdresse
 		if (count($curIP) > 0) {
-			$addParams=array_filter($_GET,function($k) {return $k<>'redir' &&  $k<>'url';},ARRAY_FILTER_USE_KEY);
-			header('Location: http'.(strlen($_SERVER['HTTPS']) > 0 ? 's' : '').'://'.($ipTyp=='6' ? '['.$ipStr.']' : $ipStr).$_GET['url'].(count($addParams) > 0 ? '?'.http_build_query($addParams) : ''));
+			$addParams=array_filter($_GET,function($k) {return $k<>'redir' && $k<>'url' && $k<>'port' && $k<>'proto';},ARRAY_FILTER_USE_KEY);
+			
+			$port=$_GET['port'];
+			$proto=$_GET['proto'];
+			
+			$proto=(strlen($proto) > 0 ? $proto : 'http'.(strlen($_SERVER['HTTPS']) > 0 ? 's' : ''));
+			$port=is_numeric($port) ? $port : null;
+	
+			header('Location: '.$proto.'://'.($ipTyp=='6' ? '['.$ipStr.']' : $ipStr).($port<>null ? ':'.$port : '').$_GET['url'].(count($addParams) > 0 ? '?'.http_build_query($addParams) : ''));
 			return true;
 		} else {
 			self::sendHeader(404,'Not Found');
