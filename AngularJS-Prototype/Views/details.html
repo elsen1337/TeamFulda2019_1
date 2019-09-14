@@ -5,6 +5,24 @@
             <!--            hier ggf noch imagebeschreibung anzeigen!-->
             <slider images="images"/>
         </div>
+        <div>
+            <div ng-if="stream_available">
+                <img width="581" height="436" src="{{vid_url}}" alt="{{vid_url !== null ? vid_url + ' not available this moment.' : 'Streaming not available!'}}"/>
+            </div>
+            <div ng-if="urlPing && stream_available">
+                <input type="button" value="Forward" ng-click="sendEventRaspberryPi('forward')">
+                <input type="button" value="Left" ng-click="sendEventRaspberryPi('left')">
+                <input type="button" value="Right" ng-click="sendEventRaspberryPi('right')">
+                <input type="button" value="Home" ng-click="sendEventRaspberryPi('home')">
+                <input type="button" value="Backward" ng-click="sendEventRaspberryPi('backward')">
+                <input type="button" value="Y+" ng-click="sendEventRaspberryPi('y+')">
+                <input type="button" value="Y-" ng-click="sendEventRaspberryPi('y-')">
+                <input type="button" value="HOME" ng-click="sendEventRaspberryPi('xy_home')">
+                <input type="button" value="X-" ng-click="sendEventRaspberryPi('x-')">
+                <input type="button" value="X+" ng-click="sendEventRaspberryPi('x+')">
+                <input type="button" value="Quit" ng-click="sendEventRaspberryPi('stop')">
+            </div>
+        </div>
         <div flex="" class="details-divs details-top details-top-right">
             <md-button class="sh-btn" data-ng-click="contactLessor();">Contact Lessor</md-button>
             <md-list id="right-content">
@@ -76,6 +94,46 @@
         <p id="estate-text">
             {{beschr}}
         </p>
+    </div>
+    <div id="bewertung">
+        <div id="ueberschrift-div">
+            <h1>Rate the tenant</h1>
+        </div>
+        <div id="bewertungenListe-div">
+            <md-list ng-cloak id="bewertungenListe">
+                <md-list-item ng-repeat="item in bewertungenItems" class="noright">
+                    <fieldset class="sterne" id="sterne-Liste">
+                        <input type="radio" ng-bind-html="do('inputStern5')"/><label ></label>
+                        <input type="radio" ng-bind-html="do('inputStern4')"/><label ></label>
+                        <input type="radio" ng-bind-html="do('inputStern3')"/><label ></label>
+                        <input type="radio" ng-bind-html="do('inputStern2')"/><label ></label>
+                        <input type="radio" ng-bind-html="do('inputStern1')"/><label ></label>
+                    </fieldset>
+                        {{item.stars}}
+                    <p id="kommentar-Liste">{{item.cmt}}</p>
+                </md-list-item>
+            </md-list>
+        </div>
+        <div id="sterneKommentar-div">
+            <div id="sterne-div">
+                <fieldset class="sterne" id="sterne">
+                    <input type="radio" id="stern5" name="rating" value="5" /><label for="stern5"></label>
+                    <input type="radio" id="stern4" name="rating" value="4" /><label for="stern4"></label>
+                    <input type="radio" id="stern3" name="rating" value="3" /><label for="stern3"></label>
+                    <input type="radio" id="stern2" name="rating" value="2" /><label for="stern2"></label>
+                    <input type="radio" id="stern1" name="rating" value="1" /><label for="stern1"></label>
+                </fieldset>
+            </div>
+            <div id="kommentar-div">
+            <textarea ng-model="kommentar" id="kommentar" name="btn-input" maxlength="300" wrap="soft"
+                      placeholder="Write your comment here..."></textarea>
+            </div>
+        </div>
+        <div id="bewertung-btn-div">
+            <md-button class="login-btn" ng-click="postRating()" type="submit" id="bewertung-btn">
+                Send
+            </md-button>
+        </div>
     </div>
 </div>
 

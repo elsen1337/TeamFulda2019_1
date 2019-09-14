@@ -38,9 +38,7 @@ class MultipartFormData {
 	
 	
 	function getFormData() {
-	
 		return $this->prm;
-	
 	}
 	
 
@@ -77,7 +75,6 @@ class MultipartFormData {
 				return $nsdims;
 			
 			} else {
-			
 				return array($field);
 			
 			}
@@ -90,11 +87,9 @@ class MultipartFormData {
 	public static function insert2Array(&$arr, $val, $key="") {
 
 		if ($key == null || strlen($key) == 0) {
-		
 			array_push($arr,$val);
 		
 		} else {
-		
 			$arr[$key]=$val;
 			
 		}
@@ -109,15 +104,12 @@ class MultipartFormData {
 		if (count($keys) > 0) {
 		
 			if (array_key_exists($ckey,$arr)===false) {
-			
 				$arr[$ckey]=array();
 				
 			} else {
 			
 				if (is_array($arr[$ckey])==false) {
-				
 					$arr[$ckey]=array($arr[$ckey]);
-				
 				}
 				
 			}
@@ -125,7 +117,6 @@ class MultipartFormData {
 			self::insert2ArrayRecur($arr[$ckey],$val,$keys);
 		
 		} else {
-
 			self::insert2Array($arr,$val,$ckey);
 
 		}
@@ -139,20 +130,12 @@ class MultipartFormData {
 		// Reihenfolge am Ende und -- Zusätzlich (1) - Unabhängig vom Boundary mit -  
 		$cdel='/[\r|\n]{0,2}[\-]{0,2}'.$qdel.'(?:\-\-[\s]{0,4}|[\r|\n]{0,4})/'; #/U
 		$parts=preg_split($cdel,$body,null,PREG_SPLIT_NO_EMPTY);
-		
-		#var_dump($del);
-		#print_r($parts);
-				
+
+	
 		foreach($parts as &$part) {
-		
-			#var_dump($part);
-			
-			#if (strlen(trim($part))==0) {continue;}
-			
+
 			list($key,$val)=preg_split("/\s{2,4}/",$part,2,PREG_SPLIT_NO_EMPTY);
-			
-			#echo "$key,$val\n";
-			
+						
 			$fieldname=trim( self::getBoundary($key,'name='), '"');
 			$fieldarr=self::getFieldNameSpace($fieldname);
 			
