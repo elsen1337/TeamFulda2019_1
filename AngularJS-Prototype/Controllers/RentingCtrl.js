@@ -12,6 +12,12 @@ studyHomeApp.controller('RentingCtrl', ['$scope', '$http', function($scope, $htt
     $scope.str = 'Gerloserweg 5';
     */
 
+
+    /*  Function to call when the submit button is clicked.
+        1. Send a put request to the server to create a new apartment entry.
+        2. Send a post request with the new apartment number and data from the form to add the details to the apartment.
+        3. For each image in the images array send a put and post request to add a new image entry and upload the image.  
+    */
     $scope.submit = () =>
     {
         if($scope.entf_meter !== undefined
@@ -25,7 +31,7 @@ studyHomeApp.controller('RentingCtrl', ['$scope', '$http', function($scope, $htt
             let fd = new FormData();
 
 
-            // Assign values of the input fields to a formdata Object to send them to the server.
+            // Assign values in the input fields to a formdata Object to send them to the server.
             fd.append("beschr", $scope.beschr);
             fd.append("entf_meter", $scope.entf_meter);
             fd.append("entf_min", $scope.entf_min);
@@ -82,7 +88,7 @@ studyHomeApp.controller('RentingCtrl', ['$scope', '$http', function($scope, $htt
                             let fdijson = JSON.stringify(Object.fromEntries(fdi));
 
 
-
+                            // Create new entry in images table
                             $http.put('../restapi/handler.php?objAction=estateimages', fdijson,
                                 {
                                     transformRequest: angular.identity,
@@ -98,7 +104,7 @@ studyHomeApp.controller('RentingCtrl', ['$scope', '$http', function($scope, $htt
                                         image.append('bild' + '[' + serviceResponse.data.newImgID + ']', val);
 
 
-
+                                        // Upload image with id of new entry in images table
                                         $http.post('../restapi/handler.php?objAction=estateimages', image,
                                             {
                                                 transformRequest: angular.identity,
