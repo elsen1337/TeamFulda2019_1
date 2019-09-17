@@ -323,7 +323,7 @@ studyHomeApp.controller('DetailsCtrl', ['$scope', '$http',  '$routeParams', '$lo
         else if($scope.kommentar === '' || $scope.kommentar === undefined){
             alert('Please write a comment!')
         } else {
-            data = JSON.stringify({'vm_id': $scope.vm_id, 'm_id': mID, 'stars': getRating(), 'cmt': $scope.kommentar});
+            data = JSON.stringify({'vm_id': $scope.vm_id, 'm_id': mID, 'stars': getStars(), 'cmt': $scope.kommentar});
 
             $http.post(url, data,
                 {
@@ -355,7 +355,7 @@ function getEstateID(path) {
     return path.match("[0-9]+");
 }
 
-function getRating(){
+function getStars(){
     var stars = document.getElementsByName('rating');
     for (i = 0;i < stars.length;i++){
         if(stars[i].checked){
