@@ -9,7 +9,7 @@
             <div ng-if="stream_available">
                 <img width="581" height="436" src="{{vid_url}}" alt="{{vid_url !== null ? vid_url + ' not available this moment.' : 'Streaming not available!'}}"/>
             </div>
-            <div ng-if="stream_available &&  urlPing">
+            <div ng-if="stream_available">
                 <input type="button" value="Forward" ng-mousedown="sendEventRaspberryPi('forward')" ng-mouseup="stopEvent()">
                 <input type="button" value="Left" ng-mousedown="sendEventRaspberryPi('left')" ng-mouseup="stopEvent()">
                 <input type="button" value="Right" ng-mousedown="sendEventRaspberryPi('right')" ng-mouseup="stopEvent()">
