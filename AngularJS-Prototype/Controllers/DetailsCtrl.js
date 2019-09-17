@@ -269,20 +269,46 @@ studyHomeApp.controller('DetailsCtrl', ['$scope', '$http',  '$routeParams', '$lo
                     } else {
                         document.getElementById("bewertungenListe").style.display="block";
                     }
+
+                    document.getElementById("bewertungenListe").innerHTML = "";
                     for(let i = 0; i < $scope.ratingData.length; i++) {
-                        $scope.bewertungenItems[i] = {
-                            cmt: $scope.ratingData[i].cmt
-                        };
-                    }
-                    for(let j = 0; j < $scope.ratingData.length; j++) {
-                        for (let k = 1; k <= $scope.ratingData[j].stars; k++) {
-                            console.log(k);
-                            $scope.do = function(id) {
-                                var test = angular.element(document.getElementById('inputStern' + k));
-                                console.log(test);
-                                angular.element(document.getElementById(id)).backgroundColor = 'gold';
-                            }
+                        let stars = "";
+                        let starGold = "<input type=\"radio\"/><label style='color: gold'></label>\n";
+                        let starGrey = "<input type=\"radio\"/><label></label>\n";
+                        console.log($scope.ratingData[i].stars);
+                        switch($scope.ratingData[i].stars.toString()){
+                            case "1": stars = "<fieldset class=\"sterne\">\n" +
+                                starGrey + starGrey + starGrey + starGrey + starGold +
+                                "                    </fieldset>\n";
+                                break;
+                            case "2": stars = "<fieldset class=\"sterne\">\n" +
+                                starGrey + starGrey + starGrey + starGold + starGold +
+                                "                    </fieldset>\n";
+                                break;
+                            case "3": stars = "<fieldset class=\"sterne\">\n" +
+                                starGrey + starGrey + starGold + starGold + starGold +
+                                "                    </fieldset>\n";
+                                break;
+                            case "4": stars = "<fieldset class=\"sterne\">\n" +
+                                starGrey + starGold + starGold + starGold + starGold +
+                                "                    </fieldset>\n";
+                                break;
+                            case "5": stars = "<fieldset class=\"sterne\">\n" +
+                                starGold + starGold + starGold + starGold + starGold +
+                                "                    </fieldset>\n";
+                                break;
+                            default: stars = "<fieldset class=\"sterne\">\n" +
+                                starGrey + starGrey + starGrey + starGrey + starGrey +
+                                "                    </fieldset>\n";
+                                break;
                         }
+                        console.log(stars);
+
+                        document.getElementById("bewertungenListe").innerHTML += "" +
+                            "<md-list-item class=\"noright\">\n" +
+                            stars +
+                            "                    <p id=\"kommentar-Liste\">" + $scope.ratingData[i].cmt + "</p>\n" +
+                            "                </md-list-item>";
                     }
                 },
                 (err) => {

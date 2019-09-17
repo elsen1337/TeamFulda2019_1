@@ -2,7 +2,6 @@
 
 #bewertung {
     margin-left: 2%;
-    border-style: solid;
     width: 50%;
     height: 50%;
     float: left;
@@ -15,6 +14,7 @@
 }
 
 #bewertungenListe-div {
+    border-style: solid;
     margin-left: 0%;
     width: 100%;
 }
@@ -26,10 +26,6 @@
 #bewertungenListe > * {
     justify-content: left;
     width: 100%;
-}
-
-#sterne-Liste {
-    width: 20%;
 }
 
 #kommentar-Liste {
@@ -53,6 +49,7 @@
 #kommentar-div {
     width: 75%;
     height: 100%;
+    margin-top: 2%;
     float: right;
 }
 
@@ -65,13 +62,21 @@
     margin-top: 2%;
     margin-right: 15%;
     float: right;
+    margin-bottom: 10%;
+}
+
+#sterne {
+    margin-top: 18%;
+    margin-left: -30%;
+    width: 100%;
 }
 
 /*Rahmen um die Sterne unsichtbar machen*/
 .sterne {
     border: none;
     float: left;
-    margin-left: -4%;
+    margin-left: -2%;
+    width: 20%;
 }
 
 /*Inputfelder hinter den Sternen unsichtbar machen*/

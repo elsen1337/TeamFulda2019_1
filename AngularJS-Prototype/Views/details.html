@@ -100,18 +100,8 @@
             <h1>Rate the tenant</h1>
         </div>
         <div id="bewertungenListe-div">
-            <md-list ng-cloak id="bewertungenListe">
-                <md-list-item ng-repeat="item in bewertungenItems" class="noright">
-                    <fieldset class="sterne" id="sterne-Liste">
-                        <input type="radio" ng-bind-html="do('inputStern5')"/><label ></label>
-                        <input type="radio" ng-bind-html="do('inputStern4')"/><label ></label>
-                        <input type="radio" ng-bind-html="do('inputStern3')"/><label ></label>
-                        <input type="radio" ng-bind-html="do('inputStern2')"/><label ></label>
-                        <input type="radio" ng-bind-html="do('inputStern1')"/><label ></label>
-                    </fieldset>
-                        {{item.stars}}
-                    <p id="kommentar-Liste">{{item.cmt}}</p>
-                </md-list-item>
+            <md-list id="bewertungenListe">
+
             </md-list>
         </div>
         <div id="sterneKommentar-div">
