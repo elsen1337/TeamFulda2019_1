@@ -5,22 +5,21 @@
             <!--            hier ggf noch imagebeschreibung anzeigen!-->
             <slider images="images"/>
         </div>
-        <div>
-            <div ng-if="stream_available">
+        <div ng-if="stream_available">
+            <div >
                 <img width="581" height="436" src="{{vid_url}}" alt="{{vid_url !== null ? vid_url + ' not available this moment.' : 'Streaming not available!'}}"/>
             </div>
-            <div ng-if="urlPing && stream_available">
-                <input type="button" value="Forward" ng-click="sendEventRaspberryPi('forward')">
-                <input type="button" value="Left" ng-click="sendEventRaspberryPi('left')">
-                <input type="button" value="Right" ng-click="sendEventRaspberryPi('right')">
-                <input type="button" value="Home" ng-click="sendEventRaspberryPi('home')">
-                <input type="button" value="Backward" ng-click="sendEventRaspberryPi('backward')">
-                <input type="button" value="Y+" ng-click="sendEventRaspberryPi('y+')">
-                <input type="button" value="Y-" ng-click="sendEventRaspberryPi('y-')">
-                <input type="button" value="HOME" ng-click="sendEventRaspberryPi('xy_home')">
-                <input type="button" value="X-" ng-click="sendEventRaspberryPi('x-')">
-                <input type="button" value="X+" ng-click="sendEventRaspberryPi('x+')">
-                <input type="button" value="Quit" ng-click="sendEventRaspberryPi('stop')">
+            <div ng-if="stream_available">
+                <input type="button" value="Forward" ng-mousedown="sendEventRaspberryPi('forward')" ng-mouseup="stopEvent()">
+                <input type="button" value="Left" ng-mousedown="sendEventRaspberryPi('left')" ng-mouseup="stopEvent()">
+                <input type="button" value="Right" ng-mousedown="sendEventRaspberryPi('right')" ng-mouseup="stopEvent()">
+                <input type="button" value="Home" ng-mousedown="sendEventRaspberryPi('home')" ng-mouseup="stopEvent()">
+                <input type="button" value="Backward" ng-mousedown="sendEventRaspberryPi('backward')" ng-mouseup="stopEvent()">
+                <input type="button" value="Y+" ng-mousedown="sendEventRaspberryPi('y+')" ng-mouseup="stopEvent()">
+                <input type="button" value="Y-" ng-mousedown="sendEventRaspberryPi('y-')" ng-mouseup="stopEvent()">
+                <input type="button" value="HOME" ng-mousedown="sendEventRaspberryPi('xy_home')" ng-mouseup="stopEvent()">
+                <input type="button" value="X-" ng-mousedown="sendEventRaspberryPi('x-')" ng-mouseup="stopEvent()">
+                <input type="button" value="X+" ng-mousedown="sendEventRaspberryPi('x+')" ng-mouseup="stopEvent()">
             </div>
         </div>
         <div flex="" class="details-divs details-top details-top-right">
