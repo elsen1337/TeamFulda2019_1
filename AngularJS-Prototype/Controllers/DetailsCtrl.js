@@ -275,7 +275,6 @@ studyHomeApp.controller('DetailsCtrl', ['$scope', '$http',  '$routeParams', '$lo
                         let stars = "";
                         let starGold = "<input type=\"radio\"/><label style='color: gold'></label>\n";
                         let starGrey = "<input type=\"radio\"/><label></label>\n";
-                        console.log($scope.ratingData[i].stars);
                         switch($scope.ratingData[i].stars.toString()){
                             case "1": stars = "<fieldset class=\"sterne\">\n" +
                                 starGrey + starGrey + starGrey + starGrey + starGold +
@@ -302,7 +301,6 @@ studyHomeApp.controller('DetailsCtrl', ['$scope', '$http',  '$routeParams', '$lo
                                 "                    </fieldset>\n";
                                 break;
                         }
-                        console.log(stars);
 
                         document.getElementById("bewertungenListe").innerHTML += "" +
                             "<md-list-item class=\"noright\">\n" +
