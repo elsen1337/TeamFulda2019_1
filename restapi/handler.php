@@ -432,7 +432,7 @@ if (parseCommand($action,'estate')) {
         } 
     } elseif (parseCommand($action,'stream')) {
 
-		$HOST = '192.168.178.139';
+		$HOST = '46.244.200.160';
 		$PORT = 21567;
 		$BUFSIZE = 1024;
 		set_time_limit(0);
