@@ -58,6 +58,21 @@ studyHomeApp.controller('DetailsCtrl', ['$scope', '$http',  '$routeParams', '$lo
         });
     }
 
+    $scope.stopEvent = function()
+    {
+        $http({
+            method : "PUT",
+            url : "../restapi/handler.php?objAction=estatestream",
+            data: {event: 'stop'}
+
+        }).then(function mySuccess(asyncResp) {
+            console.log(asyncResp.data);
+
+        }, function myError(asyncResp) {
+            console.error(asyncResp.statusText);
+        });
+    }
+
 	$scope.meetAdd = function () {
 		
 		console.log($scope.user);
