@@ -5,8 +5,8 @@
             <!--            hier ggf noch imagebeschreibung anzeigen!-->
             <slider images="images"/>
         </div>
-        <div>
-            <div ng-if="stream_available">
+        <div ng-if="stream_available">
+            <div >
                 <img width="581" height="436" src="{{vid_url}}" alt="{{vid_url !== null ? vid_url + ' not available this moment.' : 'Streaming not available!'}}"/>
             </div>
             <div ng-if="stream_available">
