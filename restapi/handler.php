@@ -441,10 +441,14 @@ if (parseCommand($action,'estate')) {
 		$speed = 30;
 		$tmp = 'speed';
 		$data = $tmp.strval($speed);
+		socket_write($tcpSocket, $data, strlen($tmp.$data)) or die ("Could not send speed data to server\n");
+
 		
 		if ($_SERVER['REQUEST_METHOD']=='GET')
 		{				
-
+			$speed = 30;
+			$tmp = 'speed';
+			$data = $tmp.strval($speed);
 			socket_write($tcpSocket, $data, strlen($tmp.$data)) or die ("Could not send speed data to server\n");
 			header('Content-type: application/json');
 			echo '{"ping":"true"}';
