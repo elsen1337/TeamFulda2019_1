@@ -54,47 +54,48 @@ return json_decode($str,$ascarr);
 
 function getPostParameter() {
 
+
+/*
+Behandlung bei den wenigen Spezialfällen; Suche und Bilder
 	if ($_SERVER['REQUEST_METHOD']=='PUT') {
 		
-		// $reqBody=getRequestBody();
-        // parse_str($reqBody,$_REQUEST);
+		$reqBody=getRequestBody();
+        parse_str($reqBody,$_REQUEST);
         
 	}
+*/
 
-    if (stripos($_SERVER["CONTENT_TYPE"],'application/json')!==false) {
-        return getJSONFromRequestBody();
-        
-    } else {
-    
-		// parse_str POST + 
-    
+	if (stripos($_SERVER["CONTENT_TYPE"],'application/json')!==false) {
+		return getJSONFromRequestBody();
+		
+	} else {
+		
 		if (stripos($_SERVER["CONTENT_TYPE"],'multipart/form-data')!==false) {
-			return $_POST; // + $_FILES; # ?
+			return $_POST; // + $_FILES durch MultipartFormDataParser bei Requests <> POST
 		
 		} else {
 			// Default: application/x-www-form-urlencoded
 			return $_POST;
 		}
 
-    }
+	}
 
 }
 
 
 
-#if(!function_exists('apache_request_headers')) {
 
-    function requestHeaders() {
-        $headers = array();
-        foreach($_SERVER as $key => $value) {
-            if(substr($key, 0, 5) == 'HTTP_') {
-				$key=ucwords(str_replace('_', ' ',  strtolower(substr($key, 5)) ));
-                $headers[str_replace(' ', '-',  $key)] = $value;
-            }
-        }
-        return $headers;
-    }
-#}
+function requestHeaders() {
+	$headers = array();
+	foreach($_SERVER as $key => $value) {
+		if(substr($key, 0, 5) == 'HTTP_') {
+			$key=ucwords(str_replace('_', ' ',  strtolower(substr($key, 5)) ));
+			$headers[str_replace(' ', '-',  $key)] = $value;
+		}
+	}
+	return $headers;
+}
+
 
 
 function sendDefaultActionRequestBody($actState,$sqlCon,$otherProps=array()) {
