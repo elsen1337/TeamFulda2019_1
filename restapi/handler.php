@@ -432,7 +432,7 @@ if (parseCommand($action,'estate')) {
         } 
     } elseif (parseCommand($action,'stream')) {
 
-		$HOST = '192.168.178.139';
+		$HOST = '46.244.200.160';
 		$PORT = 21567;
 		$BUFSIZE = 1024;
 		set_time_limit(0);
@@ -453,7 +453,7 @@ if (parseCommand($action,'estate')) {
 		
 			echo 'Sent: '.$postParam['event'];
 			socket_write($tcpSocket, $postParam['event'], strlen($postParam['event'])) or die ("Could not send data to server\n");
-			socket_write($tcpSocket, 'stop', strlen('stop')) or die ("Could not send data to server\n");
+			//socket_write($tcpSocket, 'stop', strlen('stop')) or die ("Could not send data to server\n");
 			socket_close($tcpSocket);
 
 		} else {
