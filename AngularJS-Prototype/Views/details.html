@@ -9,7 +9,7 @@
             <div ng-if="stream_available">
                 <img width="581" height="436" src="{{vid_url}}" alt="{{vid_url !== null ? vid_url + ' not available this moment.' : 'Streaming not available!'}}"/>
             </div>
-            <div>
+            <div ng-if="stream_available &&  urlPing">
                 <input type="button" value="Forward" ng-mousedown="sendEventRaspberryPi('forward')" ng-mouseup="stopEvent()">
                 <input type="button" value="Left" ng-mousedown="sendEventRaspberryPi('left')" ng-mouseup="stopEvent()">
                 <input type="button" value="Right" ng-mousedown="sendEventRaspberryPi('right')" ng-mouseup="stopEvent()">
@@ -20,7 +20,6 @@
                 <input type="button" value="HOME" ng-mousedown="sendEventRaspberryPi('xy_home')" ng-mouseup="stopEvent()">
                 <input type="button" value="X-" ng-mousedown="sendEventRaspberryPi('x-')" ng-mouseup="stopEvent()">
                 <input type="button" value="X+" ng-mousedown="sendEventRaspberryPi('x+')" ng-mouseup="stopEvent()">
-                <input type="button" value="Quit" ng-mousedown="sendEventRaspberryPi('stop')" ng-mouseup="stopEvent()">
             </div>
         </div>
         <div flex="" class="details-divs details-top details-top-right">
