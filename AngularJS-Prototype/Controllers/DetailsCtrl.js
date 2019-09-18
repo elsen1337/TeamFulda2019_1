@@ -58,6 +58,21 @@ studyHomeApp.controller('DetailsCtrl', ['$scope', '$http',  '$routeParams', '$lo
         });
     }
 
+    $scope.stopEvent = function()
+    {
+        $http({
+            method : "PUT",
+            url : "../restapi/handler.php?objAction=estatestream",
+            data: {event: 'stop'}
+
+        }).then(function mySuccess(asyncResp) {
+            console.log(asyncResp.data);
+
+        }, function myError(asyncResp) {
+            console.error(asyncResp.statusText);
+        });
+    }
+
 	$scope.meetAdd = function () {
 		
 		console.log($scope.user);
@@ -269,20 +284,44 @@ studyHomeApp.controller('DetailsCtrl', ['$scope', '$http',  '$routeParams', '$lo
                     } else {
                         document.getElementById("bewertungenListe").style.display="block";
                     }
+
+                    document.getElementById("bewertungenListe").innerHTML = "";
                     for(let i = 0; i < $scope.ratingData.length; i++) {
-                        $scope.bewertungenItems[i] = {
-                            cmt: $scope.ratingData[i].cmt
-                        };
-                    }
-                    for(let j = 0; j < $scope.ratingData.length; j++) {
-                        for (let k = 1; k <= $scope.ratingData[j].stars; k++) {
-                            console.log(k);
-                            $scope.do = function(id) {
-                                var test = angular.element(document.getElementById('inputStern' + k));
-                                console.log(test);
-                                angular.element(document.getElementById(id)).backgroundColor = 'gold';
-                            }
+                        let stars = "";
+                        let starGold = "<input type=\"radio\"/><label style='color: gold'></label>\n";
+                        let starGrey = "<input type=\"radio\"/><label></label>\n";
+                        switch($scope.ratingData[i].stars.toString()){
+                            case "1": stars = "<fieldset class=\"sterne\">\n" +
+                                starGrey + starGrey + starGrey + starGrey + starGold +
+                                "                    </fieldset>\n";
+                                break;
+                            case "2": stars = "<fieldset class=\"sterne\">\n" +
+                                starGrey + starGrey + starGrey + starGold + starGold +
+                                "                    </fieldset>\n";
+                                break;
+                            case "3": stars = "<fieldset class=\"sterne\">\n" +
+                                starGrey + starGrey + starGold + starGold + starGold +
+                                "                    </fieldset>\n";
+                                break;
+                            case "4": stars = "<fieldset class=\"sterne\">\n" +
+                                starGrey + starGold + starGold + starGold + starGold +
+                                "                    </fieldset>\n";
+                                break;
+                            case "5": stars = "<fieldset class=\"sterne\">\n" +
+                                starGold + starGold + starGold + starGold + starGold +
+                                "                    </fieldset>\n";
+                                break;
+                            default: stars = "<fieldset class=\"sterne\">\n" +
+                                starGrey + starGrey + starGrey + starGrey + starGrey +
+                                "                    </fieldset>\n";
+                                break;
                         }
+
+                        document.getElementById("bewertungenListe").innerHTML += "" +
+                            "<md-list-item>\n" +
+                            stars +
+                            "                    <p id=\"kommentar-Liste\">" + $scope.ratingData[i].cmt + "</p>\n" +
+                            "                </md-list-item>";
                     }
                 },
                 (err) => {
@@ -299,7 +338,7 @@ studyHomeApp.controller('DetailsCtrl', ['$scope', '$http',  '$routeParams', '$lo
         else if($scope.kommentar === '' || $scope.kommentar === undefined){
             alert('Please write a comment!')
         } else {
-            data = JSON.stringify({'vm_id': $scope.vm_id, 'm_id': mID, 'stars': getRating(), 'cmt': $scope.kommentar});
+            data = JSON.stringify({'vm_id': $scope.vm_id, 'm_id': mID, 'stars': getStars(), 'cmt': $scope.kommentar});
 
             $http.post(url, data,
                 {
@@ -331,7 +370,7 @@ function getEstateID(path) {
     return path.match("[0-9]+");
 }
 
-function getRating(){
+function getStars(){
     var stars = document.getElementsByName('rating');
     for (i = 0;i < stars.length;i++){
         if(stars[i].checked){

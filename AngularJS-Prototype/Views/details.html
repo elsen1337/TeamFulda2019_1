@@ -5,22 +5,21 @@
             <!--            hier ggf noch imagebeschreibung anzeigen!-->
             <slider images="images"/>
         </div>
-        <div>
-            <div ng-if="stream_available">
+        <div ng-if="stream_available">
+            <div >
                 <img width="581" height="436" src="{{vid_url}}" alt="{{vid_url !== null ? vid_url + ' not available this moment.' : 'Streaming not available!'}}"/>
             </div>
-            <div ng-if="urlPing && stream_available">
-                <input type="button" value="Forward" ng-click="sendEventRaspberryPi('forward')">
-                <input type="button" value="Left" ng-click="sendEventRaspberryPi('left')">
-                <input type="button" value="Right" ng-click="sendEventRaspberryPi('right')">
-                <input type="button" value="Home" ng-click="sendEventRaspberryPi('home')">
-                <input type="button" value="Backward" ng-click="sendEventRaspberryPi('backward')">
-                <input type="button" value="Y+" ng-click="sendEventRaspberryPi('y+')">
-                <input type="button" value="Y-" ng-click="sendEventRaspberryPi('y-')">
-                <input type="button" value="HOME" ng-click="sendEventRaspberryPi('xy_home')">
-                <input type="button" value="X-" ng-click="sendEventRaspberryPi('x-')">
-                <input type="button" value="X+" ng-click="sendEventRaspberryPi('x+')">
-                <input type="button" value="Quit" ng-click="sendEventRaspberryPi('stop')">
+            <div ng-if="stream_available">
+                <input type="button" value="Forward" ng-mousedown="sendEventRaspberryPi('forward')" ng-mouseup="sendEventRaspberryPi('stop')">
+                <input type="button" value="Left" ng-click="sendEventRaspberryPi('left')" ng-mouseup="sendEventRaspberryPi('stop')">
+                <input type="button" value="Right" ng-click="sendEventRaspberryPi('right')" ng-mouseup="sendEventRaspberryPi('stop')">
+                <input type="button" value="Home" ng-click="sendEventRaspberryPi('home')" ng-mouseup="sendEventRaspberryPi('stop')">
+                <input type="button" value="Backward" ng-mousedown="sendEventRaspberryPi('backward')" ng-mouseup="sendEventRaspberryPi('stop')">
+                <input type="button" value="Y+" ng-click="sendEventRaspberryPi('y+')" ng-mouseup="sendEventRaspberryPi('stop')">
+                <input type="button" value="Y-" ng-click="sendEventRaspberryPi('y-')" ng-mouseup="sendEventRaspberryPi('stop')">
+                <input type="button" value="HOME" ng-click="sendEventRaspberryPi('xy_home')" ng-mouseup="sendEventRaspberryPi('stop')">
+                <input type="button" value="X-" ng-click="sendEventRaspberryPi('x-')" ng-mouseup="sendEventRaspberryPi('stop')">
+                <input type="button" value="X+" ng-click="sendEventRaspberryPi('x+')" ng-mouseup="sendEventRaspberryPi('stop')">
             </div>
         </div>
         <div flex="" class="details-divs details-top details-top-right">
@@ -100,18 +99,8 @@
             <h1>Rate the tenant</h1>
         </div>
         <div id="bewertungenListe-div">
-            <md-list ng-cloak id="bewertungenListe">
-                <md-list-item ng-repeat="item in bewertungenItems" class="noright">
-                    <fieldset class="sterne" id="sterne-Liste">
-                        <input type="radio" ng-bind-html="do('inputStern5')"/><label ></label>
-                        <input type="radio" ng-bind-html="do('inputStern4')"/><label ></label>
-                        <input type="radio" ng-bind-html="do('inputStern3')"/><label ></label>
-                        <input type="radio" ng-bind-html="do('inputStern2')"/><label ></label>
-                        <input type="radio" ng-bind-html="do('inputStern1')"/><label ></label>
-                    </fieldset>
-                        {{item.stars}}
-                    <p id="kommentar-Liste">{{item.cmt}}</p>
-                </md-list-item>
+            <md-list id="bewertungenListe">
+
             </md-list>
         </div>
         <div id="sterneKommentar-div">
