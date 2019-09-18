@@ -318,7 +318,7 @@ studyHomeApp.controller('DetailsCtrl', ['$scope', '$http',  '$routeParams', '$lo
                         }
 
                         document.getElementById("bewertungenListe").innerHTML += "" +
-                            "<md-list-item class=\"noright\">\n" +
+                            "<md-list-item>\n" +
                             stars +
                             "                    <p id=\"kommentar-Liste\">" + $scope.ratingData[i].cmt + "</p>\n" +
                             "                </md-list-item>";
