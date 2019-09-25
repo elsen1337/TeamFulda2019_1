@@ -10,8 +10,7 @@
 		return $attrarr;
     }
 
-    function ratingAddUpdate($vm_id,$m_id,$stars,$cmt,$scr=null) {
-		if (strlen($scr)==0) {$scr='null';}
+    function ratingAddUpdate($vm_id,$m_id,$stars,$cmt) {
         $sql='INSERT INTO v_rating (vm_id, m_id, stars, cmt) VALUES ('.$vm_id.', '.$m_id.', '.$stars.', "'.$cmt.'")';
         $mrs=$GLOBALS['msdb']->query($sql);
         return $GLOBALS['msdb']->affected_rows > 0; // !!! Spezialfall 0,1(Insert),2(Update)
