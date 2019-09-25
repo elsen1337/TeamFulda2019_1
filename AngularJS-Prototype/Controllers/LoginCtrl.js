@@ -9,20 +9,23 @@ studyHomeApp.controller('LoginCtrl', ['$scope', '$http','$location', function($s
     // roleId can either be vm_id for lessor or m_id for tenant
     var roleId;
 
+	// Executing function to Login
     $scope.login = function (Auth) {
         //var email = document.getElementById("email").value;
         //var pwort = document.getElementById("passwort").value;
 
         console.log('E-Mail = ' + email + ', Passwort = ' + passwort);
 
-        //console.log($scope.email.toLowerCase());
-
+		// Check if login entries are valid
         if ($scope.loginForm.$valid) {
+			
+				// Creating user object
                 let user = {
                     "email": $scope.email.toLowerCase(),
                     "pwort": $scope.pwort
                 }
 
+				// Check, if "Lessor" or "Tentant" had been chosen. Appropriate variable for URL and ID will be created.
                 if ($scope.loginrolle === "Lessor") {
                     urlVar = "../restapi/handler.php?objAction=lessorlogin";
                     roleId = "vm_id"
@@ -31,8 +34,8 @@ studyHomeApp.controller('LoginCtrl', ['$scope', '$http','$location', function($s
                     roleId = "m_id"
                 }
 
+				// Sending data via AJAX
                 $http({
-
                     url: urlVar,
                     method: "POST",
                     // headers : {'Content-Type': 'application/x-www-form-urlencoded'},
@@ -41,10 +44,12 @@ studyHomeApp.controller('LoginCtrl', ['$scope', '$http','$location', function($s
                     console.log($scope.loginrolle);
                     $scope.putSucc = response.data;
 
+					// If receiving JSON object is empty, print this error message
                     if (response.data === null) {
                         $scope.log_mytext = "The password is wrong or the user doesn't exist. Try again and watch of your selected role.";
                     }
 
+					// If no session exists, creating new session
                     if (typeof (Storage) !== "undefined" && $scope.putSucc !== null) {
                         // Store
                         sessionStorage.setItem("isLoggedIn", "yes");
@@ -54,6 +59,7 @@ studyHomeApp.controller('LoginCtrl', ['$scope', '$http','$location', function($s
                         sessionStorage.setItem("email", $scope.putSucc["email"]);
                         sessionStorage.setItem("role", $scope.loginrolle);
 
+						// If you are lessor or tenant, an appropriate session object will be created.
                         if ($scope.loginrolle === "Lessor") {
                             sessionStorage.setItem("vm_id", $scope.putSucc["vm_id"]);
                         }

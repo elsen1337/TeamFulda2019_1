@@ -38,10 +38,13 @@
 
 </style>
 
+<!-- Written by Ramón Wilhelm. Using Angularjs to load meetings slots in tables dynamically-->
+
 <div id="lessorSidenavCont">
     <div id="lessorSidenav" data-ng-include="'Views/lessorSidenav.html'">{{rolle}}Sidenav.html</div>
 </div>
 
+<!-- Form to add meetings slots for the tenant-->
 <div id="showAll">
 <form name="appartmentform" ng-app="ViewingAppointmentsCtrl">
     <h3>Viewing Appointments</h3>
@@ -64,37 +67,31 @@
         Send Meeting
     </md-button>
 </form>
+
+<!-- List of appointments -->
 <h2>My appointments</h2>
 <div class="list-appointments">
     <md-list ng-cloak id="searchList">
-        <!--<md-subheader class="md-no-sticky">Search Items</md-subheader>-->
         <md-list-item ng-repeat="slot in slots" class="noright">
             <p class="slot-pfelder">{{slot.name}}</p>
             <p class="slot-pfelder">{{slot.slot}}</p>
             <p class="slot-pfelder" ng-if="slot.isValid === true">
                 <md-button ng-click="deleteSlot(slot.tid)">Delete</md-button>
             </p>
-
-                <!--            <md-checkbox class="md-secondary" ng-model="person.selected"></md-checkbox>-->
-                <!--            <md-icon md-svg-icon="communication:email"  ng-click="doSecondaryAction($event)" aria-label="Send Email" class="md-secondary md-hue-3" ></md-icon>-->
-                <!--            <md-icon class="md-secondary" ng-click="contactLessor($event)" aria-label="Chat" md-svg-icon="communication:message"></md-icon>-->
         </md-list-item>
     </md-list>
 </div>
+
+<!-- List of suggested appointments by tenants-->
 <h2>Suggested meetings by tenants</h2>
     <div class="list-appointments">
         <md-list ng-cloak id="tenantmeetings" ng-repeat="slot in slots | orderBy:'name'">
-            <!--<md-subheader class="md-no-sticky">Search Items</md-subheader>-->
             <md-list-item ng-repeat="sl in slot.bookedBy" id="tenantmeetlist" class="noright">
                 <p class="slot-pfelder">{{sl.nname}}</p>
                 <p class="slot-pfelder">{{sl.vname}}</p>
                 <p class="slot-pfelder">{{sl.email}}</p>
                 <p class="slot-pfelder">{{slot.name}}</p>
                 <p class="slot-pfelder">{{slot.slot}}</p>
-
-                <!--            <md-checkbox class="md-secondary" ng-model="person.selected"></md-checkbox>-->
-                <!--            <md-icon md-svg-icon="communication:email"  ng-click="doSecondaryAction($event)" aria-label="Send Email" class="md-secondary md-hue-3" ></md-icon>-->
-                <!--            <md-icon class="md-secondary" ng-click="contactLessor($event)" aria-label="Chat" md-svg-icon="communication:message"></md-icon>-->
             </md-list-item>
         </md-list>
     </div>
