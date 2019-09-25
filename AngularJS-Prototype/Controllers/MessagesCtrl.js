@@ -152,6 +152,7 @@ studyHomeApp.controller('MessagesCtrl', ['$scope', '$http' , '$location', functi
                                 // console.log(roomID);
                                 // console.log(message.parts[0].payload.content);
                                 // console.log(message.senderId);
+                                // console.log(myID);
                                 // console.log(receiverID);
                                 // console.log(receiverName);
                                 // console.log(senderID);
@@ -240,16 +241,6 @@ studyHomeApp.controller('MessagesCtrl', ['$scope', '$http' , '$location', functi
                                     if(!$scope.currentRooms) {
                                         $scope.currentRooms = [];
                                     }
-                                    // push as well into contacts
-                                    // this is not needed because of the onAddedToRoomHook!
-                                    // $scope.contacts.push({
-                                    //     name : room.name.split("-")[$scope.rolle === "Lessor" ? 1 : 3],
-                                    //     id : $scope.contacts.length,
-                                    //     roomID : room.id
-                                    // });
-                                    $scope.currentRooms.push(room);
-                                    // this is as well not needed for it will be updated in the hook
-                                    // $scope.updateContactList();
                                 }).catch(err => {
                                     console.log(`Error creating room ${err}`);
                                 })
@@ -266,16 +257,17 @@ studyHomeApp.controller('MessagesCtrl', ['$scope', '$http' , '$location', functi
             form.addEventListener("submit", e => {
                 e.preventDefault();
                 const input = document.getElementById("m_area_id");
+                console.log("Current Chat B4: " + $scope.currentChat);
                 $scope.currentUser.sendSimpleMessage({
                     text: input.value,
                     roomId: $scope.currentChat //maybe replace 0 by getCurrentRoom()?
                 });
+                console.log("Current Chat After: " + $scope.currentChat);
                 input.value = "";
             });
         }).catch(error => {
-            alert("err");
-            console.error(error);
-            //API Fallback with Polling
+        console.error(error);
+        //API Fallback with Polling
     });
 
     $scope.updateContactList = function() {
@@ -311,53 +303,54 @@ studyHomeApp.controller('MessagesCtrl', ['$scope', '$http' , '$location', functi
 
     $scope.updateChatLog = function(roomID) {
         // if($scope.currentChat === null || ($scope.currentChat && !(roomID === $scope.currentChat))) {
-            if($scope.currentRooms && $scope.currentRooms.length > 0) {
-                let list = document.getElementById("chatmessagesList");
-                let deleteList = [];
-                // items to delete
-                for (let i = 0; i < list.childNodes.length; i++) {
-                    deleteList.push(list.childNodes[i]);
-                }
-                // delete items
-                for (let i = 0; i < deleteList.length; i++) {
-                    list.removeChild(deleteList[i]);
-                }
-                // get room
-                let room = null;
-                for (let i = 0; i < $scope.currentRooms.length; i++) {
-                    if ($scope.currentRooms[i].id === roomID) {
-                        room = $scope.currentRooms[i];
-                    }
-                }
-                // append messages
-                if(room) {
-                    if(room.messageLog && room.messageLog.length > 0) {
-                        for(let i = 0; i < room.messageLog.length; i++) {
-
-                            let messageLI = document.createElement("md-list-item");
-                            messageLI.setAttribute("class", "noright");
-                            let messageDIV = document.createElement("div");
-                            let role = sessionStorage.getItem("role");
-                            let personalID = role === "Tenant" ? sessionStorage.getItem("m_id") : sessionStorage.getItem("vm_id");
-                            let myID = role + "_" + personalID;
-                            if(myID === room.messageLog[i].senderID) {
-                                //I am sender
-                                messageDIV.setAttribute("class", "chatMessageContainer");
-                            } else {
-                                //I am receiver
-                                messageDIV.setAttribute("class", "chatMessageContainer darkContainer");
-                            }
-                            let pre = document.createElement("pre");
-                            pre.innerHTML = room.messageLog[i].senderName + ":\n" + room.messageLog[i].message;
-
-                            list.appendChild(messageLI);
-                            messageLI.appendChild(messageDIV);
-                            messageDIV.appendChild(pre);
-                        }
-                    }
-                }
-                $scope.currentChat = roomID;
+        if($scope.currentRooms && $scope.currentRooms.length > 0) {
+            let list = document.getElementById("chatmessagesList");
+            let deleteList = [];
+            // items to delete
+            for (let i = 0; i < list.childNodes.length; i++) {
+                deleteList.push(list.childNodes[i]);
             }
+            // delete items
+            for (let i = 0; i < deleteList.length; i++) {
+                list.removeChild(deleteList[i]);
+            }
+            // get room
+            let room = null;
+            for (let i = 0; i < $scope.currentRooms.length; i++) {
+                if ($scope.currentRooms[i].id === roomID) {
+                    room = $scope.currentRooms[i];
+                }
+            }
+            // append messages
+            if(room) {
+                if(room.messageLog && room.messageLog.length > 0) {
+                    for(let i = 0; i < room.messageLog.length; i++) {
+
+                        let messageLI = document.createElement("md-list-item");
+                        messageLI.setAttribute("class", "noright");
+                        let messageDIV = document.createElement("div");
+                        let role = sessionStorage.getItem("role");
+                        let personalID = role === "Tenant" ? sessionStorage.getItem("m_id") : sessionStorage.getItem("vm_id");
+                        let myID = role + "_" + personalID;
+                        if(myID === room.messageLog[i].senderID) {
+                            //I am sender
+                            messageDIV.setAttribute("class", "chatMessageContainer");
+                        } else {
+                            //I am receiver
+                            messageDIV.setAttribute("class", "chatMessageContainer darkContainer");
+                        }
+                        let pre = document.createElement("pre");
+                        pre.innerHTML = room.messageLog[i].senderName + ":\n" + room.messageLog[i].message;
+
+                        list.appendChild(messageLI);
+                        messageLI.appendChild(messageDIV);
+                        messageDIV.appendChild(pre);
+                    }
+                }
+            }
+            $scope.currentChat = roomID;
+            console.log("Current Chat: " + $scope.currentChat);
+        }
         // }
     }
 }]);
@@ -373,8 +366,14 @@ function getReceiverID(senderID, myID, roomName) {
         if(myID.includes("Tenant")) {
             return roomName.split("-")[2];
         }
+        return roomName.split("-")[0];
     }
-    return roomName.split("-")[0];
+    if(senderID !== myID) {
+        if(myID.includes("Tenant")) {
+            return roomName.split("-")[0];
+        }
+        return roomName.split("-")[2];
+    }
 }
 
 function getReceiverName(senderID, myID, roomName) {
@@ -382,17 +381,14 @@ function getReceiverName(senderID, myID, roomName) {
         if(myID.includes("Tenant")) {
             return roomName.split("-")[3];
         }
+        return roomName.split("-")[1];
     }
-    return roomName.split("-")[1];
-}
-
-function getSenderID(senderID, myID, roomName) {
-    if(senderID === myID) {
+    if(senderID !== myID) {
         if(myID.includes("Tenant")) {
-            return roomName.split("-")[0];
+            return roomName.split("-")[1];
         }
+        return roomName.split("-")[3];
     }
-    return roomName.split('-')[2];
 }
 
 function getSenderName(senderID, myID, roomName) {
@@ -400,8 +396,14 @@ function getSenderName(senderID, myID, roomName) {
         if(myID.includes("Tenant")) {
             return roomName.split("-")[1];
         }
+        return roomName.split("-")[3];
     }
-    return roomName.split("-")[3];
+    if(senderID !== myID) {
+        if(myID.includes("Tenant")) {
+            return roomName.split("-")[3];
+        }
+        return roomName.split("-")[1];
+    }
 }
 
 function getLessorID(path) {

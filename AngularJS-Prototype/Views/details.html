@@ -1,26 +1,84 @@
+<style>
+@media only screen and (max-width: 430px) {
+        /* Force table to not be like tables anymore */
+        #no-more-tables table,
+        #no-more-tables thead,
+        #no-more-tables tbody,
+        #no-more-tables th,
+        #no-more-tables td,
+        #no-more-tables tr {
+        display: block;
+        }
+         
+        /* Hide table headers (but not display: none;, for accessibility) */
+        #no-more-tables thead tr {
+        position: absolute;
+        top: -9999px;
+        left: -9999px;
+        }
+         
+        #no-more-tables tr { border: 1px solid #ccc; }
+          
+        #no-more-tables td {
+        /* Behave like a "row" */
+        border: none;
+        border-bottom: 1px solid #eee;
+        position: relative;
+        padding-left: 50%;
+        white-space: normal;
+        text-align:left;
+        }
+         
+        #no-more-tables td:before {
+        /* Now like a table header */
+        position: absolute;
+        /* Top/left values mimic padding */
+        top: 6px;
+        left: 6px;
+        width: 45%;
+        padding-right: 10px;
+        white-space: nowrap;
+        text-align:left;
+        font-weight: bold;
+        }
+         
+        /*
+        Label the data
+        */
+        #no-more-tables td:before { content: attr(data-title); }
+        }
+		
+		table, tr, td {
+			border: none;
+			text-align: center;
+
+		}
+		
+		td input{
+			font-size: 16;
+			background-color: #287bbb;
+			color: #FFFFFF;
+			border: none;
+			padding: 10px;
+			border-radius: 8px;
+			-webkit-transition-duration: 0.4s; 
+			transition-duration: 0.4s;
+
+		}
+		
+		td input:hover
+		{
+			background-color: #0e4570;
+			color: #a0a0a1;
+		}
+</style>
+
 <div id="details">
     <div layout="row" layout-sm="column">
         <div flex="" data-ng-controller="SliderCtrl" class="details-divs details-top details-top-left">
             <h1 id="slide-show-title">{{name}}</h1>
             <!--            hier ggf noch imagebeschreibung anzeigen!-->
             <slider images="images"/>
-        </div>
-        <div ng-if="stream_available">
-            <div >
-                <img width="581" height="436" src="{{vid_url}}" alt="{{vid_url !== null ? vid_url + ' not available this moment.' : 'Streaming not available!'}}"/>
-            </div>
-            <div ng-if="stream_available">
-                <input type="button" value="Forward" ng-mousedown="sendEventRaspberryPi('forward')" ng-mouseup="sendEventRaspberryPi('stop')">
-                <input type="button" value="Left" ng-click="sendEventRaspberryPi('left')" ng-mouseup="sendEventRaspberryPi('stop')">
-                <input type="button" value="Right" ng-click="sendEventRaspberryPi('right')" ng-mouseup="sendEventRaspberryPi('stop')">
-                <input type="button" value="Home" ng-click="sendEventRaspberryPi('home')" ng-mouseup="sendEventRaspberryPi('stop')">
-                <input type="button" value="Backward" ng-mousedown="sendEventRaspberryPi('backward')" ng-mouseup="sendEventRaspberryPi('stop')">
-                <input type="button" value="Y+" ng-click="sendEventRaspberryPi('y+')" ng-mouseup="sendEventRaspberryPi('stop')">
-                <input type="button" value="Y-" ng-click="sendEventRaspberryPi('y-')" ng-mouseup="sendEventRaspberryPi('stop')">
-                <input type="button" value="HOME" ng-click="sendEventRaspberryPi('xy_home')" ng-mouseup="sendEventRaspberryPi('stop')">
-                <input type="button" value="X-" ng-click="sendEventRaspberryPi('x-')" ng-mouseup="sendEventRaspberryPi('stop')">
-                <input type="button" value="X+" ng-click="sendEventRaspberryPi('x+')" ng-mouseup="sendEventRaspberryPi('stop')">
-            </div>
         </div>
         <div flex="" class="details-divs details-top details-top-right">
             <md-button class="sh-btn" data-ng-click="contactLessor();">Contact Lessor</md-button>
@@ -43,6 +101,86 @@
 			-->
         </div>
     </div>
+	<!-- Ramón Video Stream -->
+	<!-- Adding IMG-tag for mjpeg-stream executing in start.sh in Raspberry Pi SD-Card -->
+	<!-- Adding Buttons and Condition to display stream and buttons if stream-IP-address of user is available-->
+	<div flex="" class="details-divs details-bottom details-center">
+			<div ng-hide="urlPing == false || urlPing == true">
+				<h3>Prüfe Verbindung zum Stream...</h3>
+			</div>
+			<div ng-if="urlPing == false">
+				<h3>Stream ist nicht verfügbar!</h3>
+			</div>
+			<div ng-show="urlPing">
+				<h3>Videostream</h3>
+				<div>
+					<img width="581" height="436" src="{{vid_url}}" alt="{{vid_url !== null ? vid_url + ' not available this moment.' : 'Streaming not available!'}}"/>
+				</div>
+				<div ng-if="stream_available" id="no-more-tables">
+					<table>
+						<tr>
+							<td>
+							</td>
+							<td>
+								<input type="button" value="Drive Forward" ng-mousedown="sendEventRaspberryPi('forward')" ng-mouseup="sendEventRaspberryPi('stop')">
+							</td>
+							<td>
+							</td>
+							<td>
+							</td>
+							<td>
+							</td>
+							<td>
+								<input type="button" value="Turn Camera Down" ng-click="sendEventRaspberryPi('y+')" ng-mouseup="sendEventRaspberryPi('stop')">
+							</td>
+							<td>
+							</td>
+						</tr>
+						<tr>
+							<td>
+								<input type="button" value="Turn Left" ng-click="sendEventRaspberryPi('left')" ng-mouseup="sendEventRaspberryPi('stop')">
+							</td>
+							<td>
+								<input type="button" value="Car Default" ng-click="sendEventRaspberryPi('home')" ng-mouseup="sendEventRaspberryPi('stop')">
+							</td>
+							<td>
+								<input type="button" value="Turn Right" ng-click="sendEventRaspberryPi('right')" ng-mouseup="sendEventRaspberryPi('stop')">
+							</td>
+							<td>
+							</td>
+							<td>
+								<input type="button" value="Turn Camera Left" ng-click="sendEventRaspberryPi('x-')" ng-mouseup="sendEventRaspberryPi('stop')">
+							</td>
+							<td>
+								<input type="button" value="Camera Default" ng-click="sendEventRaspberryPi('xy_home')" ng-mouseup="sendEventRaspberryPi('stop')">
+							</td>
+							<td>
+								<input type="button" value="Turn Camera Right" ng-click="sendEventRaspberryPi('x+')" ng-mouseup="sendEventRaspberryPi('stop')">
+							</td>
+						</tr>
+						<tr>
+							<td>
+							</td>
+							<td>
+								<input type="button" value="Drive Backward" ng-mousedown="sendEventRaspberryPi('backward')" ng-mouseup="sendEventRaspberryPi('stop')">
+							</td>
+							<td>
+							</td>
+							<td>
+							</td>
+							<td>
+							</td>
+							<td>
+								<input type="button" value="Turn Camera Up" ng-click="sendEventRaspberryPi('y-')" ng-mouseup="sendEventRaspberryPi('stop')">
+							</td>
+							<td>
+							</td>
+						</tr>
+					</table>
+				</div>
+			</div>
+	</div>
+	
     <div layout="row" layout-sm="column" id="bottom-attrs">
         <div flex="" class="details-divs details-bottom">
             <md-list id="bottom-content-1">

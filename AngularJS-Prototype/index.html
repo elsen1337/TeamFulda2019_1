@@ -100,10 +100,13 @@
             </header>
 
             <script>
-
+				// Code to disable paths if user is logged in
+				
+				// Every 500 milliseconds the script run the disablePaths() function
                 setInterval(disablePaths, 500);
 
                 function disablePaths() {
+				// Checks, if user is on any of these pages, the function will relocate the User to home
                     if (sessionStorage.getItem("isLoggedIn") === "yes" && document.URL.split('/').pop() === "login")
                     {
                         window.location.href = "./index.html#!/homeStart";
@@ -136,7 +139,8 @@
                     document.getElementById("greeting-nav").innerHTML = "Hallo, " +
                     sessionStorage.getItem("vname") + " " + sessionStorage.getItem("nname");
                 }
-
+				
+				// Renting-Nav will be removed, if the user is a lessor
                 if (sessionStorage.getItem("role") === "Lessor")
                 {
                     document.getElementById("renting-nav").classList.remove("lessor-nav");
@@ -179,6 +183,7 @@
 
 
             <script type="text/javascript">
+			// Function to dropdown the Menu 
                 function myFunction() {
                     var x = document.getElementById("myTopnav");
                     //console.log(x.className);
@@ -198,6 +203,7 @@
                     }
                 }
 
+				// Deletes entire session storage, executes myFunction, if Screen is responsive and relocate user to home page.
                 function logout()
                 {
                     myFunction();
@@ -206,9 +212,6 @@
                     window.location.reload();
                 }
 
-                function disablePage() {
-                    alert("test");
-                }
             </script>
 
 </body>

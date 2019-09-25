@@ -43,12 +43,19 @@ studyHomeApp.controller('DetailsCtrl', ['$scope', '$http',  '$routeParams', '$lo
 	$scope.user = null;
 	$scope.users = null;
 
+	// Creating function to send a event to the handler.php.
+	// The handler processes the event and sends it to the Raspberry Pi
 	$scope.sendEventRaspberryPi = function(event)
     {
+		data = {
+			"event": event,
+			"host": $scope.ipaddress
+		};
+		
         $http({
             method : "PUT",
             url : "../restapi/handler.php?objAction=estatestream",
-            data: {event: event}
+            data: data
 
         }).then(function mySuccess(asyncResp) {
             console.log(asyncResp.data);
@@ -58,20 +65,6 @@ studyHomeApp.controller('DetailsCtrl', ['$scope', '$http',  '$routeParams', '$lo
         });
     }
 
-    $scope.stopEvent = function()
-    {
-        $http({
-            method : "PUT",
-            url : "../restapi/handler.php?objAction=estatestream",
-            data: {event: 'stop'}
-
-        }).then(function mySuccess(asyncResp) {
-            console.log(asyncResp.data);
-
-        }, function myError(asyncResp) {
-            console.error(asyncResp.statusText);
-        });
-    }
 
 	$scope.meetAdd = function () {
 		
@@ -119,6 +112,7 @@ studyHomeApp.controller('DetailsCtrl', ['$scope', '$http',  '$routeParams', '$lo
 
     $scope.detailsID = getEstateID($location.$$path);
 
+	
     $http({
         method : "GET",
         url : "../restapi/handler.php" + getDetailsQueryString("default", $scope.detailsID)
@@ -127,9 +121,19 @@ studyHomeApp.controller('DetailsCtrl', ['$scope', '$http',  '$routeParams', '$lo
         $scope.default = response.data;
 
         console.log(response.data);
-
-        $scope.vid_url = $scope.default.vid_url;
-
+		
+		// Check, if apartment has stream url
+		if ($scope.default.vid_url !== null)
+		{
+			$scope.vid_url = $scope.default.vid_url;
+			$scope.ipaddress = $scope.vid_url.replace('http://', '');
+			$scope.ipaddress = $scope.ipaddress.substring(0, $scope.ipaddress.indexOf(":"));
+		}
+		else
+		{
+			console.log("No Vid_url found!");
+		}
+		
         if ($scope.vid_url !== null)
         {
             $scope.stream_available = true;
@@ -138,7 +142,30 @@ studyHomeApp.controller('DetailsCtrl', ['$scope', '$http',  '$routeParams', '$lo
         {
             $scope.stream_available = false;
         }
+		
+		// Check if url is available
 
+		if ($scope.stream_available) {
+			console.log($scope.ipaddress);
+			$http({
+				method: "GET",
+				url: `../restapi/handler.php?objAction=estatestream&objKey=${$scope.ipaddress}`,
+				headers: {'Content-Type': 'application/json'}
+
+			}).then(function mySuccess(response) {
+				$scope.putSucc = response.data;
+
+				$scope.urlPing = $scope.putSucc;
+
+				console.log($scope.urlPing)
+
+			}, function myError(response) {
+				console.error(response.statusText);
+			});
+		}
+		
+		// URL finishes here
+		
         $scope.name = $scope.default.name;
         $scope.beschr = $scope.default.beschr;
 
@@ -236,29 +263,6 @@ studyHomeApp.controller('DetailsCtrl', ['$scope', '$http',  '$routeParams', '$lo
         if($scope.vm_id) {
             $location.path("messages?id=" + $scope.vm_id + "&name=" + $scope.default.nname);
         }
-    }
-
-    if ($scope.stream_available) {
-        $http({
-            method: "GET",
-            url: "../restapi/handler.php?objAction=estatestream",
-            headers: {'Content-Type': 'application/json'}
-
-        }).then(function mySuccess(asyncResp) {
-            console.log(asyncResp.data);
-            $scope.default = asyncResp.data;
-
-            if ($scope.default.ping) {
-                $scope.urlPing = true;
-            } else {
-                $scope.urlPing = false;
-            }
-
-            console.log($scope.urlPing)
-
-        }, function myError(asyncResp) {
-            console.error(asyncResp.statusText);
-        });
     }
 
 
