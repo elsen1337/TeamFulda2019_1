@@ -105,7 +105,13 @@
 	<!-- Adding IMG-tag for mjpeg-stream executing in start.sh in Raspberry Pi SD-Card -->
 	<!-- Adding Buttons and Condition to display stream and buttons if stream-IP-address of user is available-->
 	<div flex="" class="details-divs details-bottom details-center">
-			<div ng-if="stream_available">
+			<div ng-hide="urlPing == false || urlPing == true">
+				<h3>Prüfe Verbindung zum Stream...</h3>
+			</div>
+			<div ng-if="urlPing == false">
+				<h3>Stream ist nicht verfügbar!</h3>
+			</div>
+			<div ng-show="urlPing">
 				<h3>Videostream</h3>
 				<div>
 					<img width="581" height="436" src="{{vid_url}}" alt="{{vid_url !== null ? vid_url + ' not available this moment.' : 'Streaming not available!'}}"/>
@@ -116,7 +122,7 @@
 							<td>
 							</td>
 							<td>
-								<input type="button" value="Forward" ng-mousedown="sendEventRaspberryPi('forward')" ng-mouseup="sendEventRaspberryPi('stop')">
+								<input type="button" value="Drive Forward" ng-mousedown="sendEventRaspberryPi('forward')" ng-mouseup="sendEventRaspberryPi('stop')">
 							</td>
 							<td>
 							</td>
@@ -125,38 +131,38 @@
 							<td>
 							</td>
 							<td>
-								<input type="button" value="X-" ng-click="sendEventRaspberryPi('x-')" ng-mouseup="sendEventRaspberryPi('stop')">
+								<input type="button" value="Turn Camera Down" ng-click="sendEventRaspberryPi('y+')" ng-mouseup="sendEventRaspberryPi('stop')">
 							</td>
 							<td>
 							</td>
 						</tr>
 						<tr>
 							<td>
-								<input type="button" value="Left" ng-click="sendEventRaspberryPi('left')" ng-mouseup="sendEventRaspberryPi('stop')">
+								<input type="button" value="Turn Left" ng-click="sendEventRaspberryPi('left')" ng-mouseup="sendEventRaspberryPi('stop')">
 							</td>
 							<td>
 								<input type="button" value="Car Default" ng-click="sendEventRaspberryPi('home')" ng-mouseup="sendEventRaspberryPi('stop')">
 							</td>
 							<td>
-								<input type="button" value="Right" ng-click="sendEventRaspberryPi('right')" ng-mouseup="sendEventRaspberryPi('stop')">
+								<input type="button" value="Turn Right" ng-click="sendEventRaspberryPi('right')" ng-mouseup="sendEventRaspberryPi('stop')">
 							</td>
 							<td>
 							</td>
 							<td>
-								<input type="button" value="Y+" ng-click="sendEventRaspberryPi('y+')" ng-mouseup="sendEventRaspberryPi('stop')">
+								<input type="button" value="Turn Camera Left" ng-click="sendEventRaspberryPi('x-')" ng-mouseup="sendEventRaspberryPi('stop')">
 							</td>
 							<td>
 								<input type="button" value="Camera Default" ng-click="sendEventRaspberryPi('xy_home')" ng-mouseup="sendEventRaspberryPi('stop')">
 							</td>
 							<td>
-								<input type="button" value="Y-" ng-click="sendEventRaspberryPi('y-')" ng-mouseup="sendEventRaspberryPi('stop')">
+								<input type="button" value="Turn Camera Right" ng-click="sendEventRaspberryPi('x+')" ng-mouseup="sendEventRaspberryPi('stop')">
 							</td>
 						</tr>
 						<tr>
 							<td>
 							</td>
 							<td>
-								<input type="button" value="Backward" ng-mousedown="sendEventRaspberryPi('backward')" ng-mouseup="sendEventRaspberryPi('stop')">
+								<input type="button" value="Drive Backward" ng-mousedown="sendEventRaspberryPi('backward')" ng-mouseup="sendEventRaspberryPi('stop')">
 							</td>
 							<td>
 							</td>
@@ -165,7 +171,7 @@
 							<td>
 							</td>
 							<td>
-								<input type="button" value="X+" ng-click="sendEventRaspberryPi('x+')" ng-mouseup="sendEventRaspberryPi('stop')">
+								<input type="button" value="Turn Camera Up" ng-click="sendEventRaspberryPi('y-')" ng-mouseup="sendEventRaspberryPi('stop')">
 							</td>
 							<td>
 							</td>
