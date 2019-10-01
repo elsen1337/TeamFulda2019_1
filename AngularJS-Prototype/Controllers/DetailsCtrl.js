@@ -123,11 +123,16 @@ studyHomeApp.controller('DetailsCtrl', ['$scope', '$http',  '$routeParams', '$lo
         console.log(response.data);
 		
 		// Check, if apartment has stream url
-
-        $scope.vid_url = $scope.default.vid_url;
-		$scope.ipaddress = $scope.vid_url.replace('http://', '');
-		$scope.ipaddress = $scope.ipaddress.substring(0, $scope.ipaddress.indexOf(":"));
-
+		if ($scope.default.vid_url !== null)
+		{
+			$scope.vid_url = $scope.default.vid_url;
+			$scope.ipaddress = $scope.vid_url.replace('http://', '');
+			$scope.ipaddress = $scope.ipaddress.substring(0, $scope.ipaddress.indexOf(":"));
+		}
+		else
+		{
+			console.log("No Vid_url found!");
+		}
 		
         if ($scope.vid_url !== null)
         {
