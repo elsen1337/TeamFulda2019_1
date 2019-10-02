@@ -48,8 +48,8 @@ studyHomeApp.controller('DetailsCtrl', ['$scope', '$http',  '$routeParams', '$lo
 	$scope.sendEventRaspberryPi = function(event)
     {
 		data = {
-			"event": event
-			//"host": '172.18.96.49'
+			"event": event,
+			"host": '172.18.96.49'
 		};
 		
         $http({
