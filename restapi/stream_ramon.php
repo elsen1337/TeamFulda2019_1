@@ -42,7 +42,8 @@
 
 			
 			// Adding static IP address with Port and Buffersize
-			$HOST = $postParam['host'];
+			//$HOST = $postParam['host'];
+			$HOST = '172.18.96.49';
 			$PORT = 21567;
 			$BUFSIZE = 1024;
 			// Setting time for executing code. If code was not executed after certain time of seconds, the code prints an error message
