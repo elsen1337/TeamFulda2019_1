@@ -30,20 +30,20 @@
 
 		//  If connection works, a Ping object will send back
 		if ($_SERVER['REQUEST_METHOD']=='GET')
-		{
+		{/*
 			//$ping = ping_url($objkey);
 			$ping = ping_url($objkey);
 
 			header('Content-type: application/json');
-			echo json_encode($ping);
+			echo json_encode($ping);*/
 
 		// Send a certain command to the server and the Raspberry Pi execute the command
 		} elseif ($_SERVER['REQUEST_METHOD']=='PUT') {	
 
 			
 			// Adding static IP address with Port and Buffersize
-			//$HOST = $postParam['host'];
-			$HOST = '172.18.96.49';
+			$HOST = $postParam['host'];
+			//$HOST = '172.18.96.49';
 			$PORT = 21567;
 			$BUFSIZE = 1024;
 			// Setting time for executing code. If code was not executed after certain time of seconds, the code prints an error message
