@@ -49,7 +49,7 @@ studyHomeApp.controller('DetailsCtrl', ['$scope', '$http',  '$routeParams', '$lo
     {
 		data = {
 			"event": event,
-			"host": $scope.ipaddress
+			//"host": $scope.ipaddress
 		};
 		
         $http({
